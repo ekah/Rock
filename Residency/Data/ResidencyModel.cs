@@ -8,32 +8,7 @@ using System.Threading.Tasks;
 
 namespace com.ccvonline.Residency.Data
 {
-    public class ResidencyModel<T>
+    public class ResidencyModel<T> : Rock.Data.Model<ResidencyModel<T>>
     {
-        #region Properties
-
-        /// <summary>
-        /// The Id
-        /// </summary>
-        [Key]
-        [DataMember]
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Gets or 
-        /// </summary>
-        /// <value>
-        /// The GUID.
-        /// </value>
-        [Rock.Data.AlternateKey]
-        [DataMember]
-        public Guid Guid
-        {
-            get { return _guid; }
-            set { _guid = value; }
-        }
-        private Guid _guid = Guid.NewGuid();
-
-        #endregion
     }
 }

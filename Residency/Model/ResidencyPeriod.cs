@@ -27,7 +27,8 @@ namespace com.ccvonline.Residency.Model
         /// The start date.
         /// </value>
         [DataMember]
-        public DateTimeOffset? StartDate { get; set; }
+        [Column(TypeName="Date")]
+        public DateTime? StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the end date.
@@ -36,7 +37,8 @@ namespace com.ccvonline.Residency.Model
         /// The end date.
         /// </value>
         [DataMember]
-        public DateTimeOffset? EndDate { get; set; }
+        [Column( TypeName = "Date" )]
+        public DateTime? EndDate { get; set; }
 
         #endregion
 

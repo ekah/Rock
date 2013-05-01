@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotLiquid">
+      <HintPath>..\RockWeb\Bin\DotLiquid.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.0.0-alpha3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -58,7 +61,15 @@
       <DependentUpon>201304030729211_AddResidencyAppTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\ResidencyCompetency.cs" />
+    <Compile Include="Model\ResidencyCompetencyPerson.cs" />
     <Compile Include="Model\ResidencyPeriod.cs" />
+    <Compile Include="Model\ResidencyPersonProject.cs" />
+    <Compile Include="Model\ResidencyPersonProjectAssignment.cs" />
+    <Compile Include="Model\ResidencyPersonProjectAssignmentAssessment.cs" />
+    <Compile Include="Model\ResidencyPersonProjectAssignmentAssessmentPointOfAssessment.cs" />
+    <Compile Include="Model\ResidencyProject.cs" />
+    <Compile Include="Model\ResidencyProjectPointOfAssessment.cs" />
     <Compile Include="Model\ResidencyTrack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

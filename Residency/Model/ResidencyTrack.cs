@@ -27,7 +27,7 @@ namespace com.ccvonline.Residency.Model
         /// The residency period id.
         /// </value>
         [Required]
-        [DataMember(Name="_com_ccvonline_ResidencyPeriodId", IsRequired=true)]
+        [DataMember]
         public int ResidencyPeriodId { get; set; }
 
         #endregion
@@ -41,6 +41,8 @@ namespace com.ccvonline.Residency.Model
         /// The residency period.
         /// </value>
         public virtual ResidencyPeriod ResidencyPeriod { get; set; }
+
+        public virtual List<ResidencyCompetency> ResidencyCompetencies { get; set; }
 
         #endregion
     }
