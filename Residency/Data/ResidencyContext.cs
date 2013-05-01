@@ -20,6 +20,19 @@ namespace com.ccvonline.Residency.Data
         public ResidencyContext()
             : base( "RockContext" )
         {
+            // intentionally left blank
+        }
+
+        protected override void OnModelCreating( DbModelBuilder modelBuilder )
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            #region Model Configurations
+
+            modelBuilder.Configurations.Add( new ResidencyPeriodConfiguration() );
+            modelBuilder.Configurations.Add( new ResidencyTrackConfiguration() );
+
+            #endregion
         }
             
         
@@ -42,21 +55,5 @@ namespace com.ccvonline.Residency.Data
         public DbSet<ResidencyTrack> ResidencyTracks { get; set; }
         
         #endregion
-    }
-
-    public static class ContextHelper
-    {
-        /// <summary>
-        /// Adds the configurations.
-        /// </summary>
-        /// <param name="modelBuilder">The model builder.</param>
-        public static void AddConfigurations( DbModelBuilder modelBuilder )
-        {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
-
-            modelBuilder.Configurations.Add( new ResidencyPeriodConfiguration() );
-            modelBuilder.Configurations.Add( new ResidencyTrackConfiguration() );
-        }
     }
 }
