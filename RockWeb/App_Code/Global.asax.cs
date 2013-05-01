@@ -413,7 +413,7 @@ namespace RockWeb
                 ExceptionLog exceptionLog = new ExceptionLog(); ;
 
                 exceptionLog.ParentId = parentException;
-                exceptionLog.ExceptionDate = DateTime.Now;
+                exceptionLog.ExceptionDateTime = DateTime.Now;
 
                 if ( ex.InnerException != null )
                     exceptionLog.HasInnerException = true;
@@ -456,7 +456,7 @@ namespace RockWeb
 
                 // write server vars
                 StringBuilder serverVars = new StringBuilder();
-                cookies.Append( "<table class=\"server-variables\">" );
+                serverVars.Append("<table class=\"server-variables\">");
 
                 foreach ( string serverVar in context.Request.ServerVariables )
                     serverVars.Append( "<tr><td><b>" + serverVar + "</b></td><td>" + context.Request.ServerVariables[serverVar].ToString() + "</td></tr>" );
@@ -551,8 +551,7 @@ namespace RockWeb
         /// <param name="filters">The filters.</param>
         private void RegisterFilters( System.Web.Http.Filters.HttpFilterCollection filters )
         {
-            //filters.Add( new System.Web.Http.AuthorizeAttribute() );
-            //filters.Add( new Rock.Rest.Filters.AuthenticateAttribute() );
+            // does validation on IEntity's coming in thru REST
             filters.Add( new Rock.Rest.Filters.ValidateAttribute() );
         }
 
@@ -583,8 +582,7 @@ namespace RockWeb
 
             // Add any custom api routes
             foreach ( var type in Rock.Reflection.FindTypes(
-                typeof( Rock.Rest.IHasCustomRoutes ),
-                new DirectoryInfo[] { new DirectoryInfo( Server.MapPath( "~/bin" ) ), new DirectoryInfo( Server.MapPath( "~/Plugins" ) ) } ) )
+                typeof( Rock.Rest.IHasCustomRoutes ) ) )
             {
                 var controller = (Rock.Rest.IHasCustomRoutes)Activator.CreateInstance( type.Value );
                 if ( controller != null )

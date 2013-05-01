@@ -27,7 +27,7 @@
 						
 								<div class="nav-collapse collapse">
 									
-									<Rock:Zone ID="zHeader" Name="Header" runat="server" />
+									<Rock:Zone ID="Heading" Name="Header" runat="server" />
 									
 								</div>
 							</div> <!-- collapse container -->
@@ -55,7 +55,7 @@
 				<div class="container-fluid">
 					<div class="row-fluid">
 						<div class="span6">
-							<h1><Rock:PageTitle ID="PageTitle" runat="server" /></h1> <Rock:Zone ID="PageTitleBar" runat="server" />
+							<h1><Rock:PageTitle ID="PageTitle" runat="server" /></h1> <Rock:Zone ID="PageTitleBar" runat="server" />  
 						</div>
                         <div class="span6">
                             <Rock:Zone ID="Zone1" runat="server" />
@@ -68,12 +68,14 @@
 		<div class="container-fluid body-content">
 			<div class="row-fluid">
 				<div class="span12">
+                       
                     <Rock:PageBreadCrumbs ID="PageBreadCrumbs" runat="server" />
-                    
+
                     <section class="pageoverview clearfix">
                         <Rock:PageIcon ID="PageIcon" runat="server" />
                         <Rock:PageDescription ID="PageDescription" runat="server" />
                     </section>
+                       
 
                     <!-- display any ajax error messages here (use with ajax-client-error-handler.js) -->
                     <div class="alert alert-error ajax-error" style="display:none">
