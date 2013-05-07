@@ -26,6 +26,7 @@ namespace com.ccvonline.Residency.Model
         /// <value>
         /// The residency competency id.
         /// </value>
+        [Required]
         [DataMember]
         public int ResidencyCompetencyId { get; set; }
 
@@ -35,6 +36,7 @@ namespace com.ccvonline.Residency.Model
         /// <value>
         /// The person id.
         /// </value>
+        [Required]
         [DataMember]
         public int PersonId { get; set; }
 

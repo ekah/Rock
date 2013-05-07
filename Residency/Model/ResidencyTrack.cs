@@ -42,6 +42,12 @@ namespace com.ccvonline.Residency.Model
         /// </value>
         public virtual ResidencyPeriod ResidencyPeriod { get; set; }
 
+        /// <summary>
+        /// Gets or sets the residency competencies.
+        /// </summary>
+        /// <value>
+        /// The residency competencies.
+        /// </value>
         public virtual List<ResidencyCompetency> ResidencyCompetencies { get; set; }
 
         #endregion

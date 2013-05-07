@@ -61,7 +61,7 @@ namespace com.ccvonline.Residency.Model
         /// The credit hours.
         /// </value>
         [DataMember]
-        public int CreditHours { get; set; }
+        public int? CreditHours { get; set; }
 
         /// <summary>
         /// Gets or sets the supervision hours.
@@ -70,7 +70,7 @@ namespace com.ccvonline.Residency.Model
         /// The supervision hours.
         /// </value>
         [DataMember]
-        public int SupervisionHours { get; set; }
+        public int? SupervisionHours { get; set; }
 
         /// <summary>
         /// Gets or sets the implementation hours.
@@ -79,7 +79,7 @@ namespace com.ccvonline.Residency.Model
         /// The implementation hours.
         /// </value>
         [DataMember]
-        public int ImplementationHours { get; set; }
+        public int? ImplementationHours { get; set; }
 
         #endregion
 
@@ -108,6 +108,14 @@ namespace com.ccvonline.Residency.Model
         /// The facilitator person.
         /// </value>
         public virtual Rock.Model.Person FacilitatorPerson { get; set; }
+
+        /// <summary>
+        /// Gets or sets the residency projects.
+        /// </summary>
+        /// <value>
+        /// The residency projects.
+        /// </value>
+        public virtual List<ResidencyProject> ResidencyProjects { get; set; }
 
         #endregion
     }

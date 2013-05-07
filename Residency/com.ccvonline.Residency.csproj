@@ -60,14 +60,22 @@
     <Compile Include="Migrations\201304030729211_AddResidencyAppTables.Designer.cs">
       <DependentUpon>201304030729211_AddResidencyAppTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201305070521306_AddResidencyAppTables02.cs" />
+    <Compile Include="Migrations\201305070521306_AddResidencyAppTables02.Designer.cs">
+      <DependentUpon>201305070521306_AddResidencyAppTables02.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201305070559024_AddResidencyAppTables03.cs" />
+    <Compile Include="Migrations\201305070559024_AddResidencyAppTables03.Designer.cs">
+      <DependentUpon>201305070559024_AddResidencyAppTables03.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ResidencyCompetency.cs" />
     <Compile Include="Model\ResidencyCompetencyPerson.cs" />
     <Compile Include="Model\ResidencyPeriod.cs" />
-    <Compile Include="Model\ResidencyPersonProject.cs" />
-    <Compile Include="Model\ResidencyPersonProjectAssignment.cs" />
-    <Compile Include="Model\ResidencyPersonProjectAssignmentAssessment.cs" />
-    <Compile Include="Model\ResidencyPersonProjectAssignmentAssessmentPointOfAssessment.cs" />
+    <Compile Include="Model\ResidencyCompetencyPersonProject.cs" />
+    <Compile Include="Model\ResidencyCompetencyPersonProjectAssignment.cs" />
+    <Compile Include="Model\ResidencyCompetencyPersonProjectAssignmentAssessment.cs" />
+    <Compile Include="Model\ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.cs" />
     <Compile Include="Model\ResidencyProject.cs" />
     <Compile Include="Model\ResidencyProjectPointOfAssessment.cs" />
     <Compile Include="Model\ResidencyTrack.cs" />
@@ -76,6 +84,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201304030729211_AddResidencyAppTables.resx">
       <DependentUpon>201304030729211_AddResidencyAppTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305070521306_AddResidencyAppTables02.resx">
+      <DependentUpon>201305070521306_AddResidencyAppTables02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305070559024_AddResidencyAppTables03.resx">
+      <DependentUpon>201305070559024_AddResidencyAppTables03.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

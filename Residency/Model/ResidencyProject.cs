@@ -51,6 +51,14 @@ namespace com.ccvonline.Residency.Model
         /// </value>
         public virtual ResidencyCompetency ResidencyCompetency { get; set; }
 
+        /// <summary>
+        /// Gets or sets the residency project point of assessments.
+        /// </summary>
+        /// <value>
+        /// The residency project point of assessments.
+        /// </value>
+        public virtual List<ResidencyProjectPointOfAssessment> ResidencyProjectPointOfAssessments { get; set; }
+
         #endregion
     }
 
@@ -64,7 +72,7 @@ namespace com.ccvonline.Residency.Model
         /// </summary>
         public ResidencyProjectConfiguration()
         {
-            this.HasRequired( p => p.ResidencyCompetency ).WithMany().HasForeignKey( p => p.ResidencyCompetencyId ).WillCascadeOnDelete( false );
+            this.HasRequired( p => p.ResidencyCompetency ).WithMany(a => a.ResidencyProjects).HasForeignKey( p => p.ResidencyCompetencyId ).WillCascadeOnDelete( false );
         }
     }
 }
