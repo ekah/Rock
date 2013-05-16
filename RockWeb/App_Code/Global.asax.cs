@@ -70,9 +70,15 @@ namespace RockWeb
             {
                 autoMigrate = true;
             }
+            
             if ( autoMigrate )
             {
                 Database.SetInitializer( new MigrateDatabaseToLatestVersion<Rock.Data.RockContext, Rock.Migrations.Configuration>() );
+            }
+            else
+            {
+                // default Initializer is CreateDatabaseIfNotExists, but we don't want that to happen if automigrate is false, so set it to NULL so that nothing happens
+                Database.SetInitializer<Rock.Data.RockContext>( null );
             }
 
             // Preload the commonly used objects
@@ -146,6 +152,8 @@ namespace RockWeb
                 if ( r == CacheItemRemovedReason.Expired )
                 {
                     // call a page on the site to keep IIS alive 
+                    string baseUrl = VirtualPathUtility.ToAbsolute( "~/" );
+
                     string url = ConfigurationManager.AppSettings["BaseUrl"].ToString() + "KeepAlive.aspx";
                     WebRequest request = WebRequest.Create( url );
                     WebResponse response = request.GetResponse();
