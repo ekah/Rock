@@ -56,6 +56,7 @@
     <Compile Include="Data\ResidencyContext.cs" />
     <Compile Include="Data\ResidencyModel.cs" />
     <Compile Include="Data\ResidencyNamedModel.cs" />
+    <Compile Include="Data\ResidencyService.cs" />
     <Compile Include="Migrations\201304030729211_AddResidencyAppTables.cs" />
     <Compile Include="Migrations\201304030729211_AddResidencyAppTables.Designer.cs">
       <DependentUpon>201304030729211_AddResidencyAppTables.cs</DependentUpon>

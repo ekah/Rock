@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace com.ccvonline.Residency.Data
 {
-    public class ResidencyModel<T> : Rock.Data.Model<ResidencyModel<T>>
+    public class ResidencyModel<T> : Rock.Data.Model<T> where T : Rock.Data.Model<T>, Rock.Security.ISecured, new()
     {
     }
 }
