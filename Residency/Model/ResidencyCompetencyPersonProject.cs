@@ -31,6 +31,17 @@ namespace com.ccvonline.Residency.Model
         public int ResidencyCompetencyPersonId { get; set; }
 
         /// <summary>
+        /// Gets or sets the residency project id.
+        /// </summary>
+        /// <value>
+        /// The residency project id.
+        /// </value>
+        [Required]
+        [DataMember]
+        public int ResidencyProjectId { get; set; }
+
+
+        /// <summary>
         /// Gets or sets the min assignment count.
         /// </summary>
         /// <value>
@@ -50,6 +61,14 @@ namespace com.ccvonline.Residency.Model
         /// The residency competency person.
         /// </value>
         public virtual ResidencyCompetencyPerson ResidencyCompetencyPerson { get; set; }
+
+        /// <summary>
+        /// Gets or sets the residency project.
+        /// </summary>
+        /// <value>
+        /// The residency project.
+        /// </value>
+        public virtual ResidencyProject ResidencyProject { get; set; }
 
         /// <summary>
         /// Gets or sets the residency competency person project assignments.
@@ -73,6 +92,7 @@ namespace com.ccvonline.Residency.Model
         public ResidencyCompetencyPersonProjectConfiguration()
         {
             this.HasRequired( a => a.ResidencyCompetencyPerson ).WithMany().HasForeignKey( a => a.ResidencyCompetencyPersonId ).WillCascadeOnDelete( false );
+            this.HasRequired( a => a.ResidencyProject ).WithMany().HasForeignKey( a => a.ResidencyProjectId ).WillCascadeOnDelete( false );
         }
     }
 }

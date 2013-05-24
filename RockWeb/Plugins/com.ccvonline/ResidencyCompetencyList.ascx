@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidencyCompetencyList.cs" Inherits="com.ccvonline.Blocks.ResidencyCompetencyList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidencyCompetencyList.ascx.cs" Inherits="com.ccvonline.Blocks.ResidencyCompetencyList" %>
 
 <asp:UpdatePanel ID="upList" runat="server">
     <ContentTemplate>

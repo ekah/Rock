@@ -69,6 +69,14 @@
     <Compile Include="Migrations\201305070559024_AddResidencyAppTables03.Designer.cs">
       <DependentUpon>201305070559024_AddResidencyAppTables03.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201305232329557_FixResidencyCompetencyPersonProject.cs" />
+    <Compile Include="Migrations\201305232329557_FixResidencyCompetencyPersonProject.Designer.cs">
+      <DependentUpon>201305232329557_FixResidencyCompetencyPersonProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201305240124447_BlocksPages01.cs" />
+    <Compile Include="Migrations\201305240124447_BlocksPages01.Designer.cs">
+      <DependentUpon>201305240124447_BlocksPages01.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ResidencyCompetency.cs" />
     <Compile Include="Model\ResidencyCompetencyPerson.cs" />
@@ -91,6 +99,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201305070559024_AddResidencyAppTables03.resx">
       <DependentUpon>201305070559024_AddResidencyAppTables03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305232329557_FixResidencyCompetencyPersonProject.resx">
+      <DependentUpon>201305232329557_FixResidencyCompetencyPersonProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305240124447_BlocksPages01.resx">
+      <DependentUpon>201305240124447_BlocksPages01.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

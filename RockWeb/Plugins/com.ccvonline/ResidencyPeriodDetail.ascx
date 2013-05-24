@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidencyPeriodDetail.cs" Inherits="RockWeb.Blocks.Administration.ResidencyPeriodDetail" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidencyPeriodDetail.ascx.cs" Inherits="RockWeb.Blocks.Administration.ResidencyPeriodDetail" %>
 
 <asp:UpdatePanel ID="upResidencyPeriodDetail" runat="server">
     <ContentTemplate>
