@@ -11,7 +11,6 @@ namespace com.ccvonline.Residency.Data
         public ResidencyService()
             : base(new EFRepository<T>(new ResidencyContext()))
         {
-//            this.Repository.SetConfigurationValue( "ProxyCreationEnabled", "false" );
         }
     }
 }
