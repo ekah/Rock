@@ -9,38 +9,59 @@
 
             <asp:HiddenField ID="hfResidencyCompetencyId" runat="server" />
 
-            <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="alert alert-error" />
-            <Rock:NotificationBox ID="nbWarningMessage" runat="server" NotificationBoxType="Warning" />
+            <div id="pnlEditDetails" runat="server" class="well">
 
-            <fieldset>
-                <legend>
-                    <asp:Literal ID="lActionTitle" runat="server" />
-                </legend>
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="alert alert-error" />
+                <Rock:NotificationBox ID="nbWarningMessage" runat="server" NotificationBoxType="Warning" />
 
-                <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
+                <fieldset>
+                    <legend>
+                        <asp:Literal ID="lActionTitle" runat="server" />
+                    </legend>
 
-                <div class="row-fluid">
-                    <div class="span6">
-                        <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="Name" />
-                        <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" />
-                        <Rock:LabeledDropDownList ID="ddlTrack" runat="server" LabelText="Track" />
-                        <Rock:PersonPicker ID="ppTeacherOfRecord" runat="server" LabelText="Teacher of Record" />
-                        <Rock:PersonPicker ID="ppFacilitator" runat="server" LabelText="Facilitator" />
+                    <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="Name" />
+                            <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" />
+                            <Rock:LabeledDropDownList ID="ddlTrack" runat="server" LabelText="Track" />
+                            <Rock:PersonPicker ID="ppTeacherOfRecord" runat="server" LabelText="Teacher of Record" />
+                            <Rock:PersonPicker ID="ppFacilitator" runat="server" LabelText="Facilitator" />
+                        </div>
+                        <div class="span6">
+                            <Rock:DataTextBox ID="tbGoals" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="Goals" TextMode="MultiLine" Rows="3" CssClass="input-xxlarge" />
+                            <Rock:DataTextBox ID="tbCreditHours" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="CreditHours" CssClass="input-mini" />
+                            <Rock:DataTextBox ID="tbSupervisionHours" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="SupervisionHours" CssClass="input-mini" />
+                            <Rock:DataTextBox ID="tbImplementationHours" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="ImplementationHours" CssClass="input-mini" />
+                        </div>
                     </div>
-                    <div class="span6">
-                        <Rock:DataTextBox ID="tbGoals" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="Goals" TextMode="MultiLine" Rows="3" />
-                        <Rock:DataTextBox ID="tbCreditHours" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="CreditHours" CssClass="input-mini" />
-                        <Rock:DataTextBox ID="tbSupervisionHours" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="SupervisionHours" CssClass="input-mini"/>
-                        <Rock:DataTextBox ID="tbImplementationHours" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="ImplementationHours" CssClass="input-mini"/>
+
+                </fieldset>
+
+                <div class="actions">
+                    <asp:LinkButton ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="btnSave_Click" />
+                    <asp:LinkButton ID="btnCancel" runat="server" Text="Cancel" CssClass="btn" CausesValidation="false" OnClick="btnCancel_Click" />
+                </div>
+
+            </div>
+
+            <fieldset id="fieldsetViewDetails" runat="server">
+                <legend>Competency - Projects
+                </legend>
+                <div class="well">
+                    <div class="row-fluid">
+                        <Rock:NotificationBox ID="NotificationBox1" runat="server" NotificationBoxType="Info" />
+                    </div>
+                    <div class="row-fluid">
+                        <asp:Literal ID="lblMainDetails" runat="server" />
+                    </div>
+                    <div class="actions">
+                        <asp:LinkButton ID="btnEdit" runat="server" Text="Edit" CssClass="btn btn-primary btn-mini" OnClick="btnEdit_Click" />
                     </div>
                 </div>
 
             </fieldset>
-
-            <div class="actions">
-                <asp:LinkButton ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="btnSave_Click" />
-                <asp:LinkButton ID="btnCancel" runat="server" Text="Cancel" CssClass="btn" CausesValidation="false" OnClick="btnCancel_Click"  />
-            </div>
 
         </asp:Panel>
     </ContentTemplate>

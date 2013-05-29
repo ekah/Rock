@@ -15,7 +15,7 @@ namespace com.ccvonline.Blocks
     /// 
     /// </summary>
     [DetailPage]
-    public partial class ResidencyPeriodList : RockBlock
+    public partial class ResidencyPeriodList : RockBlock, IDimmableBlock
     {
         #region Control Methods
 
@@ -133,5 +133,19 @@ namespace com.ccvonline.Blocks
         }
 
         #endregion
+
+        #region IDimmableBlock
+
+        /// <summary>
+        /// Sets the dimmed.
+        /// </summary>
+        /// <param name="dimmed">if set to <c>true</c> [dimmed].</param>
+        public void SetDimmed( bool dimmed )
+        {
+            gList.Enabled = !dimmed;
+        }
+
+        #endregion
+
     }
 }

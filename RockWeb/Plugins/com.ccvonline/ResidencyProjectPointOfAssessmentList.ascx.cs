@@ -15,7 +15,7 @@ namespace com.ccvonline.Blocks
     /// 
     /// </summary>
     [DetailPage]
-    public partial class ResidencyProjectList : RockBlock, IDimmableBlock
+    public partial class ResidencyProjectPointOfAssessmentList : RockBlock, IDimmableBlock
     {
         #region Control Methods
 
@@ -31,6 +31,7 @@ namespace com.ccvonline.Blocks
             gList.Actions.ShowAdd = true;
             gList.Actions.AddClick += gList_Add;
             gList.GridRebind += gList_GridRebind;
+            gList.GridReorder += gList_GridReorder;
 
             // Block Security and special attributes (RockPage takes care of "View")
             bool canAddEditDelete = IsUserAuthorized( "Edit" );
@@ -44,12 +45,67 @@ namespace com.ccvonline.Blocks
         /// <param name="e">The <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnLoad( EventArgs e )
         {
+            base.OnLoad( e );
+
             if ( !Page.IsPostBack )
             {
-                BindGrid();
+                int? residencyProjectId = this.PageParameter( "residencyProjectId" ).AsInteger();
+                if ( residencyProjectId != null )
+                {
+                    hfResidencyProjectId.Value = residencyProjectId.ToString();
+                    BindGrid();
+                }
+                else
+                {
+                    pnlList.Visible = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles the GridReorder event of the gList control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridReorderEventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        void gList_GridReorder( object sender, GridReorderEventArgs e )
+        {
+            int oldIndex = e.OldIndex;
+            int newIndex = e.NewIndex;
+            int residencyProjectId = hfResidencyProjectId.ValueAsInt();
+
+            var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
+            var items = residencyProjectPointOfAssessmentService.Queryable()
+                .Where(a => a.ResidencyProjectId.Equals(residencyProjectId))
+                .OrderBy(a => a.AssessmentOrder).ToList();
+
+            ResidencyProjectPointOfAssessment movedItem = items[oldIndex];
+            items.RemoveAt( oldIndex );
+            if ( newIndex >= items.Count )
+            {
+                items.Add( movedItem );
+            }
+            else
+            {
+                items.Insert( newIndex, movedItem );
             }
 
-            base.OnLoad( e );
+            int order = 1;
+            foreach ( ResidencyProjectPointOfAssessment item in items )
+            {
+                if ( item != null )
+                {
+                    if ( item.AssessmentOrder != order )
+                    {
+                        item.AssessmentOrder = order;
+                        residencyProjectPointOfAssessmentService.Save( item, CurrentPersonId );
+                    }
+                }
+                
+                order++;
+            }
+
+            BindGrid();
         }
 
         #endregion
@@ -63,7 +119,7 @@ namespace com.ccvonline.Blocks
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void gList_Add( object sender, EventArgs e )
         {
-            gList_ShowEdit(0);
+            gList_ShowEdit( 0 );
         }
 
         /// <summary>
@@ -79,19 +135,10 @@ namespace com.ccvonline.Blocks
         /// <summary>
         /// Gs the list_ show edit.
         /// </summary>
-        /// <param name="id">The id.</param>
-        protected void gList_ShowEdit(int id)
+        /// <param name="residencyProjectPointOfAssessmentId">The residency project point of assessment id.</param>
+        protected void gList_ShowEdit( int residencyProjectPointOfAssessmentId )
         {
-            int? residencyCompetencyId = this.PageParameter( "residencyCompetencyId" ).AsInteger( false );
-
-            if ( residencyCompetencyId.HasValue )
-            {
-                NavigateToDetailPage( "residencyProjectId", id, "residencyCompetencyId", residencyCompetencyId.Value );
-            }
-            else
-            {
-                NavigateToDetailPage( "residencyProjectId", id );
-            }
+            NavigateToDetailPage( "residencyProjectPointOfAssessmentId", residencyProjectPointOfAssessmentId, "residencyProjectId", hfResidencyProjectId.Value.AsInteger().Value );
         }
 
         /// <summary>
@@ -103,13 +150,13 @@ namespace com.ccvonline.Blocks
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyProjectService = new ResidencyService<ResidencyProject>();
+                var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
 
-                ResidencyProject residencyProject = residencyProjectService.Get((int)e.RowKeyValue );
-                if ( residencyProject != null )
+                ResidencyProjectPointOfAssessment residencyProjectPointOfAssessment = residencyProjectPointOfAssessmentService.Get((int)e.RowKeyValue );
+                if ( residencyProjectPointOfAssessment != null )
                 {
-                    residencyProjectService.Delete( residencyProject, CurrentPersonId );
-                    residencyProjectService.Save( residencyProject, CurrentPersonId );
+                    residencyProjectPointOfAssessmentService.Delete( residencyProjectPointOfAssessment, CurrentPersonId );
+                    residencyProjectPointOfAssessmentService.Save( residencyProjectPointOfAssessment, CurrentPersonId );
                 }
             } );
 
@@ -135,31 +182,8 @@ namespace com.ccvonline.Blocks
         /// </summary>
         private void BindGrid()
         {
-            var residencyProjectService = new ResidencyService<ResidencyProject>();
-            SortProperty sortProperty = gList.SortProperty;
-            var qry = residencyProjectService.Queryable();
-
-            if ( sortProperty != null )
-            {
-                qry = qry.Sort( sortProperty );
-            }
-            else
-            {
-                qry = qry.OrderBy( s => s.Name );
-            }
-
-            int? residencyCompetencyId = this.PageParameter("residencyCompetencyId").AsInteger(false);
-
-            if ( residencyCompetencyId != null )
-            {
-                qry = qry.Where( a => a.ResidencyCompetencyId.Equals( residencyCompetencyId.Value ) );
-                gList.Columns[0].Visible = false;
-                gList.Columns[1].Visible = false;
-                gList.Columns[2].Visible = false;
-            }
-
-            gList.DataSource = qry.ToList();
-
+            var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
+            gList.DataSource = residencyProjectPointOfAssessmentService.Queryable().OrderBy( s => s.AssessmentOrder ).ToList();
             gList.DataBind();
         }
 
@@ -177,6 +201,5 @@ namespace com.ccvonline.Blocks
         }
 
         #endregion
-
     }
 }

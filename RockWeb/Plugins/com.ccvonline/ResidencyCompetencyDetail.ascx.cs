@@ -1,19 +1,15 @@
-//
-// THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
-// SHAREALIKE 3.0 UNPORTED LICENSE:
-// http://creativecommons.org/licenses/by-nc-sa/3.0/
-//
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
+using Rock;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
 using Rock.Web.UI;
-using Rock;
-using System.Web.UI.WebControls;
 
 namespace RockWeb.Blocks.Administration
 {
@@ -71,7 +67,44 @@ namespace RockWeb.Blocks.Administration
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnCancel_Click( object sender, EventArgs e )
         {
-            NavigateToParentPage();
+            SetEditMode( false );
+
+            if ( hfResidencyCompetencyId.ValueAsInt().Equals( 0 ) )
+            {
+                // Cancelling on Add.  Return to Grid
+                NavigateToParentPage();
+            }
+            else
+            {
+                // Cancelling on Edit.  Return to Details
+                ResidencyService<ResidencyCompetency> service = new ResidencyService<ResidencyCompetency>();
+                ResidencyCompetency item = service.Get( hfResidencyCompetencyId.ValueAsInt() );
+                ShowReadonlyDetails( item );
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnEdit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected void btnEdit_Click( object sender, EventArgs e )
+        {
+            ResidencyService<ResidencyCompetency> service = new ResidencyService<ResidencyCompetency>();
+            ResidencyCompetency item = service.Get( hfResidencyCompetencyId.ValueAsInt() );
+            ShowEditDetails( item );
+        }
+
+        /// <summary>
+        /// Sets the edit mode.
+        /// </summary>
+        /// <param name="editable">if set to <c>true</c> [editable].</param>
+        private void SetEditMode( bool editable )
+        {
+            pnlEditDetails.Visible = editable;
+            fieldsetViewDetails.Visible = !editable;
+
+            DimOtherBlocks( editable );
         }
 
         /// <summary>
@@ -124,7 +157,9 @@ namespace RockWeb.Blocks.Administration
                 residencyCompetencyService.Save( residencyCompetency, CurrentPersonId );
             } );
 
-            NavigateToParentPage();
+            var qryParams = new Dictionary<string, string>();
+            qryParams["residencyCompetencyId"] = residencyCompetency.Id.ToString();
+            NavigateToPage( this.CurrentPage.Guid, qryParams );
         }
 
         /// <summary>
@@ -147,27 +182,13 @@ namespace RockWeb.Blocks.Administration
             if ( !itemKeyValue.Equals( 0 ) )
             {
                 residencyCompetency = new ResidencyService<ResidencyCompetency>().Get( itemKeyValue );
-                lActionTitle.Text = ActionTitle.Edit( ResidencyCompetency.FriendlyTypeName );
             }
             else
             {
                 residencyCompetency = new ResidencyCompetency { Id = 0 };
-                lActionTitle.Text = ActionTitle.Add( ResidencyCompetency.FriendlyTypeName );
             }
 
             hfResidencyCompetencyId.Value = residencyCompetency.Id.ToString();
-
-            LoadDropDowns();
-
-            tbName.Text = residencyCompetency.Name;
-            tbDescription.Text = residencyCompetency.Description;
-            ddlTrack.SetValue( residencyCompetency.ResidencyTrackId );
-            ppTeacherOfRecord.SetValue( residencyCompetency.TeacherOfRecordPerson );
-            ppFacilitator.SetValue( residencyCompetency.FacilitatorPerson );
-            tbGoals.Text = residencyCompetency.Goals;
-            tbCreditHours.Text = residencyCompetency.CreditHours.ToString();
-            tbSupervisionHours.Text = residencyCompetency.SupervisionHours.ToString();
-            tbImplementationHours.Text = residencyCompetency.ImplementationHours.ToString();
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -181,13 +202,94 @@ namespace RockWeb.Blocks.Administration
 
             if ( readOnly )
             {
-                lActionTitle.Text = ActionTitle.View( ResidencyCompetency.FriendlyTypeName );
-                btnCancel.Text = "Close";
+                btnEdit.Visible = false;
+                ShowReadonlyDetails( residencyCompetency );
+            }
+            else
+            {
+                btnEdit.Visible = true;
+                if ( residencyCompetency.Id > 0 )
+                {
+                    ShowReadonlyDetails( residencyCompetency );
+                }
+                else
+                {
+                    ShowEditDetails( residencyCompetency );
+                }
+            }
+        }
+
+        /// <summary>
+        /// Shows the edit details.
+        /// </summary>
+        /// <param name="residencyCompetency">The residency competency.</param>
+        private void ShowEditDetails( ResidencyCompetency residencyCompetency )
+        {
+            if ( residencyCompetency.Id > 0 )
+            {
+                lActionTitle.Text = ActionTitle.Edit( ResidencyCompetency.FriendlyTypeName );
+            }
+            else
+            {
+                lActionTitle.Text = ActionTitle.Add( ResidencyCompetency.FriendlyTypeName );
             }
 
-            tbName.ReadOnly = readOnly;
-            tbDescription.ReadOnly = readOnly;
-            btnSave.Visible = !readOnly;
+            SetEditMode( true );
+
+            LoadDropDowns();
+
+            tbName.Text = residencyCompetency.Name;
+            tbDescription.Text = residencyCompetency.Description;
+            ddlTrack.SetValue( residencyCompetency.ResidencyTrackId );
+            ppTeacherOfRecord.SetValue( residencyCompetency.TeacherOfRecordPerson );
+            ppFacilitator.SetValue( residencyCompetency.FacilitatorPerson );
+            tbGoals.Text = residencyCompetency.Goals;
+            tbCreditHours.Text = residencyCompetency.CreditHours.ToString();
+            tbSupervisionHours.Text = residencyCompetency.SupervisionHours.ToString();
+            tbImplementationHours.Text = residencyCompetency.ImplementationHours.ToString();
+        }
+
+        /// <summary>
+        /// Shows the readonly details.
+        /// </summary>
+        /// <param name="residencyCompetency">The residency competency.</param>
+        private void ShowReadonlyDetails( ResidencyCompetency residencyCompetency )
+        {
+            SetEditMode( false );
+
+            // make a Description section for nonEdit mode
+            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
+            lblMainDetails.Text = @"
+<div class='span6'>
+    <dl>";
+
+            lblMainDetails.Text += string.Format( descriptionFormat, "Name", residencyCompetency.Name );
+
+            lblMainDetails.Text += string.Format( descriptionFormat, "Period", residencyCompetency.ResidencyTrack.ResidencyPeriod.Name );
+            
+            lblMainDetails.Text += string.Format( descriptionFormat, "Track", residencyCompetency.ResidencyTrack.Name );
+
+            if ( !string.IsNullOrWhiteSpace( residencyCompetency.Description ) )
+            {
+                lblMainDetails.Text += string.Format( descriptionFormat, "Description", residencyCompetency.Description );
+            }
+
+            if ( residencyCompetency.TeacherOfRecordPerson != null )
+            {
+                lblMainDetails.Text += string.Format( descriptionFormat, "Teacher of Record", residencyCompetency.TeacherOfRecordPerson.FullName );
+            }
+
+            if ( residencyCompetency.FacilitatorPerson != null )
+            {
+                lblMainDetails.Text += string.Format( descriptionFormat, "Facilitator", residencyCompetency.FacilitatorPerson.FullName );
+            }
+
+            lblMainDetails.Text += string.Format( descriptionFormat, "Credit Hours", residencyCompetency.CreditHours.ToString() );
+
+            lblMainDetails.Text += @"
+    </dl>
+</div>";
+
         }
 
         #endregion

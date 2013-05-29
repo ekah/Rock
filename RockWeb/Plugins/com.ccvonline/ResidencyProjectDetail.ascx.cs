@@ -4,22 +4,26 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
+using Rock;
+using Rock.Attribute;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
+using Rock.Web;
 using Rock.Web.UI;
-using Rock;
 
 namespace RockWeb.Blocks.Administration
 {
     /// <summary>
     /// 
     /// </summary>
+    [LinkedPage("Residency Competency Page")]
     public partial class ResidencyProjectDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -35,9 +39,17 @@ namespace RockWeb.Blocks.Administration
             if ( !Page.IsPostBack )
             {
                 string itemId = PageParameter( "residencyProjectId" );
+                string residencyCompetencyId = PageParameter( "residencyCompetencyId" );
                 if ( !string.IsNullOrWhiteSpace( itemId ) )
                 {
-                    ShowDetail( "residencyProjectId", int.Parse( itemId ) );
+                    if ( string.IsNullOrWhiteSpace(residencyCompetencyId) )
+                    {
+                        ShowDetail( "residencyProjectId", int.Parse( itemId ) );
+                    }
+                    else
+                    {
+                        ShowDetail( "residencyProjectId", int.Parse( itemId ), int.Parse(residencyCompetencyId) );
+                    }
                 }
                 else
                 {
@@ -50,6 +62,9 @@ namespace RockWeb.Blocks.Administration
 
         #region Edit Events
 
+        /// <summary>
+        /// Loads the drop downs.
+        /// </summary>
         private void LoadDropDowns()
         {
             ResidencyService<ResidencyCompetency> service = new ResidencyService<ResidencyCompetency>();
@@ -68,7 +83,44 @@ namespace RockWeb.Blocks.Administration
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnCancel_Click( object sender, EventArgs e )
         {
-            NavigateToParentPage();
+            SetEditMode( false );
+
+            if ( hfResidencyProjectId.ValueAsInt().Equals( 0 ) )
+            {
+                // Cancelling on Add.  Return to Grid
+                NavigateToParentPage();
+            }
+            else
+            {
+                // Cancelling on Edit.  Return to Details
+                ResidencyService<ResidencyProject> service = new ResidencyService<ResidencyProject>();
+                ResidencyProject item = service.Get( hfResidencyProjectId.ValueAsInt() );
+                ShowReadonlyDetails( item );
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnEdit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected void btnEdit_Click( object sender, EventArgs e )
+        {
+            ResidencyService<ResidencyProject> service = new ResidencyService<ResidencyProject>();
+            ResidencyProject item = service.Get( hfResidencyProjectId.ValueAsInt() );
+            ShowEditDetails( item );
+        }
+
+        /// <summary>
+        /// Sets the edit mode.
+        /// </summary>
+        /// <param name="editable">if set to <c>true</c> [editable].</param>
+        private void SetEditMode( bool editable )
+        {
+            pnlEditDetails.Visible = editable;
+            fieldsetViewDetails.Visible = !editable;
+
+            DimOtherBlocks( editable );
         }
 
         /// <summary>
@@ -96,7 +148,7 @@ namespace RockWeb.Blocks.Administration
             residencyProject.Name = tbName.Text;
             residencyProject.Description = tbDescription.Text;
             residencyProject.ResidencyCompetencyId = ddlCompetency.SelectedValueAsInt().Value;
-            residencyProject.MinAssignmentCountDefault = tbMinAssignmentCountDefault.Text.AsInteger(false);
+            residencyProject.MinAssignmentCountDefault = tbMinAssignmentCountDefault.Text.AsInteger( false );
 
             // check for duplicates
             if ( residencyProjectService.Queryable().Count( a => a.Name.Equals( residencyProject.Name, StringComparison.OrdinalIgnoreCase ) && !a.Id.Equals( residencyProject.Id ) ) > 0 )
@@ -116,7 +168,9 @@ namespace RockWeb.Blocks.Administration
                 residencyProjectService.Save( residencyProject, CurrentPersonId );
             } );
 
-            NavigateToParentPage();
+            var qryParams = new Dictionary<string, string>();
+            qryParams["residencyProjectId"] = residencyProject.Id.ToString();
+            NavigateToPage( this.CurrentPage.Guid, qryParams );
         }
 
         /// <summary>
@@ -126,6 +180,17 @@ namespace RockWeb.Blocks.Administration
         /// <param name="itemKeyValue">The item key value.</param>
         public void ShowDetail( string itemKey, int itemKeyValue )
         {
+            ShowDetail( itemKey, itemKeyValue, null );
+        }
+
+        /// <summary>
+        /// Shows the detail.
+        /// </summary>
+        /// <param name="itemKey">The item key.</param>
+        /// <param name="itemKeyValue">The item key value.</param>
+        /// <param name="residencyCompetencyId">The residency competency id.</param>
+        public void ShowDetail( string itemKey, int itemKeyValue, int? residencyCompetencyId )
+        {
             // return if unexpected itemKey 
             if ( itemKey != "residencyProjectId" )
             {
@@ -134,27 +199,22 @@ namespace RockWeb.Blocks.Administration
 
             pnlDetails.Visible = true;
 
-            // Load depending on Add(0) or Edit
             ResidencyProject residencyProject = null;
+
             if ( !itemKeyValue.Equals( 0 ) )
             {
                 residencyProject = new ResidencyService<ResidencyProject>().Get( itemKeyValue );
-                lActionTitle.Text = ActionTitle.Edit( ResidencyProject.FriendlyTypeName );
             }
             else
             {
                 residencyProject = new ResidencyProject { Id = 0 };
-                lActionTitle.Text = ActionTitle.Add( ResidencyProject.FriendlyTypeName );
+                residencyProject.ResidencyCompetencyId = residencyCompetencyId ?? 0;
             }
 
             hfResidencyProjectId.Value = residencyProject.Id.ToString();
 
-            LoadDropDowns();
-
-            tbName.Text = residencyProject.Name;
-            tbDescription.Text = residencyProject.Description;
-            ddlCompetency.SetValue( residencyProject.ResidencyCompetencyId );
-            tbMinAssignmentCountDefault.Text = residencyProject.MinAssignmentCountDefault.ToString();
+            // only enable the CompetencyPicker if no Competecy parameter was specified
+            ddlCompetency.Enabled = !residencyCompetencyId.HasValue;
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -168,13 +228,82 @@ namespace RockWeb.Blocks.Administration
 
             if ( readOnly )
             {
-                lActionTitle.Text = ActionTitle.View( ResidencyProject.FriendlyTypeName );
-                btnCancel.Text = "Close";
+                btnEdit.Visible = false;
+                ShowReadonlyDetails( residencyProject );
+            }
+            else
+            {
+                btnEdit.Visible = true;
+                if ( residencyProject.Id > 0 )
+                {
+                    ShowReadonlyDetails( residencyProject );
+                }
+                else
+                {
+                    ShowEditDetails( residencyProject );
+                }
+            }
+        }
+
+        /// <summary>
+        /// Shows the edit details.
+        /// </summary>
+        /// <param name="residencyProject">The residency project.</param>
+        private void ShowEditDetails( ResidencyProject residencyProject )
+        {
+            if ( residencyProject.Id > 0 )
+            {
+                lActionTitle.Text = ActionTitle.Edit( ResidencyProject.FriendlyTypeName );
+            }
+            else
+            {
+                lActionTitle.Text = ActionTitle.Add( ResidencyProject.FriendlyTypeName );
             }
 
-            tbName.ReadOnly = readOnly;
-            tbDescription.ReadOnly = readOnly;
-            btnSave.Visible = !readOnly;
+            SetEditMode( true );
+
+            LoadDropDowns();
+
+            tbName.Text = residencyProject.Name;
+            tbDescription.Text = residencyProject.Description;
+            ddlCompetency.SetValue( residencyProject.ResidencyCompetencyId );
+            tbMinAssignmentCountDefault.Text = residencyProject.MinAssignmentCountDefault.ToString();
+        }
+
+        /// <summary>
+        /// Shows the readonly details.
+        /// </summary>
+        /// <param name="residencyProject">The residency project.</param>
+        private void ShowReadonlyDetails( ResidencyProject residencyProject )
+        {
+            SetEditMode( false );
+
+            // make a Description section for nonEdit mode
+            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
+            lblMainDetails.Text = @"
+<div class='span6'>
+    <dl>";
+
+            lblMainDetails.Text += string.Format( descriptionFormat, "Name", residencyProject.Name );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Description", residencyProject.Description );
+
+            string residencyCompetencyPageGuid = this.GetAttributeValue( "ResidencyCompetencyPage" );
+            string competencyHtml = residencyProject.ResidencyCompetency.Name;
+            if ( !string.IsNullOrWhiteSpace( residencyCompetencyPageGuid ) )
+            {
+                var page = new PageService().Get( new Guid( residencyCompetencyPageGuid ) );
+                Dictionary<string, string> queryString = new Dictionary<string, string>();
+                queryString.Add( "residencyCompetencyId", residencyProject.ResidencyCompetencyId.ToString() );
+                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
+                competencyHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, residencyProject.ResidencyCompetency.Name );
+            }
+
+            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", competencyHtml );
+
+            lblMainDetails.Text += @"
+    </dl>
+</div>";
+
         }
 
         #endregion
