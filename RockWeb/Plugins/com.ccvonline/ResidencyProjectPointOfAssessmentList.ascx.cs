@@ -68,7 +68,7 @@ namespace com.ccvonline.Blocks
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="GridReorderEventArgs"/> instance containing the event data.</param>
         /// <exception cref="System.NotImplementedException"></exception>
-        void gList_GridReorder( object sender, GridReorderEventArgs e )
+        protected void gList_GridReorder( object sender, GridReorderEventArgs e )
         {
             int oldIndex = e.OldIndex;
             int newIndex = e.NewIndex;
@@ -76,8 +76,8 @@ namespace com.ccvonline.Blocks
 
             var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
             var items = residencyProjectPointOfAssessmentService.Queryable()
-                .Where(a => a.ResidencyProjectId.Equals(residencyProjectId))
-                .OrderBy(a => a.AssessmentOrder).ToList();
+                .Where( a => a.ResidencyProjectId.Equals( residencyProjectId ) )
+                .OrderBy( a => a.AssessmentOrder ).ToList();
 
             ResidencyProjectPointOfAssessment movedItem = items[oldIndex];
             items.RemoveAt( oldIndex );
@@ -101,7 +101,7 @@ namespace com.ccvonline.Blocks
                         residencyProjectPointOfAssessmentService.Save( item, CurrentPersonId );
                     }
                 }
-                
+
                 order++;
             }
 
@@ -152,9 +152,16 @@ namespace com.ccvonline.Blocks
             {
                 var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
 
-                ResidencyProjectPointOfAssessment residencyProjectPointOfAssessment = residencyProjectPointOfAssessmentService.Get((int)e.RowKeyValue );
+                ResidencyProjectPointOfAssessment residencyProjectPointOfAssessment = residencyProjectPointOfAssessmentService.Get( (int)e.RowKeyValue );
                 if ( residencyProjectPointOfAssessment != null )
                 {
+                    string errorMessage;
+                    if ( !residencyProjectPointOfAssessmentService.CanDelete( residencyProjectPointOfAssessment, out errorMessage ) )
+                    {
+                        mdGridWarning.Show( errorMessage, ModalAlertType.Information );
+                        return;
+                    }
+                    
                     residencyProjectPointOfAssessmentService.Delete( residencyProjectPointOfAssessment, CurrentPersonId );
                     residencyProjectPointOfAssessmentService.Save( residencyProjectPointOfAssessment, CurrentPersonId );
                 }
@@ -183,7 +190,10 @@ namespace com.ccvonline.Blocks
         private void BindGrid()
         {
             var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
-            gList.DataSource = residencyProjectPointOfAssessmentService.Queryable().OrderBy( s => s.AssessmentOrder ).ToList();
+            int residencyProjectId = hfResidencyProjectId.Value.AsInteger().Value;
+            gList.DataSource = residencyProjectPointOfAssessmentService.Queryable()
+                .Where( a => a.ResidencyProjectId == residencyProjectId )
+                .OrderBy( s => s.AssessmentOrder ).ToList();
             gList.DataBind();
         }
 

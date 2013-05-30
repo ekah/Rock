@@ -87,9 +87,16 @@ namespace com.ccvonline.Blocks
             {
                 var residencyPeriodService = new ResidencyService<ResidencyPeriod>();
 
-                ResidencyPeriod residencyPeriod = residencyPeriodService.Get((int)e.RowKeyValue );
+                ResidencyPeriod residencyPeriod = residencyPeriodService.Get( (int)e.RowKeyValue );
                 if ( residencyPeriod != null )
                 {
+                    string errorMessage;
+                    if ( !residencyPeriodService.CanDelete( residencyPeriod, out errorMessage ) )
+                    {
+                        mdGridWarning.Show( errorMessage, ModalAlertType.Information );
+                        return;
+                    }
+
                     residencyPeriodService.Delete( residencyPeriod, CurrentPersonId );
                     residencyPeriodService.Save( residencyPeriod, CurrentPersonId );
                 }
@@ -146,6 +153,5 @@ namespace com.ccvonline.Blocks
         }
 
         #endregion
-
     }
 }

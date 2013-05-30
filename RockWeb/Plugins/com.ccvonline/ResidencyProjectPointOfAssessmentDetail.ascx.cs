@@ -80,9 +80,9 @@ namespace RockWeb.Blocks.Administration
             ResidencyProjectPointOfAssessment residencyProjectPointOfAssessment;
             ResidencyService<ResidencyProjectPointOfAssessment> residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
 
-            int ResidencyProjectPointOfAssessmentId = int.Parse( hfResidencyProjectPointOfAssessmentId.Value ); ;
+            int residencyProjectPointOfAssessmentId = int.Parse( hfResidencyProjectPointOfAssessmentId.Value );
 
-            if ( ResidencyProjectPointOfAssessmentId == 0 )
+            if ( residencyProjectPointOfAssessmentId == 0 )
             {
                 residencyProjectPointOfAssessment = new ResidencyProjectPointOfAssessment();
                 residencyProjectPointOfAssessment.AssessmentOrder = lblAssessmentOrder.Text.AsInteger().Value;
@@ -91,7 +91,7 @@ namespace RockWeb.Blocks.Administration
             }
             else
             {
-                residencyProjectPointOfAssessment = residencyProjectPointOfAssessmentService.Get( ResidencyProjectPointOfAssessmentId );
+                residencyProjectPointOfAssessment = residencyProjectPointOfAssessmentService.Get( residencyProjectPointOfAssessmentId );
             }
 
             residencyProjectPointOfAssessment.AssessmentText = tbAssessmentText.Text;

@@ -108,6 +108,13 @@ namespace com.ccvonline.Blocks
                 ResidencyProject residencyProject = residencyProjectService.Get((int)e.RowKeyValue );
                 if ( residencyProject != null )
                 {
+                    string errorMessage;
+                    if ( !residencyProjectService.CanDelete( residencyProject, out errorMessage ) )
+                    {
+                        mdGridWarning.Show( errorMessage, ModalAlertType.Information );
+                        return;
+                    }
+                    
                     residencyProjectService.Delete( residencyProject, CurrentPersonId );
                     residencyProjectService.Save( residencyProject, CurrentPersonId );
                 }
@@ -177,6 +184,5 @@ namespace com.ccvonline.Blocks
         }
 
         #endregion
-
     }
 }

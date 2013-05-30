@@ -86,10 +86,17 @@ namespace com.ccvonline.Blocks
             RockTransactionScope.WrapTransaction( () =>
             {
                 var residencyTrackService = new ResidencyService<ResidencyTrack>();
-
                 ResidencyTrack residencyTrack = residencyTrackService.Get((int)e.RowKeyValue );
+
                 if ( residencyTrack != null )
                 {
+                    string errorMessage;
+                    if ( !residencyTrackService.CanDelete( residencyTrack, out errorMessage ) )
+                    {
+                        mdGridWarning.Show( errorMessage, ModalAlertType.Information );
+                        return;
+                    }
+                    
                     residencyTrackService.Delete( residencyTrack, CurrentPersonId );
                     residencyTrackService.Save( residencyTrack, CurrentPersonId );
                 }
@@ -146,6 +153,5 @@ namespace com.ccvonline.Blocks
         }
 
         #endregion
-
     }
 }

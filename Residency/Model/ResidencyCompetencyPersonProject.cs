@@ -40,7 +40,6 @@ namespace com.ccvonline.Residency.Model
         [DataMember]
         public int ResidencyProjectId { get; set; }
 
-
         /// <summary>
         /// Gets or sets the min assignment count.
         /// </summary>

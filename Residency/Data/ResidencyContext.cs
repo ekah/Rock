@@ -42,8 +42,7 @@ namespace com.ccvonline.Residency.Data
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            #region Model Configurations
-
+            // Model Configurations
             modelBuilder.Configurations.Add( new ResidencyCompetencyConfiguration() );
             modelBuilder.Configurations.Add( new ResidencyCompetencyPersonConfiguration() );
             modelBuilder.Configurations.Add( new ResidencyCompetencyPersonProjectConfiguration());
@@ -54,8 +53,6 @@ namespace com.ccvonline.Residency.Data
             modelBuilder.Configurations.Add( new ResidencyProjectConfiguration());
             modelBuilder.Configurations.Add( new ResidencyProjectPointOfAssessmentConfiguration());
             modelBuilder.Configurations.Add( new ResidencyTrackConfiguration() );
-
-            #endregion
         }
         
         #region Models

@@ -52,7 +52,7 @@ namespace RockWeb.Blocks.Administration
         private void LoadDropDowns()
         {
             ResidencyService<ResidencyTrack> service = new ResidencyService<ResidencyTrack>();
-            var list = service.Queryable().OrderBy( a => a.ResidencyPeriod.Name ).ThenBy( a => a.Name) .ToList();
+            var list = service.Queryable().OrderBy( a => a.ResidencyPeriod.Name ).ThenBy( a => a.Name ).ToList();
             ddlTrack.Items.Clear();
             foreach ( var item in list )
             {
@@ -117,7 +117,7 @@ namespace RockWeb.Blocks.Administration
             ResidencyCompetency residencyCompetency;
             ResidencyService<ResidencyCompetency> residencyCompetencyService = new ResidencyService<ResidencyCompetency>();
 
-            int residencyCompetencyId = int.Parse( hfResidencyCompetencyId.Value ); ;
+            int residencyCompetencyId = int.Parse( hfResidencyCompetencyId.Value );
 
             if ( residencyCompetencyId == 0 )
             {
@@ -135,12 +135,12 @@ namespace RockWeb.Blocks.Administration
             residencyCompetency.TeacherOfRecordPersonId = ppTeacherOfRecord.PersonId;
             residencyCompetency.FacilitatorPersonId = ppFacilitator.PersonId;
             residencyCompetency.Goals = tbGoals.Text;
-            residencyCompetency.CreditHours = tbCreditHours.Text.AsInteger(false);
+            residencyCompetency.CreditHours = tbCreditHours.Text.AsInteger( false );
             residencyCompetency.SupervisionHours = tbSupervisionHours.Text.AsInteger( false );
             residencyCompetency.ImplementationHours = tbImplementationHours.Text.AsInteger( false );
 
             // check for duplicates within Period
-            if ( residencyCompetencyService.Queryable().Count( a => a.Name.Equals( residencyCompetency.Name, StringComparison.OrdinalIgnoreCase ) && a.ResidencyTrackId.Equals(residencyCompetency.ResidencyTrackId) && !a.Id.Equals( residencyCompetency.Id )  ) > 0 )
+            if ( residencyCompetencyService.Queryable().Count( a => a.Name.Equals( residencyCompetency.Name, StringComparison.OrdinalIgnoreCase ) && a.ResidencyTrackId.Equals( residencyCompetency.ResidencyTrackId ) && !a.Id.Equals( residencyCompetency.Id ) ) > 0 )
             {
                 nbWarningMessage.Text = WarningMessage.DuplicateFoundMessage( "name", ResidencyCompetency.FriendlyTypeName );
                 return;
@@ -266,7 +266,7 @@ namespace RockWeb.Blocks.Administration
             lblMainDetails.Text += string.Format( descriptionFormat, "Name", residencyCompetency.Name );
 
             lblMainDetails.Text += string.Format( descriptionFormat, "Period", residencyCompetency.ResidencyTrack.ResidencyPeriod.Name );
-            
+
             lblMainDetails.Text += string.Format( descriptionFormat, "Track", residencyCompetency.ResidencyTrack.Name );
 
             if ( !string.IsNullOrWhiteSpace( residencyCompetency.Description ) )
@@ -289,7 +289,6 @@ namespace RockWeb.Blocks.Administration
             lblMainDetails.Text += @"
     </dl>
 </div>";
-
         }
 
         #endregion

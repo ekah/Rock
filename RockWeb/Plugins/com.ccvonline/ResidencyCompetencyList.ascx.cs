@@ -210,6 +210,13 @@ namespace com.ccvonline.Blocks
                 ResidencyCompetency residencyCompetency = residencyCompetencyService.Get( (int)e.RowKeyValue );
                 if ( residencyCompetency != null )
                 {
+                    string errorMessage;
+                    if ( !residencyCompetencyService.CanDelete( residencyCompetency, out errorMessage ) )
+                    {
+                        mdGridWarning.Show( errorMessage, ModalAlertType.Information );
+                        return;
+                    }
+                    
                     residencyCompetencyService.Delete( residencyCompetency, CurrentPersonId );
                     residencyCompetencyService.Save( residencyCompetency, CurrentPersonId );
                 }
@@ -264,7 +271,6 @@ namespace com.ccvonline.Blocks
             {
                 qry = qry.Where( a => a.ResidencyTrackId == residencyTrackId.Value );
             }
-
 
             gList.DataSource = qry.ToList();
 

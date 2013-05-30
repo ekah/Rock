@@ -80,16 +80,16 @@ namespace RockWeb.Blocks.Administration
             ResidencyTrack residencyTrack;
             ResidencyService<ResidencyTrack> residencyTrackService = new ResidencyService<ResidencyTrack>();
 
-            int ResidencyTrackId = int.Parse( hfResidencyTrackId.Value ); ;
+            int residencyTrackId = int.Parse( hfResidencyTrackId.Value );
 
-            if ( ResidencyTrackId == 0 )
+            if ( residencyTrackId == 0 )
             {
                 residencyTrack = new ResidencyTrack();
                 residencyTrackService.Add( residencyTrack, CurrentPersonId );
             }
             else
             {
-                residencyTrack = residencyTrackService.Get( ResidencyTrackId );
+                residencyTrack = residencyTrackService.Get( residencyTrackId );
             }
 
             residencyTrack.Name = tbName.Text;
@@ -97,7 +97,7 @@ namespace RockWeb.Blocks.Administration
             residencyTrack.ResidencyPeriodId = ddlPeriod.SelectedValueAsInt().Value;
 
             // check for duplicates within Period
-            if ( residencyTrackService.Queryable().Count( a => a.Name.Equals( residencyTrack.Name, StringComparison.OrdinalIgnoreCase ) && a.ResidencyPeriodId.Equals(residencyTrack.ResidencyPeriodId) && !a.Id.Equals( residencyTrack.Id )  ) > 0 )
+            if ( residencyTrackService.Queryable().Count( a => a.Name.Equals( residencyTrack.Name, StringComparison.OrdinalIgnoreCase ) && a.ResidencyPeriodId.Equals( residencyTrack.ResidencyPeriodId ) && !a.Id.Equals( residencyTrack.Id ) ) > 0 )
             {
                 nbWarningMessage.Text = WarningMessage.DuplicateFoundMessage( "name", ResidencyTrack.FriendlyTypeName );
                 return;

@@ -70,11 +70,11 @@ namespace RockWeb.Blocks.Administration
                 dpStartDate.ShowErrorMessage( WarningMessage.DateRangeEndDateBeforeStartDate() );
                 return;
             }
-            
+
             ResidencyPeriod residencyPeriod;
             ResidencyService<ResidencyPeriod> residencyPeriodService = new ResidencyService<ResidencyPeriod>();
 
-            int residencyPeriodId = int.Parse( hfResidencyPeriodId.Value ); ;
+            int residencyPeriodId = int.Parse( hfResidencyPeriodId.Value );
 
             if ( residencyPeriodId == 0 )
             {

@@ -88,7 +88,18 @@ namespace RockWeb.Blocks.Administration
             if ( hfResidencyProjectId.ValueAsInt().Equals( 0 ) )
             {
                 // Cancelling on Add.  Return to Grid
-                NavigateToParentPage();
+                // if this page was called from the ResidencyCompetency Detail page, return to that
+                string residencyCompetencyId = PageParameter( "residencyCompetencyId" );
+                if ( !string.IsNullOrWhiteSpace( residencyCompetencyId ) )
+                {
+                    Dictionary<string, string> qryString = new Dictionary<string, string>();
+                    qryString["residencyCompetencyId"] = residencyCompetencyId;
+                    NavigateToParentPage( qryString );
+                }
+                else
+                {
+                    NavigateToParentPage();
+                }
             }
             else
             {
@@ -133,16 +144,16 @@ namespace RockWeb.Blocks.Administration
             ResidencyProject residencyProject;
             ResidencyService<ResidencyProject> residencyProjectService = new ResidencyService<ResidencyProject>();
 
-            int ResidencyProjectId = int.Parse( hfResidencyProjectId.Value ); ;
+            int residencyProjectId = int.Parse( hfResidencyProjectId.Value );
 
-            if ( ResidencyProjectId == 0 )
+            if ( residencyProjectId == 0 )
             {
                 residencyProject = new ResidencyProject();
                 residencyProjectService.Add( residencyProject, CurrentPersonId );
             }
             else
             {
-                residencyProject = residencyProjectService.Get( ResidencyProjectId );
+                residencyProject = residencyProjectService.Get( residencyProjectId );
             }
 
             residencyProject.Name = tbName.Text;
@@ -303,7 +314,6 @@ namespace RockWeb.Blocks.Administration
             lblMainDetails.Text += @"
     </dl>
 </div>";
-
         }
 
         #endregion

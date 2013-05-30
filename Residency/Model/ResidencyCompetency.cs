@@ -120,7 +120,6 @@ namespace com.ccvonline.Residency.Model
         #endregion
     }
 
-
     /// <summary>
     /// 
     /// </summary>
@@ -136,5 +135,4 @@ namespace com.ccvonline.Residency.Model
             this.HasOptional( p => p.FacilitatorPerson ).WithMany().HasForeignKey( p => p.FacilitatorPersonId ).WillCascadeOnDelete( false );
         }
     }
-
 }
