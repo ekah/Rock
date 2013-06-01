@@ -33,11 +33,13 @@
     <Reference Include="DotLiquid">
       <HintPath>..\RockWeb\Bin\DotLiquid.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.0-alpha3\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.0-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.0-alpha3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.0-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Rock">
       <HintPath>..\RockWeb\Bin\Rock.dll</HintPath>
@@ -57,25 +59,13 @@
     <Compile Include="Data\ResidencyModel.cs" />
     <Compile Include="Data\ResidencyNamedModel.cs" />
     <Compile Include="Data\ResidencyService.cs" />
-    <Compile Include="Migrations\201304030729211_AddResidencyAppTables.cs" />
-    <Compile Include="Migrations\201304030729211_AddResidencyAppTables.Designer.cs">
-      <DependentUpon>201304030729211_AddResidencyAppTables.cs</DependentUpon>
+    <Compile Include="Migrations\201306010042130_CreateResidencyAppTables01.cs" />
+    <Compile Include="Migrations\201306010042130_CreateResidencyAppTables01.Designer.cs">
+      <DependentUpon>201306010042130_CreateResidencyAppTables01.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201305070521306_AddResidencyAppTables02.cs" />
-    <Compile Include="Migrations\201305070521306_AddResidencyAppTables02.Designer.cs">
-      <DependentUpon>201305070521306_AddResidencyAppTables02.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201305070559024_AddResidencyAppTables03.cs" />
-    <Compile Include="Migrations\201305070559024_AddResidencyAppTables03.Designer.cs">
-      <DependentUpon>201305070559024_AddResidencyAppTables03.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201305232329557_FixResidencyCompetencyPersonProject.cs" />
-    <Compile Include="Migrations\201305232329557_FixResidencyCompetencyPersonProject.Designer.cs">
-      <DependentUpon>201305232329557_FixResidencyCompetencyPersonProject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201305240124447_BlocksPages01.cs" />
-    <Compile Include="Migrations\201305240124447_BlocksPages01.Designer.cs">
-      <DependentUpon>201305240124447_BlocksPages01.cs</DependentUpon>
+    <Compile Include="Migrations\201306010050262_BlocksPages01.cs" />
+    <Compile Include="Migrations\201306010050262_BlocksPages01.Designer.cs">
+      <DependentUpon>201306010050262_BlocksPages01.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ResidencyCompetency.cs" />
@@ -91,25 +81,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201304030729211_AddResidencyAppTables.resx">
-      <DependentUpon>201304030729211_AddResidencyAppTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201305070521306_AddResidencyAppTables02.resx">
-      <DependentUpon>201305070521306_AddResidencyAppTables02.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201305070559024_AddResidencyAppTables03.resx">
-      <DependentUpon>201305070559024_AddResidencyAppTables03.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201305232329557_FixResidencyCompetencyPersonProject.resx">
-      <DependentUpon>201305232329557_FixResidencyCompetencyPersonProject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201305240124447_BlocksPages01.resx">
-      <DependentUpon>201305240124447_BlocksPages01.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201306010042130_CreateResidencyAppTables01.resx">
+      <DependentUpon>201306010042130_CreateResidencyAppTables01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306010050262_BlocksPages01.resx">
+      <DependentUpon>201306010050262_BlocksPages01.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
