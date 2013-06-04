@@ -4,21 +4,25 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
+using Rock;
+using Rock.Attribute;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
+using Rock.Web;
 using Rock.Web.UI;
-using Rock;
 
 namespace RockWeb.Blocks.Administration
 {
     /// <summary>
     /// 
     /// </summary>
+    [LinkedPage( "Residency Period Page" )]
     public partial class ResidencyTrackDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -33,10 +37,18 @@ namespace RockWeb.Blocks.Administration
 
             if ( !Page.IsPostBack )
             {
-                string itemId = PageParameter( "ResidencyTrackId" );
+                string itemId = PageParameter( "residencyTrackId" );
+                string residencyPeriodId = PageParameter( "residencyPeriodId" );
                 if ( !string.IsNullOrWhiteSpace( itemId ) )
                 {
-                    ShowDetail( "ResidencyTrackId", int.Parse( itemId ) );
+                    if ( string.IsNullOrWhiteSpace( residencyPeriodId ) )
+                    {
+                        ShowDetail( "residencyTrackId", int.Parse( itemId ) );
+                    }
+                    else
+                    {
+                        ShowDetail( "residencyTrackId", int.Parse( itemId ), int.Parse( residencyPeriodId ) );
+                    }
                 }
                 else
                 {
@@ -67,7 +79,55 @@ namespace RockWeb.Blocks.Administration
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnCancel_Click( object sender, EventArgs e )
         {
-            NavigateToParentPage();
+            SetEditMode( false );
+
+            if ( hfResidencyTrackId.ValueAsInt().Equals( 0 ) )
+            {
+                // Cancelling on Add.  Return to Grid
+                // if this page was called from the ResidencyPeriod Detail page, return to that
+                string residencyPeriodId = PageParameter( "residencyPeriodId" );
+                if ( !string.IsNullOrWhiteSpace( residencyPeriodId ) )
+                {
+                    Dictionary<string, string> qryString = new Dictionary<string, string>();
+                    qryString["residencyPeriodId"] = residencyPeriodId;
+                    NavigateToParentPage( qryString );
+                }
+                else
+                {
+                    NavigateToParentPage();
+                }
+            }
+            else
+            {
+                // Cancelling on Edit.  Return to Details
+                ResidencyService<ResidencyTrack> service = new ResidencyService<ResidencyTrack>();
+                ResidencyTrack item = service.Get( hfResidencyTrackId.ValueAsInt() );
+                ShowReadonlyDetails( item );
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnEdit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected void btnEdit_Click( object sender, EventArgs e )
+        {
+            ResidencyService<ResidencyTrack> service = new ResidencyService<ResidencyTrack>();
+            ResidencyTrack item = service.Get( hfResidencyTrackId.ValueAsInt() );
+            ShowEditDetails( item );
+        }
+
+        /// <summary>
+        /// Sets the edit mode.
+        /// </summary>
+        /// <param name="editable">if set to <c>true</c> [editable].</param>
+        private void SetEditMode( bool editable )
+        {
+            pnlEditDetails.Visible = editable;
+            fieldsetViewDetails.Visible = !editable;
+
+            DimOtherBlocks( editable );
         }
 
         /// <summary>
@@ -114,7 +174,9 @@ namespace RockWeb.Blocks.Administration
                 residencyTrackService.Save( residencyTrack, CurrentPersonId );
             } );
 
-            NavigateToParentPage();
+            var qryParams = new Dictionary<string, string>();
+            qryParams["residencyTrack"] = residencyTrack.Id.ToString();
+            NavigateToPage( this.CurrentPage.Guid, qryParams );
         }
 
         /// <summary>
@@ -124,8 +186,19 @@ namespace RockWeb.Blocks.Administration
         /// <param name="itemKeyValue">The item key value.</param>
         public void ShowDetail( string itemKey, int itemKeyValue )
         {
+            ShowDetail( itemKey, itemKeyValue, null );
+        }
+
+        /// <summary>
+        /// Shows the detail.
+        /// </summary>
+        /// <param name="itemKey">The item key.</param>
+        /// <param name="itemKeyValue">The item key value.</param>
+        /// <param name="residencyPeriodId">The residency competency id.</param>
+        public void ShowDetail( string itemKey, int itemKeyValue, int? residencyPeriodId )
+        {
             // return if unexpected itemKey 
-            if ( itemKey != "ResidencyTrackId" )
+            if ( itemKey != "residencyTrackId" )
             {
                 return;
             }
@@ -137,21 +210,17 @@ namespace RockWeb.Blocks.Administration
             if ( !itemKeyValue.Equals( 0 ) )
             {
                 residencyTrack = new ResidencyService<ResidencyTrack>().Get( itemKeyValue );
-                lActionTitle.Text = ActionTitle.Edit( ResidencyTrack.FriendlyTypeName );
             }
             else
             {
                 residencyTrack = new ResidencyTrack { Id = 0 };
-                lActionTitle.Text = ActionTitle.Add( ResidencyTrack.FriendlyTypeName );
+                residencyTrack.ResidencyPeriodId = residencyPeriodId ?? 0;
             }
 
             hfResidencyTrackId.Value = residencyTrack.Id.ToString();
 
-            LoadDropDowns();
-
-            tbName.Text = residencyTrack.Name;
-            tbDescription.Text = residencyTrack.Description;
-            ddlPeriod.SetValue( residencyTrack.ResidencyPeriodId );
+            // only enable the PeriodPicker if no Period parameter was specified
+            ddlPeriod.Enabled = !residencyPeriodId.HasValue;
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -165,13 +234,80 @@ namespace RockWeb.Blocks.Administration
 
             if ( readOnly )
             {
-                lActionTitle.Text = ActionTitle.View( ResidencyTrack.FriendlyTypeName );
-                btnCancel.Text = "Close";
+                btnEdit.Visible = false;
+                ShowReadonlyDetails( residencyTrack );
+            }
+            else
+            {
+                btnEdit.Visible = true;
+                if ( residencyTrack.Id > 0 )
+                {
+                    ShowReadonlyDetails( residencyTrack );
+                }
+                else
+                {
+                    ShowEditDetails( residencyTrack );
+                }
+            }
+        }
+
+        /// <summary>
+        /// Shows the edit details.
+        /// </summary>
+        /// <param name="residencyTrack">The residency project.</param>
+        private void ShowEditDetails( ResidencyTrack residencyTrack )
+        {
+            if ( residencyTrack.Id > 0 )
+            {
+                lActionTitle.Text = ActionTitle.Edit( ResidencyTrack.FriendlyTypeName );
+            }
+            else
+            {
+                lActionTitle.Text = ActionTitle.Add( ResidencyTrack.FriendlyTypeName );
             }
 
-            tbName.ReadOnly = readOnly;
-            tbDescription.ReadOnly = readOnly;
-            btnSave.Visible = !readOnly;
+            SetEditMode( true );
+
+            LoadDropDowns();
+
+            tbName.Text = residencyTrack.Name;
+            tbDescription.Text = residencyTrack.Description;
+            ddlPeriod.SetValue( residencyTrack.ResidencyPeriodId );
+        }
+
+        /// <summary>
+        /// Shows the readonly details.
+        /// </summary>
+        /// <param name="residencyTrack">The residency project.</param>
+        private void ShowReadonlyDetails( ResidencyTrack residencyTrack )
+        {
+            SetEditMode( false );
+
+            // make a Description section for nonEdit mode
+            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
+            lblMainDetails.Text = @"
+<div class='span6'>
+    <dl>";
+
+            lblMainDetails.Text += string.Format( descriptionFormat, "Name", residencyTrack.Name );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Description", residencyTrack.Description );
+
+            string residencyPeriodPageGuid = this.GetAttributeValue( "ResidencyPeriodPage" );
+            string periodHtml = residencyTrack.ResidencyPeriod.Name;
+            if ( !string.IsNullOrWhiteSpace( residencyPeriodPageGuid ) )
+            {
+                var page = new PageService().Get( new Guid( residencyPeriodPageGuid ) );
+                Dictionary<string, string> queryString = new Dictionary<string, string>();
+                queryString.Add( "residencyPeriodId", residencyTrack.ResidencyPeriodId.ToString() );
+                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
+                periodHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, residencyTrack.ResidencyPeriod.Name );
+            }
+
+            lblMainDetails.Text += string.Format( descriptionFormat, "Period", periodHtml );
+
+            lblMainDetails.Text += @"
+    </dl>
+</div>";
         }
 
         #endregion

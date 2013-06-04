@@ -4,10 +4,12 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
+using Rock;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
@@ -55,7 +57,45 @@ namespace RockWeb.Blocks.Administration
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnCancel_Click( object sender, EventArgs e )
         {
-            NavigateToParentPage();
+            SetEditMode( false );
+
+            if ( hfResidencyPeriodId.ValueAsInt().Equals( 0 ) )
+            {
+                // Cancelling on Add.  Return to Grid
+                NavigateToParentPage();
+
+            }
+            else
+            {
+                // Cancelling on Edit.  Return to Details
+                ResidencyService<ResidencyPeriod> service = new ResidencyService<ResidencyPeriod>();
+                ResidencyPeriod item = service.Get( hfResidencyPeriodId.ValueAsInt() );
+                ShowReadonlyDetails( item );
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnEdit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected void btnEdit_Click( object sender, EventArgs e )
+        {
+            ResidencyService<ResidencyPeriod> service = new ResidencyService<ResidencyPeriod>();
+            ResidencyPeriod item = service.Get( hfResidencyPeriodId.ValueAsInt() );
+            ShowEditDetails( item );
+        }
+
+        /// <summary>
+        /// Sets the edit mode.
+        /// </summary>
+        /// <param name="editable">if set to <c>true</c> [editable].</param>
+        private void SetEditMode( bool editable )
+        {
+            pnlEditDetails.Visible = editable;
+            fieldsetViewDetails.Visible = !editable;
+
+            DimOtherBlocks( editable );
         }
 
         /// <summary>
@@ -109,7 +149,9 @@ namespace RockWeb.Blocks.Administration
                 residencyPeriodService.Save( residencyPeriod, CurrentPersonId );
             } );
 
-            NavigateToParentPage();
+            var qryParams = new Dictionary<string, string>();
+            qryParams["residencyPeriodId"] = residencyPeriod.Id.ToString();
+            NavigateToPage( this.CurrentPage.Guid, qryParams );
         }
 
         /// <summary>
@@ -141,10 +183,6 @@ namespace RockWeb.Blocks.Administration
             }
 
             hfResidencyPeriodId.Value = residencyPeriod.Id.ToString();
-            tbName.Text = residencyPeriod.Name;
-            tbDescription.Text = residencyPeriod.Description;
-            dpStartDate.SelectedDate = residencyPeriod.StartDate;
-            dpEndDate.SelectedDate = residencyPeriod.EndDate;
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -158,15 +196,68 @@ namespace RockWeb.Blocks.Administration
 
             if ( readOnly )
             {
-                lActionTitle.Text = ActionTitle.View( ResidencyPeriod.FriendlyTypeName );
-                btnCancel.Text = "Close";
+                btnEdit.Visible = false;
+                ShowReadonlyDetails( residencyPeriod );
+            }
+            else
+            {
+                btnEdit.Visible = true;
+                if ( residencyPeriod.Id > 0 )
+                {
+                    ShowReadonlyDetails( residencyPeriod );
+                }
+                else
+                {
+                    ShowEditDetails( residencyPeriod );
+                }
+            }
+        }
+
+        /// <summary>
+        /// Shows the edit details.
+        /// </summary>
+        /// <param name="residencyPeriod">The residency period.</param>
+        private void ShowEditDetails( ResidencyPeriod residencyPeriod )
+        {
+            if ( residencyPeriod.Id > 0 )
+            {
+                lActionTitle.Text = ActionTitle.Edit( ResidencyPeriod.FriendlyTypeName );
+            }
+            else
+            {
+                lActionTitle.Text = ActionTitle.Add( ResidencyPeriod.FriendlyTypeName );
             }
 
-            tbName.ReadOnly = readOnly;
-            tbDescription.ReadOnly = readOnly;
-            dpStartDate.ReadOnly = readOnly;
-            dpEndDate.ReadOnly = readOnly;
-            btnSave.Visible = !readOnly;
+            SetEditMode( true );
+
+            tbName.Text = residencyPeriod.Name;
+            tbDescription.Text = residencyPeriod.Description;
+            dpStartDate.SelectedDate = residencyPeriod.StartDate;
+            dpEndDate.SelectedDate = residencyPeriod.EndDate;
+        }
+
+        /// <summary>
+        /// Shows the readonly details.
+        /// </summary>
+        /// <param name="residencyPeriod">The residency project.</param>
+        private void ShowReadonlyDetails( ResidencyPeriod residencyPeriod )
+        {
+            SetEditMode( false );
+
+            // make a Description section for nonEdit mode
+            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
+            lblMainDetails.Text = @"
+<div class='span6'>
+    <dl>";
+
+            lblMainDetails.Text += string.Format( descriptionFormat, "Name", residencyPeriod.Name );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Description", residencyPeriod.Description );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Start Date", residencyPeriod.StartDate.HasValue ? residencyPeriod.StartDate.Value.ToShortDateString() : Rock.Constants.None.TextHtml);
+            lblMainDetails.Text += string.Format( descriptionFormat, "End Date", residencyPeriod.EndDate.HasValue ? residencyPeriod.EndDate.Value.ToShortDateString() : Rock.Constants.None.TextHtml );
+
+            lblMainDetails.Text += @"
+    </dl>
+</div>";
         }
 
         #endregion
