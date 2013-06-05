@@ -7,7 +7,7 @@ namespace com.ccvonline.Residency.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            CodeGenerator = new Rock.Migrations.RockCSharpMigrationCodeGenerator();
+            CodeGenerator = new Rock.Migrations.RockCSharpMigrationCodeGenerator<com.ccvonline.Residency.Data.ResidencyContext>();
         }
 
         protected override void Seed(com.ccvonline.Residency.Data.ResidencyContext context)
