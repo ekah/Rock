@@ -9,6 +9,7 @@
 #  Rock.dll
 #  Rock.Rest.dll
 #  Quartz.dll
+#  DDay.iCal.dll
 
 #file types
 *.resources.dll
@@ -32,6 +33,5 @@
 /System.Web.Http.OData.dll
 /EntityFramework.SqlServer.dll
 /EntityFramework.SqlServer.xml
-/DDay.iCal.dll
 /com.ccvonline.Residency.dll
 /com.ccvonline.Residency.pdb
