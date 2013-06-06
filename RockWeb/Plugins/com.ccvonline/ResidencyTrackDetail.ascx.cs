@@ -62,17 +62,6 @@ namespace RockWeb.Blocks.Administration
         #region Edit Events
 
         /// <summary>
-        /// Loads the drop downs.
-        /// </summary>
-        private void LoadDropDowns()
-        {
-            ResidencyService<ResidencyPeriod> service = new ResidencyService<ResidencyPeriod>();
-            var list = service.Queryable().OrderBy( a => a.Name ).ToList();
-            ddlPeriod.DataSource = list;
-            ddlPeriod.DataBind();
-        }
-
-        /// <summary>
         /// Handles the Click event of the btnCancel control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -154,7 +143,7 @@ namespace RockWeb.Blocks.Administration
 
             residencyTrack.Name = tbName.Text;
             residencyTrack.Description = tbDescription.Text;
-            residencyTrack.ResidencyPeriodId = ddlPeriod.SelectedValueAsInt().Value;
+            residencyTrack.ResidencyPeriodId = hfResidencyPeriodId.ValueAsInt();
 
             // check for duplicates within Period
             if ( residencyTrackService.Queryable().Count( a => a.Name.Equals( residencyTrack.Name, StringComparison.OrdinalIgnoreCase ) && a.ResidencyPeriodId.Equals( residencyTrack.ResidencyPeriodId ) && !a.Id.Equals( residencyTrack.Id ) ) > 0 )
@@ -175,7 +164,7 @@ namespace RockWeb.Blocks.Administration
             } );
 
             var qryParams = new Dictionary<string, string>();
-            qryParams["residencyTrack"] = residencyTrack.Id.ToString();
+            qryParams["residencyTrackId"] = residencyTrack.Id.ToString();
             NavigateToPage( this.CurrentPage.Guid, qryParams );
         }
 
@@ -215,12 +204,11 @@ namespace RockWeb.Blocks.Administration
             {
                 residencyTrack = new ResidencyTrack { Id = 0 };
                 residencyTrack.ResidencyPeriodId = residencyPeriodId ?? 0;
+                residencyTrack.ResidencyPeriod = new ResidencyService<ResidencyPeriod>().Get( residencyTrack.ResidencyPeriodId );
             }
 
             hfResidencyTrackId.Value = residencyTrack.Id.ToString();
-
-            // only enable the PeriodPicker if no Period parameter was specified
-            ddlPeriod.Enabled = !residencyPeriodId.HasValue;
+            hfResidencyPeriodId.Value = residencyTrack.ResidencyPeriodId.ToString();
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -268,11 +256,9 @@ namespace RockWeb.Blocks.Administration
 
             SetEditMode( true );
 
-            LoadDropDowns();
-
             tbName.Text = residencyTrack.Name;
             tbDescription.Text = residencyTrack.Description;
-            ddlPeriod.SetValue( residencyTrack.ResidencyPeriodId );
+            lblPeriod.Text = residencyTrack.ResidencyPeriod.Name;
         }
 
         /// <summary>

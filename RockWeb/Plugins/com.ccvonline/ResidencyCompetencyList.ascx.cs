@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
 using Rock;
@@ -28,10 +27,6 @@ namespace com.ccvonline.Blocks
         {
             base.OnInit( e );
 
-            BindFilter();
-            rFilter.ApplyFilterClick += rFilter_ApplyFilterClick;
-            rFilter.DisplayFilterValue += rFilter_DisplayFilterValue;
-
             gList.DataKeyNames = new string[] { "id" };
             gList.Actions.ShowAdd = true;
             gList.Actions.AddClick += gList_Add;
@@ -44,121 +39,6 @@ namespace com.ccvonline.Blocks
         }
 
         /// <summary>
-        /// Binds the filter.
-        /// </summary>
-        protected void BindFilter()
-        {
-            var residencyPeriodList = new ResidencyService<ResidencyPeriod>().Queryable().OrderBy( a => a.Name ).ToList();
-            ddlResidencyPeriod.Items.Clear();
-            ddlResidencyPeriod.Items.Add( Rock.Constants.All.ListItem );
-            foreach ( var p in residencyPeriodList )
-            {
-                ddlResidencyPeriod.Items.Add( new ListItem( p.Name, p.Id.ToString() ) );
-            }
-
-            int? residencyPeriodId = rFilter.GetUserPreference( "ResidencyPeriod" ).AsInteger( false ) ?? Rock.Constants.All.Id;
-
-            ddlResidencyPeriod.SelectedValue = residencyPeriodId.Value.ToString();
-
-            ddlResidencyPeriod_SelectedIndexChanged( null, null );
-        }
-
-        /// <summary>
-        /// Rs the filter_ display filter value.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        protected void rFilter_DisplayFilterValue( object sender, GridFilter.DisplayFilterValueArgs e )
-        {
-            switch ( e.Key )
-            {
-                case "ResidencyPeriod":
-                    int? residencyPeriodId = e.Value.AsInteger( false );
-                    if ( residencyPeriodId.HasValue )
-                    {
-                        e.Value = new ResidencyService<ResidencyPeriod>().Get( residencyPeriodId.Value ).Name;
-                        e.Key = e.Key.SplitCase();
-                    }
-
-                    break;
-
-                case "ResidencyTrack":
-                    int? residencyTrackId = e.Value.AsInteger( false );
-                    if ( residencyTrackId.HasValue )
-                    {
-                        var list = new ResidencyService<ResidencyTrack>().Queryable().ToList();
-                        var track = new ResidencyService<ResidencyTrack>().Get( residencyTrackId.Value );
-                        e.Value = track.Name;
-                        e.Key = e.Key.SplitCase();
-                    }
-
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Handles the ApplyFilterClick event of the rFilter control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void rFilter_ApplyFilterClick( object sender, EventArgs e )
-        {
-            if ( ddlResidencyPeriod.SelectedValue.Equals( Rock.Constants.All.IdValue ) )
-            {
-                rFilter.SaveUserPreference( "ResidencyPeriod", string.Empty );
-            }
-            else
-            {
-                rFilter.SaveUserPreference( "ResidencyPeriod", ddlResidencyPeriod.SelectedValue );
-            }
-
-            if ( ddlResidencyTrack.SelectedValue.Equals( Rock.Constants.All.IdValue ) )
-            {
-                rFilter.SaveUserPreference( "ResidencyTrack", string.Empty );
-            }
-            else
-            {
-                rFilter.SaveUserPreference( "ResidencyTrack", ddlResidencyTrack.SelectedValue );
-            }
-
-            BindGrid();
-        }
-
-        /// <summary>
-        /// Handles the SelectedIndexChanged event of the ddlResidencyPeriod control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void ddlResidencyPeriod_SelectedIndexChanged( object sender, EventArgs e )
-        {
-            ddlResidencyTrack.Items.Clear();
-            ddlResidencyTrack.Items.Add( Rock.Constants.All.ListItem );
-
-            var qry = new ResidencyService<ResidencyTrack>().Queryable();
-            
-            int residencyPeriodId = ddlResidencyPeriod.SelectedValueAsInt() ?? Rock.Constants.All.Id;
-            if ( !residencyPeriodId.Equals( Rock.Constants.All.Id ) )
-            {
-                ddlResidencyTrack.Enabled = true;
-                qry = qry.Where( a => a.ResidencyPeriodId.Equals( residencyPeriodId ) );
-
-                foreach ( var item in qry.OrderBy( a => a.Name ).ToList() )
-                {
-                    ddlResidencyTrack.Items.Add( new ListItem( item.Name, item.Id.ToString() ) );
-                }
-
-                int? residencyTrackId = rFilter.GetUserPreference( "ResidencyTrack" ).AsInteger( false ) ?? Rock.Constants.All.Id;
-
-                ddlResidencyTrack.SetValue( residencyTrackId );
-            }
-            else
-            {
-                ddlResidencyTrack.Enabled = false;
-                ddlResidencyTrack.SetValue( Rock.Constants.All.IdValue );
-            }
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Load" /> event.
         /// </summary>
         /// <param name="e">The <see cref="T:System.EventArgs" /> object that contains the event data.</param>
@@ -166,6 +46,9 @@ namespace com.ccvonline.Blocks
         {
             if ( !Page.IsPostBack )
             {
+                int? residencyTrackId = this.PageParameter( "residencyTrackId" ).AsInteger();
+                hfResidencyTrackId.Value = residencyTrackId.ToString();
+                BindGrid();
                 BindGrid();
             }
 
@@ -183,7 +66,7 @@ namespace com.ccvonline.Blocks
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void gList_Add( object sender, EventArgs e )
         {
-            NavigateToDetailPage( "residencyCompetencyId", 0 );
+            gList_ShowEdit( 0 );
         }
 
         /// <summary>
@@ -193,9 +76,18 @@ namespace com.ccvonline.Blocks
         /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
         protected void gList_Edit( object sender, RowEventArgs e )
         {
-            NavigateToDetailPage( "residencyCompetencyId", (int)e.RowKeyValue );
+            gList_ShowEdit( (int)e.RowKeyValue );
         }
 
+        /// <summary>
+        /// Gs the list_ show edit.
+        /// </summary>
+        /// <param name="residencyCompetencyId">The residency competency id.</param>
+        protected void gList_ShowEdit( int residencyCompetencyId )
+        {
+            NavigateToDetailPage( "residencyCompetencyId", residencyCompetencyId, "residencyTrackId", hfResidencyTrackId.Value.AsInteger().Value );
+        }
+       
         /// <summary>
         /// Handles the Delete event of the gList control.
         /// </summary>
@@ -245,31 +137,23 @@ namespace com.ccvonline.Blocks
         private void BindGrid()
         {
             var residencyCompetencyService = new ResidencyService<ResidencyCompetency>();
+            int residencyTrackId = hfResidencyTrackId.ValueAsInt();
+            
             SortProperty sortProperty = gList.SortProperty;
-            IQueryable<ResidencyCompetency> qry = null;
+            IQueryable<ResidencyCompetency> qry = residencyCompetencyService.Queryable();
+
+            qry = qry.Where( a => a.ResidencyTrackId.Equals( residencyTrackId ) );
 
             if ( sortProperty != null )
             {
-                qry = residencyCompetencyService.Queryable().Sort( sortProperty );
+                qry = qry.Sort( sortProperty );
             }
             else
             {
-                qry = residencyCompetencyService.Queryable()
+                qry = qry
                     .OrderBy( s => s.ResidencyTrack.ResidencyPeriod.Name )
                     .ThenBy( s => s.ResidencyTrack.Name )
                     .ThenBy( s => s.Name );
-            }
-
-            int? residencyPeriodId = rFilter.GetUserPreference( "ResidencyPeriod" ).AsInteger( false );
-            if ( residencyPeriodId.HasValue )
-            {
-                qry = qry.Where( a => a.ResidencyTrack.ResidencyPeriodId == residencyPeriodId.Value );
-            }
-            
-            int? residencyTrackId = rFilter.GetUserPreference( "ResidencyTrack" ).AsInteger( false );
-            if ( residencyTrackId.HasValue )
-            {
-                qry = qry.Where( a => a.ResidencyTrackId == residencyTrackId.Value );
             }
 
             gList.DataSource = qry.ToList();

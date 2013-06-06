@@ -3,6 +3,7 @@
 <asp:UpdatePanel ID="upList" runat="server">
     <ContentTemplate>
         <Rock:ModalAlert ID="mdGridWarning" runat="server" />
+        <asp:HiddenField ID="hfResidencyCompetencyId" runat="server" />
         <Rock:Grid ID="gList" runat="server" AllowSorting="true" OnRowSelected="gList_Edit" DataKeyNames="Id" >
             <Columns>
                 <asp:BoundField DataField="ResidencyCompetency.ResidencyTrack.ResidencyPeriod.Name" HeaderText="Period" SortExpression="ResidencyCompetency.ResidencyTrack.ResidencyPeriod.Name" />

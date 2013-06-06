@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
 using Rock;
+using Rock.Attribute;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
+using Rock.Web;
 using Rock.Web.UI;
 
 namespace RockWeb.Blocks.Administration
@@ -16,6 +17,7 @@ namespace RockWeb.Blocks.Administration
     /// <summary>
     /// 
     /// </summary>
+    [LinkedPage( "Residency Track Page" )]
     public partial class ResidencyCompetencyDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -31,9 +33,17 @@ namespace RockWeb.Blocks.Administration
             if ( !Page.IsPostBack )
             {
                 string itemId = PageParameter( "residencyCompetencyId" );
+                string residencyTrackId = PageParameter( "residencyTrackId" );
                 if ( !string.IsNullOrWhiteSpace( itemId ) )
                 {
-                    ShowDetail( "residencyCompetencyId", int.Parse( itemId ) );
+                    if ( string.IsNullOrWhiteSpace( residencyTrackId ) )
+                    {
+                        ShowDetail( "residencyCompetencyId", int.Parse( itemId ) );
+                    }
+                    else
+                    {
+                        ShowDetail( "residencyCompetencyId", int.Parse( itemId ), int.Parse( residencyTrackId ) );
+                    }
                 }
                 else
                 {
@@ -47,20 +57,6 @@ namespace RockWeb.Blocks.Administration
         #region Edit Events
 
         /// <summary>
-        /// Loads the drop downs.
-        /// </summary>
-        private void LoadDropDowns()
-        {
-            ResidencyService<ResidencyTrack> service = new ResidencyService<ResidencyTrack>();
-            var list = service.Queryable().OrderBy( a => a.ResidencyPeriod.Name ).ThenBy( a => a.Name ).ToList();
-            ddlTrack.Items.Clear();
-            foreach ( var item in list )
-            {
-                ddlTrack.Items.Add( new ListItem( string.Format( "{1} - {0}", item.Name, item.ResidencyPeriod.Name ), item.Id.ToString() ) );
-            }
-        }
-
-        /// <summary>
         /// Handles the Click event of the btnCancel control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -72,7 +68,18 @@ namespace RockWeb.Blocks.Administration
             if ( hfResidencyCompetencyId.ValueAsInt().Equals( 0 ) )
             {
                 // Cancelling on Add.  Return to Grid
-                NavigateToParentPage();
+                // if this page was called from the ResidencyTrack Detail page, return to that
+                string residencyTrackId = PageParameter( "residencyTrackId" );
+                if ( !string.IsNullOrWhiteSpace( residencyTrackId ) )
+                {
+                    Dictionary<string, string> qryString = new Dictionary<string, string>();
+                    qryString["residencyTrackId"] = residencyTrackId;
+                    NavigateToParentPage( qryString );
+                }
+                else
+                {
+                    NavigateToParentPage();
+                }
             }
             else
             {
@@ -131,7 +138,7 @@ namespace RockWeb.Blocks.Administration
 
             residencyCompetency.Name = tbName.Text;
             residencyCompetency.Description = tbDescription.Text;
-            residencyCompetency.ResidencyTrackId = ddlTrack.SelectedValueAsInt().Value;
+            residencyCompetency.ResidencyTrackId = hfResidencyTrackId.ValueAsInt();
             residencyCompetency.TeacherOfRecordPersonId = ppTeacherOfRecord.PersonId;
             residencyCompetency.FacilitatorPersonId = ppFacilitator.PersonId;
             residencyCompetency.Goals = tbGoals.Text;
@@ -139,7 +146,7 @@ namespace RockWeb.Blocks.Administration
             residencyCompetency.SupervisionHours = tbSupervisionHours.Text.AsInteger( false );
             residencyCompetency.ImplementationHours = tbImplementationHours.Text.AsInteger( false );
 
-            // check for duplicates within Period
+            // check for duplicates within Track
             if ( residencyCompetencyService.Queryable().Count( a => a.Name.Equals( residencyCompetency.Name, StringComparison.OrdinalIgnoreCase ) && a.ResidencyTrackId.Equals( residencyCompetency.ResidencyTrackId ) && !a.Id.Equals( residencyCompetency.Id ) ) > 0 )
             {
                 nbWarningMessage.Text = WarningMessage.DuplicateFoundMessage( "name", ResidencyCompetency.FriendlyTypeName );
@@ -169,6 +176,17 @@ namespace RockWeb.Blocks.Administration
         /// <param name="itemKeyValue">The item key value.</param>
         public void ShowDetail( string itemKey, int itemKeyValue )
         {
+            ShowDetail( itemKey, itemKeyValue, null );
+        }
+
+        /// <summary>
+        /// Shows the detail.
+        /// </summary>
+        /// <param name="itemKey">The item key.</param>
+        /// <param name="itemKeyValue">The item key value.</param>
+        /// <param name="residencyTrackId">The residency track id.</param>
+        public void ShowDetail( string itemKey, int itemKeyValue, int? residencyTrackId )
+        {
             // return if unexpected itemKey 
             if ( itemKey != "residencyCompetencyId" )
             {
@@ -186,9 +204,12 @@ namespace RockWeb.Blocks.Administration
             else
             {
                 residencyCompetency = new ResidencyCompetency { Id = 0 };
+                residencyCompetency.ResidencyTrackId = residencyTrackId ?? 0;
+                residencyCompetency.ResidencyTrack = new ResidencyService<ResidencyTrack>().Get( residencyCompetency.ResidencyTrackId );
             }
 
             hfResidencyCompetencyId.Value = residencyCompetency.Id.ToString();
+            hfResidencyTrackId.Value = residencyCompetency.ResidencyTrackId.ToString();
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -236,11 +257,10 @@ namespace RockWeb.Blocks.Administration
 
             SetEditMode( true );
 
-            LoadDropDowns();
-
             tbName.Text = residencyCompetency.Name;
             tbDescription.Text = residencyCompetency.Description;
-            ddlTrack.SetValue( residencyCompetency.ResidencyTrackId );
+            lblPeriod.Text = residencyCompetency.ResidencyTrack.ResidencyPeriod.Name;
+            lblTrack.Text = residencyCompetency.ResidencyTrack.Name;
             ppTeacherOfRecord.SetValue( residencyCompetency.TeacherOfRecordPerson );
             ppFacilitator.SetValue( residencyCompetency.FacilitatorPerson );
             tbGoals.Text = residencyCompetency.Goals;
@@ -267,7 +287,18 @@ namespace RockWeb.Blocks.Administration
 
             lblMainDetails.Text += string.Format( descriptionFormat, "Period", residencyCompetency.ResidencyTrack.ResidencyPeriod.Name );
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Track", residencyCompetency.ResidencyTrack.Name );
+            string residencyTrackPageGuid = this.GetAttributeValue( "ResidencyTrackPage" );
+            string trackHtml = residencyCompetency.ResidencyTrack.Name;
+            if ( !string.IsNullOrWhiteSpace( residencyTrackPageGuid ) )
+            {
+                var page = new PageService().Get( new Guid( residencyTrackPageGuid ) );
+                Dictionary<string, string> queryString = new Dictionary<string, string>();
+                queryString.Add( "residencyTrackId", residencyCompetency.ResidencyTrackId.ToString() );
+                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
+                trackHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, residencyCompetency.ResidencyTrack.Name );
+            }
+
+            lblMainDetails.Text += string.Format( descriptionFormat, "Track", trackHtml );
 
             if ( !string.IsNullOrWhiteSpace( residencyCompetency.Description ) )
             {

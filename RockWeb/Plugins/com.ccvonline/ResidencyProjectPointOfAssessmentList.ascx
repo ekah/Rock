@@ -2,17 +2,15 @@
 
 <asp:UpdatePanel ID="upList" runat="server">
     <ContentTemplate>
-        <asp:Panel ID="pnlList" runat="server">
-            <Rock:ModalAlert ID="mdGridWarning" runat="server" />
-            <asp:HiddenField ID="hfResidencyProjectId" runat="server" />
-            <Rock:Grid ID="gList" runat="server" OnRowSelected="gList_Edit" DataKeyNames="Id">
-                <Columns>
-                    <Rock:ReorderField />
-                    <asp:BoundField DataField="AssessmentOrder" HeaderText="#" />
-                    <asp:BoundField DataField="AssessmentText" HeaderText="Text" />
-                    <Rock:DeleteField OnClick="gList_Delete" />
-                </Columns>
-            </Rock:Grid>
-        </asp:Panel>
+        <Rock:ModalAlert ID="mdGridWarning" runat="server" />
+        <asp:HiddenField ID="hfResidencyProjectId" runat="server" />
+        <Rock:Grid ID="gList" runat="server" OnRowSelected="gList_Edit" DataKeyNames="Id">
+            <Columns>
+                <Rock:ReorderField />
+                <asp:BoundField DataField="AssessmentOrder" HeaderText="#" />
+                <asp:BoundField DataField="AssessmentText" HeaderText="Text" />
+                <Rock:DeleteField OnClick="gList_Delete" />
+            </Columns>
+        </Rock:Grid>
     </ContentTemplate>
 </asp:UpdatePanel>

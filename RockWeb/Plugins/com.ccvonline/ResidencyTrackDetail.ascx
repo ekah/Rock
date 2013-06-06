@@ -5,6 +5,7 @@
         <asp:Panel ID="pnlDetails" runat="server">
 
             <asp:HiddenField ID="hfResidencyTrackId" runat="server" />
+            <asp:HiddenField ID="hfResidencyPeriodId" runat="server" />
 
             <div id="pnlEditDetails" runat="server" class="well">
 
@@ -20,7 +21,7 @@
 
                     <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyTrack, com.ccvonline.Residency" PropertyName="Name" />
                     <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyTrack, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" />
-                    <Rock:DataDropDownList ID="ddlPeriod" runat="server" DataValueField="Id" DataTextField="Name" SourceTypeName="com.ccvonline.Residency.Model.ResidencyTrack, com.ccvonline.Residency" PropertyName="ResidencyPeriodId" LabelText="Period" />
+                    <Rock:LabeledText ID="lblPeriod" runat="server" LabelText="Period" />
 
                 </fieldset>
 

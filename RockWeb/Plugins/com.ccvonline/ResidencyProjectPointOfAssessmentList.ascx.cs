@@ -50,15 +50,9 @@ namespace com.ccvonline.Blocks
             if ( !Page.IsPostBack )
             {
                 int? residencyProjectId = this.PageParameter( "residencyProjectId" ).AsInteger();
-                if ( residencyProjectId != null )
-                {
-                    hfResidencyProjectId.Value = residencyProjectId.ToString();
-                    BindGrid();
-                }
-                else
-                {
-                    pnlList.Visible = false;
-                }
+
+                hfResidencyProjectId.Value = residencyProjectId.ToString();
+                BindGrid();
             }
         }
 
@@ -161,7 +155,7 @@ namespace com.ccvonline.Blocks
                         mdGridWarning.Show( errorMessage, ModalAlertType.Information );
                         return;
                     }
-                    
+
                     residencyProjectPointOfAssessmentService.Delete( residencyProjectPointOfAssessment, CurrentPersonId );
                     residencyProjectPointOfAssessmentService.Save( residencyProjectPointOfAssessment, CurrentPersonId );
                 }
@@ -190,7 +184,7 @@ namespace com.ccvonline.Blocks
         private void BindGrid()
         {
             var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
-            int residencyProjectId = hfResidencyProjectId.Value.AsInteger().Value;
+            int residencyProjectId = hfResidencyProjectId.ValueAsInt();
             gList.DataSource = residencyProjectPointOfAssessmentService.Queryable()
                 .Where( a => a.ResidencyProjectId == residencyProjectId )
                 .OrderBy( s => s.AssessmentOrder ).ToList();

@@ -44,12 +44,14 @@ namespace com.ccvonline.Blocks
         /// <param name="e">The <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnLoad( EventArgs e )
         {
+            base.OnLoad( e );
+
             if ( !Page.IsPostBack )
             {
+                int? residencyPeriodId = this.PageParameter( "residencyPeriodId" ).AsInteger();
+                hfResidencyPeriodId.Value = residencyPeriodId.ToString();
                 BindGrid();
             }
-
-            base.OnLoad( e );
         }
 
         #endregion
@@ -63,7 +65,7 @@ namespace com.ccvonline.Blocks
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void gList_Add( object sender, EventArgs e )
         {
-            NavigateToDetailPage( "residencyTrackId", 0 );
+            gList_ShowEdit( 0 );
         }
 
         /// <summary>
@@ -73,7 +75,16 @@ namespace com.ccvonline.Blocks
         /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
         protected void gList_Edit( object sender, RowEventArgs e )
         {
-            NavigateToDetailPage( "residencyTrackId", (int)e.RowKeyValue );
+            gList_ShowEdit( (int)e.RowKeyValue );
+        }
+
+        /// <summary>
+        /// Gs the list_ show edit.
+        /// </summary>
+        /// <param name="residencyProjectPointOfAssessmentId">The residency project point of assessment id.</param>
+        protected void gList_ShowEdit( int residencyProjectPointOfAssessmentId )
+        {
+            NavigateToDetailPage( "residencyTrackId", residencyProjectPointOfAssessmentId, "residencyPeriodId", hfResidencyPeriodId.Value.AsInteger().Value );
         }
 
         /// <summary>
@@ -125,17 +136,22 @@ namespace com.ccvonline.Blocks
         private void BindGrid()
         {
             var residencyTrackService = new ResidencyService<ResidencyTrack>();
+            int residencyPeriodId = hfResidencyPeriodId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
+            var qry = residencyTrackService.Queryable();
 
+            qry = qry.Where( a => a.ResidencyPeriodId.Equals( residencyPeriodId ) );
+            
             if ( sortProperty != null )
             {
-                gList.DataSource = residencyTrackService.Queryable().Sort( sortProperty ).ToList();
+                qry = qry.Sort( sortProperty );
             }
             else
             {
-                gList.DataSource = residencyTrackService.Queryable().OrderBy( s => s.ResidencyPeriod.Name).ThenBy( s => s.Name ).ToList();
+                qry = qry.OrderBy( s => s.Name );
             }
-
+            
+            gList.DataSource = qry.ToList();
             gList.DataBind();
         }
 
