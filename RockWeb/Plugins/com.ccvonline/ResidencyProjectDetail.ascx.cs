@@ -63,20 +63,6 @@ namespace RockWeb.Blocks.Administration
         #region Edit Events
 
         /// <summary>
-        /// Loads the drop downs.
-        /// </summary>
-        private void LoadDropDowns()
-        {
-            ResidencyService<ResidencyCompetency> service = new ResidencyService<ResidencyCompetency>();
-            var list = service.Queryable().OrderBy( a => a.ResidencyTrack.ResidencyPeriod.Name ).ThenBy( a => a.ResidencyTrack.Name ).ThenBy( a => a.Name ).ToList();
-            ddlCompetency.Items.Clear();
-            foreach ( var item in list )
-            {
-                ddlCompetency.Items.Add( new ListItem( string.Format( "{0} {1} - {2}", item.ResidencyTrack.ResidencyPeriod.Name, item.ResidencyTrack.Name, item.Name ), item.Id.ToString() ) );
-            }
-        }
-
-        /// <summary>
         /// Handles the Click event of the btnCancel control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -158,7 +144,7 @@ namespace RockWeb.Blocks.Administration
 
             residencyProject.Name = tbName.Text;
             residencyProject.Description = tbDescription.Text;
-            residencyProject.ResidencyCompetencyId = ddlCompetency.SelectedValueAsInt().Value;
+            residencyProject.ResidencyCompetencyId = hfResidencyCompetencyId.ValueAsInt();
             residencyProject.MinAssignmentCountDefault = tbMinAssignmentCountDefault.Text.AsInteger( false );
 
             // check for duplicates
@@ -220,12 +206,11 @@ namespace RockWeb.Blocks.Administration
             {
                 residencyProject = new ResidencyProject { Id = 0 };
                 residencyProject.ResidencyCompetencyId = residencyCompetencyId ?? 0;
+                residencyProject.ResidencyCompetency = new ResidencyService<ResidencyCompetency>().Get( residencyProject.ResidencyCompetencyId );
             }
 
             hfResidencyProjectId.Value = residencyProject.Id.ToString();
-
-            // only enable the CompetencyPicker if no Competecy parameter was specified
-            ddlCompetency.Enabled = !residencyCompetencyId.HasValue;
+            hfResidencyCompetencyId.Value = residencyProject.ResidencyCompetencyId.ToString();
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -273,11 +258,11 @@ namespace RockWeb.Blocks.Administration
 
             SetEditMode( true );
 
-            LoadDropDowns();
-
             tbName.Text = residencyProject.Name;
             tbDescription.Text = residencyProject.Description;
-            ddlCompetency.SetValue( residencyProject.ResidencyCompetencyId );
+            lblPeriod.Text = residencyProject.ResidencyCompetency.ResidencyTrack.ResidencyPeriod.Name;
+            lblTrack.Text = residencyProject.ResidencyCompetency.ResidencyTrack.Name;
+            lblCompetency.Text = residencyProject.ResidencyCompetency.Name;
             tbMinAssignmentCountDefault.Text = residencyProject.MinAssignmentCountDefault.ToString();
         }
 
@@ -297,6 +282,8 @@ namespace RockWeb.Blocks.Administration
 
             lblMainDetails.Text += string.Format( descriptionFormat, "Name", residencyProject.Name );
             lblMainDetails.Text += string.Format( descriptionFormat, "Description", residencyProject.Description );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Period", residencyProject.ResidencyCompetency.ResidencyTrack.ResidencyPeriod.Name );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Track", residencyProject.ResidencyCompetency.ResidencyTrack.Name );
 
             string residencyCompetencyPageGuid = this.GetAttributeValue( "ResidencyCompetencyPage" );
             string competencyHtml = residencyProject.ResidencyCompetency.Name;

@@ -6,10 +6,8 @@
         <asp:HiddenField ID="hfResidencyCompetencyId" runat="server" />
         <Rock:Grid ID="gList" runat="server" AllowSorting="true" OnRowSelected="gList_Edit" DataKeyNames="Id" >
             <Columns>
-                <asp:BoundField DataField="ResidencyCompetency.ResidencyTrack.ResidencyPeriod.Name" HeaderText="Period" SortExpression="ResidencyCompetency.ResidencyTrack.ResidencyPeriod.Name" />
-                <asp:BoundField DataField="ResidencyCompetency.ResidencyTrack.Name" HeaderText="Track" SortExpression="ResidencyCompetency.ResidencyTrack.Name" />
-                <asp:BoundField DataField="ResidencyCompetency.Name" HeaderText="Competency" SortExpression="ResidencyCompetency.Name" />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
+                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
                 <Rock:DeleteField OnClick="gList_Delete" />
             </Columns>
         </Rock:Grid>

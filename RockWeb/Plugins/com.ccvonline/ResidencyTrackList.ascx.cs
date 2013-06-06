@@ -84,7 +84,7 @@ namespace com.ccvonline.Blocks
         /// <param name="residencyProjectPointOfAssessmentId">The residency project point of assessment id.</param>
         protected void gList_ShowEdit( int residencyProjectPointOfAssessmentId )
         {
-            NavigateToDetailPage( "residencyTrackId", residencyProjectPointOfAssessmentId, "residencyPeriodId", hfResidencyPeriodId.Value.AsInteger().Value );
+            NavigateToDetailPage( "residencyTrackId", residencyProjectPointOfAssessmentId, "residencyPeriodId", hfResidencyPeriodId.ValueAsInt() );
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace com.ccvonline.Blocks
             RockTransactionScope.WrapTransaction( () =>
             {
                 var residencyTrackService = new ResidencyService<ResidencyTrack>();
-                ResidencyTrack residencyTrack = residencyTrackService.Get((int)e.RowKeyValue );
+                ResidencyTrack residencyTrack = residencyTrackService.Get( (int)e.RowKeyValue );
 
                 if ( residencyTrack != null )
                 {
@@ -107,7 +107,7 @@ namespace com.ccvonline.Blocks
                         mdGridWarning.Show( errorMessage, ModalAlertType.Information );
                         return;
                     }
-                    
+
                     residencyTrackService.Delete( residencyTrack, CurrentPersonId );
                     residencyTrackService.Save( residencyTrack, CurrentPersonId );
                 }
@@ -141,7 +141,7 @@ namespace com.ccvonline.Blocks
             var qry = residencyTrackService.Queryable();
 
             qry = qry.Where( a => a.ResidencyPeriodId.Equals( residencyPeriodId ) );
-            
+
             if ( sortProperty != null )
             {
                 qry = qry.Sort( sortProperty );
@@ -150,7 +150,7 @@ namespace com.ccvonline.Blocks
             {
                 qry = qry.OrderBy( s => s.Name );
             }
-            
+
             gList.DataSource = qry.ToList();
             gList.DataBind();
         }
