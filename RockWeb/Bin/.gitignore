@@ -4,13 +4,6 @@
 #    Microsoft.Data.OData.dll
 #    System.Spatial.dll
 
-#For non-core RockWeb projects, 
-#  don't ignore these:
-#  Rock.dll
-#  Rock.Rest.dll
-#  Quartz.dll
-#  DDay.iCal.dll
-
 #file types
 *.resources.dll
 
@@ -26,12 +19,16 @@
 /Microsoft.Data.OData.xml
 /Newtonsoft.Json.dll
 /Newtonsoft.Json.xml
+/Quartz.dll
 /Quartz.pdb
+/Rock.Rest.dll
 /Rock.Rest.pdb
+/Rock.dll
 /Rock.pdb
 /System.Spatial.xml
 /System.Web.Http.OData.dll
+/System.Web.Http.OData.xml
 /EntityFramework.SqlServer.dll
 /EntityFramework.SqlServer.xml
-/com.ccvonline.Residency.dll
-/com.ccvonline.Residency.pdb
+/DDay.iCal.dll
+/System.Web.Optimization.dll
