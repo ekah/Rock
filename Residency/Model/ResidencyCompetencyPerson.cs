@@ -60,6 +60,14 @@ namespace com.ccvonline.Residency.Model
         /// </value>
         public virtual Rock.Model.Person Person { get; set; }
 
+        /// <summary>
+        /// Gets or sets the residency competency person projects.
+        /// </summary>
+        /// <value>
+        /// The residency competency person projects.
+        /// </value>
+        public virtual List<ResidencyCompetencyPersonProject> ResidencyCompetencyPersonProjects { get; set; }
+
         #endregion
     }
 

@@ -3,7 +3,9 @@ namespace com.ccvonline.Residency.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Reflection;
-    
+
+    // This is the Configuration class specifically for your Plugin.  
+    // When doing "Add-Migration" and "Update-Database" operations, you might need to add the "-ConfigurationTypeName:Configuration" parameter 
     internal sealed class Configuration : DbMigrationsConfiguration<com.ccvonline.Residency.Data.ResidencyContext>
     {
         public Configuration()
@@ -15,17 +17,6 @@ namespace com.ccvonline.Residency.Migrations
         protected override void Seed(com.ccvonline.Residency.Data.ResidencyContext context)
         {
             //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
         }
     }
 
@@ -37,6 +28,7 @@ namespace com.ccvonline.Residency.Migrations
         {
             this.MigrationsAssembly = typeof( Rock.Data.RockContext ).Assembly;
             this.MigrationsNamespace = "Rock.Migrations";
+            this.ContextKey = "Rock.Migrations.Configuration";
         }
     }
 }

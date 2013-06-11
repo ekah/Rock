@@ -90,7 +90,7 @@ namespace com.ccvonline.Residency.Model
         /// </summary>
         public ResidencyCompetencyPersonProjectConfiguration()
         {
-            this.HasRequired( a => a.ResidencyCompetencyPerson ).WithMany().HasForeignKey( a => a.ResidencyCompetencyPersonId ).WillCascadeOnDelete( false );
+            this.HasRequired( a => a.ResidencyCompetencyPerson ).WithMany( a => a.ResidencyCompetencyPersonProjects ).HasForeignKey( a => a.ResidencyCompetencyPersonId ).WillCascadeOnDelete( false );
             this.HasRequired( a => a.ResidencyProject ).WithMany().HasForeignKey( a => a.ResidencyProjectId ).WillCascadeOnDelete( false );
         }
     }
