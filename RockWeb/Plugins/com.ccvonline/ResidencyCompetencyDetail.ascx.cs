@@ -146,13 +146,6 @@ namespace RockWeb.Blocks.Administration
             residencyCompetency.SupervisionHours = tbSupervisionHours.Text.AsInteger( false );
             residencyCompetency.ImplementationHours = tbImplementationHours.Text.AsInteger( false );
 
-            // check for duplicates within Track
-            if ( residencyCompetencyService.Queryable().Count( a => a.Name.Equals( residencyCompetency.Name, StringComparison.OrdinalIgnoreCase ) && a.ResidencyTrackId.Equals( residencyCompetency.ResidencyTrackId ) && !a.Id.Equals( residencyCompetency.Id ) ) > 0 )
-            {
-                nbWarningMessage.Text = WarningMessage.DuplicateFoundMessage( "name", ResidencyCompetency.FriendlyTypeName );
-                return;
-            }
-
             if ( !residencyCompetency.IsValid )
             {
                 // Controls will render the error messages

@@ -147,13 +147,6 @@ namespace RockWeb.Blocks.Administration
             residencyProject.ResidencyCompetencyId = hfResidencyCompetencyId.ValueAsInt();
             residencyProject.MinAssignmentCountDefault = tbMinAssignmentCountDefault.Text.AsInteger( false );
 
-            // check for duplicates
-            if ( residencyProjectService.Queryable().Count( a => a.Name.Equals( residencyProject.Name, StringComparison.OrdinalIgnoreCase ) && !a.Id.Equals( residencyProject.Id ) ) > 0 )
-            {
-                nbWarningMessage.Text = WarningMessage.DuplicateFoundMessage( "name", ResidencyProject.FriendlyTypeName );
-                return;
-            }
-
             if ( !residencyProject.IsValid )
             {
                 // Controls will render the error messages

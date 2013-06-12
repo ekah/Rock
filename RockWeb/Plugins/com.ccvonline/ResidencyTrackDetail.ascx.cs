@@ -144,14 +144,7 @@ namespace RockWeb.Blocks.Administration
             residencyTrack.Name = tbName.Text;
             residencyTrack.Description = tbDescription.Text;
             residencyTrack.ResidencyPeriodId = hfResidencyPeriodId.ValueAsInt();
-
-            // check for duplicates within Period
-            if ( residencyTrackService.Queryable().Count( a => a.Name.Equals( residencyTrack.Name, StringComparison.OrdinalIgnoreCase ) && a.ResidencyPeriodId.Equals( residencyTrack.ResidencyPeriodId ) && !a.Id.Equals( residencyTrack.Id ) ) > 0 )
-            {
-                nbWarningMessage.Text = WarningMessage.DuplicateFoundMessage( "name", ResidencyTrack.FriendlyTypeName );
-                return;
-            }
-
+             
             if ( !residencyTrack.IsValid )
             {
                 // Controls will render the error messages

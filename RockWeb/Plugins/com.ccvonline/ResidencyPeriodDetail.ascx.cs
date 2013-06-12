@@ -131,13 +131,6 @@ namespace RockWeb.Blocks.Administration
             residencyPeriod.StartDate = dpStartDate.SelectedDate;
             residencyPeriod.EndDate = dpEndDate.SelectedDate;
 
-            // check for duplicates
-            if ( residencyPeriodService.Queryable().Count( a => a.Name.Equals( residencyPeriod.Name, StringComparison.OrdinalIgnoreCase ) && !a.Id.Equals( residencyPeriod.Id ) ) > 0 )
-            {
-                nbWarningMessage.Text = WarningMessage.DuplicateFoundMessage( "name", ResidencyPeriod.FriendlyTypeName );
-                return;
-            }
-
             if ( !residencyPeriod.IsValid )
             {
                 // Controls will render the error messages
