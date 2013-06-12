@@ -907,12 +907,12 @@
             
             </summary>
         </member>
-        <member name="T:Rock.Migrations.RockMigration">
+        <member name="T:Rock.Migrations.RockMigration_5">
             <summary>
             Custom Migration methods
             </summary>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.UpdateEntityType(System.String,System.String,System.String,System.Boolean,System.Boolean,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.UpdateEntityType(System.String,System.String,System.String,System.Boolean,System.Boolean,System.String)">
             <summary>
             Updates the type of the entity.
             </summary>
@@ -923,13 +923,13 @@
             <param name="isSecured">if set to <c>true</c> [is secured].</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteEntityType(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteEntityType(System.String)">
             <summary>
             Deletes the type of the entity.
             </summary>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.UpdateFieldType(System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Rock.Migrations.RockMigration_5.UpdateFieldType(System.String,System.String,System.String,System.String,System.String,System.Boolean)">
             <summary>
             Updates the type of the field.
             </summary>
@@ -940,19 +940,19 @@
             <param name="guid">The GUID.</param>
             <param name="IsSystem">if set to <c>true</c> [is system].</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddFieldType(Rock.Model.FieldType)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddFieldType(Rock.Model.FieldType)">
             <summary>
             Adds the type of the field.
             </summary>
             <param name="fieldType">Type of the field.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteFieldType(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteFieldType(System.String)">
             <summary>
             Deletes the type of the field.
             </summary>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddBlockType(System.String,System.String,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddBlockType(System.String,System.String,System.String,System.String)">
             <summary>
             Adds the type of the block.
             </summary>
@@ -961,19 +961,19 @@
             <param name="path">The path.</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddBlockType(Rock.Model.BlockType)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddBlockType(Rock.Model.BlockType)">
             <summary>
             Adds the type of the block.
             </summary>
             <param name="blockType">Type of the block.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteBlockType(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteBlockType(System.String)">
             <summary>
             Deletes the type of the block.
             </summary>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DefaultSystemBlockType(System.String,System.String,System.Guid)">
+        <member name="M:Rock.Migrations.RockMigration_5.DefaultSystemBlockType(System.String,System.String,System.Guid)">
             <summary>
             Defaults the type of the system block.
             </summary>
@@ -982,7 +982,7 @@
             <param name="guid">The GUID.</param>
             <returns></returns>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddPage(System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddPage(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Adds the page.
             </summary>
@@ -992,7 +992,7 @@
             <param name="layout">The layout.</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddPage(System.String,System.String,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddPage(System.String,System.String,System.String,System.String)">
             <summary>
             Adds the page.
             </summary>
@@ -1001,34 +1001,34 @@
             <param name="description">The description.</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddPage(System.String,Rock.Model.Page)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddPage(System.String,Rock.Model.Page)">
             <summary>
             Adds the page.
             </summary>
             <param name="parentPageGuid">The parent page GUID.</param>
             <param name="page">The page.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.MovePage(System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.MovePage(System.String,System.String)">
             <summary>
             Moves the page.
             </summary>
             <param name="pageGuid">The page GUID.</param>
             <param name="parentPageGuid">The parent page GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeletePage(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeletePage(System.String)">
             <summary>
             Deletes the page.
             </summary>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddPageRoute(System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddPageRoute(System.String,System.String)">
             <summary>
             Adds the page route.
             </summary>
             <param name="pageGuid">The page GUID.</param>
             <param name="route">The route.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddPageContext(System.String,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddPageContext(System.String,System.String,System.String)">
             <summary>
             Adds the page context.
             </summary>
@@ -1036,7 +1036,7 @@
             <param name="entity">The entity.</param>
             <param name="idParameter">The id parameter.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DefaultSystemPage(System.String,System.String,System.Guid)">
+        <member name="M:Rock.Migrations.RockMigration_5.DefaultSystemPage(System.String,System.String,System.Guid)">
             <summary>
             Defaults the system page.
             </summary>
@@ -1045,7 +1045,7 @@
             <param name="guid">The GUID.</param>
             <returns></returns>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddBlock(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddBlock(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
             <summary>
             Adds the block.
             </summary>
@@ -1057,7 +1057,7 @@
             <param name="order">The order.</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddBlock(System.String,System.String,Rock.Model.Block)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddBlock(System.String,System.String,Rock.Model.Block)">
             <summary>
             Adds the block.
             </summary>
@@ -1065,13 +1065,13 @@
             <param name="blockTypeGuid">The block type GUID.</param>
             <param name="block">The block.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteBlock(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteBlock(System.String)">
             <summary>
             Deletes the block.
             </summary>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DefaultSystemBlock(System.String,System.Guid)">
+        <member name="M:Rock.Migrations.RockMigration_5.DefaultSystemBlock(System.String,System.Guid)">
             <summary>
             Defaults the system block.
             </summary>
@@ -1079,7 +1079,7 @@
             <param name="guid">The GUID.</param>
             <returns></returns>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddBlockTypeAttribute(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddBlockTypeAttribute(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String)">
             <summary>
             Adds the block attribute.
             </summary>
@@ -1093,13 +1093,13 @@
             <param name="defaultValue">The default value.</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteBlockAttribute(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteBlockAttribute(System.String)">
             <summary>
             Deletes the block attribute.
             </summary>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddEntityAttribute(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddEntityAttribute(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String)">
             <summary>
             Adds the entity attribute.
             </summary>
@@ -1114,20 +1114,20 @@
             <param name="defaultValue">The default value.</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.UpdateEntityType(System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.UpdateEntityType(System.String,System.String)">
             <summary>
             Updates the type of the entity.
             </summary>
             <param name="name">The name.</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.EnsureEntityTypeExists(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.EnsureEntityTypeExists(System.String)">
             <summary>
             Ensures the entity type exists.
             </summary>
             <param name="entityTypeName">Name of the entity type.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddAttributeValue(System.String,System.Int32,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddAttributeValue(System.String,System.Int32,System.String,System.String)">
             <summary>
             Adds the attribute value.
             </summary>
@@ -1136,13 +1136,13 @@
             <param name="value">The value.</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteAttribute(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteAttribute(System.String)">
             <summary>
             Deletes the attribute.
             </summary>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddBlockAttributeValue(System.String,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddBlockAttributeValue(System.String,System.String,System.String)">
             <summary>
             Adds the block attribute value.
             </summary>
@@ -1150,14 +1150,14 @@
             <param name="attributeGuid">The attribute GUID.</param>
             <param name="value">The value.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteBlockAttributeValue(System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteBlockAttributeValue(System.String,System.String)">
             <summary>
             Deletes the block attribute value.
             </summary>
             <param name="blockGuid">The block GUID.</param>
             <param name="attributeGuid">The attribute GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddDefinedType(System.String,System.String,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddDefinedType(System.String,System.String,System.String,System.String)">
             <summary>
             Adds the type of the defined.
             </summary>
@@ -1166,13 +1166,13 @@
             <param name="description">The description.</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteDefinedType(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteDefinedType(System.String)">
             <summary>
             Deletes the type of the defined.
             </summary>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddDefinedValue(System.String,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddDefinedValue(System.String,System.String,System.String,System.String,System.Boolean)">
             <summary>
             Adds the defined value.
             </summary>
@@ -1182,13 +1182,13 @@
             <param name="guid">The GUID.</param>
             <param name="isSystem">if set to <c>true</c> [is system].</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteDefinedValue(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteDefinedValue(System.String)">
             <summary>
             Deletes the defined value.
             </summary>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddSecurityRoleGroup(System.String,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddSecurityRoleGroup(System.String,System.String,System.String)">
             <summary>
             Adds the security role group.
             </summary>
@@ -1196,13 +1196,13 @@
             <param name="description">The description.</param>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteSecurityRoleGroup(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteSecurityRoleGroup(System.String)">
             <summary>
             Deletes the security role group.
             </summary>
             <param name="guid">The GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.AddSecurityAuth(System.String,System.String,System.String,System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.AddSecurityAuth(System.String,System.String,System.String,System.String)">
             <summary>
             Adds the security auth.
             </summary>
@@ -1211,7 +1211,7 @@
             <param name="groupGuid">The group GUID.</param>
             <param name="authGuid">The auth GUID.</param>
         </member>
-        <member name="M:Rock.Migrations.RockMigration.DeleteSecurityAuth(System.String)">
+        <member name="M:Rock.Migrations.RockMigration_5.DeleteSecurityAuth(System.String)">
             <summary>
             Deletes the security auth.
             </summary>
@@ -1583,6 +1583,346 @@
             </summary>
         </member>
         <member name="M:Rock.Migrations.AttributeCategories.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.UpdateGivingBlocks">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:Rock.Migrations.RockMigration">
+            <summary>
+            Custom Migration methods
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.UpdateEntityType(System.String,System.String,System.String,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Updates the type of the entity.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="friendlyName">Name of the friendly.</param>
+            <param name="assemblyName">Name of the assembly.</param>
+            <param name="isEntity">if set to <c>true</c> [is entity].</param>
+            <param name="isSecured">if set to <c>true</c> [is secured].</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteEntityType(System.String)">
+            <summary>
+            Deletes the type of the entity.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.UpdateFieldType(System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Updates the type of the field.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="assembly">The assembly.</param>
+            <param name="className">Name of the class.</param>
+            <param name="guid">The GUID.</param>
+            <param name="IsSystem">if set to <c>true</c> [is system].</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddFieldType(Rock.Model.FieldType)">
+            <summary>
+            Adds the type of the field.
+            </summary>
+            <param name="fieldType">Type of the field.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteFieldType(System.String)">
+            <summary>
+            Deletes the type of the field.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddBlockType(System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds the type of the block.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="path">The path.</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddBlockType(Rock.Model.BlockType)">
+            <summary>
+            Adds the type of the block.
+            </summary>
+            <param name="blockType">Type of the block.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteBlockType(System.String)">
+            <summary>
+            Deletes the type of the block.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DefaultSystemBlockType(System.String,System.String,System.Guid)">
+            <summary>
+            Defaults the type of the system block.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="guid">The GUID.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddPage(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds the page.
+            </summary>
+            <param name="parentPageGuid">The parent page GUID.</param>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="layout">The layout.</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddPage(System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds the page.
+            </summary>
+            <param name="parentPageGuid">The parent page GUID.</param>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddPage(System.String,Rock.Model.Page)">
+            <summary>
+            Adds the page.
+            </summary>
+            <param name="parentPageGuid">The parent page GUID.</param>
+            <param name="page">The page.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.MovePage(System.String,System.String)">
+            <summary>
+            Moves the page.
+            </summary>
+            <param name="pageGuid">The page GUID.</param>
+            <param name="parentPageGuid">The parent page GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeletePage(System.String)">
+            <summary>
+            Deletes the page.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddPageRoute(System.String,System.String)">
+            <summary>
+            Adds the page route.
+            </summary>
+            <param name="pageGuid">The page GUID.</param>
+            <param name="route">The route.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddPageContext(System.String,System.String,System.String)">
+            <summary>
+            Adds the page context.
+            </summary>
+            <param name="pageGuid">The page GUID.</param>
+            <param name="entity">The entity.</param>
+            <param name="idParameter">The id parameter.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DefaultSystemPage(System.String,System.String,System.Guid)">
+            <summary>
+            Defaults the system page.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="guid">The GUID.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddBlock(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Adds the block.
+            </summary>
+            <param name="pageGuid">The page GUID.</param>
+            <param name="blockTypeGuid">The block type GUID.</param>
+            <param name="name">The name.</param>
+            <param name="layout">The layout.</param>
+            <param name="zone">The zone.</param>
+            <param name="order">The order.</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddBlock(System.String,System.String,Rock.Model.Block)">
+            <summary>
+            Adds the block.
+            </summary>
+            <param name="pageGuid">The page GUID.</param>
+            <param name="blockTypeGuid">The block type GUID.</param>
+            <param name="block">The block.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteBlock(System.String)">
+            <summary>
+            Deletes the block.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DefaultSystemBlock(System.String,System.Guid)">
+            <summary>
+            Defaults the system block.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="guid">The GUID.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddBlockTypeAttribute(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Adds the block attribute.
+            </summary>
+            <param name="blockTypeGuid">The block GUID.</param>
+            <param name="fieldTypeGuid">The field type GUID.</param>
+            <param name="name">The name.</param>
+            <param name="key">The key.</param>
+            <param name="category">The category.</param>
+            <param name="description">The description.</param>
+            <param name="order">The order.</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteBlockAttribute(System.String)">
+            <summary>
+            Deletes the block attribute.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddEntityAttribute(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Adds the entity attribute.
+            </summary>
+            <param name="entityTypeName">Name of the entity type.</param>
+            <param name="fieldTypeGuid">The field type GUID.</param>
+            <param name="entityTypeQualifierColumn">The entity type qualifier column.</param>
+            <param name="entityTypeQualifierValue">The entity type qualifier value.</param>
+            <param name="name">The name.</param>
+            <param name="category">The category.</param>
+            <param name="description">The description.</param>
+            <param name="order">The order.</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.UpdateEntityType(System.String,System.String)">
+            <summary>
+            Updates the type of the entity.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.EnsureEntityTypeExists(System.String)">
+            <summary>
+            Ensures the entity type exists.
+            </summary>
+            <param name="entityTypeName">Name of the entity type.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddAttributeValue(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Adds the attribute value.
+            </summary>
+            <param name="attributeGuid">The attribute GUID.</param>
+            <param name="entityId">The entity id.</param>
+            <param name="value">The value.</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteAttribute(System.String)">
+            <summary>
+            Deletes the attribute.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddBlockAttributeValue(System.String,System.String,System.String)">
+            <summary>
+            Adds the block attribute value.
+            </summary>
+            <param name="blockGuid">The block GUID.</param>
+            <param name="attributeGuid">The attribute GUID.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteBlockAttributeValue(System.String,System.String)">
+            <summary>
+            Deletes the block attribute value.
+            </summary>
+            <param name="blockGuid">The block GUID.</param>
+            <param name="attributeGuid">The attribute GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddDefinedType(System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds the type of the defined.
+            </summary>
+            <param name="category">The category.</param>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteDefinedType(System.String)">
+            <summary>
+            Deletes the type of the defined.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddDefinedValue(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds the defined value.
+            </summary>
+            <param name="definedTypeGuid">The defined type GUID.</param>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="guid">The GUID.</param>
+            <param name="isSystem">if set to <c>true</c> [is system].</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteDefinedValue(System.String)">
+            <summary>
+            Deletes the defined value.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddSecurityRoleGroup(System.String,System.String,System.String)">
+            <summary>
+            Adds the security role group.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteSecurityRoleGroup(System.String)">
+            <summary>
+            Deletes the security role group.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.AddSecurityAuth(System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds the security auth.
+            </summary>
+            <param name="entityTypeName">Name of the entity type.</param>
+            <param name="action">The action.</param>
+            <param name="groupGuid">The group GUID.</param>
+            <param name="authGuid">The auth GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.DeleteSecurityAuth(System.String)">
+            <summary>
+            Deletes the security auth.
+            </summary>
+            <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.UpdateGivingBlocks.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.UpdateGivingBlocks.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.AttributeCategoriesEmptyMigration">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.AttributeCategoriesEmptyMigration.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.AttributeCategoriesEmptyMigration.Down">
             <summary>
             Operations to be performed during the downgrade process.
             </summary>
@@ -13161,37 +13501,29 @@
             
             </summary>
         </member>
-        <member name="M:Rock.Constants.WarningMessage.DuplicateFoundMessage(System.String,System.String)">
-            <summary>
-            Duplicates the found message.
-            </summary>
-            <param name="nameFieldname">The name fieldname.</param>
-            <param name="itemFriendlyName">Name of the item friendly.</param>
-            <returns></returns>
-        </member>
         <member name="M:Rock.Constants.WarningMessage.NotAuthorizedToEdit(System.String)">
             <summary>
-            Nots the authorized to edit.
+            Returns a message in the format: "You are not authorized to edit {0}."
             </summary>
             <param name="itemFieldName">Name of the item field.</param>
             <returns></returns>
         </member>
         <member name="M:Rock.Constants.WarningMessage.DateTimeFormatInvalid(System.String)">
             <summary>
-            Dates the time format invalid.
+            Returns a message in the format: Invalid format for {0}."
             </summary>
             <param name="itemFieldName">Name of the item field.</param>
             <returns></returns>
         </member>
         <member name="M:Rock.Constants.WarningMessage.DateRangeEndDateBeforeStartDate">
             <summary>
-            Dates the range end date before start date.
+            Returns a message: "End Date cannot be earlier than Start Date"
             </summary>
             <returns></returns>
         </member>
         <member name="M:Rock.Constants.WarningMessage.CannotBeBlank(System.String)">
             <summary>
-            Cannots the be blank.
+            Returns a message in the format: "Value required for {0}."
             </summary>
             <param name="itemFieldName">Name of the item field.</param>
             <returns></returns>
@@ -13203,19 +13535,15 @@
         </member>
         <member name="F:Rock.Constants.None.Id">
             <summary>
-            
+            0
             </summary>
         </member>
         <member name="F:Rock.Constants.None.IdValue">
             <summary>
-            
+            0
             </summary>
         </member>
-        <member name="F:Rock.Constants.None.Text">
-            <summary>
-            
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "F:Rock.Constants.None.Text" -->
         <member name="F:Rock.Constants.None.TextHtml">
             <summary>
             
@@ -13223,7 +13551,7 @@
         </member>
         <member name="P:Rock.Constants.None.ListItem">
             <summary>
-            Gets the list item.
+            Return a ListItem with Text: "None", Value: 0
             </summary>
             <value>
             The list item.
@@ -13236,17 +13564,17 @@
         </member>
         <member name="F:Rock.Constants.All.Id">
             <summary>
-            
+            Returns -1
             </summary>
         </member>
         <member name="F:Rock.Constants.All.IdValue">
             <summary>
-            
+            Returns "-1"
             </summary>
         </member>
         <member name="F:Rock.Constants.All.Text">
             <summary>
-            
+            returns "[All]"
             </summary>
         </member>
         <member name="P:Rock.Constants.All.ListItem">
@@ -13264,21 +13592,21 @@
         </member>
         <member name="M:Rock.Constants.ActionTitle.Add(System.String)">
             <summary>
-            Adds the specified item field name.
+            Returns a message in the format: "Add {0}"
             </summary>
             <param name="itemFriendlyName">Name of the item field.</param>
             <returns></returns>
         </member>
         <member name="M:Rock.Constants.ActionTitle.Edit(System.String)">
             <summary>
-            Edits the specified item field name.
+            Returns a message in the format: "Edit {0}"
             </summary>
             <param name="itemFriendlyName">Name of the item field.</param>
             <returns></returns>
         </member>
         <member name="M:Rock.Constants.ActionTitle.View(System.String)">
             <summary>
-            Views the specified item field name.
+            Returns a message in the format: "View {0}"
             </summary>
             <param name="itemFriendlyName">Name of the item field.</param>
             <returns></returns>
@@ -13290,14 +13618,14 @@
         </member>
         <member name="M:Rock.Constants.EditModeMessage.ReadOnlySystem(System.String)">
             <summary>
-            Reads the only system.
+            Returns a message in the format: "INFO: This is a read-only system {0}."
             </summary>
             <param name="itemFriendlyName">Name of the item friendly.</param>
             <returns></returns>
         </member>
         <member name="M:Rock.Constants.EditModeMessage.ReadOnlyEditActionNotAllowed(System.String)">
             <summary>
-            Reads the only edit action not allowed.
+            Returns a message in the format: "INFO: You do not have access to edit this {0}."
             </summary>
             <param name="itemFriendlyName">Name of the item field.</param>
             <returns></returns>
@@ -16263,6 +16591,14 @@
             </summary>
             <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
         </member>
+        <member name="P:Rock.Web.UI.Controls.NumberBox.Required">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Rock.Web.UI.Controls.LabeledTextBox"/> is required.
+            </summary>
+            <value>
+              <c>true</c> if required; otherwise, <c>false</c>.
+            </value>
+        </member>
         <member name="P:Rock.Web.UI.Controls.NumberBox.LabelText">
             <summary>
             Gets or sets the label text.
@@ -16301,6 +16637,14 @@
             </summary>
             <value>
             The maximum value.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NumberBox.IsValid">
+            <summary>
+            Gets a value indicating whether this instance is valid.
+            </summary>
+            <value>
+              <c>true</c> if this instance is valid; otherwise, <c>false</c>.
             </value>
         </member>
         <member name="T:Rock.Web.UI.Controls.PageBreadCrumbs">
@@ -26769,21 +27113,16 @@
             </summary>
             <typeparam name="T">Target DbContext to be migrated</typeparam>
         </member>
-        <member name="F:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.contextAssembly">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.contextAssemblyTables">
+        <member name="F:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.dbContextEntities">
             <summary>
             
             </summary>
         </member>
         <member name="M:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.#ctor(System.Boolean)">
             <summary>
-            Initializes a new instance of the <see cref="!:RockCSharpMigrationCodeGenerator"/> class.
+            Initializes a new instance of the <see cref="T:Rock.Migrations.RockCSharpMigrationCodeGenerator`1"/> class.
             </summary>
-            <param name="limitOperationsToContextAssembly">if set to <c>true</c> [limit operations to context assembly].</param>
+            <param name="limitOperationsToDbContextTables">if set to <c>true</c> [limit operations to db context tables].</param>
         </member>
         <member name="M:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.GenerateCustomColumnCode(System.Data.Entity.Migrations.Utilities.IndentedTextWriter,System.String,System.String)">
             <summary>
@@ -26833,13 +27172,14 @@
             <param name="operation">The operation.</param>
             <returns></returns>
         </member>
-        <member name="P:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.LimitOperationsToContextAssembly">
+        <member name="P:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.LimitOperationsToDbContextTables">
             <summary>
-            Gets or sets a value indicating whether [limit operations to context assembly]
-            Default is True
+            Gets or sets a value indicating whether Migrations Code Generation should 
+            skip operations if the Table is not directly associated with the DbContext.
+            Default is True. 
             </summary>
             <value>
-            <c>true</c> if [limit operations to context assembly]; otherwise, <c>false</c>.
+            <c>true</c> if [limit operations to db context tables]; otherwise, <c>false</c>.
             </value>
         </member>
         <member name="T:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.TableColumnInfo">
@@ -27719,6 +28059,26 @@
         <member name="F:Rock.SystemGuid.DefinedValue.TRANSACTION_IMAGE_TYPE_ENVELOPE_BACK">
             <summary>
             Back of Envelope
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.DefinedValue.TRANSACTION_FREQUENCY_TYPE_ONE_TIME">
+            <summary>
+            One Time
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.DefinedValue.TRANSACTION_FREQUENCY_TYPE_ONE_TIME_FUTURE">
+            <summary>
+            One Time (Future)
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.DefinedValue.TRANSACTION_PAYMENT_TYPE_CREDIT_CARD">
+            <summary>
+            Credit Card
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.DefinedValue.TRANSACTION_PAYMENT_TYPE_CHECKING">
+            <summary>
+            Checking/ACH 
             </summary>
         </member>
         <member name="F:Rock.SystemGuid.DefinedValue.NOTE_TYPE_MANUAL_NOTE">
