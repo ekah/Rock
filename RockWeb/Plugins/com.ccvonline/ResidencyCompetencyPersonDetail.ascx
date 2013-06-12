@@ -1,9 +1,10 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidencyPersonDetail.ascx.cs" Inherits="RockWeb.Blocks.Administration.ResidencyPersonDetail" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidencyCompetencyPersonDetail.ascx.cs" Inherits="RockWeb.Blocks.Administration.ResidencyCompetencyPersonDetail" %>
 
-<asp:UpdatePanel ID="upResidencyPersonDetail" runat="server">
+<asp:UpdatePanel ID="upResidencyCompetencyPersonDetail" runat="server">
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
+            <asp:HiddenField ID="hfResidencyCompetencyPersonId" runat="server" />
             <asp:HiddenField ID="hfPersonId" runat="server" />
 
             <div id="pnlEditDetails" runat="server" class="well">
@@ -18,7 +19,9 @@
 
                     <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
 
-                    <Rock:PersonPicker ID="ppPerson" runat="server" LabelText="Person" />
+                    <Rock:LabeledText ID="lblPersonName" runat="server" LabelText="Resident" />
+                    <Rock:LabeledText ID="lblResidencyCompetency" runat="server" LabelText="Competency" />
+                    <Rock:LabeledDropDownList ID="ddlResidencyCompetency" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="Name" /> 
 
                 </fieldset>
 
@@ -30,7 +33,7 @@
             </div>
 
             <fieldset id="fieldsetViewDetails" runat="server">
-                <legend>Resident
+                <legend>Resident Competency - Projects
                 </legend>
                 <div class="well">
                     <div class="row-fluid">
@@ -45,7 +48,6 @@
                 </div>
 
             </fieldset>
-
         </asp:Panel>
     </ContentTemplate>
 </asp:UpdatePanel>

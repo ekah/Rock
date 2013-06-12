@@ -1,10 +1,11 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidencyPersonDetail.ascx.cs" Inherits="RockWeb.Blocks.Administration.ResidencyPersonDetail" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidencyCompetencyPersonProjectDetail.ascx.cs" Inherits="RockWeb.Blocks.Administration.ResidencyCompetencyPersonProjectDetail" %>
 
-<asp:UpdatePanel ID="upResidencyPersonDetail" runat="server">
+<asp:UpdatePanel ID="upResidencyCompetencyPersonProjectDetail" runat="server">
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
-            <asp:HiddenField ID="hfPersonId" runat="server" />
+            <asp:HiddenField ID="hfResidencyCompetencyPersonProjectId" runat="server" />
+            <asp:HiddenField ID="hfResidencyCompetencyPersonId" runat="server" />
 
             <div id="pnlEditDetails" runat="server" class="well">
 
@@ -17,8 +18,11 @@
                     </legend>
 
                     <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
-
-                    <Rock:PersonPicker ID="ppPerson" runat="server" LabelText="Person" />
+                    
+                    <Rock:LabeledText ID="lblPersonName" runat="server" LabelText="Resident" />
+                    <Rock:LabeledText ID="lblResidencyCompetency" runat="server" LabelText="Competency" />
+                    <Rock:LabeledText ID="lblResidencyProject" runat="server" LabelText="Project" />
+                    <Rock:LabeledDropDownList ID="ddlResidencyProject" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyProject, com.ccvonline.Residency" PropertyName="Name" /> 
 
                 </fieldset>
 
@@ -30,7 +34,7 @@
             </div>
 
             <fieldset id="fieldsetViewDetails" runat="server">
-                <legend>Resident
+                <legend>Project - Assignments
                 </legend>
                 <div class="well">
                     <div class="row-fluid">
@@ -45,7 +49,6 @@
                 </div>
 
             </fieldset>
-
         </asp:Panel>
     </ContentTemplate>
 </asp:UpdatePanel>
