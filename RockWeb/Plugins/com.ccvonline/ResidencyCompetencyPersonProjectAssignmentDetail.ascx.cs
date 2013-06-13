@@ -140,7 +140,9 @@ namespace RockWeb.Blocks.Administration
                 residencyCompetencyPersonProjectAssignment = residencyCompetencyPersonProjectAssignmentService.Get( ResidencyCompetencyPersonProjectAssignmentId );
             }
 
-            //////////
+            residencyCompetencyPersonProjectAssignment.AssessorPersonId = ppAssessor.SelectedValue;
+            residencyCompetencyPersonProjectAssignment.CompletedDateTime = dtpCompletedDateTime.SelectedDateTime;
+            residencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProjectId = hfResidencyCompetencyPersonProjectId.ValueAsInt();
 
 
             if ( !residencyCompetencyPersonProjectAssignment.IsValid )

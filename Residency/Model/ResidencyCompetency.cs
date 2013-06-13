@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using com.ccvonline.Residency.Data;
+using Rock.Data;
 
 namespace com.ccvonline.Residency.Model
 {
@@ -81,6 +82,15 @@ namespace com.ccvonline.Residency.Model
         [DataMember]
         public int? ImplementationHours { get; set; }
 
+        /// <summary>
+        /// Gets or sets the residency competency type value id.
+        /// </summary>
+        /// <value>
+        /// The residency competency type value id.
+        /// </value>
+        [DefinedValue( com.ccvonline.Residency.SystemGuid.DefinedType.RESIDENCY_COMPETENCY_TYPE )]
+        public int? ResidencyCompetencyTypeValueId { get; set; }
+
         #endregion
 
         #region Virtual Properties
@@ -117,6 +127,14 @@ namespace com.ccvonline.Residency.Model
         /// </value>
         public virtual List<ResidencyProject> ResidencyProjects { get; set; }
 
+        /// <summary>
+        /// Gets or sets the residency competency type value.
+        /// </summary>
+        /// <value>
+        /// The residency competency type value.
+        /// </value>
+        public virtual Rock.Model.DefinedValue ResidencyCompetencyTypeValue { get; set; }
+
         #endregion
     }
 
@@ -133,6 +151,7 @@ namespace com.ccvonline.Residency.Model
             this.HasRequired( p => p.ResidencyTrack ).WithMany( p => p.ResidencyCompetencies ).HasForeignKey( p => p.ResidencyTrackId ).WillCascadeOnDelete( false );
             this.HasOptional( p => p.TeacherOfRecordPerson ).WithMany().HasForeignKey( p => p.TeacherOfRecordPersonId ).WillCascadeOnDelete( false );
             this.HasOptional( p => p.FacilitatorPerson ).WithMany().HasForeignKey( p => p.FacilitatorPersonId ).WillCascadeOnDelete( false );
+            this.HasOptional( p => p.ResidencyCompetencyTypeValue ).WithMany().HasForeignKey( p => p.ResidencyCompetencyTypeValueId ).WillCascadeOnDelete( false );
         }
     }
 }

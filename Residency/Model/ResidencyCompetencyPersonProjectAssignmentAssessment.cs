@@ -56,6 +56,15 @@ namespace com.ccvonline.Residency.Model
         /// </value>
         [DataMember]
         public string RatingNotes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resident comments.
+        /// </summary>
+        /// <value>
+        /// The resident comments.
+        /// </value>
+        [DataMember]
+        public string ResidentComments { get; set; }
         
         #endregion
 

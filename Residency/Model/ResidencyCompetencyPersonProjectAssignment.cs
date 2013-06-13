@@ -58,7 +58,7 @@ namespace com.ccvonline.Residency.Model
         /// <value>
         /// The residency competency person project.
         /// </value>
-        public ResidencyCompetencyPersonProject ResidencyCompetencyPersonProject { get; set; }
+        public virtual ResidencyCompetencyPersonProject ResidencyCompetencyPersonProject { get; set; }
 
         /// <summary>
         /// Gets or sets the assessor person.
@@ -66,7 +66,7 @@ namespace com.ccvonline.Residency.Model
         /// <value>
         /// The assessor person.
         /// </value>
-        public Rock.Model.Person AssessorPerson { get; set; }
+        public virtual Rock.Model.Person AssessorPerson { get; set; }
 
         /// <summary>
         /// Gets or sets the residency competency person project assignment assessments.
@@ -74,7 +74,7 @@ namespace com.ccvonline.Residency.Model
         /// <value>
         /// The residency competency person project assignment assessments.
         /// </value>
-        public List<ResidencyCompetencyPersonProjectAssignmentAssessment> ResidencyCompetencyPersonProjectAssignmentAssessments { get; set; }
+        public virtual List<ResidencyCompetencyPersonProjectAssignmentAssessment> ResidencyCompetencyPersonProjectAssignmentAssessments { get; set; }
 
         #endregion
     }
