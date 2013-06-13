@@ -52,13 +52,6 @@ INSERT INTO [dbo].[GroupRole]
 
 update [GroupType] set [DefaultGroupRoleId] = @@IDENTITY where [Guid] = '00043CE6-EB1B-43B5-A12A-4552B91A3E28'
 
-
-
---select newid()
-INSERT INTO [dbo].[Group] ([IsSystem],[ParentGroupId],[GroupTypeId],[CampusId],[Name],[Description],[IsSecurityRole],[IsActive],[Guid])
-                            VALUES (0,null,@groupTypeId,null,'Residents','Residents in the Residency program',0,1,'4B7D22E8-B08C-42DC-B1F1-F2834BC8D1DF');
-
-
 end
 " );
         }

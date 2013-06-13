@@ -58,3 +58,13 @@ insert into [_com_ccvonline_ResidencyProjectPointOfAssessment] ([ResidencyProjec
   select [Id], 5, 'Presented the material in an economy of words and ideas (not too much and not too little).', NEWID() from [_com_ccvonline_ResidencyProject] where [Name] = 'Project A'
   union
   select [Id], 6, 'Presented the material in a professional, clean, clearly articulated, and edited format.', NEWID() from [_com_ccvonline_ResidencyProject] where [Name] = 'Project A'
+
+declare
+  @groupTypeId int
+
+select  @groupTypeId = [Id] from dbo.GroupType where Guid = '00043CE6-EB1B-43B5-A12A-4552B91A3E28';
+
+delete from [dbo].[Group] where [Guid] = '4B7D22E8-B08C-42DC-B1F1-F2834BC8D1DF';
+
+INSERT INTO [dbo].[Group] ([IsSystem],[ParentGroupId],[GroupTypeId],[CampusId],[Name],[Description],[IsSecurityRole],[IsActive],[Guid])
+                            VALUES (0,null,@groupTypeId,null,'Residents - Fall 2013 to Spring 2014','Residents in the Residency program for the Fall 2013 to Spring 2014 period.',0,1,'4B7D22E8-B08C-42DC-B1F1-F2834BC8D1DF');

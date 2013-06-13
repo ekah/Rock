@@ -4,7 +4,8 @@
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
-            <asp:HiddenField ID="hfPersonId" runat="server" />
+            <asp:HiddenField ID="hfGroupId" runat="server" />
+            <asp:HiddenField ID="hfGroupMemberId" runat="server" />
 
             <div id="pnlEditDetails" runat="server" class="well">
 

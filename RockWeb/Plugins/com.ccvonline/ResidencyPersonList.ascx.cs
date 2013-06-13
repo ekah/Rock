@@ -65,7 +65,7 @@ namespace com.ccvonline.Blocks
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void gList_Add( object sender, EventArgs e )
         {
-            NavigateToDetailPage( "personId", 0 );
+            NavigateToDetailPage( "groupMemberId", 0, "groupId", hfGroupId.ValueAsInt() );
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace com.ccvonline.Blocks
         /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
         protected void gList_Edit( object sender, RowEventArgs e )
         {
-            NavigateToDetailPage( "personId", (int)e.RowKeyValue );
+            NavigateToDetailPage( "groupMemberId", (int)e.RowKeyValue, "groupId", hfGroupId.ValueAsInt() );
         }
 
         /// <summary>
@@ -85,11 +85,11 @@ namespace com.ccvonline.Blocks
         /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
         protected void gList_Delete( object sender, RowEventArgs e )
         {
-            
+
             RockTransactionScope.WrapTransaction( () =>
             {
                 var groupMemberService = new GroupMemberService();
-                int residencyGroupId = new GroupService().GetByGuid( new Guid( "4B7D22E8-B08C-42DC-B1F1-F2834BC8D1DF" ) ).Id;
+                int residencyGroupId = hfGroupId.ValueAsInt();
                 int personId = (int)e.RowKeyValue;
 
                 GroupMember groupMember = groupMemberService.Queryable().Where( a => a.GroupId.Equals( residencyGroupId ) && a.PersonId.Equals( personId ) ).FirstOrDefault();
@@ -104,8 +104,8 @@ namespace com.ccvonline.Blocks
                     }
 
                     var residencyCompetencyPersonService = new ResidencyService<ResidencyCompetencyPerson>();
-                    var personCompetencyList  =residencyCompetencyPersonService.Queryable().Where( a => a.PersonId.Equals(personId));
-                    foreach (var item in personCompetencyList)
+                    var personCompetencyList = residencyCompetencyPersonService.Queryable().Where( a => a.PersonId.Equals( personId ) );
+                    foreach ( var item in personCompetencyList )
                     {
                         if ( !residencyCompetencyPersonService.CanDelete( item, out errorMessage ) )
                         {
@@ -127,7 +127,7 @@ namespace com.ccvonline.Blocks
             } );
 
             BindGrid();
-            
+
         }
 
         /// <summary>
@@ -150,25 +150,29 @@ namespace com.ccvonline.Blocks
         private void BindGrid()
         {
             var residencyGroupMemberService = new ResidencyService<Rock.Model.GroupMember>();
-            int residencyGroupId = new GroupService().GetByGuid( new Guid( "4B7D22E8-B08C-42DC-B1F1-F2834BC8D1DF" ) ).Id;
-            List<Person> residentPersonList = residencyGroupMemberService.Queryable().Where( a => a.GroupId.Equals( residencyGroupId ) ).Select(a => a.Person).ToList();
+
+            int residencyGroupId = PageParameter( "groupId" ).AsInteger() ?? 0;
+            hfGroupId.SetValue( residencyGroupId );
+
+            var residentGroupMemberList = residencyGroupMemberService.Queryable()
+                .Where( a => a.GroupId.Equals( residencyGroupId ) ).ToList();
 
             var residencyCompetencyPersonService = new ResidencyService<ResidencyCompetencyPerson>();
             var residencyCompetencyPersonQry = residencyCompetencyPersonService.Queryable().GroupBy( a => a.Person ).ToList();
 
-            var joinedItems = from person in residentPersonList
-                            join competencyList in residencyCompetencyPersonQry on person equals competencyList.Key into gj
-                            from subCompetency in gj.DefaultIfEmpty()
-                            select new 
-                            { 
-                                person.Id,
-                                person.FullName, 
-                                CompetencyCount = (subCompetency == null ? 0 : subCompetency.Count()),
-                                CompletedProjectsTotal = (subCompetency == null ? 0 :subCompetency.Select(a => a.ResidencyCompetencyPersonProjects.Select( p=> p.ResidencyCompetencyPersonProjectAssignments).SelectMany(x => x).Where( n=> n.CompletedDateTime != null).Count()).Sum()),
-                                AssignedProjectsTotal = (subCompetency == null ? 0 :subCompetency.Select( a => a.ResidencyCompetencyPersonProjects.Select( p => p.ResidencyCompetencyPersonProjectAssignments ).SelectMany( x => x ).Count() ).Sum())
-                            };
+            var joinedItems = from groupMember in residentGroupMemberList
+                              join competencyList in residencyCompetencyPersonQry on groupMember.Person equals competencyList.Key into gj
+                              from subCompetency in gj.DefaultIfEmpty()
+                              select new
+                              {
+                                  Id = groupMember.Id,
+                                  groupMember.Person.FullName,
+                                  CompetencyCount = ( subCompetency == null ? 0 : subCompetency.Count() ),
+                                  CompletedProjectsTotal = ( subCompetency == null ? 0 : subCompetency.Select( a => a.ResidencyCompetencyPersonProjects.Select( p => p.ResidencyCompetencyPersonProjectAssignments ).SelectMany( x => x ).Where( n => n.CompletedDateTime != null ).Count() ).Sum() ),
+                                  AssignedProjectsTotal = ( subCompetency == null ? 0 : subCompetency.Select( a => a.ResidencyCompetencyPersonProjects.Select( p => p.ResidencyCompetencyPersonProjectAssignments ).SelectMany( x => x ).Count() ).Sum() )
+                              };
 
-            
+
             SortProperty sortProperty = gList.SortProperty;
 
             if ( sortProperty != null )
@@ -181,7 +185,7 @@ namespace com.ccvonline.Blocks
             }
 
             gList.DataBind();
-             
+
         }
 
         #endregion

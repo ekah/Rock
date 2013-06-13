@@ -220,7 +220,8 @@ namespace RockWeb.Blocks.Administration
             }
             else
             {
-                btnEdit.Visible = true;
+                // don't allow edit once a Competency has been assign
+                btnEdit.Visible = false;
                 if ( residencyCompetencyPerson.Id > 0 )
                 {
                     ShowReadonlyDetails( residencyCompetencyPerson );
@@ -233,21 +234,46 @@ namespace RockWeb.Blocks.Administration
         }
 
         /// <summary>
+        /// Handles the SelectedIndexChanged event of the ddlResidencyPeriodTrack control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ddlResidencyPeriod_SelectedIndexChanged( object sender, EventArgs e )
+        {
+            int residencyPeriodId = ddlResidencyPeriod.SelectedValueAsInt() ?? 0;
+            var residencyTrackQry = new ResidencyService<ResidencyTrack>().Queryable().Where( a => a.ResidencyPeriodId.Equals( residencyPeriodId ) );
+
+            ddlResidencyTrack.DataSource = residencyTrackQry.OrderBy( a => a.Name ).ToList();
+            ddlResidencyTrack.DataBind();
+            ddlResidencyTrack_SelectedIndexChanged( null, null );
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the ddlResidencyTrack control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ddlResidencyTrack_SelectedIndexChanged( object sender, EventArgs e )
+        {
+            int residencyTrackId = ddlResidencyTrack.SelectedValueAsInt() ?? 0;
+            var residencyCompetencyQry = new ResidencyService<ResidencyCompetency>().Queryable().Where( a => a.ResidencyTrackId == residencyTrackId );
+
+            // list 
+            int personId = hfPersonId.ValueAsInt();
+            List<int> assignedCompetencyIds = new ResidencyService<ResidencyCompetencyPerson>().Queryable().Where( a => a.PersonId.Equals( personId ) ).Select( a => a.ResidencyCompetencyId ).ToList();
+
+            ddlResidencyCompetency.DataSource = residencyCompetencyQry.Where( a => !assignedCompetencyIds.Contains( a.Id ) ).OrderBy( a => a.Name ).ToList();
+            ddlResidencyCompetency.DataBind();
+        }
+
+        /// <summary>
         /// Loads the drop downs.
         /// </summary>
         private void LoadDropDowns()
         {
-            var residencyCompetencyQry = new ResidencyService<ResidencyCompetency>().Queryable();
-            int residencyCompetencyPersonId = hfResidencyCompetencyPersonId.ValueAsInt();
-            ResidencyCompetencyPerson residencyCompetencyPerson = new ResidencyService<ResidencyCompetencyPerson>().Get(residencyCompetencyPersonId);
-            residencyCompetencyQry = residencyCompetencyQry.Where( a => a.ResidencyTrackId == residencyCompetencyPerson.ResidencyCompetency.ResidencyTrackId );
-            
-            // list 
-            int personId = hfPersonId.ValueAsInt();
-            List<int> assignedCompetencyIds = new ResidencyService<ResidencyCompetencyPerson>().Queryable().Where( a=>a.PersonId.Equals(personId)).Select(a => a.ResidencyCompetencyId).ToList();
-
-            ddlResidencyCompetency.DataSource = residencyCompetencyQry.Where( a => !assignedCompetencyIds.Contains( a.Id ) ).OrderBy( a => a.Name ).ToList();
-            ddlResidencyCompetency.DataBind();
+            ddlResidencyPeriod.DataSource = new ResidencyService<ResidencyPeriod>().Queryable().OrderBy( a => a.Name ).ToList();
+            ddlResidencyPeriod.DataBind();
+            ddlResidencyPeriod_SelectedIndexChanged( null, null );
         }
 
         /// <summary>
@@ -275,6 +301,8 @@ namespace RockWeb.Blocks.Administration
             
             if ( residencyCompetencyPerson.ResidencyCompetency != null )
             {
+                lblResidencyPeriod.Text = residencyCompetencyPerson.ResidencyCompetency.ResidencyTrack.ResidencyPeriod.Name;
+                lblResidencyTrack.Text = residencyCompetencyPerson.ResidencyCompetency.ResidencyTrack.Name;
                 lblResidencyCompetency.Text = residencyCompetencyPerson.ResidencyCompetency.Name;
             }
             else
@@ -284,8 +312,8 @@ namespace RockWeb.Blocks.Administration
             }
 
             // only allow a Competency to be assigned when in Add mode
-            ddlResidencyCompetency.Visible = ( residencyCompetencyPerson.Id == 0 );
-            lblResidencyCompetency.Visible = ( residencyCompetencyPerson.Id != 0 );
+            pnlCompetencyLabels.Visible = ( residencyCompetencyPerson.Id != 0 );
+            pnlCompetencyDropDownLists.Visible = ( residencyCompetencyPerson.Id == 0 );
         }
 
         /// <summary>
@@ -323,5 +351,6 @@ namespace RockWeb.Blocks.Administration
         }
 
         #endregion
-    }
+        
+}
 }

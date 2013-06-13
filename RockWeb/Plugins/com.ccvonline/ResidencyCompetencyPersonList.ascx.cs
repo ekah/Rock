@@ -7,6 +7,7 @@ using com.ccvonline.Residency.Model;
 using Rock;
 using Rock.Attribute;
 using Rock.Data;
+using Rock.Model;
 using Rock.Web.UI;
 using Rock.Web.UI.Controls;
 
@@ -49,7 +50,14 @@ namespace com.ccvonline.Blocks
 
             if ( !Page.IsPostBack )
             {
-                int? personId = this.PageParameter( "personId" ).AsInteger();
+                // allow this block to work with either a personId or groupMemberId parameter
+                int personId = this.PageParameter( "personId" ).AsInteger() ?? 0;
+                if ( personId == 0 )
+                {
+                    int groupMemberId = this.PageParameter( "groupMemberId").AsInteger() ??0;
+                    personId = new ResidencyService<GroupMember>().Queryable().Where( a => a.Id.Equals( groupMemberId ) ).Select( a => a.PersonId ).FirstOrDefault();
+                }
+
                 hfPersonId.Value = personId.ToString();
                 BindGrid();
             }
