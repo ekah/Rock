@@ -1927,6 +1927,21 @@
             Operations to be performed during the downgrade process.
             </summary>
         </member>
+        <member name="T:Rock.Migrations.PathLength260">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.PathLength260.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.PathLength260.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
         <member name="T:Rock.Model.BinaryFileDataService">
             <summary>
             BinaryFileData Service class
@@ -27123,6 +27138,11 @@
             Initializes a new instance of the <see cref="T:Rock.Migrations.RockCSharpMigrationCodeGenerator`1"/> class.
             </summary>
             <param name="limitOperationsToDbContextTables">if set to <c>true</c> [limit operations to db context tables].</param>
+        </member>
+        <member name="M:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.PopulateDbContextEntityLookup">
+            <summary>
+            Populates the db context entity lookup which is used by Rock.Data.AlternateKeyAttribute and LimitOperationsToDbContextTables
+            </summary>
         </member>
         <member name="M:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.GenerateCustomColumnCode(System.Data.Entity.Migrations.Utilities.IndentedTextWriter,System.String,System.String)">
             <summary>
