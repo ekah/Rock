@@ -33882,10 +33882,30 @@
         </member>
         <member name="P:Rock.Web.UI.Controls.RowEventArgs.RowKeyValue">
             <summary>
-            Gets the row key value.
+            Gets the row key value.  
+            Usually the Id value of the data in the row
+            Cast this to an Int (or use RowKeyId) if your datakey is an integer
             </summary>
             <value>
             The row key value.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.RowEventArgs.RowKeyValues">
+            <summary>
+            Gets the row key values
+            Use this if your datarow has multiple keys (rare)
+            </summary>
+            <value>
+            The row key values.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.RowEventArgs.RowKeyId">
+            <summary>
+            Gets the row key id
+            Usually the Id value of the data in the row
+            </summary>
+            <value>
+            The row key id.
             </value>
         </member>
         <member name="T:Rock.ExtensionMethods">
