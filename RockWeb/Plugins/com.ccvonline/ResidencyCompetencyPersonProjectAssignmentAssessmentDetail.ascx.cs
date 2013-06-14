@@ -259,13 +259,14 @@ namespace RockWeb.Blocks.Administration
 
             SetEditMode( true );
 
+            lblResident.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyCompetencyPerson.Person.FullName;
+            lblCompetency.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyCompetencyPerson.ResidencyCompetency.Name;
+            lblProjectName.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyProject.Name;
+            lblAssessor.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.AssessorPerson.FullName;
             dtpAssessmentDateTime.SelectedDateTime = residencyCompetencyPersonProjectAssignmentAssessment.AssessmentDateTime;
             tbRating.Text = residencyCompetencyPersonProjectAssignmentAssessment.Rating.ToString();
             tbRatingNotes.Text = residencyCompetencyPersonProjectAssignmentAssessment.RatingNotes;
-
-            
-            // TODO tbResidentComments.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidentComments;
-            
+            tbResidentComments.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidentComments;
         }
 
         /// <summary>
@@ -284,7 +285,6 @@ namespace RockWeb.Blocks.Administration
 
             lblMainDetails.Text += string.Format( descriptionFormat, "Resident", residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyCompetencyPerson.Person.FullName );
             lblMainDetails.Text += string.Format( descriptionFormat, "Competency", residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyProject.ResidencyCompetency.Name );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Project", residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyProject.Name );
 
             if ( residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.AssessorPerson != null )
             {

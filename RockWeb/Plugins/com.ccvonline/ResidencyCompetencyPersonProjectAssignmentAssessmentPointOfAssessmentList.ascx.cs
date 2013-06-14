@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
@@ -27,7 +28,8 @@ namespace com.ccvonline.Blocks
         {
             base.OnInit( e );
 
-            gList.DataKeyNames = new string[] { "id" };
+            // NOTE:  this is special case of where we need two key fields
+            gList.DataKeyNames = new string[] { "ResidencyProjectPointOfAssessmentId", "ResidencyCompetencyPersonProjectAssignmentAssessmentId" };
             gList.Actions.ShowAdd = true;
             gList.Actions.AddClick += gList_Add;
             gList.GridRebind += gList_GridRebind;
@@ -101,7 +103,7 @@ namespace com.ccvonline.Blocks
 
                 if ( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment != null )
                 {
-                    
+
                     string errorMessage;
                     if ( !residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.CanDelete( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment, out errorMessage ) )
                     {
@@ -136,23 +138,39 @@ namespace com.ccvonline.Blocks
         /// </summary>
         private void BindGrid()
         {
-            var residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>();
-            int residencyCompetencyPersonProjectAssignmentAssessmentId = hfResidencyCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
-            var qry = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Queryable();
+            
+            ResidencyCompetencyPersonProjectAssignmentAssessment residencyCompetencyPersonProjectAssignmentAssessment 
+                = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessment>().Get(hfResidencyCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt());
 
-            qry = qry.Where( a => a.ResidencyCompetencyPersonProjectAssignmentAssessmentId.Equals( residencyCompetencyPersonProjectAssignmentAssessmentId ) );
+            List<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment> personPointOfAssessmentList = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable()
+                .Where(a => a.ResidencyCompetencyPersonProjectAssignmentAssessmentId.Equals(residencyCompetencyPersonProjectAssignmentAssessment.Id)).ToList();
+
+            List<ResidencyProjectPointOfAssessment> residencyProjectPointOfAssessmentList = new ResidencyService<ResidencyProjectPointOfAssessment>().Queryable()
+                .Where(a => a.ResidencyProjectId.Equals(residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyProjectId)).ToList();
+
+            var joinedItems = from residencyProjectPointOfAssessment in residencyProjectPointOfAssessmentList
+                          join personPointOfAssessment in personPointOfAssessmentList
+                          on residencyProjectPointOfAssessment.Id equals personPointOfAssessment.ResidencyProjectPointOfAssessmentId into groupJoin
+                          from qryResult in groupJoin.DefaultIfEmpty()
+                          select new
+                          {
+                              // note: two key fields, since we want to show all the Points of Assessment for this Project, if the person hasn't had a rating on it yet
+                              ResidencyProjectPointOfAssessmentId = residencyProjectPointOfAssessment.Id,
+                              ResidencyCompetencyPersonProjectAssignmentAssessmentId = residencyCompetencyPersonProjectAssignmentAssessment.Id,
+                              ResidencyProjectPointOfAssessment = residencyProjectPointOfAssessment,
+                              ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = personPointOfAssessmentList.FirstOrDefault(a => a.ResidencyProjectPointOfAssessmentId.Equals(residencyProjectPointOfAssessment.Id))
+                          };
 
             if ( sortProperty != null )
             {
-                qry = qry.Sort( sortProperty );
+                gList.DataSource = joinedItems.AsQueryable().Sort( sortProperty ).ToList();
             }
             else
             {
-                qry = qry.OrderBy( s => s.ResidencyProjectPointOfAssessment.AssessmentOrder );
+                gList.DataSource = joinedItems.OrderBy( s => s.ResidencyProjectPointOfAssessment.AssessmentOrder ).ToList();
             }
 
-            gList.DataSource = qry.ToList();
             gList.DataBind();
         }
 

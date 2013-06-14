@@ -4,11 +4,12 @@
     <ContentTemplate>
         <Rock:ModalAlert ID="mdGridWarning" runat="server" />
         <asp:HiddenField ID="hfResidencyCompetencyPersonProjectAssignmentAssessmentId" runat="server" />
-        <Rock:Grid ID="gList" runat="server" AllowSorting="false" OnRowSelected="gList_Edit" DataKeyNames="Id" >
+        <Rock:Grid ID="gList" runat="server" AllowSorting="false" OnRowSelected="gList_Edit" DataKeyNames="ResidencyProjectPointOfAssessmentId,ResidencyCompetencyPersonProjectAssignmentAssessmentId" >
             <Columns>
-                <asp:BoundField DataField="ResidencyProjectPointOfAssessment.AssessmentOrder" HeaderText="Text" SortExpression="ResidencyProjectPointOfAssessment.AssessmentOrder" />
-                <asp:BoundField DataField="ResidencyProjectPointOfAssessment.AssessmentText" HeaderText="Text" SortExpression="ResidencyProjectPointOfAssessment.AssessmentText" />
-                <asp:BoundField DataField="Rating" HeaderText="Rating" SortExpression="Rating" />
+                <asp:BoundField DataField="ResidencyProjectPointOfAssessment.AssessmentOrder" HeaderText="#" SortExpression="ResidencyProjectPointOfAssessment.AssessmentOrder" />
+                <asp:BoundField DataField="ResidencyProjectPointOfAssessment.AssessmentText" HeaderText="Text" SortExpression="ResidencyProjectPointOfAssessment.AssessmentText" />
+                <asp:BoundField DataField="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating" HeaderText="Rating" SortExpression="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating" />
+                <asp:BoundField DataField="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingText" HeaderText="Rating Text" SortExpression="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingText" />
                 <Rock:DeleteField OnClick="gList_Delete" />
             </Columns>
         </Rock:Grid>

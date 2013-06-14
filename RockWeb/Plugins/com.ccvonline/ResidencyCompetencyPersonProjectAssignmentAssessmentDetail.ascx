@@ -19,10 +19,13 @@
 
                     <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
 
+                    <Rock:LabeledText ID="lblResident" runat="server" LabelText="Resident" />
+                    <Rock:LabeledText ID="lblCompetency" runat="server" LabelText="Competency" />
                     <Rock:LabeledText ID="lblProjectName" runat="server" LabelText="Project" />
-                    <Rock:DateTimePicker ID="dtpAssessmentDateTime" runat="server" LabelText="Assessment Date/Time" />
-                    <Rock:NumberBox ID="tbRating" runat="server" LabelText="Rating" />
-                    <Rock:DataTextBox ID="tbRatingNotes" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetencyPersonProjectAssignmentAssessment, com.ccvonline.Residency" PropertyName="Rating Notes" TextMode="MultiLine" Rows="3" />
+                    <Rock:LabeledText ID="lblAssessor" runat="server" LabelText="Assessor" />
+                    <Rock:DateTimePicker ID="dtpAssessmentDateTime" runat="server" LabelText="Assessment Date/Time" Required="true"/>
+                    <Rock:NumberBox ID="tbRating" runat="server" LabelText="Rating" MaximumValue="5" MinimumValue="1" />
+                    <Rock:DataTextBox ID="tbRatingNotes" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetencyPersonProjectAssignmentAssessment, com.ccvonline.Residency" PropertyName="RatingNotes" TextMode="MultiLine" Rows="3" />
                     <Rock:DataTextBox ID="tbResidentComments" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetencyPersonProjectAssignmentAssessment, com.ccvonline.Residency" PropertyName="ResidentComments" TextMode="MultiLine" Rows="3" />
 
                 </fieldset>

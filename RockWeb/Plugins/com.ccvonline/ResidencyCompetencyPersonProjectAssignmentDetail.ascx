@@ -34,7 +34,7 @@
             </div>
 
             <fieldset id="fieldsetViewDetails" runat="server">
-                <legend>Project Assignment
+                <legend>Project Assignment - Assessments
                 </legend>
                 <div class="well">
                     <div class="row-fluid">
