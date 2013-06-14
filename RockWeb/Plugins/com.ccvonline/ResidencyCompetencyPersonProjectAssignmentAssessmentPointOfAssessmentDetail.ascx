@@ -4,7 +4,7 @@
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
-            <asp:HiddenField ID="hfResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId" runat="server" />
+            <asp:HiddenField ID="hfResidencyProjectPointOfAssessmentId" runat="server" />
             <asp:HiddenField ID="hfResidencyCompetencyPersonProjectAssignmentAssessmentId" runat="server" />
 
             <div id="pnlEditDetails" runat="server">

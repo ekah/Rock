@@ -20,10 +20,10 @@ using Rock.Web.UI;
 namespace RockWeb.Blocks.Administration
 {
     /// <summary>
-    /// 
+    /// Note: This isn't a standard DetailPage.  It takes a two parameters instead of just one
     /// </summary>
     [LinkedPage( "Resident Project Assignment Assessment Page" )]
-    public partial class ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentDetail : RockBlock, IDetailBlock
+    public partial class ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentDetail : RockBlock
     {
         #region Control Methods
 
@@ -37,23 +37,9 @@ namespace RockWeb.Blocks.Administration
 
             if ( !Page.IsPostBack )
             {
-                string itemId = PageParameter( "residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId" );
-                string residencyCompetencyPersonProjectAssignmentAssessmentId = PageParameter( "residencyCompetencyPersonProjectAssignmentAssessmentId" );
-                if ( !string.IsNullOrWhiteSpace( itemId ) )
-                {
-                    if ( string.IsNullOrWhiteSpace( residencyCompetencyPersonProjectAssignmentAssessmentId ) )
-                    {
-                        ShowDetail( "residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId", int.Parse( itemId ) );
-                    }
-                    else
-                    {
-                        ShowDetail( "residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId", int.Parse( itemId ), int.Parse( residencyCompetencyPersonProjectAssignmentAssessmentId ) );
-                    }
-                }
-                else
-                {
-                    pnlDetails.Visible = false;
-                }
+                int residencyProjectPointOfAssessmentId = PageParameter( "residencyProjectPointOfAssessmentId" ).AsInteger() ?? 0;
+                int residencyCompetencyPersonProjectAssignmentAssessmentId = PageParameter( "residencyCompetencyPersonProjectAssignmentAssessmentId" ).AsInteger() ?? 0;
+                ShowDetail( residencyProjectPointOfAssessmentId, residencyCompetencyPersonProjectAssignmentAssessmentId );
             }
         }
 
@@ -90,22 +76,24 @@ namespace RockWeb.Blocks.Administration
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnSave_Click( object sender, EventArgs e )
         {
-            ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment;
-            ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment> residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>();
+            int residencyProjectPointOfAssessmentId = hfResidencyProjectPointOfAssessmentId.ValueAsInt();
+            int residencyCompetencyPersonProjectAssignmentAssessmentId = hfResidencyCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt();
 
-            int residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId = int.Parse( hfResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId.Value );
+            var residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>();
+            ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = null;
+            residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Queryable()
+                .Where( a => a.ResidencyProjectPointOfAssessmentId.Equals( residencyProjectPointOfAssessmentId ) && a.ResidencyCompetencyPersonProjectAssignmentAssessmentId.Equals( residencyCompetencyPersonProjectAssignmentAssessmentId ) )
+                .FirstOrDefault();
 
-            if ( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId == 0 )
+            if ( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment == null )
             {
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = new ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment();
+                // Create a record to store the rating for this PointOfAssessment if one doesn't already exist
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = new ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment { Id = 0 };
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyProjectPointOfAssessmentId = residencyProjectPointOfAssessmentId;
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessmentId = residencyCompetencyPersonProjectAssignmentAssessmentId;
                 residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Add( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment, CurrentPersonId );
             }
-            else
-            {
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Get( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId );
-            }
-
-            /// TODO  not sure ..... residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessmentId = hfResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId.ValueAsInt();
+            
             residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating = tbRating.Text.AsInteger();
             residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingNotes = tbRatingNotes.Text;
 
@@ -120,12 +108,10 @@ namespace RockWeb.Blocks.Administration
                 residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Save( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment, CurrentPersonId );
             } );
 
-            // if this page was called from the ResidencyCompetencyPersonProjectAssignmentAssessment Detail page, return to that
-            string residencyCompetencyPersonProjectAssignmentAssessmentId = PageParameter( "residencyCompetencyPersonProjectAssignmentAssessmentId" );
-            if ( !string.IsNullOrWhiteSpace( residencyCompetencyPersonProjectAssignmentAssessmentId ) )
+            if ( residencyCompetencyPersonProjectAssignmentAssessmentId != 0 )
             {
                 Dictionary<string, string> qryString = new Dictionary<string, string>();
-                qryString["residencyCompetencyPersonProjectAssignmentAssessmentId"] = residencyCompetencyPersonProjectAssignmentAssessmentId;
+                qryString["residencyCompetencyPersonProjectAssignmentAssessmentId"] = residencyCompetencyPersonProjectAssignmentAssessmentId.ToString();
                 NavigateToParentPage( qryString );
             }
             else
@@ -137,43 +123,29 @@ namespace RockWeb.Blocks.Administration
         /// <summary>
         /// Shows the detail.
         /// </summary>
-        /// <param name="itemKey">The item key.</param>
-        /// <param name="itemKeyValue">The item key value.</param>
-        public void ShowDetail( string itemKey, int itemKeyValue )
+        /// <param name="residencyProjectPointOfAssessmentId">The residency project point of assessment id.</param>
+        /// <param name="residencyCompetencyPersonProjectAssignmentAssessmentId">The residency competency person project assignment assessment id.</param>
+        public void ShowDetail( int residencyProjectPointOfAssessmentId, int residencyCompetencyPersonProjectAssignmentAssessmentId )
         {
-            ShowDetail( itemKey, itemKeyValue, null );
-        }
-
-        /// <summary>
-        /// Shows the detail.
-        /// </summary>
-        /// <param name="itemKey">The item key.</param>
-        /// <param name="itemKeyValue">The item key value.</param>
-        /// <param name="residencyCompetencyPersonProjectAssignmentAssessmentId">The residency competency id.</param>
-        public void ShowDetail( string itemKey, int itemKeyValue, int? residencyCompetencyPersonProjectAssignmentAssessmentId )
-        {
-            // return if unexpected itemKey 
-            if ( itemKey != "residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId" )
-            {
-                return;
-            }
-
             pnlDetails.Visible = true;
 
-            // Load depending on Add(0) or Edit
+            var qry = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable();
             ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = null;
-            if ( !itemKeyValue.Equals( 0 ) )
-            {
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Get( itemKeyValue );
-            }
-            else
+            residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = qry
+                .Where( a => a.ResidencyProjectPointOfAssessmentId.Equals( residencyProjectPointOfAssessmentId ) && a.ResidencyCompetencyPersonProjectAssignmentAssessmentId.Equals( residencyCompetencyPersonProjectAssignmentAssessmentId ) ).FirstOrDefault();
+
+            if ( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment == null )
             {
                 residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = new ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment { Id = 0 };
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessmentId = residencyCompetencyPersonProjectAssignmentAssessmentId ?? 0;
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessment = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessment>().Get( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessmentId );
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyProjectPointOfAssessmentId = residencyProjectPointOfAssessmentId;
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyProjectPointOfAssessment 
+                    = new ResidencyService<ResidencyProjectPointOfAssessment>().Get( residencyProjectPointOfAssessmentId );
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessmentId = residencyCompetencyPersonProjectAssignmentAssessmentId;
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessment
+                    = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessment>().Get(residencyCompetencyPersonProjectAssignmentAssessmentId);
             }
 
-            hfResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId.Value = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Id.ToString();
+            hfResidencyProjectPointOfAssessmentId.Value = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyProjectPointOfAssessmentId.ToString();
             hfResidencyCompetencyPersonProjectAssignmentAssessmentId.Value = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessmentId.ToString();
 
             // render UI based on Authorized and IsSystem

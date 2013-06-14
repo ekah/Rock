@@ -9,8 +9,7 @@
                 <asp:BoundField DataField="ResidencyProjectPointOfAssessment.AssessmentOrder" HeaderText="#" SortExpression="ResidencyProjectPointOfAssessment.AssessmentOrder" />
                 <asp:BoundField DataField="ResidencyProjectPointOfAssessment.AssessmentText" HeaderText="Text" SortExpression="ResidencyProjectPointOfAssessment.AssessmentText" />
                 <asp:BoundField DataField="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating" HeaderText="Rating" SortExpression="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating" />
-                <asp:BoundField DataField="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingText" HeaderText="Rating Text" SortExpression="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingText" />
-                <Rock:DeleteField OnClick="gList_Delete" />
+                <asp:BoundField DataField="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingNotes" HeaderText="Rating Text" SortExpression="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingText" />
             </Columns>
         </Rock:Grid>
     </ContentTemplate>

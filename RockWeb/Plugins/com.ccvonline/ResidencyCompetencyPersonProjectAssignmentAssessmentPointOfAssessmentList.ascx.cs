@@ -28,16 +28,11 @@ namespace com.ccvonline.Blocks
         {
             base.OnInit( e );
 
-            // NOTE:  this is special case of where we need two key fields
+            // NOTE:  this is special case of where we need two key fields, and no add or delete
             gList.DataKeyNames = new string[] { "ResidencyProjectPointOfAssessmentId", "ResidencyCompetencyPersonProjectAssignmentAssessmentId" };
-            gList.Actions.ShowAdd = true;
-            gList.Actions.AddClick += gList_Add;
+            gList.Actions.ShowAdd = false;
+            gList.IsDeleteEnabled = false;
             gList.GridRebind += gList_GridRebind;
-
-            // Block Security and special attributes (RockPage takes care of "View")
-            bool canAddEditDelete = IsUserAuthorized( "Edit" );
-            gList.Actions.ShowAdd = canAddEditDelete;
-            gList.IsDeleteEnabled = canAddEditDelete;
         }
 
         /// <summary>
@@ -61,62 +56,22 @@ namespace com.ccvonline.Blocks
         #region Grid Events
 
         /// <summary>
-        /// Handles the Add event of the gList control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void gList_Add( object sender, EventArgs e )
-        {
-            gList_ShowEdit( 0 );
-        }
-
-        /// <summary>
         /// Handles the Edit event of the gList control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
         protected void gList_Edit( object sender, RowEventArgs e )
         {
-            gList_ShowEdit( (int)e.RowKeyValue );
+            gList_ShowEdit( (int)e.RowKeyValues["ResidencyProjectPointOfAssessmentId"], (int)e.RowKeyValues["ResidencyCompetencyPersonProjectAssignmentAssessmentId"] );
         }
 
         /// <summary>
         /// Gs the list_ show edit.
         /// </summary>
         /// <param name="residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId">The residency competency person project assignment assessment point of assessment id.</param>
-        protected void gList_ShowEdit( int residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId )
+        protected void gList_ShowEdit( int residencyProjectPointOfAssessmentId, int residencyCompetencyPersonProjectAssignmentAssessmentId )
         {
-            NavigateToDetailPage( "residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId", residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentId, "residencyCompetencyPersonProjectAssignmentAssessmentId", hfResidencyCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt() );
-        }
-
-        /// <summary>
-        /// Handles the Delete event of the gList control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
-        protected void gList_Delete( object sender, RowEventArgs e )
-        {
-            RockTransactionScope.WrapTransaction( () =>
-            {
-                var residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>();
-                ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Get( (int)e.RowKeyValue );
-
-                if ( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment != null )
-                {
-
-                    string errorMessage;
-                    if ( !residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.CanDelete( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment, out errorMessage ) )
-                    {
-                        mdGridWarning.Show( errorMessage, ModalAlertType.Information );
-                        return;
-                    }
-
-                    residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Delete( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment, CurrentPersonId );
-                    residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Save( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment, CurrentPersonId );
-                }
-            } );
-
-            BindGrid();
+            NavigateToDetailPage( "residencyProjectPointOfAssessmentId", residencyProjectPointOfAssessmentId, "residencyCompetencyPersonProjectAssignmentAssessmentId", residencyCompetencyPersonProjectAssignmentAssessmentId );
         }
 
         /// <summary>
