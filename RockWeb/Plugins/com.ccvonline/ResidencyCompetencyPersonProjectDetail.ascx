@@ -22,7 +22,7 @@
                     <Rock:LabeledText ID="lblPersonName" runat="server" LabelText="Resident" />
                     <Rock:LabeledText ID="lblResidencyCompetency" runat="server" LabelText="Competency" />
                     <Rock:LabeledText ID="lblResidencyProject" runat="server" LabelText="Project" />
-                    <Rock:LabeledDropDownList ID="ddlResidencyProject" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyProject, com.ccvonline.Residency" PropertyName="Name" /> 
+                    <Rock:DataDropDownList ID="ddlResidencyProject" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyProject, com.ccvonline.Residency" PropertyName="Name" Required="true"/> 
 
                 </fieldset>
 

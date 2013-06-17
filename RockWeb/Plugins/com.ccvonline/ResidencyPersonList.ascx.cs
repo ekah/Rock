@@ -154,34 +154,44 @@ namespace com.ccvonline.Blocks
             int residencyGroupId = PageParameter( "groupId" ).AsInteger() ?? 0;
             hfGroupId.SetValue( residencyGroupId );
 
-            var residentGroupMemberList = residencyGroupMemberService.Queryable()
+            var residencyGroupMemberList = residencyGroupMemberService.Queryable()
                 .Where( a => a.GroupId.Equals( residencyGroupId ) ).ToList();
 
             var residencyCompetencyPersonService = new ResidencyService<ResidencyCompetencyPerson>();
-            var residencyCompetencyPersonQry = residencyCompetencyPersonService.Queryable().GroupBy( a => a.Person ).ToList();
+            List<IGrouping<int, ResidencyCompetencyPerson>> residencyCompetencyPersonQry = residencyCompetencyPersonService.Queryable().GroupBy( a => a.PersonId ).ToList();
 
-            var joinedItems = from groupMember in residentGroupMemberList
-                              join competencyList in residencyCompetencyPersonQry on groupMember.Person equals competencyList.Key into gj
-                              from subCompetency in gj.DefaultIfEmpty()
-                              select new
-                              {
-                                  Id = groupMember.Id,
-                                  groupMember.Person.FullName,
-                                  CompetencyCount = ( subCompetency == null ? 0 : subCompetency.Count() ),
-                                  CompletedProjectsTotal = ( subCompetency == null ? 0 : subCompetency.Select( a => a.ResidencyCompetencyPersonProjects.Select( p => p.ResidencyCompetencyPersonProjectAssignments ).SelectMany( x => x ).Where( n => n.CompletedDateTime != null ).Count() ).Sum() ),
-                                  AssignedProjectsTotal = ( subCompetency == null ? 0 : subCompetency.Select( a => a.ResidencyCompetencyPersonProjects.Select( p => p.ResidencyCompetencyPersonProjectAssignments ).SelectMany( x => x ).Count() ).Sum() )
-                              };
+            var groupMemberCompetencies = from groupMember in residencyGroupMemberList
+                                          join competencyList in residencyCompetencyPersonQry on groupMember.PersonId
+                                          equals competencyList.Key into groupJoin
+                                          from qryResult in groupJoin.DefaultIfEmpty()
+                                          select new
+                                          {
+                                              GroupMember = groupMember,
+                                              ResidentCompentencies = qryResult != null ? qryResult.ToList() : null
+                                          };
 
+            var dataResult = groupMemberCompetencies.Select( a => new
+            {
+                Id = a.GroupMember.Id,
+                FullName = a.GroupMember.Person.FullName,
+                CompetencyCount = a.ResidentCompentencies == null ? 0 : a.ResidentCompentencies.Count(),
+                CompletedProjectsTotal = a.ResidentCompentencies == null
+                    ? 0
+                    : a.ResidentCompentencies.SelectMany( cp => cp.ResidencyCompetencyPersonProjects ).SelectMany( x => x.ResidencyCompetencyPersonProjectAssignments).Where( y => y.CompletedDateTime != null).Count(),
+                AssignedProjectsTotal = a.ResidentCompentencies == null
+                    ? 0
+                    : a.ResidentCompentencies.SelectMany( cp => cp.ResidencyCompetencyPersonProjects ).SelectMany( x => x.ResidencyCompetencyPersonProjectAssignments ).Count(),
+            } );
 
             SortProperty sortProperty = gList.SortProperty;
 
             if ( sortProperty != null )
             {
-                gList.DataSource = joinedItems.AsQueryable().Sort( sortProperty ).ToList();
+                gList.DataSource = dataResult.AsQueryable().Sort( sortProperty ).ToList();
             }
             else
             {
-                gList.DataSource = joinedItems.OrderBy( s => s.FullName ).ToList();
+                gList.DataSource = dataResult.OrderBy( s => s.FullName ).ToList();
             }
 
             gList.DataBind();

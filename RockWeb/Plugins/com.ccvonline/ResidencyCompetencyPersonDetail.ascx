@@ -28,9 +28,9 @@
                     </asp:Panel>
 
                     <asp:Panel ID="pnlCompetencyDropDownLists" runat="server">
-                        <Rock:LabeledDropDownList ID="ddlResidencyPeriod" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyPeriod, com.ccvonline.Residency" PropertyName="Name" AutoPostBack="true" OnSelectedIndexChanged="ddlResidencyPeriod_SelectedIndexChanged" LabelText="Period" />
-                        <Rock:LabeledDropDownList ID="ddlResidencyTrack" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyTrack, com.ccvonline.Residency" PropertyName="Name" AutoPostBack="true" OnSelectedIndexChanged="ddlResidencyTrack_SelectedIndexChanged" LabelText="Track"/>
-                        <Rock:LabeledDropDownList ID="ddlResidencyCompetency" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="Name" LabelText="Competency" />
+                        <Rock:DataDropDownList ID="ddlResidencyPeriod" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyPeriod, com.ccvonline.Residency" PropertyName="Name" AutoPostBack="true" OnSelectedIndexChanged="ddlResidencyPeriod_SelectedIndexChanged" LabelText="Period" />
+                        <Rock:DataDropDownList ID="ddlResidencyTrack" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyTrack, com.ccvonline.Residency" PropertyName="Name" AutoPostBack="true" OnSelectedIndexChanged="ddlResidencyTrack_SelectedIndexChanged" LabelText="Track"/>
+                        <Rock:DataDropDownList ID="ddlResidencyCompetency" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="Name" LabelText="Competency" />
                     </asp:Panel>
 
                 </fieldset>

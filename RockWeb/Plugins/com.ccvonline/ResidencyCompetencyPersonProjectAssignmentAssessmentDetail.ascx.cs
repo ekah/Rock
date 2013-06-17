@@ -262,7 +262,16 @@ namespace RockWeb.Blocks.Administration
             lblResident.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyCompetencyPerson.Person.FullName;
             lblCompetency.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyCompetencyPerson.ResidencyCompetency.Name;
             lblProjectName.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyProject.Name;
-            lblAssessor.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.AssessorPerson.FullName;
+            
+            if ( residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.AssessorPerson != null )
+            {
+                lblAssessor.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.AssessorPerson.FullName;
+            }
+            else
+            {
+                lblAssessor.Text = Rock.Constants.None.Text;
+            }
+
             dtpAssessmentDateTime.SelectedDateTime = residencyCompetencyPersonProjectAssignmentAssessment.AssessmentDateTime;
             tbRating.Text = residencyCompetencyPersonProjectAssignmentAssessment.Rating.ToString();
             tbRatingNotes.Text = residencyCompetencyPersonProjectAssignmentAssessment.RatingNotes;

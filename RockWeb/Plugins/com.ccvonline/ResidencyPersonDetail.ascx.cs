@@ -34,129 +34,17 @@ namespace RockWeb.Blocks.Administration
 
             if ( !Page.IsPostBack )
             {
-                string itemId = PageParameter( "groupMemberId" );
-                string groupId = PageParameter( "groupId" );
-                if ( !string.IsNullOrWhiteSpace( itemId ) )
+                int personId = this.PageParameter( "personId" ).AsInteger() ?? 0;
+
+                if ( personId != 0 )
                 {
-                    if ( string.IsNullOrWhiteSpace( groupId ) )
-                    {
-                        ShowDetail( "groupMemberId", int.Parse( itemId ) );
-                    }
-                    else
-                    {
-                        ShowDetail( "groupMemberId", int.Parse( itemId ), int.Parse( groupId ) );
-                    }
+                    ShowDetail( "personId", personId );
                 }
                 else
                 {
                     pnlDetails.Visible = false;
                 }
             }
-        }
-
-        #endregion
-
-        #region Edit Events
-
-        /// <summary>
-        /// Handles the Click event of the btnCancel control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void btnCancel_Click( object sender, EventArgs e )
-        {
-            SetEditMode( false );
-
-            if ( hfGroupMemberId.ValueAsInt().Equals( 0 ) )
-            {
-                // Cancelling on Add.  Return to Grid
-                // if this page was called from the Group Detail page, return to that
-                string groupId = PageParameter( "groupId" );
-                if ( !string.IsNullOrWhiteSpace( groupId ) )
-                {
-                    Dictionary<string, string> qryString = new Dictionary<string, string>();
-                    qryString["groupId"] = groupId;
-                    NavigateToParentPage( qryString );
-                }
-                else
-                {
-                    NavigateToParentPage();
-                }
-            }
-            else
-            {
-                // Cancelling on Edit.  Return to Details
-                ResidencyService<GroupMember> service = new ResidencyService<GroupMember>();
-                GroupMember item = service.Get( hfGroupMemberId.ValueAsInt() );
-                ShowReadonlyDetails( item );
-            }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the btnEdit control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void btnEdit_Click( object sender, EventArgs e )
-        {
-            ResidencyService<GroupMember> service = new ResidencyService<GroupMember>();
-            GroupMember item = service.Get( hfGroupMemberId.ValueAsInt() );
-            ShowEditDetails( item );
-        }
-
-        /// <summary>
-        /// Sets the edit mode.
-        /// </summary>
-        /// <param name="editable">if set to <c>true</c> [editable].</param>
-        private void SetEditMode( bool editable )
-        {
-            pnlEditDetails.Visible = editable;
-            fieldsetViewDetails.Visible = !editable;
-
-            DimOtherBlocks( editable );
-        }
-
-        /// <summary>
-        /// Handles the Click event of the btnSave control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void btnSave_Click( object sender, EventArgs e )
-        {
-            GroupMember groupMember;
-            ResidencyService<GroupMember> groupMemberService = new ResidencyService<GroupMember>();
-
-            int groupMemberId = hfGroupMemberId.ValueAsInt();
-
-            if ( groupMemberId == 0 )
-            {
-                groupMember = new GroupMember();
-                groupMemberService.Add( groupMember, CurrentPersonId );
-                groupMember.GroupId = hfGroupId.ValueAsInt();
-                var group = new ResidencyService<Group>().Get( groupMember.GroupId );
-                groupMember.GroupRoleId = group.GroupType.DefaultGroupRoleId ?? 0;
-            }
-            else
-            {
-                groupMember = groupMemberService.Get( groupMemberId );
-            }
-
-            groupMember.PersonId = ppPerson.SelectedValue ?? 0;
-
-            if ( !groupMember.IsValid )
-            {
-                // Controls will render the error messages
-                return;
-            }
-
-            RockTransactionScope.WrapTransaction( () =>
-            {
-                groupMemberService.Save( groupMember, CurrentPersonId );
-            } );
-
-            var qryParams = new Dictionary<string, string>();
-            qryParams["groupMemberId"] = groupMember.Id.ToString();
-            NavigateToPage( this.CurrentPage.Guid, qryParams );
         }
 
         /// <summary>
@@ -166,96 +54,28 @@ namespace RockWeb.Blocks.Administration
         /// <param name="itemKeyValue">The item key value.</param>
         public void ShowDetail( string itemKey, int itemKeyValue )
         {
-            ShowDetail( itemKey, itemKeyValue, null );
-        }
-
-        /// <summary>
-        /// Shows the detail.
-        /// </summary>
-        /// <param name="itemKey">The item key.</param>
-        /// <param name="itemKeyValue">The item key value.</param>
-        /// <param name="groupId">The group id.</param>
-        public void ShowDetail( string itemKey, int itemKeyValue, int? groupId )
-        {
             // return if unexpected itemKey 
-            if ( itemKey != "groupMemberId" )
+            if ( itemKey != "personId" )
             {
                 return;
             }
 
             pnlDetails.Visible = true;
+            
+            // this is always just a View block (they are added/edited on the GroupMember block)
+            Person person = new ResidencyService<Person>().Get(itemKeyValue);
 
-            // Load depending on Add(0) or Edit
-            GroupMember groupMember = null;
-            if ( !itemKeyValue.Equals( 0 ) )
-            {
-                groupMember = new ResidencyService<GroupMember>().Get( itemKeyValue );
-                lActionTitle.Text = ActionTitle.Edit( GroupMember.FriendlyTypeName );
-            }
-            else
-            {
-                groupMember = new GroupMember { Id = 0, GroupId = groupId ?? 0 };
-                lActionTitle.Text = ActionTitle.Add( GroupMember.FriendlyTypeName );
-            }
-
-            hfGroupId.SetValue( groupMember.GroupId );
-            hfGroupMemberId.SetValue( groupMember.Id );
-
-            // render UI based on Authorized and IsSystem
-            bool readOnly = false;
-
-            nbEditModeMessage.Text = string.Empty;
-            if ( !IsUserAuthorized( "Edit" ) )
-            {
-                readOnly = true;
-                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( GroupMember.FriendlyTypeName );
-            }
-
-            if ( readOnly )
-            {
-                btnEdit.Visible = false;
-                ShowReadonlyDetails( groupMember );
-            }
-            else
-            {
-                btnEdit.Visible = true;
-                if ( groupMember.Id > 0 )
-                {
-                    ShowReadonlyDetails( groupMember );
-                }
-                else
-                {
-                    ShowEditDetails( groupMember );
-                }
-            }
-        }
-
-        /// <summary>
-        /// Shows the edit details.
-        /// </summary>
-        /// <param name="groupMember">The group member.</param>
-        private void ShowEditDetails( GroupMember groupMember )
-        {
-            if ( groupMember.Id > 0 )
-            {
-                lActionTitle.Text = ActionTitle.Edit( GroupMember.FriendlyTypeName );
-            }
-            else
-            {
-                lActionTitle.Text = ActionTitle.Add( GroupMember.FriendlyTypeName );
-            }
-
-            SetEditMode( true );
-            ppPerson.SetValue( groupMember.Person );
+            ShowReadonlyDetails( person );
+            
         }
 
         /// <summary>
         /// Shows the readonly details.
         /// </summary>
-        /// <param name="groupMember">The group member.</param>
-        private void ShowReadonlyDetails( GroupMember groupMember )
+        /// <param name="person">The group member.</param>
+        private void ShowReadonlyDetails( Person person )
         {
-            SetEditMode( false );
+            fieldsetViewDetails.Visible = true;
 
             // make a Description section for nonEdit mode
             string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
@@ -263,8 +83,7 @@ namespace RockWeb.Blocks.Administration
 <div class='span6'>
     <dl>";
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Group", groupMember.Group.Name );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Name", groupMember.Person.FullName );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Name", person.FullName );
 
             lblMainDetails.Text += @"
     </dl>

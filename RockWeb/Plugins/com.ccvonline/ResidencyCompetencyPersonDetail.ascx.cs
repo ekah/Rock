@@ -22,7 +22,7 @@ namespace RockWeb.Blocks.Administration
     /// <summary>
     /// Simple detail form that for a Resident's assignment to a specific Competency
     /// </summary>
-    [LinkedPage( "Residency Competency Page" )]
+    [LinkedPage( "Resident Detail Page" )]
     public partial class ResidencyCompetencyPersonDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -330,20 +330,21 @@ namespace RockWeb.Blocks.Administration
 <div class='span6'>
     <dl>";
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Resident", residencyCompetencyPerson.Person.FullName );
+            
 
-            string residencyPeriodPageGuid = this.GetAttributeValue( "ResidencyCompetencyPage" );
-            string residencyCompetencyHtml = residencyCompetencyPerson.ResidencyCompetency.Name;
-            if ( !string.IsNullOrWhiteSpace( residencyPeriodPageGuid ) )
+            string residentDetailPageGuid = this.GetAttributeValue( "ResidentDetailPage" );
+            string residentHtml = residencyCompetencyPerson.Person.FullName;
+            if ( !string.IsNullOrWhiteSpace( residentDetailPageGuid ) )
             {
-                var page = new PageService().Get( new Guid( residencyPeriodPageGuid ) );
+                var page = new PageService().Get( new Guid( residentDetailPageGuid ) );
                 Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "residencyCompetencyId", residencyCompetencyPerson.ResidencyCompetencyId.ToString() );
+                queryString.Add( "personId", residencyCompetencyPerson.PersonId.ToString() );
                 string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                residencyCompetencyHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, residencyCompetencyPerson.ResidencyCompetency.Name );
+                residentHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, residencyCompetencyPerson.Person.FullName );
             }
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", residencyCompetencyHtml );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Resident",  residentHtml);
+            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", residencyCompetencyPerson.ResidencyCompetency.Name );
 
             lblMainDetails.Text += @"
     </dl>
