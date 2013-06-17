@@ -7,14 +7,17 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+
+using com.ccvonline.Data;
 using com.ccvonline.Residency.Data;
+
 using Rock.Data;
 
 namespace com.ccvonline.Residency.Model
 {
     [Table( "_com_ccvonline_ResidencyCompetency" )]
     [DataContract]
-    public class ResidencyCompetency : ResidencyNamedModel<ResidencyCompetency>
+    public class ResidencyCompetency : NamedModel<ResidencyCompetency>
     {
         #region Entity Properties
 

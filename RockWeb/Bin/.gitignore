@@ -3,8 +3,7 @@
 # for non-core RockWeb projects, ignore your project output, for example
 #  com.yourchurch.yourproject.dll
 #  com.yourchurch.yourproject.pbd
-com.ccvonline.residency.dll
-com.ccvonline.residency.pdb
+com.ccvonline.*
 
 #  also ignore EntityFramework related stuff, since that comes from the nuget package in your project
 /EntityFramework.dll

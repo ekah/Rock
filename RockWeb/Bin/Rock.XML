@@ -2924,6 +2924,64 @@
             Initializes a new instance of the <see cref="!:BinaryFileDatConfiguration"/> class.
             </summary>
         </member>
+        <member name="T:Rock.Net.RockWebRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Net.RockWebRequest.Get(System.String)">
+            <summary>
+            Gets the specified request URI string.
+            </summary>
+            <param name="requestUriString">The request URI string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Net.RockWebRequest.Send(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Sends the specified request URI string.
+            </summary>
+            <param name="requestUriString">The request URI string.</param>
+            <param name="method">The method.</param>
+            <param name="queryStringData">The query string data.</param>
+            <param name="formData">The form data.</param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Rock.Net.RockWebRequest.GetResponseString(System.IO.Stream)">
+            <summary>
+            Gets the response string.
+            </summary>
+            <param name="responseStream">The response stream.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rock.Net.RockWebResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Net.RockWebResponse.#ctor(System.Net.HttpStatusCode,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Net.RockWebResponse"/> class.
+            </summary>
+            <param name="httpStatusCode">The HTTP status code.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="P:Rock.Net.RockWebResponse.HttpStatusCode">
+            <summary>
+            Gets the HTTP status code.
+            </summary>
+            <value>
+            The HTTP status code.
+            </value>
+        </member>
+        <member name="P:Rock.Net.RockWebResponse.Message">
+            <summary>
+            Gets the message.
+            </summary>
+            <value>
+            The message.
+            </value>
+        </member>
         <member name="T:Rock.PersonProfile.BadgeComponent">
             <summary>
             Base class for person profile badges
@@ -15509,7 +15567,7 @@
             </summary>
             <param name="writer">An <see cref="T:System.Web.UI.HtmlTextWriter" /> that represents the output stream to render HTML content on the client.</param>
         </member>
-        <member name="P:Rock.Web.UI.Controls.NewFamilyAttributes.Attributes">
+        <member name="P:Rock.Web.UI.Controls.NewFamilyAttributes.AttributeList">
             <summary>
             Gets or sets the attribute ids.
             </summary>
@@ -15522,7 +15580,7 @@
             Displays a bootstrap badge
             </summary>
         </member>
-        <member name="P:Rock.Web.UI.Controls.NewFamilyAttributesRow.Attributes">
+        <member name="P:Rock.Web.UI.Controls.NewFamilyAttributesRow.AttributeList">
             <summary>
             Gets or sets the attribute ids.
             </summary>

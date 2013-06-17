@@ -7,6 +7,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+
+using com.ccvonline.Data;
 using com.ccvonline.Residency.Data;
 
 namespace com.ccvonline.Residency.Model
@@ -16,7 +18,7 @@ namespace com.ccvonline.Residency.Model
     /// </summary>
     [Table( "_com_ccvonline_ResidencyPeriod" )]
     [DataContract]
-    public partial class ResidencyPeriod : ResidencyNamedModel<ResidencyPeriod>
+    public partial class ResidencyPeriod : NamedModel<ResidencyPeriod>
     {
         #region Entity Properties
 

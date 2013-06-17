@@ -7,13 +7,15 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+
+using com.ccvonline.Data;
 using com.ccvonline.Residency.Data;
 
 namespace com.ccvonline.Residency.Model
 {
     [Table( "_com_ccvonline_ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment" )]
     [DataContract]
-    public class ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment : ResidencyModel<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>
+    public class ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment : Model<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>
     {
         #region Entity Properties
         
