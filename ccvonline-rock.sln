@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.ccvonline.Residency", "Residency\com.ccvonline.Residency.csproj", "{629A186E-1ED2-49BC-95D4-76D65950AE73}"
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RockWeb(2)", "http://localhost:50104", "{D52B6AC8-C491-44B0-9660-7548D227AEA4}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
@@ -29,16 +27,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.ccvonline.CommandCenter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.ccvonline", "com.ccvonline\com.ccvonline.csproj", "{C61F05C4-F947-4A32-84C1-413BDFA912FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.ccvonline.Residency", "com.ccvonline.Residency\com.ccvonline.Residency.csproj", "{629A186E-1ED2-49BC-95D4-76D65950AE73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D52B6AC8-C491-44B0-9660-7548D227AEA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D52B6AC8-C491-44B0-9660-7548D227AEA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D52B6AC8-C491-44B0-9660-7548D227AEA4}.Release|Any CPU.ActiveCfg = Debug|Any CPU
@@ -51,6 +47,10 @@ Global
 		{C61F05C4-F947-4A32-84C1-413BDFA912FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C61F05C4-F947-4A32-84C1-413BDFA912FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C61F05C4-F947-4A32-84C1-413BDFA912FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
