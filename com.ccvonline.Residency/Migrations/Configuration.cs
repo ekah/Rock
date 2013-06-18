@@ -27,6 +27,7 @@ namespace com.ccvonline.Residency.Migrations
         }
     }
 
+    /*
     // If you update the Rock.dll often, this RockCoreConfiguration will help you do Update-Database for the Rock Core Tables
     // To do this, run "Update-Database -ConfigurationTypeName:RockCoreConfiguration" using Package Manager Console
     internal sealed class RockCoreConfiguration : DbMigrationsConfiguration<Rock.Data.RockContext>
@@ -41,4 +42,5 @@ namespace com.ccvonline.Residency.Migrations
             this.ContextKey = "Rock.Migrations.Configuration";
         }
     }
+     */ 
 }

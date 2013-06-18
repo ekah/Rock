@@ -93,6 +93,10 @@
     <Compile Include="Migrations\201306180025461_ResidentAdminPagesBlocks.Designer.cs">
       <DependentUpon>201306180025461_ResidentAdminPagesBlocks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306181641479_UpdateBlockFileNames.cs" />
+    <Compile Include="Migrations\201306181641479_UpdateBlockFileNames.Designer.cs">
+      <DependentUpon>201306181641479_UpdateBlockFileNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ResidencyCompetency.cs" />
     <Compile Include="Model\ResidencyCompetencyPerson.cs" />
@@ -139,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306180025461_ResidentAdminPagesBlocks.resx">
       <DependentUpon>201306180025461_ResidentAdminPagesBlocks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306181641479_UpdateBlockFileNames.resx">
+      <DependentUpon>201306181641479_UpdateBlockFileNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
