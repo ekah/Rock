@@ -15,7 +15,7 @@ using Rock.Data;
 
 namespace com.ccvonline.Residency.Model
 {
-    [Table( "_com_ccvonline_ResidencyCompetency" )]
+    [Table( "_com_ccvonline_Residency_Competency" )]
     [DataContract]
     public class ResidencyCompetency : NamedModel<ResidencyCompetency>
     {

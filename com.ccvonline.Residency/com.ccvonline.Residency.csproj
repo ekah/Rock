@@ -97,6 +97,10 @@
     <Compile Include="Migrations\201306181641479_UpdateBlockFileNames.Designer.cs">
       <DependentUpon>201306181641479_UpdateBlockFileNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306181758304_RenameTables01.cs" />
+    <Compile Include="Migrations\201306181758304_RenameTables01.Designer.cs">
+      <DependentUpon>201306181758304_RenameTables01.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ResidencyCompetency.cs" />
     <Compile Include="Model\ResidencyCompetencyPerson.cs" />
@@ -146,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306181641479_UpdateBlockFileNames.resx">
       <DependentUpon>201306181641479_UpdateBlockFileNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306181758304_RenameTables01.resx">
+      <DependentUpon>201306181758304_RenameTables01.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

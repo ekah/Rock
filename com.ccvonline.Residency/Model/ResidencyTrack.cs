@@ -16,7 +16,7 @@ namespace com.ccvonline.Residency.Model
     /// <summary>
     /// 
     /// </summary>
-    [Table( "_com_ccvonline_ResidencyTrack" )]
+    [Table( "_com_ccvonline_Residency_Track" )]
     [DataContract]
     public class ResidencyTrack : NamedModel<ResidencyTrack>
     {

@@ -13,7 +13,7 @@ using com.ccvonline.Residency.Data;
 
 namespace com.ccvonline.Residency.Model
 {
-    [Table( "_com_ccvonline_ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment" )]
+    [Table( "_com_ccvonline_Residency_CompetencyPersonProjectAssignmentAssessmentPointOfAssessment" )]
     [DataContract]
     public class ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment : Model<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>
     {

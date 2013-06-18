@@ -16,7 +16,7 @@ namespace com.ccvonline.Residency.Model
     /// <summary>
     /// 
     /// </summary>
-    [Table( "_com_ccvonline_ResidencyCompetencyPersonProjectAssignment" )]
+    [Table( "_com_ccvonline_Residency_CompetencyPersonProjectAssignment" )]
     [DataContract]
     public class ResidencyCompetencyPersonProjectAssignment : Model<ResidencyCompetencyPersonProjectAssignment>
     {

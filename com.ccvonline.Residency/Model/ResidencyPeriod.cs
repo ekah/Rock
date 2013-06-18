@@ -16,7 +16,7 @@ namespace com.ccvonline.Residency.Model
     /// <summary>
     /// 
     /// </summary>
-    [Table( "_com_ccvonline_ResidencyPeriod" )]
+    [Table( "_com_ccvonline_Residency_Period" )]
     [DataContract]
     public partial class ResidencyPeriod : NamedModel<ResidencyPeriod>
     {
