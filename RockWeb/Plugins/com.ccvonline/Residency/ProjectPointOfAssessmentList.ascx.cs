@@ -49,9 +49,9 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             if ( !Page.IsPostBack )
             {
-                int? residencyProjectId = this.PageParameter( "residencyProjectId" ).AsInteger();
+                int? projectId = this.PageParameter( "projectId" ).AsInteger();
 
-                hfResidencyProjectId.Value = residencyProjectId.ToString();
+                hfProjectId.Value = projectId.ToString();
                 BindGrid();
             }
         }
@@ -66,11 +66,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             int oldIndex = e.OldIndex;
             int newIndex = e.NewIndex;
-            int residencyProjectId = hfResidencyProjectId.ValueAsInt();
+            int projectId = hfProjectId.ValueAsInt();
 
-            var residencyProjectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
-            var items = residencyProjectPointOfAssessmentService.Queryable()
-                .Where( a => a.ProjectId.Equals( residencyProjectId ) )
+            var projectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
+            var items = projectPointOfAssessmentService.Queryable()
+                .Where( a => a.ProjectId.Equals( projectId ) )
                 .OrderBy( a => a.AssessmentOrder ).ToList();
 
             ProjectPointOfAssessment movedItem = items[oldIndex];
@@ -92,7 +92,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                     if ( item.AssessmentOrder != order )
                     {
                         item.AssessmentOrder = order;
-                        residencyProjectPointOfAssessmentService.Save( item, CurrentPersonId );
+                        projectPointOfAssessmentService.Save( item, CurrentPersonId );
                     }
                 }
 
@@ -129,10 +129,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <summary>
         /// Gs the list_ show edit.
         /// </summary>
-        /// <param name="residencyProjectPointOfAssessmentId">The residency project point of assessment id.</param>
-        protected void gList_ShowEdit( int residencyProjectPointOfAssessmentId )
+        /// <param name="projectPointOfAssessmentId">The residency project point of assessment id.</param>
+        protected void gList_ShowEdit( int projectPointOfAssessmentId )
         {
-            NavigateToDetailPage( "residencyProjectPointOfAssessmentId", residencyProjectPointOfAssessmentId, "residencyProjectId", hfResidencyProjectId.Value.AsInteger().Value );
+            NavigateToDetailPage( "projectPointOfAssessmentId", projectPointOfAssessmentId, "projectId", hfProjectId.Value.AsInteger().Value );
         }
 
         /// <summary>
@@ -144,20 +144,20 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyProjectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
+                var projectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
 
-                ProjectPointOfAssessment residencyProjectPointOfAssessment = residencyProjectPointOfAssessmentService.Get( (int)e.RowKeyValue );
-                if ( residencyProjectPointOfAssessment != null )
+                ProjectPointOfAssessment projectPointOfAssessment = projectPointOfAssessmentService.Get( (int)e.RowKeyValue );
+                if ( projectPointOfAssessment != null )
                 {
                     string errorMessage;
-                    if ( !residencyProjectPointOfAssessmentService.CanDelete( residencyProjectPointOfAssessment, out errorMessage ) )
+                    if ( !projectPointOfAssessmentService.CanDelete( projectPointOfAssessment, out errorMessage ) )
                     {
                         mdGridWarning.Show( errorMessage, ModalAlertType.Information );
                         return;
                     }
 
-                    residencyProjectPointOfAssessmentService.Delete( residencyProjectPointOfAssessment, CurrentPersonId );
-                    residencyProjectPointOfAssessmentService.Save( residencyProjectPointOfAssessment, CurrentPersonId );
+                    projectPointOfAssessmentService.Delete( projectPointOfAssessment, CurrentPersonId );
+                    projectPointOfAssessmentService.Save( projectPointOfAssessment, CurrentPersonId );
                 }
             } );
 
@@ -183,10 +183,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var residencyProjectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
-            int residencyProjectId = hfResidencyProjectId.ValueAsInt();
-            gList.DataSource = residencyProjectPointOfAssessmentService.Queryable()
-                .Where( a => a.ProjectId == residencyProjectId )
+            var projectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
+            int projectId = hfProjectId.ValueAsInt();
+            gList.DataSource = projectPointOfAssessmentService.Queryable()
+                .Where( a => a.ProjectId == projectId )
                 .OrderBy( s => s.AssessmentOrder ).ToList();
             gList.DataBind();
         }

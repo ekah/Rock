@@ -46,8 +46,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             if ( !Page.IsPostBack )
             {
-                int? residencyCompetencyId = this.PageParameter( "residencyCompetencyId" ).AsInteger();
-                hfResidencyCompetencyId.Value = residencyCompetencyId.ToString();
+                int? competencyId = this.PageParameter( "competencyId" ).AsInteger();
+                hfCompetencyId.Value = competencyId.ToString();
                 BindGrid();
             }
 
@@ -84,7 +84,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="id">The id.</param>
         protected void gList_ShowEdit( int id )
         {
-            NavigateToDetailPage( "residencyProjectId", id, "residencyCompetencyId", hfResidencyCompetencyId.ValueAsInt() );
+            NavigateToDetailPage( "projectId", id, "competencyId", hfCompetencyId.ValueAsInt() );
         }
 
         /// <summary>
@@ -96,20 +96,20 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyProjectService = new ResidencyService<Project>();
+                var projectService = new ResidencyService<Project>();
 
-                Project residencyProject = residencyProjectService.Get( (int)e.RowKeyValue );
-                if ( residencyProject != null )
+                Project project = projectService.Get( (int)e.RowKeyValue );
+                if ( project != null )
                 {
                     string errorMessage;
-                    if ( !residencyProjectService.CanDelete( residencyProject, out errorMessage ) )
+                    if ( !projectService.CanDelete( project, out errorMessage ) )
                     {
                         mdGridWarning.Show( errorMessage, ModalAlertType.Information );
                         return;
                     }
 
-                    residencyProjectService.Delete( residencyProject, CurrentPersonId );
-                    residencyProjectService.Save( residencyProject, CurrentPersonId );
+                    projectService.Delete( project, CurrentPersonId );
+                    projectService.Save( project, CurrentPersonId );
                 }
             } );
 
@@ -135,11 +135,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var residencyProjectService = new ResidencyService<Project>();
-            int residencyCompetencyId = hfResidencyCompetencyId.ValueAsInt();
+            var projectService = new ResidencyService<Project>();
+            int competencyId = hfCompetencyId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
-            var qry = residencyProjectService.Queryable();
-            qry = qry.Where( a => a.CompetencyId.Equals( residencyCompetencyId ) );
+            var qry = projectService.Queryable();
+            qry = qry.Where( a => a.CompetencyId.Equals( competencyId ) );
 
             if ( sortProperty != null )
             {

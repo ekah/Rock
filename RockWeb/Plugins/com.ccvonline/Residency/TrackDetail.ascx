@@ -1,11 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="TrackDetail.ascx.cs" Inherits="RockWeb.Plugins.com.ccvonline.Residency.TrackDetail" %>
 
-<asp:UpdatePanel ID="upResidencyTrackDetail" runat="server">
+<asp:UpdatePanel ID="upTrackDetail" runat="server">
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
-            <asp:HiddenField ID="hfResidencyTrackId" runat="server" />
-            <asp:HiddenField ID="hfResidencyPeriodId" runat="server" />
+            <asp:HiddenField ID="hfTrackId" runat="server" />
+            <asp:HiddenField ID="hfPeriodId" runat="server" />
 
             <div id="pnlEditDetails" runat="server" class="well">
 
@@ -19,8 +19,8 @@
 
                     <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
 
-                    <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyTrack, com.ccvonline.Residency" PropertyName="Name" />
-                    <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyTrack, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" />
+                    <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Track, com.ccvonline.Residency" PropertyName="Name" />
+                    <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Track, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" />
                     <Rock:LabeledText ID="lblPeriod" runat="server" LabelText="Period" />
 
                 </fieldset>

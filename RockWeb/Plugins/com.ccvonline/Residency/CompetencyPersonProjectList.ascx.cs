@@ -48,8 +48,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             if ( !Page.IsPostBack )
             {
-                int? residencyCompetencyPersonId = this.PageParameter( "residencyCompetencyPersonId" ).AsInteger();
-                hfResidencyCompetencyPersonId.Value = residencyCompetencyPersonId.ToString();
+                int? competencyPersonId = this.PageParameter( "competencyPersonId" ).AsInteger();
+                hfCompetencyPersonId.Value = competencyPersonId.ToString();
                 BindGrid();
             }
         }
@@ -81,10 +81,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <summary>
         /// Gs the list_ show edit.
         /// </summary>
-        /// <param name="residencyCompetencyPersonProjectId">The residency competency person project id.</param>
-        protected void gList_ShowEdit( int residencyCompetencyPersonProjectId )
+        /// <param name="competencyPersonProjectId">The residency competency person project id.</param>
+        protected void gList_ShowEdit( int competencyPersonProjectId )
         {
-            NavigateToDetailPage( "residencyCompetencyPersonProjectId", residencyCompetencyPersonProjectId, "residencyCompetencyPersonId", hfResidencyCompetencyPersonId.ValueAsInt() );
+            NavigateToDetailPage( "competencyPersonProjectId", competencyPersonProjectId, "competencyPersonId", hfCompetencyPersonId.ValueAsInt() );
         }
 
         /// <summary>
@@ -96,20 +96,20 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyCompetencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
-                CompetencyPersonProject residencyCompetencyPersonProject = residencyCompetencyPersonProjectService.Get( (int)e.RowKeyValue );
+                var competencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
+                CompetencyPersonProject competencyPersonProject = competencyPersonProjectService.Get( (int)e.RowKeyValue );
 
-                if ( residencyCompetencyPersonProject != null )
+                if ( competencyPersonProject != null )
                 {
                     string errorMessage;
-                    if ( !residencyCompetencyPersonProjectService.CanDelete( residencyCompetencyPersonProject, out errorMessage ) )
+                    if ( !competencyPersonProjectService.CanDelete( competencyPersonProject, out errorMessage ) )
                     {
                         mdGridWarning.Show( errorMessage, ModalAlertType.Information );
                         return;
                     }
 
-                    residencyCompetencyPersonProjectService.Delete( residencyCompetencyPersonProject, CurrentPersonId );
-                    residencyCompetencyPersonProjectService.Save( residencyCompetencyPersonProject, CurrentPersonId );
+                    competencyPersonProjectService.Delete( competencyPersonProject, CurrentPersonId );
+                    competencyPersonProjectService.Save( competencyPersonProject, CurrentPersonId );
                 }
             } );
 
@@ -135,12 +135,12 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var ResidencyCompetencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
-            int ResidencyCompetencyPersonId = hfResidencyCompetencyPersonId.ValueAsInt();
+            var CompetencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
+            int CompetencyPersonId = hfCompetencyPersonId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
-            var qry = ResidencyCompetencyPersonProjectService.Queryable();
+            var qry = CompetencyPersonProjectService.Queryable();
 
-            qry = qry.Where( a => a.CompetencyPersonId.Equals( ResidencyCompetencyPersonId ) );
+            qry = qry.Where( a => a.CompetencyPersonId.Equals( CompetencyPersonId ) );
 
             if ( sortProperty != null )
             {

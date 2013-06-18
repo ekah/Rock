@@ -34,17 +34,17 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             if ( !Page.IsPostBack )
             {
-                int? itemId = PageParameter( "residencyProjectPointOfAssessmentId" ).AsInteger( true );
-                int? projectId = PageParameter( "residencyProjectId" ).AsInteger( true );
+                int? itemId = PageParameter( "projectPointOfAssessmentId" ).AsInteger( true );
+                int? projectId = PageParameter( "projectId" ).AsInteger( true );
                 if ( itemId != null )
                 {
                     if ( projectId == null )
                     {
-                        ShowDetail( "residencyProjectPointOfAssessmentId", itemId.Value );
+                        ShowDetail( "projectPointOfAssessmentId", itemId.Value );
                     }
                     else
                     {
-                        ShowDetail( "residencyProjectPointOfAssessmentId", itemId.Value, projectId.Value );
+                        ShowDetail( "projectPointOfAssessmentId", itemId.Value, projectId.Value );
                     }
                 }
                 else
@@ -66,7 +66,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         protected void btnCancel_Click( object sender, EventArgs e )
         {
             Dictionary<string, string> qryString = new Dictionary<string, string>();
-            qryString["residencyProjectId"] = hfResidencyProjectId.Value;
+            qryString["projectId"] = hfProjectId.Value;
             NavigateToParentPage( qryString );
         }
 
@@ -77,26 +77,26 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnSave_Click( object sender, EventArgs e )
         {
-            ProjectPointOfAssessment residencyProjectPointOfAssessment;
-            ResidencyService<ProjectPointOfAssessment> residencyProjectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
+            ProjectPointOfAssessment projectPointOfAssessment;
+            ResidencyService<ProjectPointOfAssessment> projectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
 
-            int residencyProjectPointOfAssessmentId = int.Parse( hfResidencyProjectPointOfAssessmentId.Value );
+            int projectPointOfAssessmentId = int.Parse( hfProjectPointOfAssessmentId.Value );
 
-            if ( residencyProjectPointOfAssessmentId == 0 )
+            if ( projectPointOfAssessmentId == 0 )
             {
-                residencyProjectPointOfAssessment = new ProjectPointOfAssessment();
-                residencyProjectPointOfAssessment.AssessmentOrder = lblAssessmentOrder.Text.AsInteger().Value;
-                residencyProjectPointOfAssessment.ProjectId = hfResidencyProjectId.ValueAsInt();
-                residencyProjectPointOfAssessmentService.Add( residencyProjectPointOfAssessment, CurrentPersonId );
+                projectPointOfAssessment = new ProjectPointOfAssessment();
+                projectPointOfAssessment.AssessmentOrder = lblAssessmentOrder.Text.AsInteger().Value;
+                projectPointOfAssessment.ProjectId = hfProjectId.ValueAsInt();
+                projectPointOfAssessmentService.Add( projectPointOfAssessment, CurrentPersonId );
             }
             else
             {
-                residencyProjectPointOfAssessment = residencyProjectPointOfAssessmentService.Get( residencyProjectPointOfAssessmentId );
+                projectPointOfAssessment = projectPointOfAssessmentService.Get( projectPointOfAssessmentId );
             }
 
-            residencyProjectPointOfAssessment.AssessmentText = tbAssessmentText.Text;
+            projectPointOfAssessment.AssessmentText = tbAssessmentText.Text;
 
-            if ( !residencyProjectPointOfAssessment.IsValid )
+            if ( !projectPointOfAssessment.IsValid )
             {
                 // Controls will render the error messages
                 return;
@@ -104,11 +104,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             RockTransactionScope.WrapTransaction( () =>
             {
-                residencyProjectPointOfAssessmentService.Save( residencyProjectPointOfAssessment, CurrentPersonId );
+                projectPointOfAssessmentService.Save( projectPointOfAssessment, CurrentPersonId );
             } );
 
             Dictionary<string, string> qryString = new Dictionary<string, string>();
-            qryString["residencyProjectId"] = hfResidencyProjectId.Value;
+            qryString["projectId"] = hfProjectId.Value;
             NavigateToParentPage( qryString );
         }
 
@@ -127,11 +127,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         /// <param name="itemKey">The item key.</param>
         /// <param name="itemKeyValue">The item key value.</param>
-        /// <param name="residencyProjectId">The residency project id.</param>
-        public void ShowDetail( string itemKey, int itemKeyValue, int? residencyProjectId )
+        /// <param name="projectId">The residency project id.</param>
+        public void ShowDetail( string itemKey, int itemKeyValue, int? projectId )
         {
             // return if unexpected itemKey 
-            if ( itemKey != "residencyProjectPointOfAssessmentId" )
+            if ( itemKey != "projectPointOfAssessmentId" )
             {
                 return;
             }
@@ -139,44 +139,44 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             pnlDetails.Visible = true;
 
             // Load depending on Add(0) or Edit
-            ProjectPointOfAssessment residencyProjectPointOfAssessment = null;
-            var residencyProjectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
+            ProjectPointOfAssessment projectPointOfAssessment = null;
+            var projectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
 
-            string residencyProjectName = new ResidencyService<Project>().Queryable()
-                .Where( a => a.Id.Equals( residencyProjectId.Value ) )
+            string projectName = new ResidencyService<Project>().Queryable()
+                .Where( a => a.Id.Equals( projectId.Value ) )
                 .Select( a => a.Name ).FirstOrDefault();
 
             if ( !itemKeyValue.Equals( 0 ) )
             {
-                residencyProjectPointOfAssessment = residencyProjectPointOfAssessmentService.Get( itemKeyValue );
-                lActionTitle.Text = ActionTitle.Edit( "Point of Assessment for " + residencyProjectName );
+                projectPointOfAssessment = projectPointOfAssessmentService.Get( itemKeyValue );
+                lActionTitle.Text = ActionTitle.Edit( "Point of Assessment for " + projectName );
             }
             else
             {
-                // don't try add if there wasn't a residencyProjectId specified
-                if ( residencyProjectId != null )
+                // don't try add if there wasn't a projectId specified
+                if ( projectId != null )
                 {
-                    residencyProjectPointOfAssessment = new ProjectPointOfAssessment { Id = 0, ProjectId = residencyProjectId.Value };
+                    projectPointOfAssessment = new ProjectPointOfAssessment { Id = 0, ProjectId = projectId.Value };
                     
-                    int maxAssessmentOrder = residencyProjectPointOfAssessmentService.Queryable()
-                        .Where( a => a.ProjectId.Equals( residencyProjectPointOfAssessment.ProjectId ) )
+                    int maxAssessmentOrder = projectPointOfAssessmentService.Queryable()
+                        .Where( a => a.ProjectId.Equals( projectPointOfAssessment.ProjectId ) )
                         .Select( a => a.AssessmentOrder ).DefaultIfEmpty( 0 ).Max();
 
-                    residencyProjectPointOfAssessment.AssessmentOrder = maxAssessmentOrder + 1;
+                    projectPointOfAssessment.AssessmentOrder = maxAssessmentOrder + 1;
                     
-                    lActionTitle.Text = ActionTitle.Add( "Point of Assessment for " + residencyProjectName );
+                    lActionTitle.Text = ActionTitle.Add( "Point of Assessment for " + projectName );
                 }
             }
 
-            if ( residencyProjectPointOfAssessment == null )
+            if ( projectPointOfAssessment == null )
             {
                 return;
             }
 
-            hfResidencyProjectPointOfAssessmentId.Value = residencyProjectPointOfAssessment.Id.ToString();
-            hfResidencyProjectId.Value = residencyProjectId.ToString();
-            lblAssessmentOrder.Text = residencyProjectPointOfAssessment.AssessmentOrder.ToString();
-            tbAssessmentText.Text = residencyProjectPointOfAssessment.AssessmentText;
+            hfProjectPointOfAssessmentId.Value = projectPointOfAssessment.Id.ToString();
+            hfProjectId.Value = projectId.ToString();
+            lblAssessmentOrder.Text = projectPointOfAssessment.AssessmentOrder.ToString();
+            tbAssessmentText.Text = projectPointOfAssessment.AssessmentText;
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;

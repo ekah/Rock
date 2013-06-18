@@ -37,17 +37,17 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             if ( !Page.IsPostBack )
             {
-                string itemId = PageParameter( "residencyCompetencyPersonProjectAssignmentAssessmentId" );
-                string residencyCompetencyPersonProjectAssignmentId = PageParameter( "residencyCompetencyPersonProjectAssignmentId" );
+                string itemId = PageParameter( "competencyPersonProjectAssignmentAssessmentId" );
+                string competencyPersonProjectAssignmentId = PageParameter( "competencyPersonProjectAssignmentId" );
                 if ( !string.IsNullOrWhiteSpace( itemId ) )
                 {
-                    if ( string.IsNullOrWhiteSpace( residencyCompetencyPersonProjectAssignmentId ) )
+                    if ( string.IsNullOrWhiteSpace( competencyPersonProjectAssignmentId ) )
                     {
-                        ShowDetail( "residencyCompetencyPersonProjectAssignmentAssessmentId", int.Parse( itemId ) );
+                        ShowDetail( "competencyPersonProjectAssignmentAssessmentId", int.Parse( itemId ) );
                     }
                     else
                     {
-                        ShowDetail( "residencyCompetencyPersonProjectAssignmentAssessmentId", int.Parse( itemId ), int.Parse( residencyCompetencyPersonProjectAssignmentId ) );
+                        ShowDetail( "competencyPersonProjectAssignmentAssessmentId", int.Parse( itemId ), int.Parse( competencyPersonProjectAssignmentId ) );
                     }
                 }
                 else
@@ -70,15 +70,15 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             SetEditMode( false );
 
-            if ( hfResidencyCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt().Equals( 0 ) )
+            if ( hfCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt().Equals( 0 ) )
             {
                 // Cancelling on Add.  Return to Grid
                 // if this page was called from the Project Assignment Detail page, return to that
-                string residencyCompetencyPersonProjectAssignmentId = PageParameter( "residencyCompetencyPersonProjectAssignmentId" );
-                if ( !string.IsNullOrWhiteSpace( residencyCompetencyPersonProjectAssignmentId ) )
+                string competencyPersonProjectAssignmentId = PageParameter( "competencyPersonProjectAssignmentId" );
+                if ( !string.IsNullOrWhiteSpace( competencyPersonProjectAssignmentId ) )
                 {
                     Dictionary<string, string> qryString = new Dictionary<string, string>();
-                    qryString["residencyCompetencyPersonProjectAssignmentId"] = residencyCompetencyPersonProjectAssignmentId;
+                    qryString["competencyPersonProjectAssignmentId"] = competencyPersonProjectAssignmentId;
                     NavigateToParentPage( qryString );
                 }
                 else
@@ -90,7 +90,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             {
                 // Cancelling on Edit.  Return to Details
                 ResidencyService<CompetencyPersonProjectAssignmentAssessment> service = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>();
-                CompetencyPersonProjectAssignmentAssessment item = service.Get( hfResidencyCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt() );
+                CompetencyPersonProjectAssignmentAssessment item = service.Get( hfCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt() );
                 ShowReadonlyDetails( item );
             }
         }
@@ -103,7 +103,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         protected void btnEdit_Click( object sender, EventArgs e )
         {
             ResidencyService<CompetencyPersonProjectAssignmentAssessment> service = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>();
-            CompetencyPersonProjectAssignmentAssessment item = service.Get( hfResidencyCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt() );
+            CompetencyPersonProjectAssignmentAssessment item = service.Get( hfCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt() );
             ShowEditDetails( item );
         }
 
@@ -126,35 +126,35 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnSave_Click( object sender, EventArgs e )
         {
-            CompetencyPersonProjectAssignmentAssessment residencyCompetencyPersonProjectAssignmentAssessment;
-            ResidencyService<CompetencyPersonProjectAssignmentAssessment> residencyCompetencyPersonProjectAssignmentAssessmentService = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>();
+            CompetencyPersonProjectAssignmentAssessment competencyPersonProjectAssignmentAssessment;
+            ResidencyService<CompetencyPersonProjectAssignmentAssessment> competencyPersonProjectAssignmentAssessmentService = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>();
 
-            int residencyCompetencyPersonProjectAssignmentAssessmentId = int.Parse( hfResidencyCompetencyPersonProjectAssignmentAssessmentId.Value );
+            int competencyPersonProjectAssignmentAssessmentId = int.Parse( hfCompetencyPersonProjectAssignmentAssessmentId.Value );
 
-            if ( residencyCompetencyPersonProjectAssignmentAssessmentId == 0 )
+            if ( competencyPersonProjectAssignmentAssessmentId == 0 )
             {
-                residencyCompetencyPersonProjectAssignmentAssessment = new CompetencyPersonProjectAssignmentAssessment();
-                residencyCompetencyPersonProjectAssignmentAssessmentService.Add( residencyCompetencyPersonProjectAssignmentAssessment, CurrentPersonId );
+                competencyPersonProjectAssignmentAssessment = new CompetencyPersonProjectAssignmentAssessment();
+                competencyPersonProjectAssignmentAssessmentService.Add( competencyPersonProjectAssignmentAssessment, CurrentPersonId );
             }
             else
             {
-                residencyCompetencyPersonProjectAssignmentAssessment = residencyCompetencyPersonProjectAssignmentAssessmentService.Get( residencyCompetencyPersonProjectAssignmentAssessmentId );
+                competencyPersonProjectAssignmentAssessment = competencyPersonProjectAssignmentAssessmentService.Get( competencyPersonProjectAssignmentAssessmentId );
             }
 
-            residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId = hfResidencyCompetencyPersonProjectAssignmentId.ValueAsInt();
-            residencyCompetencyPersonProjectAssignmentAssessment.AssessmentDateTime = dtpAssessmentDateTime.SelectedDateTime;
-            residencyCompetencyPersonProjectAssignmentAssessment.Rating = tbRating.Text.AsInteger();
-            residencyCompetencyPersonProjectAssignmentAssessment.RatingNotes = tbRatingNotes.Text;
+            competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId = hfCompetencyPersonProjectAssignmentId.ValueAsInt();
+            competencyPersonProjectAssignmentAssessment.AssessmentDateTime = dtpAssessmentDateTime.SelectedDateTime;
+            competencyPersonProjectAssignmentAssessment.Rating = tbRating.Text.AsInteger();
+            competencyPersonProjectAssignmentAssessment.RatingNotes = tbRatingNotes.Text;
             
             
             
             
-            // TODO residencyCompetencyPersonProjectAssignmentAssessment.ResidentComments = tbResidentComments.Text;
+            // TODO competencyPersonProjectAssignmentAssessment.ResidentComments = tbResidentComments.Text;
 
 
 
 
-            if ( !residencyCompetencyPersonProjectAssignmentAssessment.IsValid )
+            if ( !competencyPersonProjectAssignmentAssessment.IsValid )
             {
                 // Controls will render the error messages
                 return;
@@ -162,11 +162,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             RockTransactionScope.WrapTransaction( () =>
             {
-                residencyCompetencyPersonProjectAssignmentAssessmentService.Save( residencyCompetencyPersonProjectAssignmentAssessment, CurrentPersonId );
+                competencyPersonProjectAssignmentAssessmentService.Save( competencyPersonProjectAssignmentAssessment, CurrentPersonId );
             } );
 
             var qryParams = new Dictionary<string, string>();
-            qryParams["residencyCompetencyPersonProjectAssignmentAssessmentId"] = residencyCompetencyPersonProjectAssignmentAssessment.Id.ToString();
+            qryParams["competencyPersonProjectAssignmentAssessmentId"] = competencyPersonProjectAssignmentAssessment.Id.ToString();
             NavigateToPage( this.CurrentPage.Guid, qryParams );
         }
 
@@ -185,11 +185,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         /// <param name="itemKey">The item key.</param>
         /// <param name="itemKeyValue">The item key value.</param>
-        /// <param name="residencyCompetencyPersonProjectAssignmentId">The residency competency person project assignment id.</param>
-        public void ShowDetail( string itemKey, int itemKeyValue, int? residencyCompetencyPersonProjectAssignmentId )
+        /// <param name="competencyPersonProjectAssignmentId">The residency competency person project assignment id.</param>
+        public void ShowDetail( string itemKey, int itemKeyValue, int? competencyPersonProjectAssignmentId )
         {
             // return if unexpected itemKey 
-            if ( itemKey != "residencyCompetencyPersonProjectAssignmentAssessmentId" )
+            if ( itemKey != "competencyPersonProjectAssignmentAssessmentId" )
             {
                 return;
             }
@@ -197,21 +197,21 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             pnlDetails.Visible = true;
 
             // Load depending on Add(0) or Edit
-            CompetencyPersonProjectAssignmentAssessment residencyCompetencyPersonProjectAssignmentAssessment = null;
+            CompetencyPersonProjectAssignmentAssessment competencyPersonProjectAssignmentAssessment = null;
             if ( !itemKeyValue.Equals( 0 ) )
             {
-                residencyCompetencyPersonProjectAssignmentAssessment = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>().Get( itemKeyValue );
+                competencyPersonProjectAssignmentAssessment = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>().Get( itemKeyValue );
             }
             else
             {
-                residencyCompetencyPersonProjectAssignmentAssessment = new CompetencyPersonProjectAssignmentAssessment { Id = 0 };
-                residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId = residencyCompetencyPersonProjectAssignmentId ?? 0;
-                residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment 
-                    = new ResidencyService<CompetencyPersonProjectAssignment>().Get( residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId );
+                competencyPersonProjectAssignmentAssessment = new CompetencyPersonProjectAssignmentAssessment { Id = 0 };
+                competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId = competencyPersonProjectAssignmentId ?? 0;
+                competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment 
+                    = new ResidencyService<CompetencyPersonProjectAssignment>().Get( competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId );
             }
 
-            hfResidencyCompetencyPersonProjectAssignmentAssessmentId.Value = residencyCompetencyPersonProjectAssignmentAssessment.Id.ToString();
-            hfResidencyCompetencyPersonProjectAssignmentId.Value = residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId.ToString();
+            hfCompetencyPersonProjectAssignmentAssessmentId.Value = competencyPersonProjectAssignmentAssessment.Id.ToString();
+            hfCompetencyPersonProjectAssignmentId.Value = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId.ToString();
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -226,18 +226,18 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             if ( readOnly )
             {
                 btnEdit.Visible = false;
-                ShowReadonlyDetails( residencyCompetencyPersonProjectAssignmentAssessment );
+                ShowReadonlyDetails( competencyPersonProjectAssignmentAssessment );
             }
             else
             {
                 btnEdit.Visible = true;
-                if ( residencyCompetencyPersonProjectAssignmentAssessment.Id > 0 )
+                if ( competencyPersonProjectAssignmentAssessment.Id > 0 )
                 {
-                    ShowReadonlyDetails( residencyCompetencyPersonProjectAssignmentAssessment );
+                    ShowReadonlyDetails( competencyPersonProjectAssignmentAssessment );
                 }
                 else
                 {
-                    ShowEditDetails( residencyCompetencyPersonProjectAssignmentAssessment );
+                    ShowEditDetails( competencyPersonProjectAssignmentAssessment );
                 }
             }
         }
@@ -245,10 +245,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <summary>
         /// Shows the edit details.
         /// </summary>
-        /// <param name="residencyCompetencyPersonProjectAssignmentAssessment">The residency competency person project assignment assessment.</param>
-        private void ShowEditDetails( CompetencyPersonProjectAssignmentAssessment residencyCompetencyPersonProjectAssignmentAssessment )
+        /// <param name="competencyPersonProjectAssignmentAssessment">The residency competency person project assignment assessment.</param>
+        private void ShowEditDetails( CompetencyPersonProjectAssignmentAssessment competencyPersonProjectAssignmentAssessment )
         {
-            if ( residencyCompetencyPersonProjectAssignmentAssessment.Id > 0 )
+            if ( competencyPersonProjectAssignmentAssessment.Id > 0 )
             {
                 lActionTitle.Text = ActionTitle.Edit( CompetencyPersonProjectAssignmentAssessment.FriendlyTypeName );
             }
@@ -259,30 +259,30 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             SetEditMode( true );
 
-            lblResident.Text = residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person.FullName;
-            lblCompetency.Text = residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Competency.Name;
-            lblProjectName.Text = residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
+            lblResident.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person.FullName;
+            lblCompetency.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Competency.Name;
+            lblProjectName.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
             
-            if ( residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson != null )
+            if ( competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson != null )
             {
-                lblAssessor.Text = residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson.FullName;
+                lblAssessor.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson.FullName;
             }
             else
             {
                 lblAssessor.Text = Rock.Constants.None.Text;
             }
 
-            dtpAssessmentDateTime.SelectedDateTime = residencyCompetencyPersonProjectAssignmentAssessment.AssessmentDateTime;
-            tbRating.Text = residencyCompetencyPersonProjectAssignmentAssessment.Rating.ToString();
-            tbRatingNotes.Text = residencyCompetencyPersonProjectAssignmentAssessment.RatingNotes;
-            tbResidentComments.Text = residencyCompetencyPersonProjectAssignmentAssessment.ResidentComments;
+            dtpAssessmentDateTime.SelectedDateTime = competencyPersonProjectAssignmentAssessment.AssessmentDateTime;
+            tbRating.Text = competencyPersonProjectAssignmentAssessment.Rating.ToString();
+            tbRatingNotes.Text = competencyPersonProjectAssignmentAssessment.RatingNotes;
+            tbResidentComments.Text = competencyPersonProjectAssignmentAssessment.ResidentComments;
         }
 
         /// <summary>
         /// Shows the readonly details.
         /// </summary>
-        /// <param name="residencyCompetencyPersonProjectAssignmentAssessment">The residency competency person project assignment assessment.</param>
-        private void ShowReadonlyDetails( CompetencyPersonProjectAssignmentAssessment residencyCompetencyPersonProjectAssignmentAssessment )
+        /// <param name="competencyPersonProjectAssignmentAssessment">The residency competency person project assignment assessment.</param>
+        private void ShowReadonlyDetails( CompetencyPersonProjectAssignmentAssessment competencyPersonProjectAssignmentAssessment )
         {
             SetEditMode( false );
 
@@ -292,23 +292,23 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 <div class='span6'>
     <dl>";
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Resident", residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person.FullName );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Name );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Resident", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person.FullName );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Name );
 
-            if ( residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson != null )
+            if ( competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson != null )
             {
-                lblMainDetails.Text += string.Format( descriptionFormat, "Assessor", residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson.FullName );
+                lblMainDetails.Text += string.Format( descriptionFormat, "Assessor", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson.FullName );
             }
 
             string residentProjectAssignmentPageGuid = this.GetAttributeValue( "ResidentProjectAssignmentPage" );
-            string projectAssignmentHtml = residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
+            string projectAssignmentHtml = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
             if ( !string.IsNullOrWhiteSpace( residentProjectAssignmentPageGuid ) )
             {
                 var page = new PageService().Get( new Guid( residentProjectAssignmentPageGuid ) );
                 Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "residencyCompetencyPersonProjectAssignmentId", residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId.ToString() );
+                queryString.Add( "competencyPersonProjectAssignmentId", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId.ToString() );
                 string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                projectAssignmentHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name);
+                projectAssignmentHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name);
             }
 
             lblMainDetails.Text += string.Format( descriptionFormat, "Project Assignment", projectAssignmentHtml );

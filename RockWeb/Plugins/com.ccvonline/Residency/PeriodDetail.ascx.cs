@@ -34,10 +34,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             if ( !Page.IsPostBack )
             {
-                string itemId = PageParameter( "residencyPeriodId" );
+                string itemId = PageParameter( "periodId" );
                 if ( !string.IsNullOrWhiteSpace( itemId ) )
                 {
-                    ShowDetail( "residencyPeriodId", int.Parse( itemId ) );
+                    ShowDetail( "periodId", int.Parse( itemId ) );
                 }
                 else
                 {
@@ -59,7 +59,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             SetEditMode( false );
 
-            if ( hfResidencyPeriodId.ValueAsInt().Equals( 0 ) )
+            if ( hfPeriodId.ValueAsInt().Equals( 0 ) )
             {
                 // Cancelling on Add.  Return to Grid
                 NavigateToParentPage();
@@ -69,7 +69,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             {
                 // Cancelling on Edit.  Return to Details
                 ResidencyService<Period> service = new ResidencyService<Period>();
-                Period item = service.Get( hfResidencyPeriodId.ValueAsInt() );
+                Period item = service.Get( hfPeriodId.ValueAsInt() );
                 ShowReadonlyDetails( item );
             }
         }
@@ -82,7 +82,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         protected void btnEdit_Click( object sender, EventArgs e )
         {
             ResidencyService<Period> service = new ResidencyService<Period>();
-            Period item = service.Get( hfResidencyPeriodId.ValueAsInt() );
+            Period item = service.Get( hfPeriodId.ValueAsInt() );
             ShowEditDetails( item );
         }
 
@@ -111,27 +111,27 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 return;
             }
 
-            Period residencyPeriod;
-            ResidencyService<Period> residencyPeriodService = new ResidencyService<Period>();
+            Period period;
+            ResidencyService<Period> periodService = new ResidencyService<Period>();
 
-            int residencyPeriodId = int.Parse( hfResidencyPeriodId.Value );
+            int periodId = int.Parse( hfPeriodId.Value );
 
-            if ( residencyPeriodId == 0 )
+            if ( periodId == 0 )
             {
-                residencyPeriod = new Period();
-                residencyPeriodService.Add( residencyPeriod, CurrentPersonId );
+                period = new Period();
+                periodService.Add( period, CurrentPersonId );
             }
             else
             {
-                residencyPeriod = residencyPeriodService.Get( residencyPeriodId );
+                period = periodService.Get( periodId );
             }
 
-            residencyPeriod.Name = tbName.Text;
-            residencyPeriod.Description = tbDescription.Text;
-            residencyPeriod.StartDate = dpStartDate.SelectedDate;
-            residencyPeriod.EndDate = dpEndDate.SelectedDate;
+            period.Name = tbName.Text;
+            period.Description = tbDescription.Text;
+            period.StartDate = dpStartDate.SelectedDate;
+            period.EndDate = dpEndDate.SelectedDate;
 
-            if ( !residencyPeriod.IsValid )
+            if ( !period.IsValid )
             {
                 // Controls will render the error messages
                 return;
@@ -139,11 +139,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             RockTransactionScope.WrapTransaction( () =>
             {
-                residencyPeriodService.Save( residencyPeriod, CurrentPersonId );
+                periodService.Save( period, CurrentPersonId );
             } );
 
             var qryParams = new Dictionary<string, string>();
-            qryParams["residencyPeriodId"] = residencyPeriod.Id.ToString();
+            qryParams["periodId"] = period.Id.ToString();
             NavigateToPage( this.CurrentPage.Guid, qryParams );
         }
 
@@ -155,7 +155,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         public void ShowDetail( string itemKey, int itemKeyValue )
         {
             // return if unexpected itemKey 
-            if ( itemKey != "residencyPeriodId" )
+            if ( itemKey != "periodId" )
             {
                 return;
             }
@@ -163,19 +163,19 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             pnlDetails.Visible = true;
 
             // Load depending on Add(0) or Edit
-            Period residencyPeriod = null;
+            Period period = null;
             if ( !itemKeyValue.Equals( 0 ) )
             {
-                residencyPeriod = new ResidencyService<Period>().Get( itemKeyValue );
+                period = new ResidencyService<Period>().Get( itemKeyValue );
                 lActionTitle.Text = ActionTitle.Edit( Period.FriendlyTypeName );
             }
             else
             {
-                residencyPeriod = new Period { Id = 0 };
+                period = new Period { Id = 0 };
                 lActionTitle.Text = ActionTitle.Add( Period.FriendlyTypeName );
             }
 
-            hfResidencyPeriodId.Value = residencyPeriod.Id.ToString();
+            hfPeriodId.Value = period.Id.ToString();
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -190,18 +190,18 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             if ( readOnly )
             {
                 btnEdit.Visible = false;
-                ShowReadonlyDetails( residencyPeriod );
+                ShowReadonlyDetails( period );
             }
             else
             {
                 btnEdit.Visible = true;
-                if ( residencyPeriod.Id > 0 )
+                if ( period.Id > 0 )
                 {
-                    ShowReadonlyDetails( residencyPeriod );
+                    ShowReadonlyDetails( period );
                 }
                 else
                 {
-                    ShowEditDetails( residencyPeriod );
+                    ShowEditDetails( period );
                 }
             }
         }
@@ -209,10 +209,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <summary>
         /// Shows the edit details.
         /// </summary>
-        /// <param name="residencyPeriod">The residency period.</param>
-        private void ShowEditDetails( Period residencyPeriod )
+        /// <param name="period">The residency period.</param>
+        private void ShowEditDetails( Period period )
         {
-            if ( residencyPeriod.Id > 0 )
+            if ( period.Id > 0 )
             {
                 lActionTitle.Text = ActionTitle.Edit( Period.FriendlyTypeName );
             }
@@ -223,17 +223,17 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             SetEditMode( true );
 
-            tbName.Text = residencyPeriod.Name;
-            tbDescription.Text = residencyPeriod.Description;
-            dpStartDate.SelectedDate = residencyPeriod.StartDate;
-            dpEndDate.SelectedDate = residencyPeriod.EndDate;
+            tbName.Text = period.Name;
+            tbDescription.Text = period.Description;
+            dpStartDate.SelectedDate = period.StartDate;
+            dpEndDate.SelectedDate = period.EndDate;
         }
 
         /// <summary>
         /// Shows the readonly details.
         /// </summary>
-        /// <param name="residencyPeriod">The residency project.</param>
-        private void ShowReadonlyDetails( Period residencyPeriod )
+        /// <param name="period">The residency project.</param>
+        private void ShowReadonlyDetails( Period period )
         {
             SetEditMode( false );
 
@@ -243,10 +243,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 <div class='span6'>
     <dl>";
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Name", residencyPeriod.Name );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Description", residencyPeriod.Description );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Start Date", residencyPeriod.StartDate.HasValue ? residencyPeriod.StartDate.Value.ToShortDateString() : Rock.Constants.None.TextHtml);
-            lblMainDetails.Text += string.Format( descriptionFormat, "End Date", residencyPeriod.EndDate.HasValue ? residencyPeriod.EndDate.Value.ToShortDateString() : Rock.Constants.None.TextHtml );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Name", period.Name );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Description", period.Description );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Start Date", period.StartDate.HasValue ? period.StartDate.Value.ToShortDateString() : Rock.Constants.None.TextHtml);
+            lblMainDetails.Text += string.Format( descriptionFormat, "End Date", period.EndDate.HasValue ? period.EndDate.Value.ToShortDateString() : Rock.Constants.None.TextHtml );
 
             lblMainDetails.Text += @"
     </dl>

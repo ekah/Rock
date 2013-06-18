@@ -48,8 +48,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             if ( !Page.IsPostBack )
             {
-                int? residencyPeriodId = this.PageParameter( "residencyPeriodId" ).AsInteger();
-                hfResidencyPeriodId.Value = residencyPeriodId.ToString();
+                int? periodId = this.PageParameter( "periodId" ).AsInteger();
+                hfPeriodId.Value = periodId.ToString();
                 BindGrid();
             }
         }
@@ -81,10 +81,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <summary>
         /// Gs the list_ show edit.
         /// </summary>
-        /// <param name="residencyProjectPointOfAssessmentId">The residency project point of assessment id.</param>
-        protected void gList_ShowEdit( int residencyProjectPointOfAssessmentId )
+        /// <param name="projectPointOfAssessmentId">The residency project point of assessment id.</param>
+        protected void gList_ShowEdit( int projectPointOfAssessmentId )
         {
-            NavigateToDetailPage( "residencyTrackId", residencyProjectPointOfAssessmentId, "residencyPeriodId", hfResidencyPeriodId.ValueAsInt() );
+            NavigateToDetailPage( "trackId", projectPointOfAssessmentId, "periodId", hfPeriodId.ValueAsInt() );
         }
 
         /// <summary>
@@ -96,20 +96,20 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyTrackService = new ResidencyService<Track>();
-                Track residencyTrack = residencyTrackService.Get( (int)e.RowKeyValue );
+                var trackService = new ResidencyService<Track>();
+                Track track = trackService.Get( (int)e.RowKeyValue );
 
-                if ( residencyTrack != null )
+                if ( track != null )
                 {
                     string errorMessage;
-                    if ( !residencyTrackService.CanDelete( residencyTrack, out errorMessage ) )
+                    if ( !trackService.CanDelete( track, out errorMessage ) )
                     {
                         mdGridWarning.Show( errorMessage, ModalAlertType.Information );
                         return;
                     }
 
-                    residencyTrackService.Delete( residencyTrack, CurrentPersonId );
-                    residencyTrackService.Save( residencyTrack, CurrentPersonId );
+                    trackService.Delete( track, CurrentPersonId );
+                    trackService.Save( track, CurrentPersonId );
                 }
             } );
 
@@ -135,12 +135,12 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var residencyTrackService = new ResidencyService<Track>();
-            int residencyPeriodId = hfResidencyPeriodId.ValueAsInt();
+            var trackService = new ResidencyService<Track>();
+            int periodId = hfPeriodId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
-            var qry = residencyTrackService.Queryable();
+            var qry = trackService.Queryable();
 
-            qry = qry.Where( a => a.PeriodId.Equals( residencyPeriodId ) );
+            qry = qry.Where( a => a.PeriodId.Equals( periodId ) );
 
             if ( sortProperty != null )
             {

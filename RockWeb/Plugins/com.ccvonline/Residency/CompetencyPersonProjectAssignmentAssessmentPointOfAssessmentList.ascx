@@ -3,13 +3,13 @@
 <asp:UpdatePanel ID="upList" runat="server">
     <ContentTemplate>
         <Rock:ModalAlert ID="mdGridWarning" runat="server" />
-        <asp:HiddenField ID="hfResidencyCompetencyPersonProjectAssignmentAssessmentId" runat="server" />
-        <Rock:Grid ID="gList" runat="server" AllowSorting="false" OnRowSelected="gList_Edit" DataKeyNames="ResidencyProjectPointOfAssessmentId,ResidencyCompetencyPersonProjectAssignmentAssessmentId" >
+        <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentAssessmentId" runat="server" />
+        <Rock:Grid ID="gList" runat="server" AllowSorting="false" OnRowSelected="gList_Edit" DataKeyNames="ProjectPointOfAssessmentId,CompetencyPersonProjectAssignmentAssessmentId" >
             <Columns>
-                <asp:BoundField DataField="ResidencyProjectPointOfAssessment.AssessmentOrder" HeaderText="#" SortExpression="ResidencyProjectPointOfAssessment.AssessmentOrder" />
-                <asp:BoundField DataField="ResidencyProjectPointOfAssessment.AssessmentText" HeaderText="Text" SortExpression="ResidencyProjectPointOfAssessment.AssessmentText" />
-                <asp:BoundField DataField="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating" HeaderText="Rating" SortExpression="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating" />
-                <asp:BoundField DataField="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingNotes" HeaderText="Rating Text" SortExpression="ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingText" />
+                <asp:BoundField DataField="ProjectPointOfAssessment.AssessmentOrder" HeaderText="#" SortExpression="ProjectPointOfAssessment.AssessmentOrder" />
+                <asp:BoundField DataField="ProjectPointOfAssessment.AssessmentText" HeaderText="Text" SortExpression="ProjectPointOfAssessment.AssessmentText" />
+                <asp:BoundField DataField="CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating" HeaderText="Rating" SortExpression="CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating" />
+                <asp:BoundField DataField="CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingNotes" HeaderText="Rating Text" SortExpression="CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingText" />
             </Columns>
         </Rock:Grid>
     </ContentTemplate>

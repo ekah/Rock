@@ -1,10 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PeriodDetail.ascx.cs" Inherits="RockWeb.Plugins.com.ccvonline.Residency.PeriodDetail" %>
 
-<asp:UpdatePanel ID="upResidencyPeriodDetail" runat="server">
+<asp:UpdatePanel ID="upPeriodDetail" runat="server">
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
-            <asp:HiddenField ID="hfResidencyPeriodId" runat="server" />
+            <asp:HiddenField ID="hfPeriodId" runat="server" />
 
             <div id="pnlEditDetails" runat="server" class="well">
 
@@ -18,10 +18,10 @@
 
                     <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
 
-                    <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyPeriod, com.ccvonline.Residency" PropertyName="Name" />
-                    <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyPeriod, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" />
-                    <Rock:DatePicker ID="dpStartDate" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyPeriod, com.ccvonline.Residency" PropertyName="StartDate" />
-                    <Rock:DatePicker ID="dpEndDate" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyPeriod, com.ccvonline.Residency" PropertyName="EndDate" />
+                    <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Period, com.ccvonline.Residency" PropertyName="Name" />
+                    <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Period, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" />
+                    <Rock:DatePicker ID="dpStartDate" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Period, com.ccvonline.Residency" PropertyName="StartDate" />
+                    <Rock:DatePicker ID="dpEndDate" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Period, com.ccvonline.Residency" PropertyName="EndDate" />
 
                 </fieldset>
 

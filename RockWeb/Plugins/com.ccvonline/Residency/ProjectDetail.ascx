@@ -3,12 +3,12 @@
 <!-- just to help do css intellisense at design time  -->
 <link rel="stylesheet" type="text/css" href="~/CSS/bootstrap.min.css" visible="false" />
 
-<asp:UpdatePanel ID="upResidencyProjectDetail" runat="server">
+<asp:UpdatePanel ID="upProjectDetail" runat="server">
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
-            <asp:HiddenField ID="hfResidencyProjectId" runat="server" />
-            <asp:HiddenField ID="hfResidencyCompetencyId" runat="server" />
+            <asp:HiddenField ID="hfProjectId" runat="server" />
+            <asp:HiddenField ID="hfCompetencyId" runat="server" />
 
             <div id="pnlEditDetails" runat="server" class="well">
 
@@ -22,12 +22,12 @@
 
                     <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
 
-                    <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyProject, com.ccvonline.Residency" PropertyName="Name" />
-                    <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyProject, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" CssClass="input-xxlarge" />
+                    <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Project, com.ccvonline.Residency" PropertyName="Name" />
+                    <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Project, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" CssClass="input-xxlarge" />
                     <Rock:LabeledText ID="lblPeriod" runat="server" LabelText="Period" />
                     <Rock:LabeledText ID="lblTrack" runat="server" LabelText="Track" />
                     <Rock:LabeledText ID="lblCompetency" runat="server" LabelText="Competency" />
-                    <Rock:DataTextBox ID="tbMinAssignmentCountDefault" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyProject, com.ccvonline.Residency" PropertyName="MinAssignmentCountDefault"
+                    <Rock:DataTextBox ID="tbMinAssignmentCountDefault" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Project, com.ccvonline.Residency" PropertyName="MinAssignmentCountDefault"
                         LabelText="Default Minimum # of Assignments" Help="Set this to specify the default minimum number of assignments of this project that a person must complete." CssClass="input-mini" />
 
                 </fieldset>

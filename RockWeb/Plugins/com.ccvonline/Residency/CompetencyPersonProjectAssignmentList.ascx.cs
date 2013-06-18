@@ -48,8 +48,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             if ( !Page.IsPostBack )
             {
-                int? residencyCompetencyPersonProjectId = this.PageParameter( "residencyCompetencyPersonProjectId" ).AsInteger();
-                hfResidencyCompetencyPersonProjectId.Value = residencyCompetencyPersonProjectId.ToString();
+                int? competencyPersonProjectId = this.PageParameter( "competencyPersonProjectId" ).AsInteger();
+                hfCompetencyPersonProjectId.Value = competencyPersonProjectId.ToString();
                 BindGrid();
             }
         }
@@ -81,10 +81,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <summary>
         /// Gs the list_ show edit.
         /// </summary>
-        /// <param name="residencyProjectPointOfAssessmentId">The residency project point of assessment id.</param>
-        protected void gList_ShowEdit( int residencyProjectPointOfAssessmentId )
+        /// <param name="projectPointOfAssessmentId">The residency project point of assessment id.</param>
+        protected void gList_ShowEdit( int projectPointOfAssessmentId )
         {
-            NavigateToDetailPage( "residencyCompetencyPersonProjectAssignmentId", residencyProjectPointOfAssessmentId, "residencyCompetencyPersonProjectId", hfResidencyCompetencyPersonProjectId.ValueAsInt() );
+            NavigateToDetailPage( "competencyPersonProjectAssignmentId", projectPointOfAssessmentId, "competencyPersonProjectId", hfCompetencyPersonProjectId.ValueAsInt() );
         }
 
         /// <summary>
@@ -96,20 +96,20 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyCompetencyPersonProjectAssignmentService = new ResidencyService<CompetencyPersonProjectAssignment>();
-                CompetencyPersonProjectAssignment residencyCompetencyPersonProjectAssignment = residencyCompetencyPersonProjectAssignmentService.Get( (int)e.RowKeyValue );
+                var competencyPersonProjectAssignmentService = new ResidencyService<CompetencyPersonProjectAssignment>();
+                CompetencyPersonProjectAssignment competencyPersonProjectAssignment = competencyPersonProjectAssignmentService.Get( (int)e.RowKeyValue );
 
-                if ( residencyCompetencyPersonProjectAssignment != null )
+                if ( competencyPersonProjectAssignment != null )
                 {
                     string errorMessage;
-                    if ( !residencyCompetencyPersonProjectAssignmentService.CanDelete( residencyCompetencyPersonProjectAssignment, out errorMessage ) )
+                    if ( !competencyPersonProjectAssignmentService.CanDelete( competencyPersonProjectAssignment, out errorMessage ) )
                     {
                         mdGridWarning.Show( errorMessage, ModalAlertType.Information );
                         return;
                     }
 
-                    residencyCompetencyPersonProjectAssignmentService.Delete( residencyCompetencyPersonProjectAssignment, CurrentPersonId );
-                    residencyCompetencyPersonProjectAssignmentService.Save( residencyCompetencyPersonProjectAssignment, CurrentPersonId );
+                    competencyPersonProjectAssignmentService.Delete( competencyPersonProjectAssignment, CurrentPersonId );
+                    competencyPersonProjectAssignmentService.Save( competencyPersonProjectAssignment, CurrentPersonId );
                 }
             } );
 
@@ -135,12 +135,12 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var residencyCompetencyPersonProjectAssignmentService = new ResidencyService<CompetencyPersonProjectAssignment>();
-            int residencyCompetencyPersonProjectId = hfResidencyCompetencyPersonProjectId.ValueAsInt();
+            var competencyPersonProjectAssignmentService = new ResidencyService<CompetencyPersonProjectAssignment>();
+            int competencyPersonProjectId = hfCompetencyPersonProjectId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
-            var qry = residencyCompetencyPersonProjectAssignmentService.Queryable();
+            var qry = competencyPersonProjectAssignmentService.Queryable();
 
-            qry = qry.Where( a => a.CompetencyPersonProjectId.Equals( residencyCompetencyPersonProjectId ) );
+            qry = qry.Where( a => a.CompetencyPersonProjectId.Equals( competencyPersonProjectId ) );
 
             if ( sortProperty != null )
             {

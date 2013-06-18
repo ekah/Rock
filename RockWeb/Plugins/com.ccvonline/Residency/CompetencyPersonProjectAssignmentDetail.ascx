@@ -4,8 +4,8 @@
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
-            <asp:HiddenField ID="hfResidencyCompetencyPersonProjectAssignmentId" runat="server" />
-            <asp:HiddenField ID="hfResidencyCompetencyPersonProjectId" runat="server" />
+            <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentId" runat="server" />
+            <asp:HiddenField ID="hfCompetencyPersonProjectId" runat="server" />
 
             <div id="pnlEditDetails" runat="server" class="well">
 

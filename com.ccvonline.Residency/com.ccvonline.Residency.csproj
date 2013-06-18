@@ -78,7 +78,6 @@
       <DependentUpon>201306182129019_AddDefinedTypeResidencyCompetencyType.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Migrations\RockCSharpMigrationCodeGenerator.cs" />
     <Compile Include="Model\Competency.cs" />
     <Compile Include="Model\CompetencyPerson.cs" />
     <Compile Include="Model\Period.cs" />

@@ -1,10 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CompetencyPersonDetail.ascx.cs" Inherits="RockWeb.Plugins.com.ccvonline.Residency.CompetencyPersonDetail" %>
 
-<asp:UpdatePanel ID="upResidencyCompetencyPersonDetail" runat="server">
+<asp:UpdatePanel ID="upCompetencyPersonDetail" runat="server">
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
-            <asp:HiddenField ID="hfResidencyCompetencyPersonId" runat="server" />
+            <asp:HiddenField ID="hfCompetencyPersonId" runat="server" />
             <asp:HiddenField ID="hfPersonId" runat="server" />
 
             <div id="pnlEditDetails" runat="server" class="well">
@@ -22,15 +22,15 @@
                     <Rock:LabeledText ID="lblPersonName" runat="server" LabelText="Resident" />
                     
                     <asp:Panel ID="pnlCompetencyLabels" runat="server">
-                        <Rock:LabeledText ID="lblResidencyPeriod" runat="server" LabelText="Period" />
-                        <Rock:LabeledText ID="lblResidencyTrack" runat="server" LabelText="Track" />
-                        <Rock:LabeledText ID="lblResidencyCompetency" runat="server" LabelText="Competency" />
+                        <Rock:LabeledText ID="lblPeriod" runat="server" LabelText="Period" />
+                        <Rock:LabeledText ID="lblTrack" runat="server" LabelText="Track" />
+                        <Rock:LabeledText ID="lblCompetency" runat="server" LabelText="Competency" />
                     </asp:Panel>
 
                     <asp:Panel ID="pnlCompetencyDropDownLists" runat="server">
-                        <Rock:DataDropDownList ID="ddlResidencyPeriod" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyPeriod, com.ccvonline.Residency" PropertyName="Name" AutoPostBack="true" OnSelectedIndexChanged="ddlResidencyPeriod_SelectedIndexChanged" LabelText="Period" />
-                        <Rock:DataDropDownList ID="ddlResidencyTrack" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyTrack, com.ccvonline.Residency" PropertyName="Name" AutoPostBack="true" OnSelectedIndexChanged="ddlResidencyTrack_SelectedIndexChanged" LabelText="Track"/>
-                        <Rock:DataDropDownList ID="ddlResidencyCompetency" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetency, com.ccvonline.Residency" PropertyName="Name" LabelText="Competency" />
+                        <Rock:DataDropDownList ID="ddlPeriod" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.Period, com.ccvonline.Residency" PropertyName="Name" AutoPostBack="true" OnSelectedIndexChanged="ddlPeriod_SelectedIndexChanged" LabelText="Period" />
+                        <Rock:DataDropDownList ID="ddlTrack" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.Track, com.ccvonline.Residency" PropertyName="Name" AutoPostBack="true" OnSelectedIndexChanged="ddlTrack_SelectedIndexChanged" LabelText="Track"/>
+                        <Rock:DataDropDownList ID="ddlCompetency" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Name" LabelText="Competency" />
                     </asp:Panel>
 
                 </fieldset>

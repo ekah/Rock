@@ -63,7 +63,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void gList_Add( object sender, EventArgs e )
         {
-            NavigateToDetailPage( "residencyPeriodId", 0 );
+            NavigateToDetailPage( "periodId", 0 );
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
         protected void gList_Edit( object sender, RowEventArgs e )
         {
-            NavigateToDetailPage( "residencyPeriodId", (int)e.RowKeyValue );
+            NavigateToDetailPage( "periodId", (int)e.RowKeyValue );
         }
 
         /// <summary>
@@ -85,20 +85,20 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyPeriodService = new ResidencyService<Period>();
+                var periodService = new ResidencyService<Period>();
 
-                Period residencyPeriod = residencyPeriodService.Get( (int)e.RowKeyValue );
-                if ( residencyPeriod != null )
+                Period period = periodService.Get( (int)e.RowKeyValue );
+                if ( period != null )
                 {
                     string errorMessage;
-                    if ( !residencyPeriodService.CanDelete( residencyPeriod, out errorMessage ) )
+                    if ( !periodService.CanDelete( period, out errorMessage ) )
                     {
                         mdGridWarning.Show( errorMessage, ModalAlertType.Information );
                         return;
                     }
 
-                    residencyPeriodService.Delete( residencyPeriod, CurrentPersonId );
-                    residencyPeriodService.Save( residencyPeriod, CurrentPersonId );
+                    periodService.Delete( period, CurrentPersonId );
+                    periodService.Save( period, CurrentPersonId );
                 }
             } );
 
@@ -124,16 +124,16 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var residencyPeriodService = new ResidencyService<Period>();
+            var periodService = new ResidencyService<Period>();
             SortProperty sortProperty = gList.SortProperty;
 
             if ( sortProperty != null )
             {
-                gList.DataSource = residencyPeriodService.Queryable().Sort( sortProperty ).ToList();
+                gList.DataSource = periodService.Queryable().Sort( sortProperty ).ToList();
             }
             else
             {
-                gList.DataSource = residencyPeriodService.Queryable().OrderBy( s => s.Name ).ToList();
+                gList.DataSource = periodService.Queryable().OrderBy( s => s.Name ).ToList();
             }
 
             gList.DataBind();

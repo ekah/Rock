@@ -103,11 +103,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                         return;
                     }
 
-                    var residencyCompetencyPersonService = new ResidencyService<CompetencyPerson>();
-                    var personCompetencyList = residencyCompetencyPersonService.Queryable().Where( a => a.PersonId.Equals( personId ) );
+                    var competencyPersonService = new ResidencyService<CompetencyPerson>();
+                    var personCompetencyList = competencyPersonService.Queryable().Where( a => a.PersonId.Equals( personId ) );
                     foreach ( var item in personCompetencyList )
                     {
-                        if ( !residencyCompetencyPersonService.CanDelete( item, out errorMessage ) )
+                        if ( !competencyPersonService.CanDelete( item, out errorMessage ) )
                         {
                             mdGridWarning.Show( errorMessage, ModalAlertType.Information );
                             return;
@@ -117,8 +117,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                     // if you made it this far, delete all person's assigned competencies, and finally delete from Group
                     foreach ( var item in personCompetencyList )
                     {
-                        residencyCompetencyPersonService.Delete( item, CurrentPersonId );
-                        residencyCompetencyPersonService.Save( item, CurrentPersonId );
+                        competencyPersonService.Delete( item, CurrentPersonId );
+                        competencyPersonService.Save( item, CurrentPersonId );
                     }
 
                     groupMemberService.Delete( groupMember, CurrentPersonId );
@@ -157,11 +157,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             var residencyGroupMemberList = residencyGroupMemberService.Queryable()
                 .Where( a => a.GroupId.Equals( residencyGroupId ) ).ToList();
 
-            var residencyCompetencyPersonService = new ResidencyService<CompetencyPerson>();
-            List<IGrouping<int, CompetencyPerson>> residencyCompetencyPersonQry = residencyCompetencyPersonService.Queryable().GroupBy( a => a.PersonId ).ToList();
+            var competencyPersonService = new ResidencyService<CompetencyPerson>();
+            List<IGrouping<int, CompetencyPerson>> competencyPersonQry = competencyPersonService.Queryable().GroupBy( a => a.PersonId ).ToList();
 
             var groupMemberCompetencies = from groupMember in residencyGroupMemberList
-                                          join competencyList in residencyCompetencyPersonQry on groupMember.PersonId
+                                          join competencyList in competencyPersonQry on groupMember.PersonId
                                           equals competencyList.Key into groupJoin
                                           from qryResult in groupJoin.DefaultIfEmpty()
                                           select new

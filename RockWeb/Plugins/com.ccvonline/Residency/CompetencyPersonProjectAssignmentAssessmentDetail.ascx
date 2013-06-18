@@ -1,11 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CompetencyPersonProjectAssignmentAssessmentDetail.ascx.cs" Inherits="RockWeb.Plugins.com.ccvonline.Residency.CompetencyPersonProjectAssignmentAssessmentDetail" %>
 
-<asp:UpdatePanel ID="upResidencyCompetencyPersonProjectAssignmentAssessmentDetail" runat="server">
+<asp:UpdatePanel ID="upCompetencyPersonProjectAssignmentAssessmentDetail" runat="server">
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
-            <asp:HiddenField ID="hfResidencyCompetencyPersonProjectAssignmentAssessmentId" runat="server" />
-            <asp:HiddenField ID="hfResidencyCompetencyPersonProjectAssignmentId" runat="server" />
+            <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentAssessmentId" runat="server" />
+            <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentId" runat="server" />
 
             <div id="pnlEditDetails" runat="server" class="well">
 
@@ -25,8 +25,8 @@
                     <Rock:LabeledText ID="lblAssessor" runat="server" LabelText="Assessor" />
                     <Rock:DateTimePicker ID="dtpAssessmentDateTime" runat="server" LabelText="Assessment Date/Time" Required="true"/>
                     <Rock:NumberBox ID="tbRating" runat="server" LabelText="Rating" MaximumValue="5" MinimumValue="1" />
-                    <Rock:DataTextBox ID="tbRatingNotes" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetencyPersonProjectAssignmentAssessment, com.ccvonline.Residency" PropertyName="RatingNotes" TextMode="MultiLine" Rows="3" />
-                    <Rock:DataTextBox ID="tbResidentComments" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyCompetencyPersonProjectAssignmentAssessment, com.ccvonline.Residency" PropertyName="ResidentComments" TextMode="MultiLine" Rows="3" />
+                    <Rock:DataTextBox ID="tbRatingNotes" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProjectAssignmentAssessment, com.ccvonline.Residency" PropertyName="RatingNotes" TextMode="MultiLine" Rows="3" />
+                    <Rock:DataTextBox ID="tbResidentComments" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProjectAssignmentAssessment, com.ccvonline.Residency" PropertyName="ResidentComments" TextMode="MultiLine" Rows="3" />
 
                 </fieldset>
 

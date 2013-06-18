@@ -3,12 +3,12 @@
 <!-- just to help do css intellisense at design time  -->
 <link rel="stylesheet" type="text/css" href="~/CSS/bootstrap.min.css" visible="false" />
 
-<asp:UpdatePanel ID="upResidencyProjectPointOfAssessmentDetail" runat="server">
+<asp:UpdatePanel ID="upProjectPointOfAssessmentDetail" runat="server">
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
             
-            <asp:HiddenField ID="hfResidencyProjectId" runat="server" />
-            <asp:HiddenField ID="hfResidencyProjectPointOfAssessmentId" runat="server" />
+            <asp:HiddenField ID="hfProjectId" runat="server" />
+            <asp:HiddenField ID="hfProjectPointOfAssessmentId" runat="server" />
 
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="alert alert-error" />
             <Rock:NotificationBox ID="nbWarningMessage" runat="server" NotificationBoxType="Warning" />
@@ -20,7 +20,7 @@
 
                 <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
                 <Rock:LabeledText ID="lblAssessmentOrder" runat="server" LabelText="Assessment #" />
-                <Rock:DataTextBox ID="tbAssessmentText" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ResidencyProjectPointOfAssessment, com.ccvonline.Residency" PropertyName="AssessmentText" TextMode="MultiLine" Rows="3" CssClass="input-xxlarge"/>
+                <Rock:DataTextBox ID="tbAssessmentText" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ProjectPointOfAssessment, com.ccvonline.Residency" PropertyName="AssessmentText" TextMode="MultiLine" Rows="3" CssClass="input-xxlarge"/>
             </fieldset>
 
             <div class="actions">

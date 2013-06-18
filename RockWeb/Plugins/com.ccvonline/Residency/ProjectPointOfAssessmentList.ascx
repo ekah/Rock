@@ -3,7 +3,7 @@
 <asp:UpdatePanel ID="upList" runat="server">
     <ContentTemplate>
         <Rock:ModalAlert ID="mdGridWarning" runat="server" />
-        <asp:HiddenField ID="hfResidencyProjectId" runat="server" />
+        <asp:HiddenField ID="hfProjectId" runat="server" />
         <Rock:Grid ID="gList" runat="server" OnRowSelected="gList_Edit" DataKeyNames="Id">
             <Columns>
                 <Rock:ReorderField />
