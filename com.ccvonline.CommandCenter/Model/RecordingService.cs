@@ -11,7 +11,7 @@ namespace com.ccvonline.CommandCenter.Model
     /// <summary>
     /// 
     /// </summary>
-    class RecordingService : CommandCenterService<Recording>
+    public class RecordingService : CommandCenterService<Recording>
     {
         /// <summary>
         /// Sends the recording request.

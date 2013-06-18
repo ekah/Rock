@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201306172336549_Recordings.Designer.cs">
       <DependentUpon>201306172336549_Recordings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306181457262_RecordingControl.cs" />
+    <Compile Include="Migrations\201306181457262_RecordingControl.Designer.cs">
+      <DependentUpon>201306181457262_RecordingControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Recording.cs" />
     <Compile Include="Model\RecordingService.cs" />
@@ -85,6 +89,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201306172336549_Recordings.resx">
       <DependentUpon>201306172336549_Recordings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306181457262_RecordingControl.resx">
+      <DependentUpon>201306181457262_RecordingControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

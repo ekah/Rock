@@ -34,7 +34,7 @@ namespace Rock.Com.CCVOnline.Rest.Service
         {
             routes.MapHttpRoute(
                 name: "com.ccvonline.CommandCenter.Recording",
-                routeTemplate: "api/recordings/{action}/{campusId}/{label}/{app}/{stream}/{recording}",
+                routeTemplate: "api/Recordings/{action}/{campusId}/{label}/{app}/{stream}/{recording}",
                 defaults: new
                 {
                     controller = "recordings"
@@ -42,7 +42,7 @@ namespace Rock.Com.CCVOnline.Rest.Service
 
             routes.MapHttpRoute(
                 name: "com.ccvonline.CommandCenter.RecordingDate",
-                routeTemplate: "api/recordings/dates/{qualifier}",
+                routeTemplate: "api/Recordings/dates/{qualifier}",
                 defaults: new
                 {
                     controller = "recordings",
