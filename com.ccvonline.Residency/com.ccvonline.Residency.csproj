@@ -57,61 +57,38 @@
   <ItemGroup>
     <Compile Include="Data\ResidencyContext.cs" />
     <Compile Include="Data\ResidencyService.cs" />
-    <Compile Include="Migrations\201306010042130_CreateResidencyAppTables01.cs" />
-    <Compile Include="Migrations\201306010042130_CreateResidencyAppTables01.Designer.cs">
-      <DependentUpon>201306010042130_CreateResidencyAppTables01.cs</DependentUpon>
+    <Compile Include="Migrations\201306182055075_CreateTables.cs" />
+    <Compile Include="Migrations\201306182055075_CreateTables.Designer.cs">
+      <DependentUpon>201306182055075_CreateTables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201306010050262_BlocksPages01.cs" />
-    <Compile Include="Migrations\201306010050262_BlocksPages01.Designer.cs">
-      <DependentUpon>201306010050262_BlocksPages01.cs</DependentUpon>
+    <Compile Include="Migrations\201306182118537_AddIndexes01.cs" />
+    <Compile Include="Migrations\201306182118537_AddIndexes01.Designer.cs">
+      <DependentUpon>201306182118537_AddIndexes01.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201306050025268_AddIndexes01.cs" />
-    <Compile Include="Migrations\201306050025268_AddIndexes01.Designer.cs">
-      <DependentUpon>201306050025268_AddIndexes01.cs</DependentUpon>
+    <Compile Include="Migrations\201306182121125_ResidencyGroupType.cs" />
+    <Compile Include="Migrations\201306182121125_ResidencyGroupType.Designer.cs">
+      <DependentUpon>201306182121125_ResidencyGroupType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201306060509236_BlocksPages02.cs" />
-    <Compile Include="Migrations\201306060509236_BlocksPages02.Designer.cs">
-      <DependentUpon>201306060509236_BlocksPages02.cs</DependentUpon>
+    <Compile Include="Migrations\201306182123129_BlocksPages01.cs" />
+    <Compile Include="Migrations\201306182123129_BlocksPages01.Designer.cs">
+      <DependentUpon>201306182123129_BlocksPages01.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201306102205431_ResidencyGroupType.cs" />
-    <Compile Include="Migrations\201306102205431_ResidencyGroupType.Designer.cs">
-      <DependentUpon>201306102205431_ResidencyGroupType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201306122256154_MoreFields01.cs" />
-    <Compile Include="Migrations\201306122256154_MoreFields01.Designer.cs">
-      <DependentUpon>201306122256154_MoreFields01.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201306172334119_blank.cs" />
-    <Compile Include="Migrations\201306172334119_blank.Designer.cs">
-      <DependentUpon>201306172334119_blank.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201306180024326_TrackDisplayOrder.cs" />
-    <Compile Include="Migrations\201306180024326_TrackDisplayOrder.Designer.cs">
-      <DependentUpon>201306180024326_TrackDisplayOrder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201306180025461_ResidentAdminPagesBlocks.cs" />
-    <Compile Include="Migrations\201306180025461_ResidentAdminPagesBlocks.Designer.cs">
-      <DependentUpon>201306180025461_ResidentAdminPagesBlocks.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201306181641479_UpdateBlockFileNames.cs" />
-    <Compile Include="Migrations\201306181641479_UpdateBlockFileNames.Designer.cs">
-      <DependentUpon>201306181641479_UpdateBlockFileNames.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201306181758304_RenameTables01.cs" />
-    <Compile Include="Migrations\201306181758304_RenameTables01.Designer.cs">
-      <DependentUpon>201306181758304_RenameTables01.cs</DependentUpon>
+    <Compile Include="Migrations\201306182129019_AddDefinedTypeResidencyCompetencyType.cs" />
+    <Compile Include="Migrations\201306182129019_AddDefinedTypeResidencyCompetencyType.Designer.cs">
+      <DependentUpon>201306182129019_AddDefinedTypeResidencyCompetencyType.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\ResidencyCompetency.cs" />
-    <Compile Include="Model\ResidencyCompetencyPerson.cs" />
-    <Compile Include="Model\ResidencyPeriod.cs" />
-    <Compile Include="Model\ResidencyCompetencyPersonProject.cs" />
-    <Compile Include="Model\ResidencyCompetencyPersonProjectAssignment.cs" />
-    <Compile Include="Model\ResidencyCompetencyPersonProjectAssignmentAssessment.cs" />
-    <Compile Include="Model\ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.cs" />
-    <Compile Include="Model\ResidencyProject.cs" />
-    <Compile Include="Model\ResidencyProjectPointOfAssessment.cs" />
-    <Compile Include="Model\ResidencyTrack.cs" />
+    <Compile Include="Migrations\RockCSharpMigrationCodeGenerator.cs" />
+    <Compile Include="Model\Competency.cs" />
+    <Compile Include="Model\CompetencyPerson.cs" />
+    <Compile Include="Model\Period.cs" />
+    <Compile Include="Model\CompetencyPersonProject.cs" />
+    <Compile Include="Model\CompetencyPersonProjectAssignment.cs" />
+    <Compile Include="Model\CompetencyPersonProjectAssignmentAssessment.cs" />
+    <Compile Include="Model\CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\ProjectPointOfAssessment.cs" />
+    <Compile Include="Model\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemGuid\DefinedType.cs" />
     <Compile Include="SystemGuid\DefinedValue.cs" />
@@ -121,45 +98,27 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201306010042130_CreateResidencyAppTables01.resx">
-      <DependentUpon>201306010042130_CreateResidencyAppTables01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306010050262_BlocksPages01.resx">
-      <DependentUpon>201306010050262_BlocksPages01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306050025268_AddIndexes01.resx">
-      <DependentUpon>201306050025268_AddIndexes01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306060509236_BlocksPages02.resx">
-      <DependentUpon>201306060509236_BlocksPages02.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306102205431_ResidencyGroupType.resx">
-      <DependentUpon>201306102205431_ResidencyGroupType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306122256154_MoreFields01.resx">
-      <DependentUpon>201306122256154_MoreFields01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306172334119_blank.resx">
-      <DependentUpon>201306172334119_blank.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306180024326_TrackDisplayOrder.resx">
-      <DependentUpon>201306180024326_TrackDisplayOrder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306180025461_ResidentAdminPagesBlocks.resx">
-      <DependentUpon>201306180025461_ResidentAdminPagesBlocks.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306181641479_UpdateBlockFileNames.resx">
-      <DependentUpon>201306181641479_UpdateBlockFileNames.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306181758304_RenameTables01.resx">
-      <DependentUpon>201306181758304_RenameTables01.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\com.ccvonline\com.ccvonline.csproj">
       <Project>{c61f05c4-f947-4a32-84c1-413bdfa912fa}</Project>
       <Name>com.ccvonline</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201306182055075_CreateTables.resx">
+      <DependentUpon>201306182055075_CreateTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306182118537_AddIndexes01.resx">
+      <DependentUpon>201306182118537_AddIndexes01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306182121125_ResidencyGroupType.resx">
+      <DependentUpon>201306182121125_ResidencyGroupType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306182123129_BlocksPages01.resx">
+      <DependentUpon>201306182123129_BlocksPages01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306182129019_AddDefinedTypeResidencyCompetencyType.resx">
+      <DependentUpon>201306182129019_AddDefinedTypeResidencyCompetencyType.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

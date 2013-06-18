@@ -103,7 +103,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                         return;
                     }
 
-                    var residencyCompetencyPersonService = new ResidencyService<ResidencyCompetencyPerson>();
+                    var residencyCompetencyPersonService = new ResidencyService<CompetencyPerson>();
                     var personCompetencyList = residencyCompetencyPersonService.Queryable().Where( a => a.PersonId.Equals( personId ) );
                     foreach ( var item in personCompetencyList )
                     {
@@ -157,8 +157,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             var residencyGroupMemberList = residencyGroupMemberService.Queryable()
                 .Where( a => a.GroupId.Equals( residencyGroupId ) ).ToList();
 
-            var residencyCompetencyPersonService = new ResidencyService<ResidencyCompetencyPerson>();
-            List<IGrouping<int, ResidencyCompetencyPerson>> residencyCompetencyPersonQry = residencyCompetencyPersonService.Queryable().GroupBy( a => a.PersonId ).ToList();
+            var residencyCompetencyPersonService = new ResidencyService<CompetencyPerson>();
+            List<IGrouping<int, CompetencyPerson>> residencyCompetencyPersonQry = residencyCompetencyPersonService.Queryable().GroupBy( a => a.PersonId ).ToList();
 
             var groupMemberCompetencies = from groupMember in residencyGroupMemberList
                                           join competencyList in residencyCompetencyPersonQry on groupMember.PersonId
@@ -177,10 +177,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 CompetencyCount = a.ResidentCompentencies == null ? 0 : a.ResidentCompentencies.Count(),
                 CompletedProjectsTotal = a.ResidentCompentencies == null
                     ? 0
-                    : a.ResidentCompentencies.SelectMany( cp => cp.ResidencyCompetencyPersonProjects ).SelectMany( x => x.ResidencyCompetencyPersonProjectAssignments).Where( y => y.CompletedDateTime != null).Count(),
+                    : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).SelectMany( x => x.CompetencyPersonProjectAssignments).Where( y => y.CompletedDateTime != null).Count(),
                 AssignedProjectsTotal = a.ResidentCompentencies == null
                     ? 0
-                    : a.ResidentCompentencies.SelectMany( cp => cp.ResidencyCompetencyPersonProjects ).SelectMany( x => x.ResidencyCompetencyPersonProjectAssignments ).Count(),
+                    : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).SelectMany( x => x.CompetencyPersonProjectAssignments ).Count(),
             } );
 
             SortProperty sortProperty = gList.SortProperty;

@@ -68,8 +68,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             else
             {
                 // Cancelling on Edit.  Return to Details
-                ResidencyService<ResidencyPeriod> service = new ResidencyService<ResidencyPeriod>();
-                ResidencyPeriod item = service.Get( hfResidencyPeriodId.ValueAsInt() );
+                ResidencyService<Period> service = new ResidencyService<Period>();
+                Period item = service.Get( hfResidencyPeriodId.ValueAsInt() );
                 ShowReadonlyDetails( item );
             }
         }
@@ -81,8 +81,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnEdit_Click( object sender, EventArgs e )
         {
-            ResidencyService<ResidencyPeriod> service = new ResidencyService<ResidencyPeriod>();
-            ResidencyPeriod item = service.Get( hfResidencyPeriodId.ValueAsInt() );
+            ResidencyService<Period> service = new ResidencyService<Period>();
+            Period item = service.Get( hfResidencyPeriodId.ValueAsInt() );
             ShowEditDetails( item );
         }
 
@@ -111,14 +111,14 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 return;
             }
 
-            ResidencyPeriod residencyPeriod;
-            ResidencyService<ResidencyPeriod> residencyPeriodService = new ResidencyService<ResidencyPeriod>();
+            Period residencyPeriod;
+            ResidencyService<Period> residencyPeriodService = new ResidencyService<Period>();
 
             int residencyPeriodId = int.Parse( hfResidencyPeriodId.Value );
 
             if ( residencyPeriodId == 0 )
             {
-                residencyPeriod = new ResidencyPeriod();
+                residencyPeriod = new Period();
                 residencyPeriodService.Add( residencyPeriod, CurrentPersonId );
             }
             else
@@ -163,16 +163,16 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             pnlDetails.Visible = true;
 
             // Load depending on Add(0) or Edit
-            ResidencyPeriod residencyPeriod = null;
+            Period residencyPeriod = null;
             if ( !itemKeyValue.Equals( 0 ) )
             {
-                residencyPeriod = new ResidencyService<ResidencyPeriod>().Get( itemKeyValue );
-                lActionTitle.Text = ActionTitle.Edit( ResidencyPeriod.FriendlyTypeName );
+                residencyPeriod = new ResidencyService<Period>().Get( itemKeyValue );
+                lActionTitle.Text = ActionTitle.Edit( Period.FriendlyTypeName );
             }
             else
             {
-                residencyPeriod = new ResidencyPeriod { Id = 0 };
-                lActionTitle.Text = ActionTitle.Add( ResidencyPeriod.FriendlyTypeName );
+                residencyPeriod = new Period { Id = 0 };
+                lActionTitle.Text = ActionTitle.Add( Period.FriendlyTypeName );
             }
 
             hfResidencyPeriodId.Value = residencyPeriod.Id.ToString();
@@ -184,7 +184,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             if ( !IsUserAuthorized( "Edit" ) )
             {
                 readOnly = true;
-                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( ResidencyPeriod.FriendlyTypeName );
+                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( Period.FriendlyTypeName );
             }
 
             if ( readOnly )
@@ -210,15 +210,15 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// Shows the edit details.
         /// </summary>
         /// <param name="residencyPeriod">The residency period.</param>
-        private void ShowEditDetails( ResidencyPeriod residencyPeriod )
+        private void ShowEditDetails( Period residencyPeriod )
         {
             if ( residencyPeriod.Id > 0 )
             {
-                lActionTitle.Text = ActionTitle.Edit( ResidencyPeriod.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Edit( Period.FriendlyTypeName );
             }
             else
             {
-                lActionTitle.Text = ActionTitle.Add( ResidencyPeriod.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Add( Period.FriendlyTypeName );
             }
 
             SetEditMode( true );
@@ -233,7 +233,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// Shows the readonly details.
         /// </summary>
         /// <param name="residencyPeriod">The residency project.</param>
-        private void ShowReadonlyDetails( ResidencyPeriod residencyPeriod )
+        private void ShowReadonlyDetails( Period residencyPeriod )
         {
             SetEditMode( false );
 

@@ -79,18 +79,18 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             int residencyProjectPointOfAssessmentId = hfResidencyProjectPointOfAssessmentId.ValueAsInt();
             int residencyCompetencyPersonProjectAssignmentAssessmentId = hfResidencyCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt();
 
-            var residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>();
-            ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = null;
+            var residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService = new ResidencyService<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>();
+            CompetencyPersonProjectAssignmentAssessmentPointOfAssessment residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = null;
             residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Queryable()
-                .Where( a => a.ResidencyProjectPointOfAssessmentId.Equals( residencyProjectPointOfAssessmentId ) && a.ResidencyCompetencyPersonProjectAssignmentAssessmentId.Equals( residencyCompetencyPersonProjectAssignmentAssessmentId ) )
+                .Where( a => a.ProjectPointOfAssessmentId.Equals( residencyProjectPointOfAssessmentId ) && a.CompetencyPersonProjectAssignmentAssessmentId.Equals( residencyCompetencyPersonProjectAssignmentAssessmentId ) )
                 .FirstOrDefault();
 
             if ( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment == null )
             {
                 // Create a record to store the rating for this PointOfAssessment if one doesn't already exist
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = new ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment { Id = 0 };
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyProjectPointOfAssessmentId = residencyProjectPointOfAssessmentId;
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessmentId = residencyCompetencyPersonProjectAssignmentAssessmentId;
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = new CompetencyPersonProjectAssignmentAssessmentPointOfAssessment { Id = 0 };
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessmentId = residencyProjectPointOfAssessmentId;
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessmentId = residencyCompetencyPersonProjectAssignmentAssessmentId;
                 residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Add( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment, CurrentPersonId );
             }
             
@@ -129,24 +129,24 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             pnlDetails.Visible = true;
 
-            var qry = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable();
-            ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = null;
+            var qry = new ResidencyService<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable();
+            CompetencyPersonProjectAssignmentAssessmentPointOfAssessment residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = null;
             residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = qry
-                .Where( a => a.ResidencyProjectPointOfAssessmentId.Equals( residencyProjectPointOfAssessmentId ) && a.ResidencyCompetencyPersonProjectAssignmentAssessmentId.Equals( residencyCompetencyPersonProjectAssignmentAssessmentId ) ).FirstOrDefault();
+                .Where( a => a.ProjectPointOfAssessmentId.Equals( residencyProjectPointOfAssessmentId ) && a.CompetencyPersonProjectAssignmentAssessmentId.Equals( residencyCompetencyPersonProjectAssignmentAssessmentId ) ).FirstOrDefault();
 
             if ( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment == null )
             {
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = new ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment { Id = 0 };
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyProjectPointOfAssessmentId = residencyProjectPointOfAssessmentId;
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyProjectPointOfAssessment 
-                    = new ResidencyService<ResidencyProjectPointOfAssessment>().Get( residencyProjectPointOfAssessmentId );
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessmentId = residencyCompetencyPersonProjectAssignmentAssessmentId;
-                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessment
-                    = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessment>().Get(residencyCompetencyPersonProjectAssignmentAssessmentId);
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = new CompetencyPersonProjectAssignmentAssessmentPointOfAssessment { Id = 0 };
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessmentId = residencyProjectPointOfAssessmentId;
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment 
+                    = new ResidencyService<ProjectPointOfAssessment>().Get( residencyProjectPointOfAssessmentId );
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessmentId = residencyCompetencyPersonProjectAssignmentAssessmentId;
+                residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessment
+                    = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>().Get(residencyCompetencyPersonProjectAssignmentAssessmentId);
             }
 
-            hfResidencyProjectPointOfAssessmentId.Value = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyProjectPointOfAssessmentId.ToString();
-            hfResidencyCompetencyPersonProjectAssignmentAssessmentId.Value = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessmentId.ToString();
+            hfResidencyProjectPointOfAssessmentId.Value = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessmentId.ToString();
+            hfResidencyCompetencyPersonProjectAssignmentAssessmentId.Value = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessmentId.ToString();
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -155,25 +155,25 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             if ( !IsUserAuthorized( "Edit" ) )
             {
                 readOnly = true;
-                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
+                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
             }
 
             if ( residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Id > 0 )
             {
-                lActionTitle.Text = ActionTitle.Edit( ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Edit( CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
             }
             else
             {
-                lActionTitle.Text = ActionTitle.Add( ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Add( CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
             }
 
-            var personProject = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject;
+            var personProject = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject;
 
-            lblResident.Text = personProject.ResidencyCompetencyPerson.Person.FullName;
-            lblCompetency.Text = personProject.ResidencyCompetencyPerson.ResidencyCompetency.Name;
-            lblProjectName.Text = personProject.ResidencyProject.Name;
+            lblResident.Text = personProject.CompetencyPerson.Person.FullName;
+            lblCompetency.Text = personProject.CompetencyPerson.Competency.Name;
+            lblProjectName.Text = personProject.Project.Name;
 
-            var projectAssignment = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment;
+            var projectAssignment = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment;
             if ( projectAssignment.AssessorPerson != null )
             {
                 lblAssessor.Text = projectAssignment.AssessorPerson.FullName;
@@ -183,8 +183,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 lblAssessor.Text = Rock.Constants.None.Text;
             }
 
-            lblAssessmentOrder.Text = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyProjectPointOfAssessment.AssessmentOrder.ToString();
-            lblAssessmentText.Text = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ResidencyProjectPointOfAssessment.AssessmentText.ToString();
+            lblAssessmentOrder.Text = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment.AssessmentOrder.ToString();
+            lblAssessmentText.Text = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment.AssessmentText.ToString();
             tbRating.Text = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating.ToString();
             tbRatingNotes.Text = residencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingNotes;
 

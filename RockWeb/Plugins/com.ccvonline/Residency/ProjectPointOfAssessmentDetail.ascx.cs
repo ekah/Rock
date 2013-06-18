@@ -77,16 +77,16 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnSave_Click( object sender, EventArgs e )
         {
-            ResidencyProjectPointOfAssessment residencyProjectPointOfAssessment;
-            ResidencyService<ResidencyProjectPointOfAssessment> residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
+            ProjectPointOfAssessment residencyProjectPointOfAssessment;
+            ResidencyService<ProjectPointOfAssessment> residencyProjectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
 
             int residencyProjectPointOfAssessmentId = int.Parse( hfResidencyProjectPointOfAssessmentId.Value );
 
             if ( residencyProjectPointOfAssessmentId == 0 )
             {
-                residencyProjectPointOfAssessment = new ResidencyProjectPointOfAssessment();
+                residencyProjectPointOfAssessment = new ProjectPointOfAssessment();
                 residencyProjectPointOfAssessment.AssessmentOrder = lblAssessmentOrder.Text.AsInteger().Value;
-                residencyProjectPointOfAssessment.ResidencyProjectId = hfResidencyProjectId.ValueAsInt();
+                residencyProjectPointOfAssessment.ProjectId = hfResidencyProjectId.ValueAsInt();
                 residencyProjectPointOfAssessmentService.Add( residencyProjectPointOfAssessment, CurrentPersonId );
             }
             else
@@ -139,10 +139,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             pnlDetails.Visible = true;
 
             // Load depending on Add(0) or Edit
-            ResidencyProjectPointOfAssessment residencyProjectPointOfAssessment = null;
-            var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
+            ProjectPointOfAssessment residencyProjectPointOfAssessment = null;
+            var residencyProjectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
 
-            string residencyProjectName = new ResidencyService<ResidencyProject>().Queryable()
+            string residencyProjectName = new ResidencyService<Project>().Queryable()
                 .Where( a => a.Id.Equals( residencyProjectId.Value ) )
                 .Select( a => a.Name ).FirstOrDefault();
 
@@ -156,10 +156,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 // don't try add if there wasn't a residencyProjectId specified
                 if ( residencyProjectId != null )
                 {
-                    residencyProjectPointOfAssessment = new ResidencyProjectPointOfAssessment { Id = 0, ResidencyProjectId = residencyProjectId.Value };
+                    residencyProjectPointOfAssessment = new ProjectPointOfAssessment { Id = 0, ProjectId = residencyProjectId.Value };
                     
                     int maxAssessmentOrder = residencyProjectPointOfAssessmentService.Queryable()
-                        .Where( a => a.ResidencyProjectId.Equals( residencyProjectPointOfAssessment.ResidencyProjectId ) )
+                        .Where( a => a.ProjectId.Equals( residencyProjectPointOfAssessment.ProjectId ) )
                         .Select( a => a.AssessmentOrder ).DefaultIfEmpty( 0 ).Max();
 
                     residencyProjectPointOfAssessment.AssessmentOrder = maxAssessmentOrder + 1;
@@ -185,12 +185,12 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             if ( !IsUserAuthorized( "Edit" ) )
             {
                 readOnly = true;
-                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( ResidencyProjectPointOfAssessment.FriendlyTypeName );
+                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( ProjectPointOfAssessment.FriendlyTypeName );
             }
 
             if ( readOnly )
             {
-                lActionTitle.Text = ActionTitle.View( ResidencyProjectPointOfAssessment.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.View( ProjectPointOfAssessment.FriendlyTypeName );
                 btnCancel.Text = "Close";
             }
 

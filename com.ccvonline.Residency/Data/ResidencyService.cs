@@ -26,13 +26,13 @@ namespace com.ccvonline.Residency.Data
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( ResidencyCompetencyPersonProjectAssignmentAssessment item, out string errorMessage )
+        public bool CanDelete( CompetencyPersonProjectAssignmentAssessment item, out string errorMessage )
         {
             errorMessage = string.Empty;
 
-            if ( new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable().Any( a => a.ResidencyCompetencyPersonProjectAssignmentAssessmentId == item.Id ) )
+            if ( new ResidencyService<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable().Any( a => a.CompetencyPersonProjectAssignmentAssessmentId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyCompetencyPersonProjectAssignmentAssessment.FriendlyTypeName, ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", CompetencyPersonProjectAssignmentAssessment.FriendlyTypeName, CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
                 return false;
             }
 
@@ -47,13 +47,13 @@ namespace com.ccvonline.Residency.Data
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( ResidencyCompetencyPersonProjectAssignment item, out string errorMessage )
+        public bool CanDelete( CompetencyPersonProjectAssignment item, out string errorMessage )
         {
             errorMessage = string.Empty;
 
-            if ( new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessment>().Queryable().Any( a => a.ResidencyCompetencyPersonProjectAssignmentId == item.Id ) )
+            if ( new ResidencyService<CompetencyPersonProjectAssignmentAssessment>().Queryable().Any( a => a.CompetencyPersonProjectAssignmentId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyCompetencyPersonProjectAssignment.FriendlyTypeName, ResidencyCompetencyPersonProjectAssignmentAssessment.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", CompetencyPersonProjectAssignment.FriendlyTypeName, CompetencyPersonProjectAssignmentAssessment.FriendlyTypeName );
                 return false;
             }
 
@@ -68,13 +68,13 @@ namespace com.ccvonline.Residency.Data
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( ResidencyCompetencyPersonProject item, out string errorMessage )
+        public bool CanDelete( CompetencyPersonProject item, out string errorMessage )
         {
             errorMessage = string.Empty;
 
-            if ( new ResidencyService<ResidencyCompetencyPersonProjectAssignment>().Queryable().Any( a => a.ResidencyCompetencyPersonProjectId == item.Id ) )
+            if ( new ResidencyService<CompetencyPersonProjectAssignment>().Queryable().Any( a => a.CompetencyPersonProjectId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyCompetencyPersonProject.FriendlyTypeName, ResidencyCompetencyPersonProjectAssignment.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", CompetencyPersonProject.FriendlyTypeName, CompetencyPersonProjectAssignment.FriendlyTypeName );
                 return false;
             }
 
@@ -89,13 +89,13 @@ namespace com.ccvonline.Residency.Data
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( ResidencyCompetencyPerson item, out string errorMessage )
+        public bool CanDelete( CompetencyPerson item, out string errorMessage )
         {
             errorMessage = string.Empty;
 
-            if ( new ResidencyService<ResidencyCompetencyPersonProject>().Queryable().Any( a => a.ResidencyCompetencyPersonId == item.Id ) )
+            if ( new ResidencyService<CompetencyPersonProject>().Queryable().Any( a => a.CompetencyPersonId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyCompetencyPerson.FriendlyTypeName, ResidencyCompetencyPersonProject.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", CompetencyPerson.FriendlyTypeName, CompetencyPersonProject.FriendlyTypeName );
                 return false;
             }
 
@@ -110,19 +110,19 @@ namespace com.ccvonline.Residency.Data
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( ResidencyCompetency item, out string errorMessage )
+        public bool CanDelete( Competency item, out string errorMessage )
         {
             errorMessage = string.Empty;
 
-            if ( new ResidencyService<ResidencyCompetencyPerson>().Queryable().Any( a => a.ResidencyCompetencyId == item.Id ) )
+            if ( new ResidencyService<CompetencyPerson>().Queryable().Any( a => a.CompetencyId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyCompetency.FriendlyTypeName, ResidencyCompetencyPerson.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", Competency.FriendlyTypeName, CompetencyPerson.FriendlyTypeName );
                 return false;
             }
 
-            if ( new ResidencyService<ResidencyProject>().Queryable().Any( a => a.ResidencyCompetencyId == item.Id ) )
+            if ( new ResidencyService<Project>().Queryable().Any( a => a.CompetencyId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyCompetency.FriendlyTypeName, ResidencyProject.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", Competency.FriendlyTypeName, Project.FriendlyTypeName );
                 return false;
             }
 
@@ -137,13 +137,13 @@ namespace com.ccvonline.Residency.Data
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( ResidencyPeriod item, out string errorMessage )
+        public bool CanDelete( Period item, out string errorMessage )
         {
             errorMessage = string.Empty;
 
-            if ( new ResidencyService<ResidencyTrack>().Queryable().Any( a => a.ResidencyPeriodId == item.Id ) )
+            if ( new ResidencyService<Track>().Queryable().Any( a => a.PeriodId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyPeriod.FriendlyTypeName, ResidencyTrack.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", Period.FriendlyTypeName, Track.FriendlyTypeName );
                 return false;
             }
 
@@ -158,13 +158,13 @@ namespace com.ccvonline.Residency.Data
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( ResidencyProjectPointOfAssessment item, out string errorMessage )
+        public bool CanDelete( ProjectPointOfAssessment item, out string errorMessage )
         {
             errorMessage = string.Empty;
 
-            if ( new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable().Any( a => a.ResidencyProjectPointOfAssessmentId == item.Id ) )
+            if ( new ResidencyService<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable().Any( a => a.ProjectPointOfAssessmentId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyProjectPointOfAssessment.FriendlyTypeName, ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", ProjectPointOfAssessment.FriendlyTypeName, CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
                 return false;
             }
 
@@ -179,19 +179,19 @@ namespace com.ccvonline.Residency.Data
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( ResidencyProject item, out string errorMessage )
+        public bool CanDelete( Project item, out string errorMessage )
         {
             errorMessage = string.Empty;
 
-            if ( new ResidencyService<ResidencyCompetencyPersonProject>().Queryable().Any( a => a.ResidencyProjectId == item.Id ) )
+            if ( new ResidencyService<CompetencyPersonProject>().Queryable().Any( a => a.ProjectId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyProject.FriendlyTypeName, ResidencyCompetencyPersonProject.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", Project.FriendlyTypeName, CompetencyPersonProject.FriendlyTypeName );
                 return false;
             }
 
-            if ( new ResidencyService<ResidencyProjectPointOfAssessment>().Queryable().Any( a => a.ResidencyProjectId == item.Id ) )
+            if ( new ResidencyService<ProjectPointOfAssessment>().Queryable().Any( a => a.ProjectId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyProject.FriendlyTypeName, ResidencyProjectPointOfAssessment.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", Project.FriendlyTypeName, ProjectPointOfAssessment.FriendlyTypeName );
                 return false;
             }
 
@@ -206,13 +206,13 @@ namespace com.ccvonline.Residency.Data
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( ResidencyTrack item, out string errorMessage )
+        public bool CanDelete( Track item, out string errorMessage )
         {
             errorMessage = string.Empty;
 
-            if ( new ResidencyService<ResidencyCompetency>().Queryable().Any( a => a.ResidencyTrackId == item.Id ) )
+            if ( new ResidencyService<Competency>().Queryable().Any( a => a.TrackId == item.Id ) )
             {
-                errorMessage = string.Format( "This {0} is assigned to a {1}.", ResidencyTrack.FriendlyTypeName, ResidencyCompetency.FriendlyTypeName );
+                errorMessage = string.Format( "This {0} is assigned to a {1}.", Track.FriendlyTypeName, Competency.FriendlyTypeName );
                 return false;
             }
 
@@ -227,7 +227,7 @@ namespace com.ccvonline.Residency.Data
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment item, out string errorMessage )
+        public bool CanDelete( CompetencyPersonProjectAssignmentAssessmentPointOfAssessment item, out string errorMessage )
         {
             errorMessage = string.Empty;
             return true;

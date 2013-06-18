@@ -96,8 +96,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyCompetencyPersonProjectAssignmentService = new ResidencyService<ResidencyCompetencyPersonProjectAssignment>();
-                ResidencyCompetencyPersonProjectAssignment residencyCompetencyPersonProjectAssignment = residencyCompetencyPersonProjectAssignmentService.Get( (int)e.RowKeyValue );
+                var residencyCompetencyPersonProjectAssignmentService = new ResidencyService<CompetencyPersonProjectAssignment>();
+                CompetencyPersonProjectAssignment residencyCompetencyPersonProjectAssignment = residencyCompetencyPersonProjectAssignmentService.Get( (int)e.RowKeyValue );
 
                 if ( residencyCompetencyPersonProjectAssignment != null )
                 {
@@ -135,12 +135,12 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var residencyCompetencyPersonProjectAssignmentService = new ResidencyService<ResidencyCompetencyPersonProjectAssignment>();
+            var residencyCompetencyPersonProjectAssignmentService = new ResidencyService<CompetencyPersonProjectAssignment>();
             int residencyCompetencyPersonProjectId = hfResidencyCompetencyPersonProjectId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
             var qry = residencyCompetencyPersonProjectAssignmentService.Queryable();
 
-            qry = qry.Where( a => a.ResidencyCompetencyPersonProjectId.Equals( residencyCompetencyPersonProjectId ) );
+            qry = qry.Where( a => a.CompetencyPersonProjectId.Equals( residencyCompetencyPersonProjectId ) );
 
             if ( sortProperty != null )
             {
@@ -148,7 +148,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             }
             else
             {
-                qry = qry.OrderBy( s => s.ResidencyCompetencyPersonProject.ResidencyProject.Name );
+                qry = qry.OrderBy( s => s.CompetencyPersonProject.Project.Name );
             }
 
             gList.DataSource = qry.ToList();

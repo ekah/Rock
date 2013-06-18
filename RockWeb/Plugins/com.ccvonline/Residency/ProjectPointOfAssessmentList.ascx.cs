@@ -68,12 +68,12 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             int newIndex = e.NewIndex;
             int residencyProjectId = hfResidencyProjectId.ValueAsInt();
 
-            var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
+            var residencyProjectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
             var items = residencyProjectPointOfAssessmentService.Queryable()
-                .Where( a => a.ResidencyProjectId.Equals( residencyProjectId ) )
+                .Where( a => a.ProjectId.Equals( residencyProjectId ) )
                 .OrderBy( a => a.AssessmentOrder ).ToList();
 
-            ResidencyProjectPointOfAssessment movedItem = items[oldIndex];
+            ProjectPointOfAssessment movedItem = items[oldIndex];
             items.RemoveAt( oldIndex );
             if ( newIndex >= items.Count )
             {
@@ -85,7 +85,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             }
 
             int order = 1;
-            foreach ( ResidencyProjectPointOfAssessment item in items )
+            foreach ( ProjectPointOfAssessment item in items )
             {
                 if ( item != null )
                 {
@@ -144,9 +144,9 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
+                var residencyProjectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
 
-                ResidencyProjectPointOfAssessment residencyProjectPointOfAssessment = residencyProjectPointOfAssessmentService.Get( (int)e.RowKeyValue );
+                ProjectPointOfAssessment residencyProjectPointOfAssessment = residencyProjectPointOfAssessmentService.Get( (int)e.RowKeyValue );
                 if ( residencyProjectPointOfAssessment != null )
                 {
                     string errorMessage;
@@ -183,10 +183,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var residencyProjectPointOfAssessmentService = new ResidencyService<ResidencyProjectPointOfAssessment>();
+            var residencyProjectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
             int residencyProjectId = hfResidencyProjectId.ValueAsInt();
             gList.DataSource = residencyProjectPointOfAssessmentService.Queryable()
-                .Where( a => a.ResidencyProjectId == residencyProjectId )
+                .Where( a => a.ProjectId == residencyProjectId )
                 .OrderBy( s => s.AssessmentOrder ).ToList();
             gList.DataBind();
         }

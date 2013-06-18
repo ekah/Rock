@@ -89,8 +89,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             else
             {
                 // Cancelling on Edit.  Return to Details
-                ResidencyService<ResidencyCompetencyPerson> service = new ResidencyService<ResidencyCompetencyPerson>();
-                ResidencyCompetencyPerson item = service.Get( hfResidencyCompetencyPersonId.ValueAsInt() );
+                ResidencyService<CompetencyPerson> service = new ResidencyService<CompetencyPerson>();
+                CompetencyPerson item = service.Get( hfResidencyCompetencyPersonId.ValueAsInt() );
                 ShowReadonlyDetails( item );
             }
         }
@@ -102,8 +102,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnEdit_Click( object sender, EventArgs e )
         {
-            ResidencyService<ResidencyCompetencyPerson> service = new ResidencyService<ResidencyCompetencyPerson>();
-            ResidencyCompetencyPerson item = service.Get( hfResidencyCompetencyPersonId.ValueAsInt() );
+            ResidencyService<CompetencyPerson> service = new ResidencyService<CompetencyPerson>();
+            CompetencyPerson item = service.Get( hfResidencyCompetencyPersonId.ValueAsInt() );
             ShowEditDetails( item );
         }
 
@@ -126,19 +126,19 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnSave_Click( object sender, EventArgs e )
         {
-            ResidencyCompetencyPerson residencyCompetencyPerson;
-            ResidencyService<ResidencyCompetencyPerson> residencyCompetencyPersonService = new ResidencyService<ResidencyCompetencyPerson>();
+            CompetencyPerson residencyCompetencyPerson;
+            ResidencyService<CompetencyPerson> residencyCompetencyPersonService = new ResidencyService<CompetencyPerson>();
 
             int residencyCompetencyPersonId = int.Parse( hfResidencyCompetencyPersonId.Value );
 
             if ( residencyCompetencyPersonId == 0 )
             {
-                residencyCompetencyPerson = new ResidencyCompetencyPerson();
+                residencyCompetencyPerson = new CompetencyPerson();
                 residencyCompetencyPersonService.Add( residencyCompetencyPerson, CurrentPersonId );
                 
                 // These inputs are only editable on Add
                 residencyCompetencyPerson.PersonId = hfPersonId.ValueAsInt();
-                residencyCompetencyPerson.ResidencyCompetencyId = ddlResidencyCompetency.SelectedValueAsInt() ?? 0;
+                residencyCompetencyPerson.CompetencyId = ddlResidencyCompetency.SelectedValueAsInt() ?? 0;
             }
             else
             {
@@ -188,14 +188,14 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             pnlDetails.Visible = true;
 
             // Load depending on Add(0) or Edit
-            ResidencyCompetencyPerson residencyCompetencyPerson = null;
+            CompetencyPerson residencyCompetencyPerson = null;
             if ( !itemKeyValue.Equals( 0 ) )
             {
-                residencyCompetencyPerson = new ResidencyService<ResidencyCompetencyPerson>().Get( itemKeyValue );
+                residencyCompetencyPerson = new ResidencyService<CompetencyPerson>().Get( itemKeyValue );
             }
             else
             {
-                residencyCompetencyPerson = new ResidencyCompetencyPerson { Id = 0 };
+                residencyCompetencyPerson = new CompetencyPerson { Id = 0 };
                 residencyCompetencyPerson.PersonId = personId ?? 0;
                 residencyCompetencyPerson.Person = new ResidencyService<Person>().Get( residencyCompetencyPerson.PersonId );
             }
@@ -210,7 +210,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             if ( !IsUserAuthorized( "Edit" ) )
             {
                 readOnly = true;
-                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( ResidencyCompetencyPerson.FriendlyTypeName );
+                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( CompetencyPerson.FriendlyTypeName );
             }
 
             if ( readOnly )
@@ -241,7 +241,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         protected void ddlResidencyPeriod_SelectedIndexChanged( object sender, EventArgs e )
         {
             int residencyPeriodId = ddlResidencyPeriod.SelectedValueAsInt() ?? 0;
-            var residencyTrackQry = new ResidencyService<ResidencyTrack>().Queryable().Where( a => a.ResidencyPeriodId.Equals( residencyPeriodId ) );
+            var residencyTrackQry = new ResidencyService<Track>().Queryable().Where( a => a.PeriodId.Equals( residencyPeriodId ) );
 
             ddlResidencyTrack.DataSource = residencyTrackQry.OrderBy( a => a.Name ).ToList();
             ddlResidencyTrack.DataBind();
@@ -256,11 +256,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         protected void ddlResidencyTrack_SelectedIndexChanged( object sender, EventArgs e )
         {
             int residencyTrackId = ddlResidencyTrack.SelectedValueAsInt() ?? 0;
-            var residencyCompetencyQry = new ResidencyService<ResidencyCompetency>().Queryable().Where( a => a.ResidencyTrackId == residencyTrackId );
+            var residencyCompetencyQry = new ResidencyService<Competency>().Queryable().Where( a => a.TrackId == residencyTrackId );
 
             // list 
             int personId = hfPersonId.ValueAsInt();
-            List<int> assignedCompetencyIds = new ResidencyService<ResidencyCompetencyPerson>().Queryable().Where( a => a.PersonId.Equals( personId ) ).Select( a => a.ResidencyCompetencyId ).ToList();
+            List<int> assignedCompetencyIds = new ResidencyService<CompetencyPerson>().Queryable().Where( a => a.PersonId.Equals( personId ) ).Select( a => a.CompetencyId ).ToList();
 
             ddlResidencyCompetency.DataSource = residencyCompetencyQry.Where( a => !assignedCompetencyIds.Contains( a.Id ) ).OrderBy( a => a.Name ).ToList();
             ddlResidencyCompetency.DataBind();
@@ -271,7 +271,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void LoadDropDowns()
         {
-            ddlResidencyPeriod.DataSource = new ResidencyService<ResidencyPeriod>().Queryable().OrderBy( a => a.Name ).ToList();
+            ddlResidencyPeriod.DataSource = new ResidencyService<Period>().Queryable().OrderBy( a => a.Name ).ToList();
             ddlResidencyPeriod.DataBind();
             ddlResidencyPeriod_SelectedIndexChanged( null, null );
         }
@@ -280,15 +280,15 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// Shows the edit details.
         /// </summary>
         /// <param name="residencyCompetencyPerson">The residency project.</param>
-        private void ShowEditDetails( ResidencyCompetencyPerson residencyCompetencyPerson )
+        private void ShowEditDetails( CompetencyPerson residencyCompetencyPerson )
         {
             if ( residencyCompetencyPerson.Id > 0 )
             {
-                lActionTitle.Text = ActionTitle.Edit( ResidencyCompetencyPerson.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Edit( CompetencyPerson.FriendlyTypeName );
             }
             else
             {
-                lActionTitle.Text = ActionTitle.Add( ResidencyCompetencyPerson.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Add( CompetencyPerson.FriendlyTypeName );
             }
 
             SetEditMode( true );
@@ -297,13 +297,13 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             lblPersonName.Text = residencyCompetencyPerson.Person.FullName;
             
-            ddlResidencyCompetency.SetValue( residencyCompetencyPerson.ResidencyCompetencyId );
+            ddlResidencyCompetency.SetValue( residencyCompetencyPerson.CompetencyId );
             
-            if ( residencyCompetencyPerson.ResidencyCompetency != null )
+            if ( residencyCompetencyPerson.Competency != null )
             {
-                lblResidencyPeriod.Text = residencyCompetencyPerson.ResidencyCompetency.ResidencyTrack.ResidencyPeriod.Name;
-                lblResidencyTrack.Text = residencyCompetencyPerson.ResidencyCompetency.ResidencyTrack.Name;
-                lblResidencyCompetency.Text = residencyCompetencyPerson.ResidencyCompetency.Name;
+                lblResidencyPeriod.Text = residencyCompetencyPerson.Competency.Track.Period.Name;
+                lblResidencyTrack.Text = residencyCompetencyPerson.Competency.Track.Name;
+                lblResidencyCompetency.Text = residencyCompetencyPerson.Competency.Name;
             }
             else
             {
@@ -320,7 +320,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// Shows the readonly details.
         /// </summary>
         /// <param name="residencyCompetencyPerson">The residency project.</param>
-        private void ShowReadonlyDetails( ResidencyCompetencyPerson residencyCompetencyPerson )
+        private void ShowReadonlyDetails( CompetencyPerson residencyCompetencyPerson )
         {
             SetEditMode( false );
 
@@ -344,7 +344,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             }
 
             lblMainDetails.Text += string.Format( descriptionFormat, "Resident",  residentHtml);
-            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", residencyCompetencyPerson.ResidencyCompetency.Name );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", residencyCompetencyPerson.Competency.Name );
 
             lblMainDetails.Text += @"
     </dl>

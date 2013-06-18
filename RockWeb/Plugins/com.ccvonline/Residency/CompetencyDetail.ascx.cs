@@ -84,8 +84,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             else
             {
                 // Cancelling on Edit.  Return to Details
-                ResidencyService<ResidencyCompetency> service = new ResidencyService<ResidencyCompetency>();
-                ResidencyCompetency item = service.Get( hfResidencyCompetencyId.ValueAsInt() );
+                ResidencyService<Competency> service = new ResidencyService<Competency>();
+                Competency item = service.Get( hfResidencyCompetencyId.ValueAsInt() );
                 ShowReadonlyDetails( item );
             }
         }
@@ -97,8 +97,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnEdit_Click( object sender, EventArgs e )
         {
-            ResidencyService<ResidencyCompetency> service = new ResidencyService<ResidencyCompetency>();
-            ResidencyCompetency item = service.Get( hfResidencyCompetencyId.ValueAsInt() );
+            ResidencyService<Competency> service = new ResidencyService<Competency>();
+            Competency item = service.Get( hfResidencyCompetencyId.ValueAsInt() );
             ShowEditDetails( item );
         }
 
@@ -121,14 +121,14 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnSave_Click( object sender, EventArgs e )
         {
-            ResidencyCompetency residencyCompetency;
-            ResidencyService<ResidencyCompetency> residencyCompetencyService = new ResidencyService<ResidencyCompetency>();
+            Competency residencyCompetency;
+            ResidencyService<Competency> residencyCompetencyService = new ResidencyService<Competency>();
 
             int residencyCompetencyId = int.Parse( hfResidencyCompetencyId.Value );
 
             if ( residencyCompetencyId == 0 )
             {
-                residencyCompetency = new ResidencyCompetency();
+                residencyCompetency = new Competency();
                 residencyCompetencyService.Add( residencyCompetency, CurrentPersonId );
             }
             else
@@ -138,7 +138,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             residencyCompetency.Name = tbName.Text;
             residencyCompetency.Description = tbDescription.Text;
-            residencyCompetency.ResidencyTrackId = hfResidencyTrackId.ValueAsInt();
+            residencyCompetency.TrackId = hfResidencyTrackId.ValueAsInt();
             residencyCompetency.TeacherOfRecordPersonId = ppTeacherOfRecord.PersonId;
             residencyCompetency.FacilitatorPersonId = ppFacilitator.PersonId;
             residencyCompetency.Goals = tbGoals.Text;
@@ -189,20 +189,20 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             pnlDetails.Visible = true;
 
             // Load depending on Add(0) or Edit
-            ResidencyCompetency residencyCompetency = null;
+            Competency residencyCompetency = null;
             if ( !itemKeyValue.Equals( 0 ) )
             {
-                residencyCompetency = new ResidencyService<ResidencyCompetency>().Get( itemKeyValue );
+                residencyCompetency = new ResidencyService<Competency>().Get( itemKeyValue );
             }
             else
             {
-                residencyCompetency = new ResidencyCompetency { Id = 0 };
-                residencyCompetency.ResidencyTrackId = residencyTrackId ?? 0;
-                residencyCompetency.ResidencyTrack = new ResidencyService<ResidencyTrack>().Get( residencyCompetency.ResidencyTrackId );
+                residencyCompetency = new Competency { Id = 0 };
+                residencyCompetency.TrackId = residencyTrackId ?? 0;
+                residencyCompetency.Track = new ResidencyService<Track>().Get( residencyCompetency.TrackId );
             }
 
             hfResidencyCompetencyId.Value = residencyCompetency.Id.ToString();
-            hfResidencyTrackId.Value = residencyCompetency.ResidencyTrackId.ToString();
+            hfResidencyTrackId.Value = residencyCompetency.TrackId.ToString();
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -211,7 +211,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             if ( !IsUserAuthorized( "Edit" ) )
             {
                 readOnly = true;
-                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( ResidencyCompetency.FriendlyTypeName );
+                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( Competency.FriendlyTypeName );
             }
 
             if ( readOnly )
@@ -237,23 +237,23 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// Shows the edit details.
         /// </summary>
         /// <param name="residencyCompetency">The residency competency.</param>
-        private void ShowEditDetails( ResidencyCompetency residencyCompetency )
+        private void ShowEditDetails( Competency residencyCompetency )
         {
             if ( residencyCompetency.Id > 0 )
             {
-                lActionTitle.Text = ActionTitle.Edit( ResidencyCompetency.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Edit( Competency.FriendlyTypeName );
             }
             else
             {
-                lActionTitle.Text = ActionTitle.Add( ResidencyCompetency.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Add( Competency.FriendlyTypeName );
             }
 
             SetEditMode( true );
 
             tbName.Text = residencyCompetency.Name;
             tbDescription.Text = residencyCompetency.Description;
-            lblPeriod.Text = residencyCompetency.ResidencyTrack.ResidencyPeriod.Name;
-            lblTrack.Text = residencyCompetency.ResidencyTrack.Name;
+            lblPeriod.Text = residencyCompetency.Track.Period.Name;
+            lblTrack.Text = residencyCompetency.Track.Name;
             ppTeacherOfRecord.SetValue( residencyCompetency.TeacherOfRecordPerson );
             ppFacilitator.SetValue( residencyCompetency.FacilitatorPerson );
             tbGoals.Text = residencyCompetency.Goals;
@@ -266,7 +266,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// Shows the readonly details.
         /// </summary>
         /// <param name="residencyCompetency">The residency competency.</param>
-        private void ShowReadonlyDetails( ResidencyCompetency residencyCompetency )
+        private void ShowReadonlyDetails( Competency residencyCompetency )
         {
             SetEditMode( false );
 
@@ -278,17 +278,17 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             lblMainDetails.Text += string.Format( descriptionFormat, "Name", residencyCompetency.Name );
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Period", residencyCompetency.ResidencyTrack.ResidencyPeriod.Name );
+            lblMainDetails.Text += string.Format( descriptionFormat, "Period", residencyCompetency.Track.Period.Name );
 
             string residencyTrackPageGuid = this.GetAttributeValue( "ResidencyTrackPage" );
-            string trackHtml = residencyCompetency.ResidencyTrack.Name;
+            string trackHtml = residencyCompetency.Track.Name;
             if ( !string.IsNullOrWhiteSpace( residencyTrackPageGuid ) )
             {
                 var page = new PageService().Get( new Guid( residencyTrackPageGuid ) );
                 Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "residencyTrackId", residencyCompetency.ResidencyTrackId.ToString() );
+                queryString.Add( "residencyTrackId", residencyCompetency.TrackId.ToString() );
                 string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                trackHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, residencyCompetency.ResidencyTrack.Name );
+                trackHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, residencyCompetency.Track.Name );
             }
 
             lblMainDetails.Text += string.Format( descriptionFormat, "Track", trackHtml );

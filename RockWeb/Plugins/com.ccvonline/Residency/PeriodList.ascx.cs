@@ -85,9 +85,9 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyPeriodService = new ResidencyService<ResidencyPeriod>();
+                var residencyPeriodService = new ResidencyService<Period>();
 
-                ResidencyPeriod residencyPeriod = residencyPeriodService.Get( (int)e.RowKeyValue );
+                Period residencyPeriod = residencyPeriodService.Get( (int)e.RowKeyValue );
                 if ( residencyPeriod != null )
                 {
                     string errorMessage;
@@ -124,7 +124,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var residencyPeriodService = new ResidencyService<ResidencyPeriod>();
+            var residencyPeriodService = new ResidencyService<Period>();
             SortProperty sortProperty = gList.SortProperty;
 
             if ( sortProperty != null )

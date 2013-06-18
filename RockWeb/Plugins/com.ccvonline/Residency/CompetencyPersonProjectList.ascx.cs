@@ -96,8 +96,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyCompetencyPersonProjectService = new ResidencyService<ResidencyCompetencyPersonProject>();
-                ResidencyCompetencyPersonProject residencyCompetencyPersonProject = residencyCompetencyPersonProjectService.Get( (int)e.RowKeyValue );
+                var residencyCompetencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
+                CompetencyPersonProject residencyCompetencyPersonProject = residencyCompetencyPersonProjectService.Get( (int)e.RowKeyValue );
 
                 if ( residencyCompetencyPersonProject != null )
                 {
@@ -135,12 +135,12 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var ResidencyCompetencyPersonProjectService = new ResidencyService<ResidencyCompetencyPersonProject>();
+            var ResidencyCompetencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
             int ResidencyCompetencyPersonId = hfResidencyCompetencyPersonId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
             var qry = ResidencyCompetencyPersonProjectService.Queryable();
 
-            qry = qry.Where( a => a.ResidencyCompetencyPersonId.Equals( ResidencyCompetencyPersonId ) );
+            qry = qry.Where( a => a.CompetencyPersonId.Equals( ResidencyCompetencyPersonId ) );
 
             if ( sortProperty != null )
             {
@@ -148,15 +148,15 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             }
             else
             {
-                qry = qry.OrderBy( s => s.ResidencyProject.Name );
+                qry = qry.OrderBy( s => s.Project.Name );
             }
 
             var list = qry.Select( a => new 
             {
                 Id = a.Id,
-                Name = a.ResidencyProject.Name,
+                Name = a.Project.Name,
                 MinAssignmentCount = a.MinAssignmentCount,
-                CurrentCompleted = a.ResidencyCompetencyPersonProjectAssignments.Where(b => b.CompletedDateTime != null).Count()
+                CurrentCompleted = a.CompetencyPersonProjectAssignments.Where(b => b.CompletedDateTime != null).Count()
             }).ToList();
 
             gList.DataSource = list;

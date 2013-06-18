@@ -97,27 +97,27 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             int residencyCompetencyPersonProjectAssignmentAssessmentId = hfResidencyCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt();
 
-            List<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment> personPointOfAssessmentList = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable()
-                .Where( a => a.ResidencyCompetencyPersonProjectAssignmentAssessmentId.Equals( residencyCompetencyPersonProjectAssignmentAssessmentId ) ).ToList();
+            List<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment> personPointOfAssessmentList = new ResidencyService<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable()
+                .Where( a => a.CompetencyPersonProjectAssignmentAssessmentId.Equals( residencyCompetencyPersonProjectAssignmentAssessmentId ) ).ToList();
 
-            ResidencyCompetencyPersonProjectAssignmentAssessment residencyCompetencyPersonProjectAssignmentAssessment
-                = new ResidencyService<ResidencyCompetencyPersonProjectAssignmentAssessment>().Get( residencyCompetencyPersonProjectAssignmentAssessmentId );
+            CompetencyPersonProjectAssignmentAssessment residencyCompetencyPersonProjectAssignmentAssessment
+                = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>().Get( residencyCompetencyPersonProjectAssignmentAssessmentId );
 
-            List<ResidencyProjectPointOfAssessment> residencyProjectPointOfAssessmentList;
+            List<ProjectPointOfAssessment> residencyProjectPointOfAssessmentList;
             if ( residencyCompetencyPersonProjectAssignmentAssessment != null )
             {
 
-                residencyProjectPointOfAssessmentList = new ResidencyService<ResidencyProjectPointOfAssessment>().Queryable()
-                    .Where( a => a.ResidencyProjectId.Equals( residencyCompetencyPersonProjectAssignmentAssessment.ResidencyCompetencyPersonProjectAssignment.ResidencyCompetencyPersonProject.ResidencyProjectId ) ).ToList();
+                residencyProjectPointOfAssessmentList = new ResidencyService<ProjectPointOfAssessment>().Queryable()
+                    .Where( a => a.ProjectId.Equals( residencyCompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.ProjectId ) ).ToList();
             }
             else
             {
-                residencyProjectPointOfAssessmentList = new List<ResidencyProjectPointOfAssessment>();
+                residencyProjectPointOfAssessmentList = new List<ProjectPointOfAssessment>();
             }
 
             var joinedItems = from residencyProjectPointOfAssessment in residencyProjectPointOfAssessmentList
                               join personPointOfAssessment in personPointOfAssessmentList
-                              on residencyProjectPointOfAssessment.Id equals personPointOfAssessment.ResidencyProjectPointOfAssessmentId into groupJoin
+                              on residencyProjectPointOfAssessment.Id equals personPointOfAssessment.ProjectPointOfAssessmentId into groupJoin
                               from qryResult in groupJoin.DefaultIfEmpty()
                               select new
                               {
@@ -125,7 +125,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                                   ResidencyProjectPointOfAssessmentId = residencyProjectPointOfAssessment.Id,
                                   ResidencyCompetencyPersonProjectAssignmentAssessmentId = residencyCompetencyPersonProjectAssignmentAssessmentId,
                                   ResidencyProjectPointOfAssessment = residencyProjectPointOfAssessment,
-                                  ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = personPointOfAssessmentList.FirstOrDefault( a => a.ResidencyProjectPointOfAssessmentId.Equals( residencyProjectPointOfAssessment.Id ) )
+                                  ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment = personPointOfAssessmentList.FirstOrDefault( a => a.ProjectPointOfAssessmentId.Equals( residencyProjectPointOfAssessment.Id ) )
                               };
 
             if ( sortProperty != null )

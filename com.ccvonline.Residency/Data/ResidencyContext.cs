@@ -43,16 +43,16 @@ namespace com.ccvonline.Residency.Data
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             // Model Configurations
-            modelBuilder.Configurations.Add( new ResidencyCompetencyConfiguration() );
-            modelBuilder.Configurations.Add( new ResidencyCompetencyPersonConfiguration() );
-            modelBuilder.Configurations.Add( new ResidencyCompetencyPersonProjectConfiguration());
-            modelBuilder.Configurations.Add( new ResidencyCompetencyPersonProjectAssignmentConfiguration());
-            modelBuilder.Configurations.Add( new ResidencyCompetencyPersonProjectAssignmentAssessmentConfiguration());
-            modelBuilder.Configurations.Add( new ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentConfiguration());
-            modelBuilder.Configurations.Add( new ResidencyPeriodConfiguration() );
-            modelBuilder.Configurations.Add( new ResidencyProjectConfiguration());
-            modelBuilder.Configurations.Add( new ResidencyProjectPointOfAssessmentConfiguration());
-            modelBuilder.Configurations.Add( new ResidencyTrackConfiguration() );
+            modelBuilder.Configurations.Add( new CompetencyConfiguration() );
+            modelBuilder.Configurations.Add( new CompetencyPersonConfiguration() );
+            modelBuilder.Configurations.Add( new CompetencyPersonProjectConfiguration());
+            modelBuilder.Configurations.Add( new CompetencyPersonProjectAssignmentConfiguration());
+            modelBuilder.Configurations.Add( new CompetencyPersonProjectAssignmentAssessmentConfiguration());
+            modelBuilder.Configurations.Add( new CompetencyPersonProjectAssignmentAssessmentPointOfAssessmentConfiguration());
+            modelBuilder.Configurations.Add( new PeriodConfiguration() );
+            modelBuilder.Configurations.Add( new ProjectConfiguration());
+            modelBuilder.Configurations.Add( new ProjectPointOfAssessmentConfiguration());
+            modelBuilder.Configurations.Add( new TrackConfiguration() );
         }
         
         #region Models
@@ -63,7 +63,7 @@ namespace com.ccvonline.Residency.Data
         /// <value>
         /// The residency competencies.
         /// </value>
-        public DbSet<ResidencyCompetency> ResidencyCompetencies { get; set; }
+        public DbSet<Competency> ResidencyCompetencies { get; set; }
 
         /// <summary>
         /// Gets or sets the residency competency persons.
@@ -71,7 +71,7 @@ namespace com.ccvonline.Residency.Data
         /// <value>
         /// The residency competency persons.
         /// </value>
-        public DbSet<ResidencyCompetencyPerson> ResidencyCompetencyPersons { get; set; }
+        public DbSet<CompetencyPerson> ResidencyCompetencyPersons { get; set; }
 
         /// <summary>
         /// Gets or sets the residency competency person projects.
@@ -79,7 +79,7 @@ namespace com.ccvonline.Residency.Data
         /// <value>
         /// The residency competency person projects.
         /// </value>
-        public DbSet<ResidencyCompetencyPersonProject> ResidencyCompetencyPersonProjects { get; set; }
+        public DbSet<CompetencyPersonProject> ResidencyCompetencyPersonProjects { get; set; }
 
         /// <summary>
         /// Gets or sets the residency competency person project assignments.
@@ -87,7 +87,7 @@ namespace com.ccvonline.Residency.Data
         /// <value>
         /// The residency competency person project assignments.
         /// </value>
-        public DbSet<ResidencyCompetencyPersonProjectAssignment> ResidencyCompetencyPersonProjectAssignments { get; set; }
+        public DbSet<CompetencyPersonProjectAssignment> ResidencyCompetencyPersonProjectAssignments { get; set; }
 
         /// <summary>
         /// Gets or sets the residency competency person project assignment assessments.
@@ -95,7 +95,7 @@ namespace com.ccvonline.Residency.Data
         /// <value>
         /// The residency competency person project assignment assessments.
         /// </value>
-        public DbSet<ResidencyCompetencyPersonProjectAssignmentAssessment> ResidencyCompetencyPersonProjectAssignmentAssessments { get; set; }
+        public DbSet<CompetencyPersonProjectAssignmentAssessment> ResidencyCompetencyPersonProjectAssignmentAssessments { get; set; }
 
         /// <summary>
         /// Gets or sets the residency competency person project assignment assessment point of assessments.
@@ -103,7 +103,7 @@ namespace com.ccvonline.Residency.Data
         /// <value>
         /// The residency competency person project assignment assessment point of assessments.
         /// </value>
-        public DbSet<ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessment> ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessments { get; set; }
+        public DbSet<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment> ResidencyCompetencyPersonProjectAssignmentAssessmentPointOfAssessments { get; set; }
         
         /// <summary>
         /// Gets or sets the residency periods.
@@ -111,7 +111,7 @@ namespace com.ccvonline.Residency.Data
         /// <value>
         /// The residency periods.
         /// </value>
-        public DbSet<ResidencyPeriod> ResidencyPeriods { get; set; }
+        public DbSet<Period> ResidencyPeriods { get; set; }
 
         /// <summary>
         /// Gets or sets the residency projects.
@@ -119,7 +119,7 @@ namespace com.ccvonline.Residency.Data
         /// <value>
         /// The residency projects.
         /// </value>
-        public DbSet<ResidencyProject> ResidencyProjects { get; set; }
+        public DbSet<Project> ResidencyProjects { get; set; }
 
         /// <summary>
         /// Gets or sets the residency project point of assessments.
@@ -127,7 +127,7 @@ namespace com.ccvonline.Residency.Data
         /// <value>
         /// The residency project point of assessments.
         /// </value>
-        public DbSet<ResidencyProjectPointOfAssessment> ResidencyProjectPointOfAssessments { get; set; }
+        public DbSet<ProjectPointOfAssessment> ResidencyProjectPointOfAssessments { get; set; }
 
         /// <summary>
         /// Gets or sets the residency tracks.
@@ -135,7 +135,7 @@ namespace com.ccvonline.Residency.Data
         /// <value>
         /// The residency tracks.
         /// </value>
-        public DbSet<ResidencyTrack> ResidencyTracks { get; set; }
+        public DbSet<Track> ResidencyTracks { get; set; }
         
         #endregion
     }

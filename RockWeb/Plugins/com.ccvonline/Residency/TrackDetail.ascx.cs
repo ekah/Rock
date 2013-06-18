@@ -89,8 +89,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             else
             {
                 // Cancelling on Edit.  Return to Details
-                ResidencyService<ResidencyTrack> service = new ResidencyService<ResidencyTrack>();
-                ResidencyTrack item = service.Get( hfResidencyTrackId.ValueAsInt() );
+                ResidencyService<Track> service = new ResidencyService<Track>();
+                Track item = service.Get( hfResidencyTrackId.ValueAsInt() );
                 ShowReadonlyDetails( item );
             }
         }
@@ -102,8 +102,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnEdit_Click( object sender, EventArgs e )
         {
-            ResidencyService<ResidencyTrack> service = new ResidencyService<ResidencyTrack>();
-            ResidencyTrack item = service.Get( hfResidencyTrackId.ValueAsInt() );
+            ResidencyService<Track> service = new ResidencyService<Track>();
+            Track item = service.Get( hfResidencyTrackId.ValueAsInt() );
             ShowEditDetails( item );
         }
 
@@ -126,14 +126,14 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnSave_Click( object sender, EventArgs e )
         {
-            ResidencyTrack residencyTrack;
-            ResidencyService<ResidencyTrack> residencyTrackService = new ResidencyService<ResidencyTrack>();
+            Track residencyTrack;
+            ResidencyService<Track> residencyTrackService = new ResidencyService<Track>();
 
             int residencyTrackId = int.Parse( hfResidencyTrackId.Value );
 
             if ( residencyTrackId == 0 )
             {
-                residencyTrack = new ResidencyTrack();
+                residencyTrack = new Track();
                 residencyTrackService.Add( residencyTrack, CurrentPersonId );
             }
             else
@@ -143,7 +143,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             residencyTrack.Name = tbName.Text;
             residencyTrack.Description = tbDescription.Text;
-            residencyTrack.ResidencyPeriodId = hfResidencyPeriodId.ValueAsInt();
+            residencyTrack.PeriodId = hfResidencyPeriodId.ValueAsInt();
              
             if ( !residencyTrack.IsValid )
             {
@@ -188,20 +188,20 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             pnlDetails.Visible = true;
 
             // Load depending on Add(0) or Edit
-            ResidencyTrack residencyTrack = null;
+            Track residencyTrack = null;
             if ( !itemKeyValue.Equals( 0 ) )
             {
-                residencyTrack = new ResidencyService<ResidencyTrack>().Get( itemKeyValue );
+                residencyTrack = new ResidencyService<Track>().Get( itemKeyValue );
             }
             else
             {
-                residencyTrack = new ResidencyTrack { Id = 0 };
-                residencyTrack.ResidencyPeriodId = residencyPeriodId ?? 0;
-                residencyTrack.ResidencyPeriod = new ResidencyService<ResidencyPeriod>().Get( residencyTrack.ResidencyPeriodId );
+                residencyTrack = new Track { Id = 0 };
+                residencyTrack.PeriodId = residencyPeriodId ?? 0;
+                residencyTrack.Period = new ResidencyService<Period>().Get( residencyTrack.PeriodId );
             }
 
             hfResidencyTrackId.Value = residencyTrack.Id.ToString();
-            hfResidencyPeriodId.Value = residencyTrack.ResidencyPeriodId.ToString();
+            hfResidencyPeriodId.Value = residencyTrack.PeriodId.ToString();
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;
@@ -210,7 +210,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             if ( !IsUserAuthorized( "Edit" ) )
             {
                 readOnly = true;
-                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( ResidencyTrack.FriendlyTypeName );
+                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( Track.FriendlyTypeName );
             }
 
             if ( readOnly )
@@ -236,29 +236,29 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// Shows the edit details.
         /// </summary>
         /// <param name="residencyTrack">The residency project.</param>
-        private void ShowEditDetails( ResidencyTrack residencyTrack )
+        private void ShowEditDetails( Track residencyTrack )
         {
             if ( residencyTrack.Id > 0 )
             {
-                lActionTitle.Text = ActionTitle.Edit( ResidencyTrack.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Edit( Track.FriendlyTypeName );
             }
             else
             {
-                lActionTitle.Text = ActionTitle.Add( ResidencyTrack.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Add( Track.FriendlyTypeName );
             }
 
             SetEditMode( true );
 
             tbName.Text = residencyTrack.Name;
             tbDescription.Text = residencyTrack.Description;
-            lblPeriod.Text = residencyTrack.ResidencyPeriod.Name;
+            lblPeriod.Text = residencyTrack.Period.Name;
         }
 
         /// <summary>
         /// Shows the readonly details.
         /// </summary>
         /// <param name="residencyTrack">The residency project.</param>
-        private void ShowReadonlyDetails( ResidencyTrack residencyTrack )
+        private void ShowReadonlyDetails( Track residencyTrack )
         {
             SetEditMode( false );
 
@@ -272,14 +272,14 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             lblMainDetails.Text += string.Format( descriptionFormat, "Description", residencyTrack.Description );
 
             string residencyPeriodPageGuid = this.GetAttributeValue( "ResidencyPeriodPage" );
-            string periodHtml = residencyTrack.ResidencyPeriod.Name;
+            string periodHtml = residencyTrack.Period.Name;
             if ( !string.IsNullOrWhiteSpace( residencyPeriodPageGuid ) )
             {
                 var page = new PageService().Get( new Guid( residencyPeriodPageGuid ) );
                 Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "residencyPeriodId", residencyTrack.ResidencyPeriodId.ToString() );
+                queryString.Add( "residencyPeriodId", residencyTrack.PeriodId.ToString() );
                 string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                periodHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, residencyTrack.ResidencyPeriod.Name );
+                periodHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, residencyTrack.Period.Name );
             }
 
             lblMainDetails.Text += string.Format( descriptionFormat, "Period", periodHtml );

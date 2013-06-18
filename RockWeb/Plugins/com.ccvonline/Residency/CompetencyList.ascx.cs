@@ -97,9 +97,9 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyCompetencyService = new ResidencyService<ResidencyCompetency>();
+                var residencyCompetencyService = new ResidencyService<Competency>();
 
-                ResidencyCompetency residencyCompetency = residencyCompetencyService.Get( (int)e.RowKeyValue );
+                Competency residencyCompetency = residencyCompetencyService.Get( (int)e.RowKeyValue );
                 if ( residencyCompetency != null )
                 {
                     string errorMessage;
@@ -136,13 +136,13 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var residencyCompetencyService = new ResidencyService<ResidencyCompetency>();
+            var residencyCompetencyService = new ResidencyService<Competency>();
             int residencyTrackId = hfResidencyTrackId.ValueAsInt();
             
             SortProperty sortProperty = gList.SortProperty;
-            IQueryable<ResidencyCompetency> qry = residencyCompetencyService.Queryable();
+            IQueryable<Competency> qry = residencyCompetencyService.Queryable();
 
-            qry = qry.Where( a => a.ResidencyTrackId.Equals( residencyTrackId ) );
+            qry = qry.Where( a => a.TrackId.Equals( residencyTrackId ) );
 
             if ( sortProperty != null )
             {
@@ -151,8 +151,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             else
             {
                 qry = qry
-                    .OrderBy( s => s.ResidencyTrack.ResidencyPeriod.Name )
-                    .ThenBy( s => s.ResidencyTrack.Name )
+                    .OrderBy( s => s.Track.Period.Name )
+                    .ThenBy( s => s.Track.Name )
                     .ThenBy( s => s.Name );
             }
 

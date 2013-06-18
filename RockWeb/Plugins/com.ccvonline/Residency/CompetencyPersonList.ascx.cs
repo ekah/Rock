@@ -105,8 +105,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             RockTransactionScope.WrapTransaction( () =>
             {
-                var residencyCompetencyPersonService = new ResidencyService<ResidencyCompetencyPerson>();
-                ResidencyCompetencyPerson residencyCompetencyPerson = residencyCompetencyPersonService.Get( (int)e.RowKeyValue );
+                var residencyCompetencyPersonService = new ResidencyService<CompetencyPerson>();
+                CompetencyPerson residencyCompetencyPerson = residencyCompetencyPersonService.Get( (int)e.RowKeyValue );
 
                 if ( residencyCompetencyPerson != null )
                 {
@@ -144,7 +144,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var residencyCompetencyPersonService = new ResidencyService<ResidencyCompetencyPerson>();
+            var residencyCompetencyPersonService = new ResidencyService<CompetencyPerson>();
             int personId = hfPersonId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
             var qry = residencyCompetencyPersonService.Queryable();
@@ -157,15 +157,15 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             }
             else
             {
-                qry = qry.OrderBy( s => s.ResidencyCompetency.Name );
+                qry = qry.OrderBy( s => s.Competency.Name );
             }
 
             gList.DataSource = qry.Select( a => new
             {
                 Id = a.Id,
-                ResidencyCompetencyName = a.ResidencyCompetency.Name,
-                CompletedProjectsTotal = a.ResidencyCompetencyPersonProjects.Select( p => p.ResidencyCompetencyPersonProjectAssignments ).SelectMany( x => x ).Where( n => n.CompletedDateTime != null ).Count(),
-                AssignedProjectsTotal = a.ResidencyCompetencyPersonProjects.Select( p => p.ResidencyCompetencyPersonProjectAssignments ).SelectMany( x => x ).Count()
+                ResidencyCompetencyName = a.Competency.Name,
+                CompletedProjectsTotal = a.CompetencyPersonProjects.Select( p => p.CompetencyPersonProjectAssignments ).SelectMany( x => x ).Where( n => n.CompletedDateTime != null ).Count(),
+                AssignedProjectsTotal = a.CompetencyPersonProjects.Select( p => p.CompetencyPersonProjectAssignments ).SelectMany( x => x ).Count()
             } ).ToList();
             gList.DataBind();
         }
