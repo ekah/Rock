@@ -18,7 +18,7 @@ namespace com.ccvonline.CommandCenter.Model
     /// <summary>
     /// 
     /// </summary>
-    [Table( "_com_ccvonline_CommandCenterRecording" )]
+    [Table( "_com_ccvonline_CommandCenter_Recording" )]
     [DataContract]
     public class Recording : Model<Recording>
     {
