@@ -32,6 +32,16 @@ namespace com.ccvonline.Residency.Model
         [DataMember]
         public int ResidencyPeriodId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the display order.
+        /// </summary>
+        /// <value>
+        /// The display order.
+        /// </value>
+        [Required]
+        [DataMember]
+        public int DisplayOrder { get; set; }
+
         #endregion
 
         #region Virtual Properties

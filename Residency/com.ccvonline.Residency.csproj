@@ -85,6 +85,14 @@
     <Compile Include="Migrations\201306172334119_blank.Designer.cs">
       <DependentUpon>201306172334119_blank.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306180024326_TrackDisplayOrder.cs" />
+    <Compile Include="Migrations\201306180024326_TrackDisplayOrder.Designer.cs">
+      <DependentUpon>201306180024326_TrackDisplayOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201306180025461_ResidentAdminPagesBlocks.cs" />
+    <Compile Include="Migrations\201306180025461_ResidentAdminPagesBlocks.Designer.cs">
+      <DependentUpon>201306180025461_ResidentAdminPagesBlocks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ResidencyCompetency.cs" />
     <Compile Include="Model\ResidencyCompetencyPerson.cs" />
@@ -125,6 +133,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306172334119_blank.resx">
       <DependentUpon>201306172334119_blank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306180024326_TrackDisplayOrder.resx">
+      <DependentUpon>201306180024326_TrackDisplayOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306180025461_ResidentAdminPagesBlocks.resx">
+      <DependentUpon>201306180025461_ResidentAdminPagesBlocks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
