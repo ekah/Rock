@@ -96,7 +96,7 @@ namespace RockWeb.Plugins.com.ccvonline.CommandCenter
 
             recording.CampusId = cpCampus.SelectedCampusId;
             recording.App = tbApp.Text;
-            recording.Date = Convert.ToDateTime( tbDate.Text );
+            recording.Date = dpDate.SelectedDate;
             recording.StreamName = tbStream.Text;
             recording.Label = tbLabel.Text;
             recording.RecordingName = tbRecording.Text;
@@ -149,7 +149,7 @@ namespace RockWeb.Plugins.com.ccvonline.CommandCenter
 
             cpCampus.SelectedCampusId = recording.CampusId;
             tbApp.Text = recording.App ?? string.Empty;
-            tbDate.Text = recording.Date.HasValue ? recording.Date.Value.ToShortDateString() : string.Empty;
+            dpDate.SelectedDate = recording.Date;
             tbStream.Text = recording.StreamName ?? string.Empty;
             tbLabel.Text = recording.Label ?? string.Empty;
             tbRecording.Text = recording.RecordingName ?? string.Empty;
@@ -177,7 +177,7 @@ namespace RockWeb.Plugins.com.ccvonline.CommandCenter
 
             cpCampus.Enabled = !readOnly;
             tbApp.ReadOnly = readOnly;
-            tbDate.ReadOnly = readOnly;
+            dpDate.ReadOnly = readOnly;
             tbStream.ReadOnly = readOnly;
             tbLabel.ReadOnly = readOnly;
             tbRecording.ReadOnly = readOnly;

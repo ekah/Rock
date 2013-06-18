@@ -4,6 +4,16 @@
     <ContentTemplate>
 
         <Rock:ModalAlert ID="mdGridWarning" runat="server" />
+
+        <Rock:GridFilter ID="rFilter" runat="server">
+            <Rock:CampusPicker ID="cpCampus" runat="server" />
+            <Rock:DatePicker ID="dtStartDate" runat="server" LabelText="From Date" />
+            <Rock:DatePicker ID="dtEndDate" runat="server" LabelText="To Date" />
+            <Rock:LabeledTextBox ID="tbStream" runat="server" LabelText="Stream"></Rock:LabeledTextBox>
+            <Rock:LabeledTextBox ID="tbLabel" runat="server" LabelText="Label"></Rock:LabeledTextBox>
+            <Rock:LabeledTextBox ID="tbRecording" runat="server" LabelText="Recording"></Rock:LabeledTextBox>
+        </Rock:GridFilter>
+
         <Rock:Grid ID="gRecordings" runat="server" EmptyDataText="No Recordings Found" AllowSorting="true" OnRowSelected="gRecordings_Edit">
             <Columns>
                 <asp:BoundField HeaderText="Campus" DataField="Campus" SortExpression="Campus" />
@@ -16,11 +26,11 @@
                 <asp:BoundField HeaderText="Length" DataField="Length" />
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:LinkButton ID="lbStart" runat="server" Text="Start" CssClass="start-recording" CommandName="START" CommandArgument='<%# Eval("Id") %>'></asp:LinkButton></ItemTemplate>
+                        <asp:LinkButton ID="lbStart" runat="server" Text="Start" CssClass="btn btn-mini" CommandName="START" CommandArgument='<%# Eval("Id") %>'><i class="icon-play"></i></asp:LinkButton></ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:LinkButton ID="lbStop" runat="server" Text="Stop" CssClass="stop-recording" CommandName="STOP" CommandArgument='<%# Eval("Id") %>'></asp:LinkButton></ItemTemplate>
+                        <asp:LinkButton ID="lbStop" runat="server" Text="Stop" CssClass="btn btn-mini" CommandName="STOP" CommandArgument='<%# Eval("Id") %>'><i class="icon-stop"></i></asp:LinkButton></ItemTemplate>
                 </asp:TemplateField>
                 <Rock:DeleteField OnClick="gRecordings_Delete" />
             </Columns>
