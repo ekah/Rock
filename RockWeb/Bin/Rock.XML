@@ -16499,6 +16499,14 @@
               <c>true</c> if [allow multi select]; otherwise, <c>false</c>.
             </value>
         </member>
+        <member name="P:Rock.Web.UI.Controls.ItemPicker.DefaultText">
+            <summary>
+            Gets or sets the default text.
+            </summary>
+            <value>
+            The default text.
+            </value>
+        </member>
         <member name="P:Rock.Web.UI.Controls.ItemPicker.IsValid">
             <summary>
             Gets a value indicating whether this instance is valid.
