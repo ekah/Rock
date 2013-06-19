@@ -3818,6 +3818,68 @@
             The categories.
             </value>
         </member>
+        <member name="T:Rock.Web.DescriptionList">
+            <summary>
+            Helps generate Bootstrap Description List HTML (<dl>...</dl>)
+            </summary>
+        </member>
+        <member name="F:Rock.Web.DescriptionList.ColumnBreak">
+            <summary>
+            The column break
+            </summary>
+        </member>
+        <member name="F:Rock.Web.DescriptionList.termDescriptionList">
+            <summary>
+            The term description list
+            </summary>
+        </member>
+        <member name="M:Rock.Web.DescriptionList.Add(System.String,System.String)">
+            <summary>
+            Adds the specified term.
+            </summary>
+            <param name="term">The term.</param>
+            <param name="description">The description.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Web.DescriptionList.Add(System.String,Rock.Model.Person)">
+            <summary>
+            Adds the specified term.
+            </summary>
+            <param name="term">The term.</param>
+            <param name="person">The person.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Web.DescriptionList.Add(System.String,System.Nullable{System.DateTime},System.String)">
+            <summary>
+            Adds the specified term.
+            </summary>
+            <param name="term">The term.</param>
+            <param name="dateTime">The date time.</param>
+            <param name="format">The format.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Web.DescriptionList.Add(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Adds the specified term.
+            </summary>
+            <param name="term">The term.</param>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Web.DescriptionList.StartSecondColumn">
+            <summary>
+            Starts the second column.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Rock.Web.DescriptionList.Html">
+            <summary>
+            Gets the HTML.
+            </summary>
+            <value>
+            The HTML.
+            </value>
+        </member>
         <member name="T:Rock.Web.UI.Controls.Communication.ChannelControl">
             <summary>
             abstract class for controls used to render a communication channel

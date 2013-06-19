@@ -95,7 +95,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemGuid\DefinedType.cs" />
     <Compile Include="SystemGuid\DefinedValue.cs" />
-    <Compile Include="Web\DescriptionList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
