@@ -304,17 +304,6 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             SetEditMode( false );
 
-            // make a Description section for nonEdit mode
-            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
-            lblMainDetails.Text = @"
-<div class='span6'>
-    <dl>";
-
-            lblMainDetails.Text += string.Format( descriptionFormat, "Resident", competencyPersonProject.CompetencyPerson.Person.FullName );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Period", competencyPersonProject.Project.Competency.Track.Period.Name );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Track", competencyPersonProject.Project.Competency.Track.Name);
-            lblMainDetails.Text += string.Format( descriptionFormat, "Project", competencyPersonProject.Project.Name );
-
             string competencyPersonPageGuid = this.GetAttributeValue( "ResidencyCompetencyPersonPage" );
             string competencyPersonHtml = competencyPersonProject.CompetencyPerson.Competency.Name;
             if ( !string.IsNullOrWhiteSpace( competencyPersonPageGuid ) )
@@ -326,11 +315,14 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 competencyPersonHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPersonProject.CompetencyPerson.Competency.Name );
             }
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", competencyPersonHtml );
-
-            lblMainDetails.Text += @"
-    </dl>
-</div>";
+            lblMainDetails.Text = new DescriptionList()
+                .Add("Resident", competencyPersonProject.CompetencyPerson.Person)
+                .Add( "Project", competencyPersonProject.Project.Name )
+                .Add( "Competency", competencyPersonHtml )
+                .StartSecondColumn()
+                .Add("Period", competencyPersonProject.Project.Competency.Track.Period.Name)
+                .Add("Track", competencyPersonProject.Project.Competency.Track.Name)
+                .Html;
         }
 
         #endregion

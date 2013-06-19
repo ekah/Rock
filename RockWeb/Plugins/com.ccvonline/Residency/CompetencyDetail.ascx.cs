@@ -53,7 +53,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         }
 
         #endregion
-         
+
         #region Edit Events
 
         /// <summary>
@@ -270,16 +270,6 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             SetEditMode( false );
 
-            // make a Description section for nonEdit mode
-            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
-            lblMainDetails.Text = @"
-<div class='span6'>
-    <dl>";
-
-            lblMainDetails.Text += string.Format( descriptionFormat, "Name", competency.Name );
-
-            lblMainDetails.Text += string.Format( descriptionFormat, "Period", competency.Track.Period.Name );
-
             string trackPageGuid = this.GetAttributeValue( "ResidencyTrackPage" );
             string trackHtml = competency.Track.Name;
             if ( !string.IsNullOrWhiteSpace( trackPageGuid ) )
@@ -291,28 +281,16 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 trackHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competency.Track.Name );
             }
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Track", trackHtml );
-
-            if ( !string.IsNullOrWhiteSpace( competency.Description ) )
-            {
-                lblMainDetails.Text += string.Format( descriptionFormat, "Description", competency.Description );
-            }
-
-            if ( competency.TeacherOfRecordPerson != null )
-            {
-                lblMainDetails.Text += string.Format( descriptionFormat, "Teacher of Record", competency.TeacherOfRecordPerson.FullName );
-            }
-
-            if ( competency.FacilitatorPerson != null )
-            {
-                lblMainDetails.Text += string.Format( descriptionFormat, "Facilitator", competency.FacilitatorPerson.FullName );
-            }
-
-            lblMainDetails.Text += string.Format( descriptionFormat, "Credit Hours", competency.CreditHours.ToString() );
-
-            lblMainDetails.Text += @"
-    </dl>
-</div>";
+            lblMainDetails.Text = new DescriptionList()
+                .Add( "Name", competency.Name )
+                .Add( "Description", competency.Description )
+                .Add( "Period", competency.Track.Period.Name )
+                .Add( "Track", trackHtml )
+                .StartSecondColumn()
+                .Add( "Teacher of Record", competency.TeacherOfRecordPerson )
+                .Add( "Facilitator", competency.FacilitatorPerson )
+                .Add( "Credit Hours", competency.CreditHours )
+                .Html;
         }
 
         #endregion

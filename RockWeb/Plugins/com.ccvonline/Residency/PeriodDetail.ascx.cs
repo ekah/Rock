@@ -13,6 +13,7 @@ using Rock;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
+using Rock.Web;
 using Rock.Web.UI;
 
 namespace RockWeb.Plugins.com.ccvonline.Residency
@@ -237,20 +238,13 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             SetEditMode( false );
 
-            // make a Description section for nonEdit mode
-            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
-            lblMainDetails.Text = @"
-<div class='span6'>
-    <dl>";
-
-            lblMainDetails.Text += string.Format( descriptionFormat, "Name", period.Name );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Description", period.Description );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Start Date", period.StartDate.HasValue ? period.StartDate.Value.ToShortDateString() : Rock.Constants.None.TextHtml);
-            lblMainDetails.Text += string.Format( descriptionFormat, "End Date", period.EndDate.HasValue ? period.EndDate.Value.ToShortDateString() : Rock.Constants.None.TextHtml );
-
-            lblMainDetails.Text += @"
-    </dl>
-</div>";
+            lblMainDetails.Text = new DescriptionList()
+                .Add("Name", period.Name)
+                .Add("Description", period.Description)
+                .StartSecondColumn()
+                .Add("Start Date", period.StartDate)
+                .Add("End Date", period.EndDate)
+                .Html;
         }
 
         #endregion

@@ -286,20 +286,6 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             SetEditMode( false );
 
-            // make a Description section for nonEdit mode
-            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
-            lblMainDetails.Text = @"
-<div class='span6'>
-    <dl>";
-
-            lblMainDetails.Text += string.Format( descriptionFormat, "Resident", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person.FullName );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Name );
-
-            if ( competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson != null )
-            {
-                lblMainDetails.Text += string.Format( descriptionFormat, "Assessor", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson.FullName );
-            }
-
             string residentProjectAssignmentPageGuid = this.GetAttributeValue( "ResidentProjectAssignmentPage" );
             string projectAssignmentHtml = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
             if ( !string.IsNullOrWhiteSpace( residentProjectAssignmentPageGuid ) )
@@ -308,14 +294,16 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 Dictionary<string, string> queryString = new Dictionary<string, string>();
                 queryString.Add( "competencyPersonProjectAssignmentId", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId.ToString() );
                 string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                projectAssignmentHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name);
+                projectAssignmentHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name );
             }
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Project Assignment", projectAssignmentHtml );
-
-            lblMainDetails.Text += @"
-    </dl>
-</div>";
+            lblMainDetails.Text = new DescriptionList()
+                .Add("Resident", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person)
+                .Add("Project Assignment", projectAssignmentHtml)
+                .StartSecondColumn()
+                .Add("Competency", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Name)
+                .Add("Assessor", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson)
+                .Html;
         }
 
         #endregion

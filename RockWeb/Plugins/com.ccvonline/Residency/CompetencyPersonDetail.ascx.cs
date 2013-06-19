@@ -324,14 +324,6 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             SetEditMode( false );
 
-            // make a Description section for nonEdit mode
-            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
-            lblMainDetails.Text = @"
-<div class='span6'>
-    <dl>";
-
-            
-
             string residentDetailPageGuid = this.GetAttributeValue( "ResidentDetailPage" );
             string residentHtml = competencyPerson.Person.FullName;
             if ( !string.IsNullOrWhiteSpace( residentDetailPageGuid ) )
@@ -343,12 +335,11 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 residentHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPerson.Person.FullName );
             }
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Resident",  residentHtml);
-            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", competencyPerson.Competency.Name );
+            lblMainDetails.Text = new DescriptionList()
+                .Add("Resident",  residentHtml)
+                .Add("Competency", competencyPerson.Competency.Name )
+                .Html;
 
-            lblMainDetails.Text += @"
-    </dl>
-</div>";
         }
 
         #endregion

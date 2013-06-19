@@ -22,6 +22,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
+    [LinkedPage("Resident Project Page")]
     public partial class CompetencyPersonProjectAssignmentDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -263,33 +264,24 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             SetEditMode( false );
 
-            // make a Description section for nonEdit mode
-            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
-            lblMainDetails.Text = @"
-<div class='span6'>
-    <dl>";
-
-            
-            lblMainDetails.Text += string.Format( descriptionFormat, "Resident", competencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person.FullName );
-            
-           // ##TODO##            
-            
-            
-            lblMainDetails.Text += string.Format( descriptionFormat, "Project", competencyPersonProjectAssignment.CompetencyPersonProject.Project.Name );
-
-            if ( competencyPersonProjectAssignment.AssessorPerson != null )
+            string residentProjectAssignmentPageGuid = this.GetAttributeValue( "ResidentProjectPage" );
+            string projectHtml = competencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
+            if ( !string.IsNullOrWhiteSpace( residentProjectAssignmentPageGuid ) )
             {
-                lblMainDetails.Text += string.Format( descriptionFormat, "Assessor", competencyPersonProjectAssignment.AssessorPerson );
+                var page = new PageService().Get( new Guid( residentProjectAssignmentPageGuid ) );
+                Dictionary<string, string> queryString = new Dictionary<string, string>();
+                queryString.Add( "competencyPersonProjectId", competencyPersonProjectAssignment.CompetencyPersonProjectId.ToString() );
+                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
+                projectHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPersonProjectAssignment.CompetencyPersonProject.Project.Name );
             }
 
-            if ( competencyPersonProjectAssignment.CompletedDateTime != null )
-            {
-                lblMainDetails.Text += string.Format( descriptionFormat, "Completed", competencyPersonProjectAssignment.CompletedDateTime.Value.ToString( "g" ) );
-            }
-
-            lblMainDetails.Text += @"
-    </dl>
-</div>";
+            lblMainDetails.Text = new DescriptionList()
+                .Add("Resident", competencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person)
+                .Add("Project", projectHtml)
+                .StartSecondColumn()
+                .Add("Assessor", competencyPersonProjectAssignment.AssessorPerson)
+                .Add("Completed", competencyPersonProjectAssignment.CompletedDateTime)
+                .Html;
         }
 
         #endregion

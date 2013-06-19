@@ -77,6 +77,10 @@
     <Compile Include="Migrations\201306182129019_AddDefinedTypeResidencyCompetencyType.Designer.cs">
       <DependentUpon>201306182129019_AddDefinedTypeResidencyCompetencyType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306190045357_ResidentProjectPageAttrib.cs" />
+    <Compile Include="Migrations\201306190045357_ResidentProjectPageAttrib.Designer.cs">
+      <DependentUpon>201306190045357_ResidentProjectPageAttrib.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Competency.cs" />
     <Compile Include="Model\CompetencyPerson.cs" />
@@ -91,6 +95,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemGuid\DefinedType.cs" />
     <Compile Include="SystemGuid\DefinedValue.cs" />
+    <Compile Include="Web\DescriptionList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -117,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306182129019_AddDefinedTypeResidencyCompetencyType.resx">
       <DependentUpon>201306182129019_AddDefinedTypeResidencyCompetencyType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306190045357_ResidentProjectPageAttrib.resx">
+      <DependentUpon>201306190045357_ResidentProjectPageAttrib.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -13,6 +13,7 @@ using Rock;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
+using Rock.Web;
 using Rock.Web.UI;
 
 namespace RockWeb.Plugins.com.ccvonline.Residency
@@ -77,17 +78,10 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             fieldsetViewDetails.Visible = true;
 
-            // make a Description section for nonEdit mode
-            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
-            lblMainDetails.Text = @"
-<div class='span6'>
-    <dl>";
-
-            lblMainDetails.Text += string.Format( descriptionFormat, "Name", person.FullName );
-
-            lblMainDetails.Text += @"
-    </dl>
-</div>";
+            lblMainDetails.Text = new DescriptionList()
+                .Add("Name", person)
+                .Html;
+            
         }
 
         #endregion

@@ -23,7 +23,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
-    [LinkedPage("Residency Competency Page")]
+    [LinkedPage( "Residency Competency Page" )]
     public partial class ProjectDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -42,13 +42,13 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 string competencyId = PageParameter( "competencyId" );
                 if ( !string.IsNullOrWhiteSpace( itemId ) )
                 {
-                    if ( string.IsNullOrWhiteSpace(competencyId) )
+                    if ( string.IsNullOrWhiteSpace( competencyId ) )
                     {
                         ShowDetail( "projectId", int.Parse( itemId ) );
                     }
                     else
                     {
-                        ShowDetail( "projectId", int.Parse( itemId ), int.Parse(competencyId) );
+                        ShowDetail( "projectId", int.Parse( itemId ), int.Parse( competencyId ) );
                     }
                 }
                 else
@@ -267,17 +267,6 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         {
             SetEditMode( false );
 
-            // make a Description section for nonEdit mode
-            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
-            lblMainDetails.Text = @"
-<div class='span6'>
-    <dl>";
-
-            lblMainDetails.Text += string.Format( descriptionFormat, "Name", project.Name );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Description", project.Description );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Period", project.Competency.Track.Period.Name );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Track", project.Competency.Track.Name );
-
             string competencyPageGuid = this.GetAttributeValue( "ResidencyCompetencyPage" );
             string competencyHtml = project.Competency.Name;
             if ( !string.IsNullOrWhiteSpace( competencyPageGuid ) )
@@ -289,11 +278,15 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 competencyHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, project.Competency.Name );
             }
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Competency", competencyHtml );
-
-            lblMainDetails.Text += @"
-    </dl>
-</div>";
+            lblMainDetails.Text = new DescriptionList()
+                .Add( "Name", project.Name )
+                .Add( "Description", project.Description )
+                .Add( "Competency", competencyHtml )
+                .StartSecondColumn()
+                .Add( "Period", project.Competency.Track.Period.Name )
+                .Add( "Track", project.Competency.Track.Name )
+                .Html;
+                
         }
 
         #endregion

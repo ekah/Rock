@@ -144,7 +144,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             track.Name = tbName.Text;
             track.Description = tbDescription.Text;
             track.PeriodId = hfPeriodId.ValueAsInt();
-             
+
             if ( !track.IsValid )
             {
                 // Controls will render the error messages
@@ -254,6 +254,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             lblPeriod.Text = track.Period.Name;
         }
 
+        
+
         /// <summary>
         /// Shows the readonly details.
         /// </summary>
@@ -261,15 +263,6 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         private void ShowReadonlyDetails( Track track )
         {
             SetEditMode( false );
-
-            // make a Description section for nonEdit mode
-            string descriptionFormat = "<dt>{0}</dt><dd>{1}</dd>";
-            lblMainDetails.Text = @"
-<div class='span6'>
-    <dl>";
-
-            lblMainDetails.Text += string.Format( descriptionFormat, "Name", track.Name );
-            lblMainDetails.Text += string.Format( descriptionFormat, "Description", track.Description );
 
             string periodPageGuid = this.GetAttributeValue( "ResidencyPeriodPage" );
             string periodHtml = track.Period.Name;
@@ -282,11 +275,12 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 periodHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, track.Period.Name );
             }
 
-            lblMainDetails.Text += string.Format( descriptionFormat, "Period", periodHtml );
-
-            lblMainDetails.Text += @"
-    </dl>
-</div>";
+            lblMainDetails.Text = new DescriptionList()
+                .Add( "Name", track.Name )
+                .Add( "Description", track.Description )
+                .StartSecondColumn()
+                .Add( "Period", periodHtml )
+                .Html;
         }
 
         #endregion
