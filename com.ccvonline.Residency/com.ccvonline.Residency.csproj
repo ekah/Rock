@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201306190045357_ResidentProjectPageAttrib.Designer.cs">
       <DependentUpon>201306190045357_ResidentProjectPageAttrib.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306192250413_RenamePluginFolder.cs" />
+    <Compile Include="Migrations\201306192250413_RenamePluginFolder.Designer.cs">
+      <DependentUpon>201306192250413_RenamePluginFolder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Competency.cs" />
     <Compile Include="Model\CompetencyPerson.cs" />
@@ -122,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306190045357_ResidentProjectPageAttrib.resx">
       <DependentUpon>201306190045357_ResidentProjectPageAttrib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306192250413_RenamePluginFolder.resx">
+      <DependentUpon>201306192250413_RenamePluginFolder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
