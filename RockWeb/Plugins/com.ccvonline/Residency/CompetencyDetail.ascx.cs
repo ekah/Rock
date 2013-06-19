@@ -145,6 +145,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             competency.CreditHours = tbCreditHours.Text.AsInteger( false );
             competency.SupervisionHours = tbSupervisionHours.Text.AsInteger( false );
             competency.ImplementationHours = tbImplementationHours.Text.AsInteger( false );
+            competency.CompetencyTypeValueId = ddlCompetencyTypeValue.SelectedValueAsInt();
 
             if ( !competency.IsValid )
             {
@@ -234,6 +235,20 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
         }
 
         /// <summary>
+        /// Loads the drop downs.
+        /// </summary>
+        private void LoadDropDowns()
+        {
+            var list = new Rock.Model.DefinedValueService().GetByDefinedTypeGuid( new Guid( global::com.ccvonline.SystemGuid.DefinedType.RESIDENCY_COMPETENCY_TYPE ) )
+                .OrderBy( a => a.Name ).ToList();
+
+            list.Insert( 0, new DefinedValue { Id = Rock.Constants.None.Id, Name = Rock.Constants.None.Text } );
+            
+            ddlCompetencyTypeValue.DataSource = list;
+            ddlCompetencyTypeValue.DataBind();
+        }
+
+        /// <summary>
         /// Shows the edit details.
         /// </summary>
         /// <param name="competency">The residency competency.</param>
@@ -250,6 +265,8 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
 
             SetEditMode( true );
 
+            LoadDropDowns();
+
             tbName.Text = competency.Name;
             tbDescription.Text = competency.Description;
             lblPeriod.Text = competency.Track.Period.Name;
@@ -260,6 +277,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
             tbCreditHours.Text = competency.CreditHours.ToString();
             tbSupervisionHours.Text = competency.SupervisionHours.ToString();
             tbImplementationHours.Text = competency.ImplementationHours.ToString();
+            ddlCompetencyTypeValue.SetValue( competency.CompetencyTypeValueId );
         }
 
         /// <summary>
@@ -287,6 +305,7 @@ namespace RockWeb.Plugins.com.ccvonline.Residency
                 .Add( "Period", competency.Track.Period.Name )
                 .Add( "Track", trackHtml )
                 .StartSecondColumn()
+                .Add( "Competency Type", ( competency.CompetencyTypeValue ?? new DefinedValue() ).Name )
                 .Add( "Teacher of Record", competency.TeacherOfRecordPerson )
                 .Add( "Facilitator", competency.FacilitatorPerson )
                 .Add( "Credit Hours", competency.CreditHours )

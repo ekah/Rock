@@ -28,10 +28,11 @@
                             <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" />
                             <Rock:LabeledText ID="lblPeriod" runat="server" LabelText="Period" />
                             <Rock:LabeledText ID="lblTrack" runat="server" LabelText="Track" />
-                            <Rock:PersonPicker ID="ppTeacherOfRecord" runat="server" LabelText="Teacher of Record" />
-                            <Rock:PersonPicker ID="ppFacilitator" runat="server" LabelText="Facilitator" />
+                            <Rock:LabeledDropDownList ID="ddlCompetencyTypeValue" runat="server" LabelText="Competency Type" DataTextField="Name" DataValueField="Id" SourceTypeName="Rock.Model.DefinedValue, Rock" PropertyName="Name" />
                         </div>
                         <div class="span6">
+                            <Rock:PersonPicker ID="ppTeacherOfRecord" runat="server" LabelText="Teacher of Record" />
+                            <Rock:PersonPicker ID="ppFacilitator" runat="server" LabelText="Facilitator" />
                             <Rock:DataTextBox ID="tbGoals" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Goals" TextMode="MultiLine" Rows="5" CssClass="input-xlarge" />
                             <Rock:DataTextBox ID="tbCreditHours" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="CreditHours" CssClass="input-mini" />
                             <Rock:DataTextBox ID="tbSupervisionHours" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="SupervisionHours" CssClass="input-mini" />

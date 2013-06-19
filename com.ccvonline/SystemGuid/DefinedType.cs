@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.ccvonline.Residency.SystemGuid
+namespace com.ccvonline.SystemGuid
 {
     /// <summary>
-    /// Static Guids for DefinedTypes used specifically by the com.ccvonline.Residency Plugin 
+    /// Static Guids for DefinedTypes used specifically by the com.ccvonline.* Plugins
     /// </summary>
     public class DefinedType
     {
