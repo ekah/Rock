@@ -21,7 +21,7 @@ namespace com.ccvonline.CommandCenter.Migrations
             Sql( @"
     UPDATE [BlockType] SET 
          [Path] = REPLACE( [Path], 'Plugins/com.ccvonline/CommandCenter', 'Plugins/com_ccvonline/CommandCenter' )
-        ,[Name] = REPLACE( [Name], 'com .ccvonline -  Command Center', 'com_ccvonline - Command Center' )
+        ,[Name] = REPLACE( [Name], 'com .ccvonline - Command Center', 'com_ccvonline - Command Center' )
 " );
         }
 
@@ -33,7 +33,7 @@ namespace com.ccvonline.CommandCenter.Migrations
             Sql( @"
     UPDATE [BlockType] SET 
          [Path] = REPLACE( [Path], 'Plugins/com_ccvonline/CommandCenter', 'Plugins/com.ccvonline/CommandCenter' )
-        ,[Name] = REPLACE( [Name], 'com_ccvonline -  Command Center', 'com .ccvonline -  Command Center' )
+        ,[Name] = REPLACE( [Name], 'com_ccvonline - Command Center', 'com .ccvonline -  Command Center' )
 " );
         }
     }
