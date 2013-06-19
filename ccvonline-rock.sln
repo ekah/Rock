@@ -5,7 +5,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RockWeb(2)", "http://localh
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{629a186e-1ed2-49bc-95d4-76d65950ae73}|com.ccvonline.Residency.dll;{C61F05C4-F947-4A32-84C1-413BDFA912FA}|com.ccvonline.dll;{a5b47749-d8b2-4223-822b-26208bce34f4}|com.ccvonline.CommandCenter.dll;"
+		ProjectReferences = "{629a186e-1ed2-49bc-95d4-76d65950ae73}|com.ccvonline.Residency.dll;{C61F05C4-F947-4A32-84C1-413BDFA912FA}|com.ccvonline.dll;{a5b47749-d8b2-4223-822b-26208bce34f4}|com.ccvonline.CommandCenter.dll;{10702916-bb67-4be9-a507-e1f8932bd05f}|com.ccvonline.Authentication.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/RockWeb"
 		Debug.AspNetCompiler.PhysicalPath = "RockWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\RockWeb\"
@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.ccvonline", "com.ccvonl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.ccvonline.Residency", "com.ccvonline.Residency\com.ccvonline.Residency.csproj", "{629A186E-1ED2-49BC-95D4-76D65950AE73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockCoreUpdateDatabase", "Dev Tools\RockCoreUpdateDatabase\RockCoreUpdateDatabase.csproj", "{32CD0374-E10C-4FD8-95B5-6ED9B9DC5965}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.ccvonline.Authentication", "com.ccvonline.Authentication\com.ccvonline.Authentication.csproj", "{10702916-BB67-4BE9-A507-E1F8932BD05F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,10 @@ Global
 		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{629A186E-1ED2-49BC-95D4-76D65950AE73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32CD0374-E10C-4FD8-95B5-6ED9B9DC5965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32CD0374-E10C-4FD8-95B5-6ED9B9DC5965}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32CD0374-E10C-4FD8-95B5-6ED9B9DC5965}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32CD0374-E10C-4FD8-95B5-6ED9B9DC5965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10702916-BB67-4BE9-A507-E1F8932BD05F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10702916-BB67-4BE9-A507-E1F8932BD05F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10702916-BB67-4BE9-A507-E1F8932BD05F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10702916-BB67-4BE9-A507-E1F8932BD05F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
