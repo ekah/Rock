@@ -1942,6 +1942,21 @@
             Operations to be performed during the downgrade process.
             </summary>
         </member>
+        <member name="T:Rock.Migrations.SecurityRoleBlocksPages">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.SecurityRoleBlocksPages.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.SecurityRoleBlocksPages.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
         <member name="T:Rock.Model.BinaryFileDataService">
             <summary>
             BinaryFileData Service class
