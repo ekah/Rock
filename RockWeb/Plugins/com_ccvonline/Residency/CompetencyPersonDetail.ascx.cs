@@ -135,7 +135,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             {
                 competencyPerson = new CompetencyPerson();
                 competencyPersonService.Add( competencyPerson, CurrentPersonId );
-                
+
                 // These inputs are only editable on Add
                 competencyPerson.PersonId = hfPersonId.ValueAsInt();
                 competencyPerson.CompetencyId = ddlCompetency.SelectedValueAsInt() ?? 0;
@@ -279,7 +279,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <summary>
         /// Shows the edit details.
         /// </summary>
-        /// <param name="competencyPerson">The residency project.</param>
+        /// <param name="competencyPerson">The competency person.</param>
         private void ShowEditDetails( CompetencyPerson competencyPerson )
         {
             if ( competencyPerson.Id > 0 )
@@ -296,9 +296,9 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             LoadDropDowns();
 
             lblPersonName.Text = competencyPerson.Person.FullName;
-            
+
             ddlCompetency.SetValue( competencyPerson.CompetencyId );
-            
+
             if ( competencyPerson.Competency != null )
             {
                 lblPeriod.Text = competencyPerson.Competency.Track.Period.Name;
@@ -312,14 +312,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             // only allow a Competency to be assigned when in Add mode
-            pnlCompetencyLabels.Visible = ( competencyPerson.Id != 0 );
-            pnlCompetencyDropDownLists.Visible = ( competencyPerson.Id == 0 );
+            pnlCompetencyLabels.Visible = competencyPerson.Id != 0;
+            pnlCompetencyDropDownLists.Visible = competencyPerson.Id == 0;
         }
 
         /// <summary>
         /// Shows the readonly details.
         /// </summary>
-        /// <param name="competencyPerson">The residency project.</param>
+        /// <param name="competencyPerson">The competency person.</param>
         private void ShowReadonlyDetails( CompetencyPerson competencyPerson )
         {
             SetEditMode( false );
@@ -336,13 +336,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             lblMainDetails.Text = new DescriptionList()
-                .Add("Resident",  residentHtml)
-                .Add("Competency", competencyPerson.Competency.Name )
+                .Add( "Resident", residentHtml )
+                .Add( "Competency", competencyPerson.Competency.Name )
                 .Html;
-
         }
 
         #endregion
-        
-}
+    }
 }

@@ -5,9 +5,7 @@
 //
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
 using Rock;
@@ -286,7 +284,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 .Add( "Period", project.Competency.Track.Period.Name )
                 .Add( "Track", project.Competency.Track.Name )
                 .Html;
-                
         }
 
         #endregion

@@ -87,7 +87,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         {
             NavigateToDetailPage( "competencyId", competencyId, "trackId", hfTrackId.Value.AsInteger().Value );
         }
-       
+
         /// <summary>
         /// Handles the Delete event of the gList control.
         /// </summary>
@@ -108,7 +108,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                         mdGridWarning.Show( errorMessage, ModalAlertType.Information );
                         return;
                     }
-                    
+
                     competencyService.Delete( competency, CurrentPersonId );
                     competencyService.Save( competency, CurrentPersonId );
                 }
@@ -138,7 +138,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         {
             var competencyService = new ResidencyService<Competency>();
             int trackId = hfTrackId.ValueAsInt();
-            
+
             SortProperty sortProperty = gList.SortProperty;
             IQueryable<Competency> qry = competencyService.Queryable();
 

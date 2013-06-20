@@ -5,7 +5,6 @@
 //
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
@@ -22,7 +21,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
-    [LinkedPage("Resident Project Page")]
+    [LinkedPage( "Resident Project Page" )]
     public partial class CompetencyPersonProjectAssignmentDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -129,22 +128,21 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             CompetencyPersonProjectAssignment competencyPersonProjectAssignment;
             ResidencyService<CompetencyPersonProjectAssignment> competencyPersonProjectAssignmentService = new ResidencyService<CompetencyPersonProjectAssignment>();
 
-            int CompetencyPersonProjectAssignmentId = int.Parse( hfCompetencyPersonProjectAssignmentId.Value );
+            int competencyPersonProjectAssignmentId = int.Parse( hfCompetencyPersonProjectAssignmentId.Value );
 
-            if ( CompetencyPersonProjectAssignmentId == 0 )
+            if ( competencyPersonProjectAssignmentId == 0 )
             {
                 competencyPersonProjectAssignment = new CompetencyPersonProjectAssignment();
                 competencyPersonProjectAssignmentService.Add( competencyPersonProjectAssignment, CurrentPersonId );
             }
             else
             {
-                competencyPersonProjectAssignment = competencyPersonProjectAssignmentService.Get( CompetencyPersonProjectAssignmentId );
+                competencyPersonProjectAssignment = competencyPersonProjectAssignmentService.Get( competencyPersonProjectAssignmentId );
             }
 
             competencyPersonProjectAssignment.AssessorPersonId = ppAssessor.SelectedValue;
             competencyPersonProjectAssignment.CompletedDateTime = dtpCompletedDateTime.SelectedDateTime;
             competencyPersonProjectAssignment.CompetencyPersonProjectId = hfCompetencyPersonProjectId.ValueAsInt();
-
 
             if ( !competencyPersonProjectAssignment.IsValid )
             {
@@ -177,7 +175,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// </summary>
         /// <param name="itemKey">The item key.</param>
         /// <param name="itemKeyValue">The item key value.</param>
-        /// <param name="competencyPersonProjectId">The residency competency person project id.</param>
+        /// <param name="competencyPersonProjectId">The competency person project id.</param>
         public void ShowDetail( string itemKey, int itemKeyValue, int? competencyPersonProjectId )
         {
             // return if unexpected itemKey 
@@ -236,7 +234,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <summary>
         /// Shows the edit details.
         /// </summary>
-        /// <param name="competencyPersonProjectAssignment">The residency project.</param>
+        /// <param name="competencyPersonProjectAssignment">The competency person project assignment.</param>
         private void ShowEditDetails( CompetencyPersonProjectAssignment competencyPersonProjectAssignment )
         {
             if ( competencyPersonProjectAssignment.Id > 0 )
@@ -259,7 +257,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <summary>
         /// Shows the readonly details.
         /// </summary>
-        /// <param name="competencyPersonProjectAssignment">The residency project.</param>
+        /// <param name="competencyPersonProjectAssignment">The competency person project assignment.</param>
         private void ShowReadonlyDetails( CompetencyPersonProjectAssignment competencyPersonProjectAssignment )
         {
             SetEditMode( false );
@@ -276,11 +274,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             lblMainDetails.Text = new DescriptionList()
-                .Add("Resident", competencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person)
-                .Add("Project", projectHtml)
+                .Add( "Resident", competencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person )
+                .Add( "Project", projectHtml )
                 .StartSecondColumn()
-                .Add("Assessor", competencyPersonProjectAssignment.AssessorPerson)
-                .Add("Completed", competencyPersonProjectAssignment.CompletedDateTime)
+                .Add( "Assessor", competencyPersonProjectAssignment.AssessorPerson )
+                .Add( "Completed", competencyPersonProjectAssignment.CompletedDateTime )
                 .Html;
         }
 

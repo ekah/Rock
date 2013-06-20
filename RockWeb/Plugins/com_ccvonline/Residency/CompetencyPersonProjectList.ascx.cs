@@ -135,12 +135,12 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var CompetencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
-            int CompetencyPersonId = hfCompetencyPersonId.ValueAsInt();
+            var competencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
+            int competencyPersonId = hfCompetencyPersonId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
-            var qry = CompetencyPersonProjectService.Queryable();
+            var qry = competencyPersonProjectService.Queryable();
 
-            qry = qry.Where( a => a.CompetencyPersonId.Equals( CompetencyPersonId ) );
+            qry = qry.Where( a => a.CompetencyPersonId.Equals( competencyPersonId ) );
 
             if ( sortProperty != null )
             {
@@ -151,13 +151,13 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 qry = qry.OrderBy( s => s.Project.Name );
             }
 
-            var list = qry.Select( a => new 
+            var list = qry.Select( a => new
             {
                 Id = a.Id,
                 Name = a.Project.Name,
                 MinAssignmentCount = a.MinAssignmentCount,
-                CurrentCompleted = a.CompetencyPersonProjectAssignments.Where(b => b.CompletedDateTime != null).Count()
-            }).ToList();
+                CurrentCompleted = a.CompetencyPersonProjectAssignments.Where( b => b.CompletedDateTime != null ).Count()
+            } ).ToList();
 
             gList.DataSource = list;
             gList.DataBind();

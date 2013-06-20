@@ -4,14 +4,9 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
-using com.ccvonline.Residency.Model;
 using Rock;
-using Rock.Constants;
-using Rock.Data;
 using Rock.Model;
 using Rock.Web;
 using Rock.Web.UI;
@@ -62,26 +57,24 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             pnlDetails.Visible = true;
-            
+
             // this is always just a View block (they are added/edited on the GroupMember block)
-            Person person = new ResidencyService<Person>().Get(itemKeyValue);
+            Person person = new ResidencyService<Person>().Get( itemKeyValue );
 
             ShowReadonlyDetails( person );
-            
         }
 
         /// <summary>
         /// Shows the readonly details.
         /// </summary>
-        /// <param name="person">The group member.</param>
+        /// <param name="person">The person.</param>
         private void ShowReadonlyDetails( Person person )
         {
             fieldsetViewDetails.Visible = true;
 
             lblMainDetails.Text = new DescriptionList()
-                .Add("Name", person)
+                .Add( "Name", person )
                 .Html;
-            
         }
 
         #endregion

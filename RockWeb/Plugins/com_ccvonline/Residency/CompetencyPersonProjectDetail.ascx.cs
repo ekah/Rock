@@ -129,20 +129,20 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             CompetencyPersonProject competencyPersonProject;
             ResidencyService<CompetencyPersonProject> competencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
 
-            int CompetencyPersonProjectId = int.Parse( hfCompetencyPersonProjectId.Value );
+            int competencyPersonProjectId = int.Parse( hfCompetencyPersonProjectId.Value );
 
-            if ( CompetencyPersonProjectId == 0 )
+            if ( competencyPersonProjectId == 0 )
             {
                 competencyPersonProject = new CompetencyPersonProject();
                 competencyPersonProjectService.Add( competencyPersonProject, CurrentPersonId );
-                
+
                 // these inputs are only editable on Add
                 competencyPersonProject.ProjectId = ddlProject.SelectedValueAsInt() ?? 0;
                 competencyPersonProject.CompetencyPersonId = hfCompetencyPersonId.ValueAsInt();
             }
             else
             {
-                competencyPersonProject = competencyPersonProjectService.Get( CompetencyPersonProjectId );
+                competencyPersonProject = competencyPersonProjectService.Get( competencyPersonProjectId );
             }
 
             if ( !competencyPersonProject.IsValid )
@@ -176,7 +176,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// </summary>
         /// <param name="itemKey">The item key.</param>
         /// <param name="itemKeyValue">The item key value.</param>
-        /// <param name="competencyPersonId">The residency competency person id.</param>
+        /// <param name="competencyPersonId">The competency person id.</param>
         public void ShowDetail( string itemKey, int itemKeyValue, int? competencyPersonId )
         {
             // return if unexpected itemKey 
@@ -257,7 +257,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <summary>
         /// Shows the edit details.
         /// </summary>
-        /// <param name="competencyPersonProject">The residency project.</param>
+        /// <param name="competencyPersonProject">The competency person project.</param>
         private void ShowEditDetails( CompetencyPersonProject competencyPersonProject )
         {
             if ( competencyPersonProject.Id > 0 )
@@ -287,8 +287,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 lblProject.Text = Rock.Constants.None.Text;
             }
 
-            
-            bool addMode =competencyPersonProject.Id == 0;
+            bool addMode = competencyPersonProject.Id == 0;
 
             ddlProject.Visible = addMode;
             lblProject.Visible = !addMode;
@@ -299,7 +298,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <summary>
         /// Shows the readonly details.
         /// </summary>
-        /// <param name="competencyPersonProject">The residency competency person project.</param>
+        /// <param name="competencyPersonProject">The competency person project.</param>
         private void ShowReadonlyDetails( CompetencyPersonProject competencyPersonProject )
         {
             SetEditMode( false );
@@ -316,12 +315,12 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             lblMainDetails.Text = new DescriptionList()
-                .Add("Resident", competencyPersonProject.CompetencyPerson.Person)
+                .Add( "Resident", competencyPersonProject.CompetencyPerson.Person )
                 .Add( "Project", competencyPersonProject.Project.Name )
                 .Add( "Competency", competencyPersonHtml )
                 .StartSecondColumn()
-                .Add("Period", competencyPersonProject.Project.Competency.Track.Period.Name)
-                .Add("Track", competencyPersonProject.Project.Competency.Track.Name)
+                .Add( "Period", competencyPersonProject.Project.Competency.Track.Period.Name )
+                .Add( "Track", competencyPersonProject.Project.Competency.Track.Name )
                 .Html;
         }
 

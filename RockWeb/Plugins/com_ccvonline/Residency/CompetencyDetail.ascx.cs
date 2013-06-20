@@ -243,7 +243,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 .OrderBy( a => a.Name ).ToList();
 
             list.Insert( 0, new DefinedValue { Id = Rock.Constants.None.Id, Name = Rock.Constants.None.Text } );
-            
+
             ddlCompetencyTypeValue.DataSource = list;
             ddlCompetencyTypeValue.DataBind();
         }

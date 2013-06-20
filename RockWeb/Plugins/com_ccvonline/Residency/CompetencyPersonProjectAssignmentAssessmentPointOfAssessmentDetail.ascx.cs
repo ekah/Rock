@@ -14,7 +14,6 @@ using Rock.Attribute;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
-using Rock.Web;
 using Rock.Web.UI;
 
 namespace RockWeb.Plugins.com_ccvonline.Residency
@@ -93,7 +92,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 competencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessmentId = competencyPersonProjectAssignmentAssessmentId;
                 competencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Add( competencyPersonProjectAssignmentAssessmentPointOfAssessment, CurrentPersonId );
             }
-            
+
             competencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating = tbRating.Text.AsInteger();
             competencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingNotes = tbRatingNotes.Text;
 
@@ -123,8 +122,8 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <summary>
         /// Shows the detail.
         /// </summary>
-        /// <param name="projectPointOfAssessmentId">The residency project point of assessment id.</param>
-        /// <param name="competencyPersonProjectAssignmentAssessmentId">The residency competency person project assignment assessment id.</param>
+        /// <param name="projectPointOfAssessmentId">The project point of assessment id.</param>
+        /// <param name="competencyPersonProjectAssignmentAssessmentId">The competency person project assignment assessment id.</param>
         public void ShowDetail( int projectPointOfAssessmentId, int competencyPersonProjectAssignmentAssessmentId )
         {
             pnlDetails.Visible = true;
@@ -138,11 +137,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             {
                 competencyPersonProjectAssignmentAssessmentPointOfAssessment = new CompetencyPersonProjectAssignmentAssessmentPointOfAssessment { Id = 0 };
                 competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessmentId = projectPointOfAssessmentId;
-                competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment 
+                competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment
                     = new ResidencyService<ProjectPointOfAssessment>().Get( projectPointOfAssessmentId );
                 competencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessmentId = competencyPersonProjectAssignmentAssessmentId;
                 competencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessment
-                    = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>().Get(competencyPersonProjectAssignmentAssessmentId);
+                    = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>().Get( competencyPersonProjectAssignmentAssessmentId );
             }
 
             hfProjectPointOfAssessmentId.Value = competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessmentId.ToString();
@@ -155,16 +154,16 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             if ( !IsUserAuthorized( "Edit" ) )
             {
                 readOnly = true;
-                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
+                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( "Project Assignment Assessment- Point Of Assessment" );
             }
 
             if ( competencyPersonProjectAssignmentAssessmentPointOfAssessment.Id > 0 )
             {
-                lActionTitle.Text = ActionTitle.Edit( CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Edit( "Project Assignment Assessment- Point Of Assessment" );
             }
             else
             {
-                lActionTitle.Text = ActionTitle.Add( CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Add( "Project Assignment Assessment- Point Of Assessment" );
             }
 
             var personProject = competencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject;
