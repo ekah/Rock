@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
@@ -54,7 +53,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 int personId = this.PageParameter( "personId" ).AsInteger() ?? 0;
                 if ( personId == 0 )
                 {
-                    int groupMemberId = this.PageParameter( "groupMemberId").AsInteger() ??0;
+                    int groupMemberId = this.PageParameter( "groupMemberId" ).AsInteger() ?? 0;
                     personId = new ResidencyService<GroupMember>().Queryable().Where( a => a.Id.Equals( groupMemberId ) ).Select( a => a.PersonId ).FirstOrDefault();
                 }
 

@@ -157,13 +157,13 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 if ( projectId != null )
                 {
                     projectPointOfAssessment = new ProjectPointOfAssessment { Id = 0, ProjectId = projectId.Value };
-                    
+
                     int maxAssessmentOrder = projectPointOfAssessmentService.Queryable()
                         .Where( a => a.ProjectId.Equals( projectPointOfAssessment.ProjectId ) )
                         .Select( a => a.AssessmentOrder ).DefaultIfEmpty( 0 ).Max();
 
                     projectPointOfAssessment.AssessmentOrder = maxAssessmentOrder + 1;
-                    
+
                     lActionTitle.Text = ActionTitle.Add( "Point of Assessment for " + projectName );
                 }
             }

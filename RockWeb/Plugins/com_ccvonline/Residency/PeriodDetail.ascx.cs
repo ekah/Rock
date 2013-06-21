@@ -5,7 +5,6 @@
 //
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
@@ -64,7 +63,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             {
                 // Cancelling on Add.  Return to Grid
                 NavigateToParentPage();
-
             }
             else
             {
@@ -239,11 +237,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             SetEditMode( false );
 
             lblMainDetails.Text = new DescriptionList()
-                .Add("Name", period.Name)
-                .Add("Description", period.Description)
+                .Add( "Name", period.Name )
+                .Add( "Description", period.Description )
                 .StartSecondColumn()
-                .Add("Start Date", period.StartDate)
-                .Add("End Date", period.EndDate)
+                .Add( "Start Date", period.StartDate )
+                .Add( "End Date", period.EndDate )
                 .Html;
         }
 

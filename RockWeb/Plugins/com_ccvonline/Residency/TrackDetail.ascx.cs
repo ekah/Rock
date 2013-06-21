@@ -5,7 +5,6 @@
 //
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
@@ -176,7 +175,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// </summary>
         /// <param name="itemKey">The item key.</param>
         /// <param name="itemKeyValue">The item key value.</param>
-        /// <param name="periodId">The residency competency id.</param>
+        /// <param name="periodId">The period id.</param>
         public void ShowDetail( string itemKey, int itemKeyValue, int? periodId )
         {
             // return if unexpected itemKey 
@@ -235,7 +234,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <summary>
         /// Shows the edit details.
         /// </summary>
-        /// <param name="track">The residency project.</param>
+        /// <param name="track">The track.</param>
         private void ShowEditDetails( Track track )
         {
             if ( track.Id > 0 )
@@ -254,12 +253,10 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblPeriod.Text = track.Period.Name;
         }
 
-        
-
         /// <summary>
         /// Shows the readonly details.
         /// </summary>
-        /// <param name="track">The residency project.</param>
+        /// <param name="track">The track.</param>
         private void ShowReadonlyDetails( Track track )
         {
             SetEditMode( false );

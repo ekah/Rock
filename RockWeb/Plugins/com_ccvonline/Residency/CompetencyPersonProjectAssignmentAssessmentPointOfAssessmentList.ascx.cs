@@ -6,7 +6,6 @@ using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
 using Rock;
 using Rock.Attribute;
-using Rock.Data;
 using Rock.Web.UI;
 using Rock.Web.UI.Controls;
 
@@ -106,7 +105,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             List<ProjectPointOfAssessment> projectPointOfAssessmentList;
             if ( competencyPersonProjectAssignmentAssessment != null )
             {
-
                 projectPointOfAssessmentList = new ResidencyService<ProjectPointOfAssessment>().Queryable()
                     .Where( a => a.ProjectId.Equals( competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.ProjectId ) ).ToList();
             }

@@ -85,7 +85,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
         protected void gList_Delete( object sender, RowEventArgs e )
         {
-
             RockTransactionScope.WrapTransaction( () =>
             {
                 var groupMemberService = new GroupMemberService();
@@ -127,7 +126,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             } );
 
             BindGrid();
-
         }
 
         /// <summary>
@@ -177,7 +175,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 CompetencyCount = a.ResidentCompentencies == null ? 0 : a.ResidentCompentencies.Count(),
                 CompletedProjectsTotal = a.ResidentCompentencies == null
                     ? 0
-                    : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).SelectMany( x => x.CompetencyPersonProjectAssignments).Where( y => y.CompletedDateTime != null).Count(),
+                    : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).SelectMany( x => x.CompetencyPersonProjectAssignments ).Where( y => y.CompletedDateTime != null ).Count(),
                 AssignedProjectsTotal = a.ResidentCompentencies == null
                     ? 0
                     : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).SelectMany( x => x.CompetencyPersonProjectAssignments ).Count(),
@@ -195,7 +193,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             gList.DataBind();
-
         }
 
         #endregion

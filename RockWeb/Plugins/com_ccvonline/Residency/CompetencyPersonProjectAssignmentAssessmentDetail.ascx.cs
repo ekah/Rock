@@ -5,7 +5,6 @@
 //
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
@@ -145,14 +144,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             competencyPersonProjectAssignmentAssessment.AssessmentDateTime = dtpAssessmentDateTime.SelectedDateTime;
             competencyPersonProjectAssignmentAssessment.Rating = tbRating.Text.AsInteger();
             competencyPersonProjectAssignmentAssessment.RatingNotes = tbRatingNotes.Text;
-            
-            
-            
-            
-            // TODO competencyPersonProjectAssignmentAssessment.ResidentComments = tbResidentComments.Text;
-
-
-
+            competencyPersonProjectAssignmentAssessment.ResidentComments = tbResidentComments.Text;
 
             if ( !competencyPersonProjectAssignmentAssessment.IsValid )
             {
@@ -185,7 +177,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// </summary>
         /// <param name="itemKey">The item key.</param>
         /// <param name="itemKeyValue">The item key value.</param>
-        /// <param name="competencyPersonProjectAssignmentId">The residency competency person project assignment id.</param>
+        /// <param name="competencyPersonProjectAssignmentId">The competency person project assignment id.</param>
         public void ShowDetail( string itemKey, int itemKeyValue, int? competencyPersonProjectAssignmentId )
         {
             // return if unexpected itemKey 
@@ -206,7 +198,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             {
                 competencyPersonProjectAssignmentAssessment = new CompetencyPersonProjectAssignmentAssessment { Id = 0 };
                 competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId = competencyPersonProjectAssignmentId ?? 0;
-                competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment 
+                competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment
                     = new ResidencyService<CompetencyPersonProjectAssignment>().Get( competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId );
             }
 
@@ -250,11 +242,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         {
             if ( competencyPersonProjectAssignmentAssessment.Id > 0 )
             {
-                lActionTitle.Text = ActionTitle.Edit( CompetencyPersonProjectAssignmentAssessment.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Edit( "Project Assignment Assessment" );
             }
             else
             {
-                lActionTitle.Text = ActionTitle.Add( CompetencyPersonProjectAssignmentAssessment.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.Add( "Project Assignment Assessment" );
             }
 
             SetEditMode( true );
@@ -262,14 +254,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblResident.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person.FullName;
             lblCompetency.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Competency.Name;
             lblProjectName.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
-            
+
             if ( competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson != null )
             {
                 lblAssessor.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson.FullName;
             }
             else
             {
-                lblAssessor.Text = Rock.Constants.None.Text;
+                lblAssessor.Text = Rock.Constants.None.TextHtml;
             }
 
             dtpAssessmentDateTime.SelectedDateTime = competencyPersonProjectAssignmentAssessment.AssessmentDateTime;
@@ -298,11 +290,15 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             lblMainDetails.Text = new DescriptionList()
-                .Add("Resident", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person)
-                .Add("Project Assignment", projectAssignmentHtml)
+                .Add( "Resident", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person )
+                .Add( "Project Assignment", projectAssignmentHtml )
+                .Add( "Assessor", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson )
+                .Add( "Rating", competencyPersonProjectAssignmentAssessment.Rating )
                 .StartSecondColumn()
-                .Add("Competency", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Name)
-                .Add("Assessor", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson)
+                .Add( "Competency", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Name )
+                .Add( "Track", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Track.Name )
+                .Add( "Period", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Track.Period.Name )
+
                 .Html;
         }
 

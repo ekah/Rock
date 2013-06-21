@@ -1942,6 +1942,36 @@
             Operations to be performed during the downgrade process.
             </summary>
         </member>
+        <member name="T:Rock.Migrations.SecurityRoleBlocksPages">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.SecurityRoleBlocksPages.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.SecurityRoleBlocksPages.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.PersonMergedUpdates">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.PersonMergedUpdates.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.PersonMergedUpdates.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
         <member name="T:Rock.Model.BinaryFileDataService">
             <summary>
             BinaryFileData Service class
@@ -14263,44 +14293,6 @@
             The control
             </returns>
         </member>
-        <member name="T:Rock.Model.PersonAccountService">
-            <summary>
-            PersonAccount Service class
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccountService.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Model.PersonAccountService"/> class
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccountService.#ctor(Rock.Data.IRepository{Rock.Model.PersonAccount})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Model.PersonAccountService"/> class
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccountService.CanDelete(Rock.Model.PersonAccount,System.String@)">
-            <summary>
-            Determines whether this instance can delete the specified item.
-            </summary>
-            <param name="item">The item.</param>
-            <param name="errorMessage">The error message.</param>
-            <returns>
-              <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="T:Rock.Model.PersonAccountExtensionMethods">
-            <summary>
-            Generated Extension Methods
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccountExtensionMethods.Clone(Rock.Model.PersonAccount,System.Boolean)">
-            <summary>
-            Clones this PersonAccount object to a new PersonAccount object
-            </summary>
-            <param name="source">The source.</param>
-            <param name="deepCopy">if set to <c>true</c> a deep copy is made. If false, only the basic entity properties are copied.</param>
-            <returns></returns>
-        </member>
         <member name="T:Rock.Migrations.CreateDatabase">
             <summary>
             
@@ -16832,6 +16824,12 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.CategoryPicker"/> class.
             </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.CategoryPicker.OnInit(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+            </summary>
+            <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         </member>
         <member name="M:Rock.Web.UI.Controls.CategoryPicker.SetValue(Rock.Model.Category)">
             <summary>
@@ -20620,7 +20618,7 @@
             PersonMerged Service class
             </summary>
             <summary>
-            Person Trail POCO Service class
+            Person Merged Service class
             </summary>
         </member>
         <member name="M:Rock.Model.PersonMergedService.#ctor">
@@ -20643,25 +20641,25 @@
               <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="M:Rock.Model.PersonMergedService.GetByCurrentId(System.Int32)">
-            <summary>
-            Gets Person Trails by Current Id
-            </summary>
-            <param name="currentId">Current Id.</param>
-            <returns>An enumerable list of PersonMerged objects.</returns>
-        </member>
         <member name="M:Rock.Model.PersonMergedService.Current(System.String)">
             <summary>
-            Get's the current person Guid
+            Currents the specified public key.
             </summary>
             <param name="publicKey">The public key.</param>
             <returns></returns>
         </member>
         <member name="M:Rock.Model.PersonMergedService.Current(System.Int32)">
             <summary>
-            Get's the current person id
+            Currents the specified person id.
             </summary>
-            <param name="id">The id.</param>
+            <param name="personId">The person id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Model.PersonMergedService.Current(System.Guid)">
+            <summary>
+            Currents the specified person GUID.
+            </summary>
+            <param name="personGuid">The person GUID.</param>
             <returns></returns>
         </member>
         <member name="T:Rock.Model.PersonMergedExtensionMethods">
@@ -20837,29 +20835,30 @@
             <param name="includeSelf">if set to <c>true</c> [include self].</param>
             <returns></returns>
         </member>
-        <member name="M:Rock.Model.PersonService.GetByEncryptedID(System.String)">
-            <summary>
-            Gets the by encrypted ID.
-            </summary>
-            <param name="encryptedID">The encrypted ID.</param>
-            <returns></returns>
-        </member>
         <member name="M:Rock.Model.PersonService.Get(System.Int32,System.Boolean)">
             <summary>
             Gets Person by Id
             </summary>
             <param name="id">The id.</param>
-            <param name="followTrail">if set to <c>true</c> follow the merge trail.</param>
+            <param name="followMerges">if set to <c>true</c> follow the merge trail.</param>
             <returns>
             Person object.
             </returns>
+        </member>
+        <member name="M:Rock.Model.PersonService.Get(System.Guid,System.Boolean)">
+            <summary>
+            Gets the specified GUID.
+            </summary>
+            <param name="guid">The GUID.</param>
+            <param name="followMerges">if set to <c>true</c> follow the merge trail.</param>
+            <returns></returns>
         </member>
         <member name="M:Rock.Model.PersonService.GetByEncryptedKey(System.String,System.Boolean)">
             <summary>
             Gets Person by Guid
             </summary>
             <param name="encryptedKey">The encrypted key.</param>
-            <param name="followTrail">if set to <c>true</c> follow the merge trail</param>
+            <param name="followMergeTrail">if set to <c>true</c> follow the merge trail</param>
             <returns>
             Person object.
             </returns>
@@ -20925,7 +20924,7 @@
         </member>
         <member name="T:Rock.Model.PersonMerged">
             <summary>
-            Person Trail POCO Entity.
+            Person Merged POCO Entity.
             </summary>
         </member>
         <member name="M:Rock.Model.PersonMerged.ToString">
@@ -20936,30 +20935,57 @@
             A <see cref="T:System.String"/> that represents this instance.
             </returns>
         </member>
-        <member name="P:Rock.Model.PersonMerged.CurrentId">
+        <member name="P:Rock.Model.PersonMerged.PreviousPersonId">
             <summary>
-            Gets or sets the Current Id.
+            Gets or sets the previous person id.
             </summary>
             <value>
-            Current Id.
+            The previous person id.
             </value>
         </member>
-        <member name="P:Rock.Model.PersonMerged.CurrentGuid">
+        <member name="P:Rock.Model.PersonMerged.PreviousPersonGuid">
             <summary>
-            Gets or sets the Current Guid.
+            Gets or sets the previous person GUID.
             </summary>
             <value>
-            Current Guid.
+            The previous person GUID.
             </value>
         </member>
-        <member name="P:Rock.Model.PersonMerged.CurrentPublicKey">
+        <member name="P:Rock.Model.PersonMerged.NewPersonId">
             <summary>
-            Gets a publicly viewable unique key for the model.
+            Gets or sets the new person id.
             </summary>
+            <value>
+            The new person id.
+            </value>
+        </member>
+        <member name="P:Rock.Model.PersonMerged.NewPersonGuid">
+            <summary>
+            Gets or sets the new person GUID.
+            </summary>
+            <value>
+            The new person GUID.
+            </value>
+        </member>
+        <member name="P:Rock.Model.PersonMerged.PreviousEncryptedKey">
+            <summary>
+            Gets the previous encrypted key.
+            </summary>
+            <value>
+            The previous encrypted key.
+            </value>
+        </member>
+        <member name="P:Rock.Model.PersonMerged.NewEncryptedKey">
+            <summary>
+            Gets the new encrypted key.
+            </summary>
+            <value>
+            The new encrypted key.
+            </value>
         </member>
         <member name="T:Rock.Model.PersonMergedConfiguration">
             <summary>
-            Person Trail Configuration class.
+            Person Merged Configuration class.
             </summary>
         </member>
         <member name="M:Rock.Model.PersonMergedConfiguration.#ctor">
@@ -24634,14 +24660,6 @@
             The attendances.
             </value>
         </member>
-        <member name="P:Rock.Model.Person.PersonAccountLookups">
-            <summary>
-            Gets or sets the PersonAccountLookups.
-            </summary>
-            <value>
-            Collection of PersonAccountLookups.
-            </value>
-        </member>
         <member name="P:Rock.Model.Person.MaritalStatusValue">
             <summary>
             Gets or sets the Marital Status.
@@ -25621,53 +25639,6 @@
         <member name="M:Rock.Model.FinancialGatewayConfiguration.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialGatewayConfiguration"/> class.
-            </summary>
-        </member>
-        <member name="T:Rock.Model.PersonAccount">
-            <summary>
-            PersonAccountLookup POCO class.
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccount.ToString">
-            <summary>
-            Returns a <see cref="T:System.String"/> that represents this instance.
-            </summary>
-            <returns>
-            A <see cref="T:System.String"/> that represents this instance.
-            </returns>
-        </member>
-        <member name="P:Rock.Model.PersonAccount.PersonId">
-            <summary>
-            Gets or sets the person id.
-            </summary>
-            <value>
-            The person id.
-            </value>
-        </member>
-        <member name="P:Rock.Model.PersonAccount.Account">
-            <summary>
-            Gets or sets the account.
-            </summary>
-            <value>
-            The account.
-            </value>
-        </member>
-        <member name="P:Rock.Model.PersonAccount.Person">
-            <summary>
-            Gets or sets the person.
-            </summary>
-            <value>
-            The person.
-            </value>
-        </member>
-        <member name="T:Rock.Model.PersonAccountLookupConfiguration">
-            <summary>
-            PersonAccountLookup Configuration class.
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccountLookupConfiguration.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Model.PersonAccountLookupConfiguration"/> class.
             </summary>
         </member>
         <member name="T:Rock.Model.FinancialPledge">
@@ -35685,14 +35656,6 @@
             </summary>
             <value>
             the People.
-            </value>
-        </member>
-        <member name="P:Rock.Data.RockContext.PersonAccountLookups">
-            <summary>
-            Gets or sets the person account lookups.
-            </summary>
-            <value>
-            The person account lookups.
             </value>
         </member>
         <member name="P:Rock.Data.RockContext.PersonMerges">
