@@ -14,7 +14,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
-    [DetailPage]
+    [DetailPage] 
     public partial class CompetencyList : RockBlock, IDimmableBlock
     {
         #region Control Methods
