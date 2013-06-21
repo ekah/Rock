@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201306181701351_RenameTable.Designer.cs">
       <DependentUpon>201306181701351_RenameTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306192257083_RenamePluginFolder.cs" />
+    <Compile Include="Migrations\201306192257083_RenamePluginFolder.Designer.cs">
+      <DependentUpon>201306192257083_RenamePluginFolder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Recording.cs" />
     <Compile Include="Model\RecordingService.cs" />
@@ -99,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306181701351_RenameTable.resx">
       <DependentUpon>201306181701351_RenameTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306192257083_RenamePluginFolder.resx">
+      <DependentUpon>201306192257083_RenamePluginFolder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

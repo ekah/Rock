@@ -1942,6 +1942,36 @@
             Operations to be performed during the downgrade process.
             </summary>
         </member>
+        <member name="T:Rock.Migrations.SecurityRoleBlocksPages">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.SecurityRoleBlocksPages.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.SecurityRoleBlocksPages.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.PersonMergedUpdates">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.PersonMergedUpdates.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.PersonMergedUpdates.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
         <member name="T:Rock.Model.BinaryFileDataService">
             <summary>
             BinaryFileData Service class
@@ -2923,6 +2953,144 @@
             <summary>
             Initializes a new instance of the <see cref="!:BinaryFileDatConfiguration"/> class.
             </summary>
+        </member>
+        <member name="T:Rock.Net.RockRestClient">
+            <summary>
+            from http://stackoverflow.com/questions/4740752/how-to-login-with-webclient-c-sharp
+            and http://stackoverflow.com/questions/1777221/using-cookiecontainer-with-webclient-class
+            Used by Apps.CheckScannerUtility
+            </summary>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Net.RockRestClient"/> class.
+            </summary>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.#ctor(System.String,System.Net.CookieContainer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Net.RockRestClient"/> class.
+            </summary>
+            <param name="c">The c.</param>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetWebRequest(System.Uri)">
+            <summary>
+            Returns a <see cref="T:System.Net.WebRequest" /> object for the specified resource.
+            </summary>
+            <param name="address">A <see cref="T:System.Uri" /> that identifies the resource to request.</param>
+            <returns>
+            A new <see cref="T:System.Net.WebRequest" /> object for the specified resource.
+            </returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetWebResponse(System.Net.WebRequest,System.IAsyncResult)">
+            <summary>
+            Returns the <see cref="T:System.Net.WebResponse" /> for the specified <see cref="T:System.Net.WebRequest" /> using the specified <see cref="T:System.IAsyncResult" />.
+            </summary>
+            <param name="request">A <see cref="T:System.Net.WebRequest" /> that is used to obtain the response.</param>
+            <param name="result">An <see cref="T:System.IAsyncResult" /> object obtained from a previous call to <see cref="M:System.Net.WebRequest.BeginGetResponse(System.AsyncCallback,System.Object)" /> .</param>
+            <returns>
+            A <see cref="T:System.Net.WebResponse" /> containing the response for the specified <see cref="T:System.Net.WebRequest" />.
+            </returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetWebResponse(System.Net.WebRequest)">
+            <summary>
+            Returns the <see cref="T:System.Net.WebResponse" /> for the specified <see cref="T:System.Net.WebRequest" />.
+            </summary>
+            <param name="request">A <see cref="T:System.Net.WebRequest" /> that is used to obtain the response.</param>
+            <returns>
+            A <see cref="T:System.Net.WebResponse" /> containing the response for the specified <see cref="T:System.Net.WebRequest" />.
+            </returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.ReadCookies(System.Net.WebResponse)">
+            <summary>
+            Reads the cookies.
+            </summary>
+            <param name="r">The r.</param>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.Login(System.String,System.String,System.String)">
+            <summary>
+            Logins the specified username.
+            </summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+            <param name="rockBaseUrl">The rock base URL.</param>
+            <param name="rockLoginUrl">The rock login URL.</param>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetData``1(System.String,System.String)">
+            <summary>
+            Gets the data.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getPath">The get path, for example "api/BinaryFileTypes"</param>
+            <param name="odataFilter">The odata filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetDataByGuid``1(System.String,System.Guid)">
+            <summary>
+            Gets the data by GUID.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getPath">The get path.</param>
+            <param name="guid">The GUID.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetDataByEnum``1(System.String,System.String,System.Enum)">
+            <summary>
+            Gets the data by enum.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getPath">The get path.</param>
+            <param name="enumFieldName">Name of the enum field.</param>
+            <param name="enumVal">The enum val.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.PostData``1(System.String,``0)">
+            <summary>
+            Posts the data 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="postPath">The post path.</param>
+            <param name="data">The data.</param>
+        </member>
+        <member name="P:Rock.Net.RockRestClient.rockBaseUri">
+            <summary>
+            Gets or sets the rock base URI.
+            </summary>
+            <value>
+            The rock base URI.
+            </value>
+        </member>
+        <member name="P:Rock.Net.RockRestClient.CookieContainer">
+            <summary>
+            Gets or sets the cookie container.
+            </summary>
+            <value>
+            The cookie container.
+            </value>
+        </member>
+        <member name="T:Rock.Net.HttpErrorException">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Net.HttpErrorException.#ctor(System.Web.Http.HttpError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Net.HttpErrorException"/> class.
+            </summary>
+            <param name="httpError">The HTTP error.</param>
+        </member>
+        <member name="P:Rock.Net.HttpErrorException._message">
+            <summary>
+            Gets or sets the _message.
+            </summary>
+            <value>
+            The _message.
+            </value>
+        </member>
+        <member name="P:Rock.Net.HttpErrorException.Message">
+            <summary>
+            Gets a message that describes the current exception.
+            </summary>
+            <returns>The error message that explains the reason for the exception, or an empty string("").</returns>
         </member>
         <member name="T:Rock.Net.RockWebRequest">
             <summary>
@@ -4105,144 +4273,6 @@
             <summary>
             Operations to be performed during the downgrade process.
             </summary>
-        </member>
-        <member name="T:Rock.Net.RockRestClient">
-            <summary>
-            from http://stackoverflow.com/questions/4740752/how-to-login-with-webclient-c-sharp
-            and http://stackoverflow.com/questions/1777221/using-cookiecontainer-with-webclient-class
-            Used by Apps.CheckScannerUtility
-            </summary>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Net.RockRestClient"/> class.
-            </summary>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.#ctor(System.String,System.Net.CookieContainer)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Net.RockRestClient"/> class.
-            </summary>
-            <param name="c">The c.</param>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetWebRequest(System.Uri)">
-            <summary>
-            Returns a <see cref="T:System.Net.WebRequest" /> object for the specified resource.
-            </summary>
-            <param name="address">A <see cref="T:System.Uri" /> that identifies the resource to request.</param>
-            <returns>
-            A new <see cref="T:System.Net.WebRequest" /> object for the specified resource.
-            </returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetWebResponse(System.Net.WebRequest,System.IAsyncResult)">
-            <summary>
-            Returns the <see cref="T:System.Net.WebResponse" /> for the specified <see cref="T:System.Net.WebRequest" /> using the specified <see cref="T:System.IAsyncResult" />.
-            </summary>
-            <param name="request">A <see cref="T:System.Net.WebRequest" /> that is used to obtain the response.</param>
-            <param name="result">An <see cref="T:System.IAsyncResult" /> object obtained from a previous call to <see cref="M:System.Net.WebRequest.BeginGetResponse(System.AsyncCallback,System.Object)" /> .</param>
-            <returns>
-            A <see cref="T:System.Net.WebResponse" /> containing the response for the specified <see cref="T:System.Net.WebRequest" />.
-            </returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetWebResponse(System.Net.WebRequest)">
-            <summary>
-            Returns the <see cref="T:System.Net.WebResponse" /> for the specified <see cref="T:System.Net.WebRequest" />.
-            </summary>
-            <param name="request">A <see cref="T:System.Net.WebRequest" /> that is used to obtain the response.</param>
-            <returns>
-            A <see cref="T:System.Net.WebResponse" /> containing the response for the specified <see cref="T:System.Net.WebRequest" />.
-            </returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.ReadCookies(System.Net.WebResponse)">
-            <summary>
-            Reads the cookies.
-            </summary>
-            <param name="r">The r.</param>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.Login(System.String,System.String,System.String)">
-            <summary>
-            Logins the specified username.
-            </summary>
-            <param name="username">The username.</param>
-            <param name="password">The password.</param>
-            <param name="rockBaseUrl">The rock base URL.</param>
-            <param name="rockLoginUrl">The rock login URL.</param>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetData``1(System.String,System.String)">
-            <summary>
-            Gets the data.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="getPath">The get path, for example "api/BinaryFileTypes"</param>
-            <param name="odataFilter">The odata filter.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetDataByGuid``1(System.String,System.Guid)">
-            <summary>
-            Gets the data by GUID.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="getPath">The get path.</param>
-            <param name="guid">The GUID.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetDataByEnum``1(System.String,System.String,System.Enum)">
-            <summary>
-            Gets the data by enum.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="getPath">The get path.</param>
-            <param name="enumFieldName">Name of the enum field.</param>
-            <param name="enumVal">The enum val.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.PostData``1(System.String,``0)">
-            <summary>
-            Posts the data 
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="postPath">The post path.</param>
-            <param name="data">The data.</param>
-        </member>
-        <member name="P:Rock.Net.RockRestClient.rockBaseUri">
-            <summary>
-            Gets or sets the rock base URI.
-            </summary>
-            <value>
-            The rock base URI.
-            </value>
-        </member>
-        <member name="P:Rock.Net.RockRestClient.CookieContainer">
-            <summary>
-            Gets or sets the cookie container.
-            </summary>
-            <value>
-            The cookie container.
-            </value>
-        </member>
-        <member name="T:Rock.Net.HttpErrorException">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Rock.Net.HttpErrorException.#ctor(System.Web.Http.HttpError)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Net.HttpErrorException"/> class.
-            </summary>
-            <param name="httpError">The HTTP error.</param>
-        </member>
-        <member name="P:Rock.Net.HttpErrorException._message">
-            <summary>
-            Gets or sets the _message.
-            </summary>
-            <value>
-            The _message.
-            </value>
-        </member>
-        <member name="P:Rock.Net.HttpErrorException.Message">
-            <summary>
-            Gets a message that describes the current exception.
-            </summary>
-            <returns>The error message that explains the reason for the exception, or an empty string("").</returns>
         </member>
         <member name="T:Rock.Security.LoginParameters">
             <summary>
@@ -14263,44 +14293,6 @@
             The control
             </returns>
         </member>
-        <member name="T:Rock.Model.PersonAccountService">
-            <summary>
-            PersonAccount Service class
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccountService.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Model.PersonAccountService"/> class
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccountService.#ctor(Rock.Data.IRepository{Rock.Model.PersonAccount})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Model.PersonAccountService"/> class
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccountService.CanDelete(Rock.Model.PersonAccount,System.String@)">
-            <summary>
-            Determines whether this instance can delete the specified item.
-            </summary>
-            <param name="item">The item.</param>
-            <param name="errorMessage">The error message.</param>
-            <returns>
-              <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="T:Rock.Model.PersonAccountExtensionMethods">
-            <summary>
-            Generated Extension Methods
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccountExtensionMethods.Clone(Rock.Model.PersonAccount,System.Boolean)">
-            <summary>
-            Clones this PersonAccount object to a new PersonAccount object
-            </summary>
-            <param name="source">The source.</param>
-            <param name="deepCopy">if set to <c>true</c> a deep copy is made. If false, only the basic entity properties are copied.</param>
-            <returns></returns>
-        </member>
         <member name="T:Rock.Migrations.CreateDatabase">
             <summary>
             
@@ -16499,6 +16491,14 @@
               <c>true</c> if [allow multi select]; otherwise, <c>false</c>.
             </value>
         </member>
+        <member name="P:Rock.Web.UI.Controls.ItemPicker.DefaultText">
+            <summary>
+            Gets or sets the default text.
+            </summary>
+            <value>
+            The default text.
+            </value>
+        </member>
         <member name="P:Rock.Web.UI.Controls.ItemPicker.IsValid">
             <summary>
             Gets a value indicating whether this instance is valid.
@@ -16824,6 +16824,12 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.CategoryPicker"/> class.
             </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.CategoryPicker.OnInit(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+            </summary>
+            <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         </member>
         <member name="M:Rock.Web.UI.Controls.CategoryPicker.SetValue(Rock.Model.Category)">
             <summary>
@@ -20612,7 +20618,7 @@
             PersonMerged Service class
             </summary>
             <summary>
-            Person Trail POCO Service class
+            Person Merged Service class
             </summary>
         </member>
         <member name="M:Rock.Model.PersonMergedService.#ctor">
@@ -20635,25 +20641,25 @@
               <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="M:Rock.Model.PersonMergedService.GetByCurrentId(System.Int32)">
-            <summary>
-            Gets Person Trails by Current Id
-            </summary>
-            <param name="currentId">Current Id.</param>
-            <returns>An enumerable list of PersonMerged objects.</returns>
-        </member>
         <member name="M:Rock.Model.PersonMergedService.Current(System.String)">
             <summary>
-            Get's the current person Guid
+            Currents the specified public key.
             </summary>
             <param name="publicKey">The public key.</param>
             <returns></returns>
         </member>
         <member name="M:Rock.Model.PersonMergedService.Current(System.Int32)">
             <summary>
-            Get's the current person id
+            Currents the specified person id.
             </summary>
-            <param name="id">The id.</param>
+            <param name="personId">The person id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Model.PersonMergedService.Current(System.Guid)">
+            <summary>
+            Currents the specified person GUID.
+            </summary>
+            <param name="personGuid">The person GUID.</param>
             <returns></returns>
         </member>
         <member name="T:Rock.Model.PersonMergedExtensionMethods">
@@ -20829,29 +20835,30 @@
             <param name="includeSelf">if set to <c>true</c> [include self].</param>
             <returns></returns>
         </member>
-        <member name="M:Rock.Model.PersonService.GetByEncryptedID(System.String)">
-            <summary>
-            Gets the by encrypted ID.
-            </summary>
-            <param name="encryptedID">The encrypted ID.</param>
-            <returns></returns>
-        </member>
         <member name="M:Rock.Model.PersonService.Get(System.Int32,System.Boolean)">
             <summary>
             Gets Person by Id
             </summary>
             <param name="id">The id.</param>
-            <param name="followTrail">if set to <c>true</c> follow the merge trail.</param>
+            <param name="followMerges">if set to <c>true</c> follow the merge trail.</param>
             <returns>
             Person object.
             </returns>
+        </member>
+        <member name="M:Rock.Model.PersonService.Get(System.Guid,System.Boolean)">
+            <summary>
+            Gets the specified GUID.
+            </summary>
+            <param name="guid">The GUID.</param>
+            <param name="followMerges">if set to <c>true</c> follow the merge trail.</param>
+            <returns></returns>
         </member>
         <member name="M:Rock.Model.PersonService.GetByEncryptedKey(System.String,System.Boolean)">
             <summary>
             Gets Person by Guid
             </summary>
             <param name="encryptedKey">The encrypted key.</param>
-            <param name="followTrail">if set to <c>true</c> follow the merge trail</param>
+            <param name="followMergeTrail">if set to <c>true</c> follow the merge trail</param>
             <returns>
             Person object.
             </returns>
@@ -20917,7 +20924,7 @@
         </member>
         <member name="T:Rock.Model.PersonMerged">
             <summary>
-            Person Trail POCO Entity.
+            Person Merged POCO Entity.
             </summary>
         </member>
         <member name="M:Rock.Model.PersonMerged.ToString">
@@ -20928,30 +20935,57 @@
             A <see cref="T:System.String"/> that represents this instance.
             </returns>
         </member>
-        <member name="P:Rock.Model.PersonMerged.CurrentId">
+        <member name="P:Rock.Model.PersonMerged.PreviousPersonId">
             <summary>
-            Gets or sets the Current Id.
+            Gets or sets the previous person id.
             </summary>
             <value>
-            Current Id.
+            The previous person id.
             </value>
         </member>
-        <member name="P:Rock.Model.PersonMerged.CurrentGuid">
+        <member name="P:Rock.Model.PersonMerged.PreviousPersonGuid">
             <summary>
-            Gets or sets the Current Guid.
+            Gets or sets the previous person GUID.
             </summary>
             <value>
-            Current Guid.
+            The previous person GUID.
             </value>
         </member>
-        <member name="P:Rock.Model.PersonMerged.CurrentPublicKey">
+        <member name="P:Rock.Model.PersonMerged.NewPersonId">
             <summary>
-            Gets a publicly viewable unique key for the model.
+            Gets or sets the new person id.
             </summary>
+            <value>
+            The new person id.
+            </value>
+        </member>
+        <member name="P:Rock.Model.PersonMerged.NewPersonGuid">
+            <summary>
+            Gets or sets the new person GUID.
+            </summary>
+            <value>
+            The new person GUID.
+            </value>
+        </member>
+        <member name="P:Rock.Model.PersonMerged.PreviousEncryptedKey">
+            <summary>
+            Gets the previous encrypted key.
+            </summary>
+            <value>
+            The previous encrypted key.
+            </value>
+        </member>
+        <member name="P:Rock.Model.PersonMerged.NewEncryptedKey">
+            <summary>
+            Gets the new encrypted key.
+            </summary>
+            <value>
+            The new encrypted key.
+            </value>
         </member>
         <member name="T:Rock.Model.PersonMergedConfiguration">
             <summary>
-            Person Trail Configuration class.
+            Person Merged Configuration class.
             </summary>
         </member>
         <member name="M:Rock.Model.PersonMergedConfiguration.#ctor">
@@ -24626,14 +24660,6 @@
             The attendances.
             </value>
         </member>
-        <member name="P:Rock.Model.Person.PersonAccountLookups">
-            <summary>
-            Gets or sets the PersonAccountLookups.
-            </summary>
-            <value>
-            Collection of PersonAccountLookups.
-            </value>
-        </member>
         <member name="P:Rock.Model.Person.MaritalStatusValue">
             <summary>
             Gets or sets the Marital Status.
@@ -25613,53 +25639,6 @@
         <member name="M:Rock.Model.FinancialGatewayConfiguration.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialGatewayConfiguration"/> class.
-            </summary>
-        </member>
-        <member name="T:Rock.Model.PersonAccount">
-            <summary>
-            PersonAccountLookup POCO class.
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccount.ToString">
-            <summary>
-            Returns a <see cref="T:System.String"/> that represents this instance.
-            </summary>
-            <returns>
-            A <see cref="T:System.String"/> that represents this instance.
-            </returns>
-        </member>
-        <member name="P:Rock.Model.PersonAccount.PersonId">
-            <summary>
-            Gets or sets the person id.
-            </summary>
-            <value>
-            The person id.
-            </value>
-        </member>
-        <member name="P:Rock.Model.PersonAccount.Account">
-            <summary>
-            Gets or sets the account.
-            </summary>
-            <value>
-            The account.
-            </value>
-        </member>
-        <member name="P:Rock.Model.PersonAccount.Person">
-            <summary>
-            Gets or sets the person.
-            </summary>
-            <value>
-            The person.
-            </value>
-        </member>
-        <member name="T:Rock.Model.PersonAccountLookupConfiguration">
-            <summary>
-            PersonAccountLookup Configuration class.
-            </summary>
-        </member>
-        <member name="M:Rock.Model.PersonAccountLookupConfiguration.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Model.PersonAccountLookupConfiguration"/> class.
             </summary>
         </member>
         <member name="T:Rock.Model.FinancialPledge">
@@ -35677,14 +35656,6 @@
             </summary>
             <value>
             the People.
-            </value>
-        </member>
-        <member name="P:Rock.Data.RockContext.PersonAccountLookups">
-            <summary>
-            Gets or sets the person account lookups.
-            </summary>
-            <value>
-            The person account lookups.
             </value>
         </member>
         <member name="P:Rock.Data.RockContext.PersonMerges">

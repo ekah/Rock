@@ -91,7 +91,7 @@ namespace com.ccvonline.Residency.Model
         /// <value>
         /// The residency competency type value id.
         /// </value>
-        [DefinedValue( com.ccvonline.Residency.SystemGuid.DefinedType.RESIDENCY_COMPETENCY_TYPE )]
+        [DefinedValue( com.ccvonline.SystemGuid.DefinedType.RESIDENCY_COMPETENCY_TYPE )]
         public int? CompetencyTypeValueId { get; set; }
 
         #endregion
