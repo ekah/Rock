@@ -14,11 +14,11 @@
                     <asp:Literal ID="lActionTitle" runat="server"></asp:Literal></legend>
                 <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
                 <Rock:CampusPicker ID="cpCampus" runat="server" />
-                <Rock:DataTextBox ID="tbApp" runat="server" SourceTypeName="Rock.Com.CCVOnline.Service.Recording, Rock.Com.CCVOnline" PropertyName="App" />
-                <Rock:DataTextBox ID="tbDate" runat="server" SourceTypeName="Rock.Com.CCVOnline.Service.Recording, Rock.Com.CCVOnline" PropertyName="Date" />
-                <Rock:DataTextBox ID="tbStream" runat="server" SourceTypeName="Rock.Com.CCVOnline.Service.Recording, Rock.Com.CCVOnline" PropertyName="StreamName" />
-                <Rock:DataTextBox ID="tbLabel" runat="server" SourceTypeName="Rock.Com.CCVOnline.Service.Recording, Rock.Com.CCVOnline" PropertyName="Label" />
-                <Rock:DataTextBox ID="tbRecording" runat="server" SourceTypeName="Rock.Com.CCVOnline.Service.Recording, Rock.Com.CCVOnline" PropertyName="RecordingName" />
+                <Rock:DataTextBox ID="tbApp" runat="server" SourceTypeName="com.ccvonline.CommandCenter.Model.Recording, com.ccvonline.CommandCenter" PropertyName="App" />
+                <Rock:DatePicker ID="dpDate" runat="server" SourceTypeName="com.ccvonline.CommandCenter.Model.Recording, com.ccvonline.CommandCenter" PropertyName="Date" />
+                <Rock:DataTextBox ID="tbStream" runat="server" SourceTypeName="com.ccvonline.CommandCenter.Model.Recording, com.ccvonline.CommandCenter" PropertyName="StreamName" />
+                <Rock:DataTextBox ID="tbLabel" runat="server" SourceTypeName="com.ccvonline.CommandCenter.Model.Recording, com.ccvonline.CommandCenter" PropertyName="Label" />
+                <Rock:DataTextBox ID="tbRecording" runat="server" SourceTypeName="com.ccvonline.CommandCenter.Model.Recording, com.ccvonline.CommandCenter" PropertyName="RecordingName" CssClass="input-xlarge" />
                 <Rock:LabeledText ID="lStarted" runat="server" LabelText="Started" />
                 <Rock:LabeledText ID="lStartResponse" runat="server" LabelText="Start Response" />
                 <Rock:LabeledText ID="lStopped" runat="server" LabelText="Stopped" />

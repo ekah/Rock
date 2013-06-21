@@ -11,7 +11,9 @@ using System.Web.UI.WebControls;
 
 using Rock;
 using Rock.Attribute;
+using Rock.Constants;
 using Rock.Data;
+using Rock.Model;
 using Rock.Web.UI;
 using Rock.Web.UI.Controls;
 using com.ccvonline.CommandCenter.Model;
@@ -54,6 +56,9 @@ namespace RockWeb.Plugins.com_ccvonline.CommandCenter
             gRecordings.RowDataBound += gRecordings_RowDataBound;
             gRecordings.RowCommand += gRecordings_RowCommand;
             gRecordings.GridRebind += gRecordings_GridRebind;
+
+            rFilter.ApplyFilterClick += rFilter_ApplyFilterClick;
+            rFilter.DisplayFilterValue += rFilter_DisplayFilterValue;
         }
 
         /// <summary>
@@ -64,6 +69,7 @@ namespace RockWeb.Plugins.com_ccvonline.CommandCenter
         {
             if ( !Page.IsPostBack )
             {
+                BindFilter();
                 BindGrid();
             }
 
@@ -73,6 +79,44 @@ namespace RockWeb.Plugins.com_ccvonline.CommandCenter
         #endregion
 
         #region Grid Events
+
+        void rFilter_DisplayFilterValue( object sender, GridFilter.DisplayFilterValueArgs e )
+        {
+            switch ( e.Key )
+            {
+                case "Campus":
+
+                    int campusId = 0;
+                    if ( int.TryParse( e.Value, out campusId ) )
+                    {
+                        var service = new CampusService();
+                        var campus = service.Get( campusId );
+                        if ( campus != null )
+                        {
+                            e.Value = campus.Name;
+                        }
+                    }
+
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Handles the ApplyFilterClick event of the rFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        void rFilter_ApplyFilterClick( object sender, EventArgs e )
+        {
+            rFilter.SaveUserPreference( "Campus", cpCampus.SelectedValue != All.Id.ToString() ? cpCampus.SelectedValue : string.Empty );
+            rFilter.SaveUserPreference( "From Date", dtStartDate.Text );
+            rFilter.SaveUserPreference( "To Date", dtEndDate.Text );
+            rFilter.SaveUserPreference( "Stream", tbStream.Text );
+            rFilter.SaveUserPreference( "Label", tbLabel.Text );
+            rFilter.SaveUserPreference( "Recording", tbRecording.Text );
+
+            BindGrid();
+        }
 
         /// <summary>
         /// Handles the RowDataBound event of the gRecordings control.
@@ -89,8 +133,26 @@ namespace RockWeb.Plugins.com_ccvonline.CommandCenter
 
                 if ( recording != null && lbStart != null && lbStop != null )
                 {
-                    lbStart.Visible = !recording.StartTime.HasValue && !recording.StopTime.HasValue;
-                    lbStop.Visible = recording.StartTime.HasValue && !recording.StopTime.HasValue;
+                    lbStart.Enabled = !recording.StartTime.HasValue && !recording.StopTime.HasValue;
+                    lbStop.Enabled = recording.StartTime.HasValue && !recording.StopTime.HasValue;
+
+                    if ( lbStart.Enabled )
+                    {
+                        lbStart.RemoveCssClass( "disabled" );
+                    }
+                    else
+                    {
+                        lbStart.AddCssClass( "disabled" );
+                    }
+
+                    if ( lbStop.Enabled )
+                    {
+                        lbStop.RemoveCssClass( "disabled" );
+                    }
+                    else
+                    {
+                        lbStop.AddCssClass( "disabled" );
+                    }
                 }
             }
         }
@@ -177,6 +239,18 @@ namespace RockWeb.Plugins.com_ccvonline.CommandCenter
 
         #region Internal Methods
 
+        private void BindFilter()
+        {
+            cpCampus.Campuses = new CampusService().Queryable().OrderBy( c => c.Name ).ToList();
+            cpCampus.Items.Insert( 0, new ListItem( All.Text, All.IdValue ) );
+            cpCampus.SelectedValue = rFilter.GetUserPreference( "Campus" );
+            dtStartDate.Text = rFilter.GetUserPreference( "From Date" );
+            dtEndDate.Text = rFilter.GetUserPreference( "To Date" );
+            tbStream.Text = rFilter.GetUserPreference( "Stream" );
+            tbLabel.Text = rFilter.GetUserPreference( "Label" );
+            tbRecording.Text = rFilter.GetUserPreference( "Recording" );
+        }
+
         /// <summary>
         /// Binds the grid.
         /// </summary>
@@ -185,13 +259,51 @@ namespace RockWeb.Plugins.com_ccvonline.CommandCenter
             var service = new RecordingService();
             var sortProperty = gRecordings.SortProperty;
 
+            var queryable = new RecordingService().Queryable();
+
+            int campusId = int.MinValue;
+            if ( int.TryParse( rFilter.GetUserPreference( "Campus" ), out campusId ) && campusId > 0 )
+            {
+                queryable = queryable.Where( r => r.CampusId == campusId );
+            }
+
+            DateTime fromDate = DateTime.MinValue;
+            if ( DateTime.TryParse( rFilter.GetUserPreference( "From Date" ), out fromDate ) )
+            {
+                queryable = queryable.Where( r => r.Date >= fromDate );
+            }
+
+            DateTime toDate = DateTime.MinValue;
+            if ( DateTime.TryParse( rFilter.GetUserPreference( "To Date" ), out toDate ) )
+            {
+                queryable = queryable.Where( r => r.Date <= toDate );
+            }
+
+            string stream = rFilter.GetUserPreference("Stream");
+            if ( !string.IsNullOrWhiteSpace( stream ) )
+            {
+                queryable = queryable.Where( r => r.StreamName.StartsWith( stream ) );
+            }
+
+            string label = rFilter.GetUserPreference( "Label" );
+            if ( !string.IsNullOrWhiteSpace( label ) )
+            {
+                queryable = queryable.Where( r => r.Label.StartsWith( label ) );
+            }
+
+            string recording = rFilter.GetUserPreference( "Recording" );
+            if ( !string.IsNullOrWhiteSpace( recording ) )
+            {
+                queryable = queryable.Where( r => r.RecordingName.StartsWith( recording ) );
+            }
+
             if ( sortProperty != null )
             {
-                gRecordings.DataSource = service.Queryable().Sort( sortProperty ).ToList();
+                gRecordings.DataSource = queryable.Sort( sortProperty ).ToList();
             }
             else
             {
-                gRecordings.DataSource = service.Queryable().OrderByDescending( s => s.Date ).ToList();
+                gRecordings.DataSource = queryable.OrderByDescending( s => s.Date ).ToList();
             }
 
             gRecordings.DataBind();
@@ -205,23 +317,30 @@ namespace RockWeb.Plugins.com_ccvonline.CommandCenter
         /// <returns></returns>
         public bool SendRequest( string action, Recording recording )
         {
-            Rock.Net.RockWebResponse response = RecordingService.SendRecordingRequest( recording.App, recording.StreamName, recording.RecordingName, action.ToLower() );
-
-            if ( response != null && response.HttpStatusCode == System.Net.HttpStatusCode.OK )
+            try
             {
+                Rock.Net.RockWebResponse response = RecordingService.SendRecordingRequest( recording.App, recording.StreamName, recording.RecordingName, action.ToLower() );
 
-                if ( action.ToLower() == "start" )
+                if ( response != null && response.HttpStatusCode == System.Net.HttpStatusCode.OK )
                 {
-                    recording.StartTime = DateTime.Now;
-                    recording.StartResponse = RecordingService.ParseResponse( response.Message );
-                }
-                else
-                {
-                    recording.StopTime = DateTime.Now;
-                    recording.StopResponse = RecordingService.ParseResponse( response.Message );
-                }
 
-                return true;
+                    if ( action.ToLower() == "start" )
+                    {
+                        recording.StartTime = DateTime.Now;
+                        recording.StartResponse = RecordingService.ParseResponse( response.Message );
+                    }
+                    else
+                    {
+                        recording.StopTime = DateTime.Now;
+                        recording.StopResponse = RecordingService.ParseResponse( response.Message );
+                    }
+
+                    return true;
+                }
+            }
+            catch( System.Exception ex )
+            {
+                mdGridWarning.Show( ex.Message, ModalAlertType.Alert );
             }
 
             return false;
