@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
+using System.Linq;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
 using Rock;
@@ -128,12 +129,18 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             Track track;
             ResidencyService<Track> trackService = new ResidencyService<Track>();
 
-            int trackId = int.Parse( hfTrackId.Value );
+            int trackId = hfTrackId.ValueAsInt();
+            int periodId = hfPeriodId.ValueAsInt();
 
             if ( trackId == 0 )
             {
                 track = new Track();
                 trackService.Add( track, CurrentPersonId );
+
+                int maxDisplayOrder = trackService.Queryable()
+                        .Where( a => a.PeriodId.Equals( periodId ) )
+                        .Select( a => a.DisplayOrder ).DefaultIfEmpty( 0 ).Max();
+                track.DisplayOrder = maxDisplayOrder + 1;
             }
             else
             {
@@ -142,7 +149,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             track.Name = tbName.Text;
             track.Description = tbDescription.Text;
-            track.PeriodId = hfPeriodId.ValueAsInt();
+            track.PeriodId = periodId;
 
             if ( !track.IsValid )
             {

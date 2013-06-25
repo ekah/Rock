@@ -148,13 +148,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
             else
             {
-                qry = qry.OrderBy( s => s.Project.Name );
+                qry = qry.OrderBy( s => s.Project.Name ).ThenBy( s => s.Project.Description );
             }
 
             var list = qry.Select( a => new
             {
                 Id = a.Id,
                 Name = a.Project.Name,
+                Description = a.Project.Description,
                 MinAssignmentCount = a.MinAssignmentCount,
                 CurrentCompleted = a.CompetencyPersonProjectAssignments.Where( b => b.CompletedDateTime != null ).Count()
             } ).ToList();

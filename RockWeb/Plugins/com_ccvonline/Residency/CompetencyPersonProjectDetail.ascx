@@ -43,9 +43,6 @@
                     <div class="row-fluid">
                         <asp:Literal ID="lblMainDetails" runat="server" />
                     </div>
-                    <div class="actions">
-                        <asp:LinkButton ID="btnEdit" runat="server" Text="Edit" CssClass="btn btn-primary btn-mini" OnClick="btnEdit_Click" />
-                    </div>
                 </div>
 
             </fieldset>

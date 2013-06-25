@@ -18,15 +18,13 @@
                     </legend>
 
                     <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
-
-                    <Rock:LabeledText ID="lblResident" runat="server" LabelText="Resident" />
-                    <Rock:LabeledText ID="lblCompetency" runat="server" LabelText="Competency" />
-                    <Rock:LabeledText ID="lblProjectName" runat="server" LabelText="Project" />
-                    <Rock:LabeledText ID="lblAssessor" runat="server" LabelText="Assessor" />
-                    <Rock:LabeledText ID="lblAssessmentOrder" runat="server" LabelText="Assessment #" />
-                    <Rock:LabeledText ID="lblAssessmentText" runat="server" LabelText="Assessment Text" />
-                    <Rock:NumberBox ID="tbRating" runat="server" LabelText="Rating" MaximumValue="5" MinimumValue="1" />
-                    <Rock:DataTextBox ID="tbRatingNotes" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProjectAssignmentAssessmentPointOfAssessment, com.ccvonline.Residency" PropertyName="RatingNotes" TextMode="MultiLine" Rows="3" />
+                    <div class="row-fluid">
+                        <asp:Literal runat="server" ID="lblMainDetails" />
+                    </div>
+                    <div class="row-fluid">
+                        <Rock:NumberBox ID="tbRating" runat="server" LabelText="Rating" MaximumValue="5" MinimumValue="1" />
+                        <Rock:DataTextBox ID="tbRatingNotes" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProjectAssignmentAssessmentPointOfAssessment, com.ccvonline.Residency" PropertyName="RatingNotes" TextMode="MultiLine" Rows="3" />
+                    </div>
                 </fieldset>
 
                 <div class="actions">

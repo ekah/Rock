@@ -148,7 +148,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
             else
             {
-                qry = qry.OrderBy( s => s.CompetencyPersonProject.Project.Name );
+                qry = qry.OrderBy( s => s.CompetencyPersonProject.Project.Name ).ThenBy( s => s.CompetencyPersonProject.Project.Description );
             }
 
             gList.DataSource = qry.ToList();

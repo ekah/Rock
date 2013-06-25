@@ -31,13 +31,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             gList.Actions.ShowAdd = true;
             gList.Actions.AddClick += gList_Add;
             gList.GridRebind += gList_GridRebind;
+            gList.GridReorder += gList_GridReorder;
 
             // Block Security and special attributes (RockPage takes care of "View")
             bool canAddEditDelete = IsUserAuthorized( "Edit" );
             gList.Actions.ShowAdd = canAddEditDelete;
             gList.IsDeleteEnabled = canAddEditDelete;
         }
-
+        
         /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Load" /> event.
         /// </summary>
@@ -57,6 +58,69 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         #endregion
 
         #region Grid Events
+
+        /// <summary>
+        /// Handles the GridReorder event of the gList control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridReorderEventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        void gList_GridReorder( object sender, GridReorderEventArgs e )
+        {
+            int oldIndex = e.OldIndex;
+            int newIndex = e.NewIndex;
+            int periodId = hfPeriodId.ValueAsInt();
+
+            var trackService = new ResidencyService<Track>();
+            var items = trackService.Queryable()
+                .Where( a => a.PeriodId.Equals( periodId ) )
+                .OrderBy( a => a.DisplayOrder ).ToList();
+
+            RockTransactionScope.WrapTransaction( () =>
+            {
+                Track movedItem = items[oldIndex];
+                items.RemoveAt( oldIndex );
+                if ( newIndex >= items.Count )
+                {
+                    items.Add( movedItem );
+                }
+                else
+                {
+                    items.Insert( newIndex, movedItem );
+                }
+
+                int order = 1;
+                foreach ( Track item in items )
+                {
+                    if ( item != null )
+                    {
+                        if ( item.DisplayOrder != order )
+                        {
+                            // temporarily, set the order to negative in case another row has this value.
+                            item.DisplayOrder = -order;
+                            trackService.Save( item, CurrentPersonId );
+                        }
+                    }
+
+                    order++;
+                }
+
+                foreach ( Track item in items )
+                {
+                    if ( item != null )
+                    {
+                        if ( item.DisplayOrder < 0 )
+                        {
+                            // update the value back to positive now that all the rows have their new order
+                            item.DisplayOrder = -item.DisplayOrder;
+                            trackService.Save( item, CurrentPersonId );
+                        }
+                    }
+                }
+            } );
+
+            BindGrid();
+        }
 
         /// <summary>
         /// Handles the Add event of the gList control.
@@ -148,7 +212,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
             else
             {
-                qry = qry.OrderBy( s => s.Name );
+                qry = qry.OrderBy( s => s.DisplayOrder ).ThenBy( s => s.Name );
             }
 
             gList.DataSource = qry.ToList();
