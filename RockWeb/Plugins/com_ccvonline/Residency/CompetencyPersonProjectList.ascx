@@ -4,7 +4,7 @@
     <ContentTemplate>
         <Rock:ModalAlert ID="mdGridWarning" runat="server" />
         <asp:HiddenField ID="hfCompetencyPersonId" runat="server" />
-        <Rock:Grid ID="gList" runat="server" AllowSorting="true" OnRowSelected="gList_Edit" DataKeyNames="Id" RowItemText="Competency" >
+        <Rock:Grid ID="gList" runat="server" AllowSorting="true" OnRowSelected="gList_Edit" DataKeyNames="Id" RowItemText="Project" >
             <Columns>
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
