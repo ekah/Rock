@@ -71,6 +71,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             hfCompetencyPersonId.Value = itemKeyValue.ToString();
 
             CompetencyPerson competencyPerson = new ResidencyService<CompetencyPerson>().Get(hfCompetencyPersonId.ValueAsInt());
+
+            if ( competencyPerson.PersonId != CurrentPersonId )
+            {
+                // somebody besides the Resident is logged in
+                NavigateToParentPage();
+                return;
+            }
+
             lblCompetencyName.Text = competencyPerson.Competency.Name;
             lblFacilitator.Text = competencyPerson.Competency.FacilitatorPerson != null ? competencyPerson.Competency.FacilitatorPerson.FullName : Rock.Constants.None.TextHtml;
             lblDescription.Text = !string.IsNullOrWhiteSpace( competencyPerson.Competency.Description ) ? competencyPerson.Competency.Description : Rock.Constants.None.TextHtml;

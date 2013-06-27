@@ -71,6 +71,13 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             CompetencyPersonProject competencyPersonProject = new ResidencyService<CompetencyPersonProject>().Get( itemKeyValue );
 
+            if ( competencyPersonProject.CompetencyPerson.PersonId != CurrentPersonId )
+            {
+                // somebody besides the Resident is logged in
+                NavigateToParentPage();
+                return;
+            }
+
             hfCompetencyPersonProjectId.Value = competencyPersonProject.Id.ToString();
 
             ShowReadonlyDetails( competencyPersonProject );
