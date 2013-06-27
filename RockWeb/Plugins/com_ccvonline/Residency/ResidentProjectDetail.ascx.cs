@@ -23,7 +23,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// 
     /// </summary>
     [LinkedPage( "Resident Competency Page" )]
-    [LinkedPage( "Grade Page" )]
+    [LinkedPage( "Grade Request Page" )]
     public partial class ResidentProjectDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -111,12 +111,12 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void btnGrade_Click( object sender, EventArgs e )
         {
-            string gradePageGuid = this.GetAttributeValue( "GradePage" );
-            if ( !string.IsNullOrWhiteSpace( gradePageGuid ) )
+            string gradeRequestPageGuid = this.GetAttributeValue( "GradeRequestPage" );
+            if ( !string.IsNullOrWhiteSpace( gradeRequestPageGuid ) )
             {
                 Dictionary<string, string> queryString = new Dictionary<string, string>();
                 queryString.Add("competencyPersonProjectId", hfCompetencyPersonProjectId.Value);
-                var page = new PageService().Get( new Guid( gradePageGuid ) );
+                var page = new PageService().Get( new Guid( gradeRequestPageGuid ) );
                 NavigateToPage( page.Guid, queryString );
             }
         }

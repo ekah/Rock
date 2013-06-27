@@ -77,10 +77,13 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             var competencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
             int competencyPersonProjectId = hfCompetencyPersonProjectId.ValueAsInt();
             CompetencyPersonProject competencyPersonProject = competencyPersonProjectService.Get( competencyPersonProjectId );
-            
-            gList.DataSource = competencyPersonProject.Project.ProjectPointOfAssessments
-                .OrderBy( s => s.AssessmentOrder ).ToList();
-            gList.DataBind();
+
+            if ( competencyPersonProject != null )
+            {
+                gList.DataSource = competencyPersonProject.Project.ProjectPointOfAssessments
+                    .OrderBy( s => s.AssessmentOrder ).ToList();
+                gList.DataBind();
+            }
         }
 
         #endregion

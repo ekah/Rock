@@ -6,8 +6,6 @@
         <asp:HiddenField ID="hfCompetencyPersonProjectId" runat="server" />
         <Rock:Grid ID="gList" runat="server" AllowSorting="true" OnRowSelected="gList_Edit" DataKeyNames="Id" RowItemText="Project Assignment">
             <Columns>
-                <asp:BoundField DataField="CompetencyPersonProject.Project.Name" HeaderText="Project" SortExpression="CompetencyPersonProject.Project.Name" />
-                <asp:BoundField DataField="CompetencyPersonProject.Project.Description" HeaderText="Project" SortExpression="CompetencyPersonProject.Project.Description" />
                 <asp:BoundField DataField="AssessorPerson.FullName" HeaderText="Assessor" SortExpression="AssessorPerson.FullName" />
                 <Rock:DateTimeField DataField="CompletedDateTime" HeaderText="Completed" SortExpression="CompletedDateTime" />
                 <Rock:DeleteField OnClick="gList_Delete" />
