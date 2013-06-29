@@ -24,7 +24,7 @@
                     </div>
                     <div class="row-fluid">
                         <Rock:DateTimePicker ID="dtpAssessmentDateTime" runat="server" LabelText="Assessment Date/Time" Required="true" />
-                        <Rock:NumberBox ID="tbRating" runat="server" LabelText="Rating" MaximumValue="5" MinimumValue="1" />
+                        <Rock:LabeledText ID="lblOverallRating" runat="server" LabelText="Overall Rating" />
                         <Rock:DataTextBox ID="tbRatingNotes" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProjectAssignmentAssessment, com.ccvonline.Residency" PropertyName="RatingNotes" TextMode="MultiLine" Rows="3" />
                         <Rock:DataTextBox ID="tbResidentComments" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProjectAssignmentAssessment, com.ccvonline.Residency" PropertyName="ResidentComments" TextMode="MultiLine" Rows="3" />
                     </div>

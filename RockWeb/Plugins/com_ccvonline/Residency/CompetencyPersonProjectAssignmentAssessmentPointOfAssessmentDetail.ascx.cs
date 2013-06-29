@@ -106,6 +106,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             RockTransactionScope.WrapTransaction( () =>
             {
                 competencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Save( competencyPersonProjectAssignmentAssessmentPointOfAssessment, CurrentPersonId );
+
+                // get the CompetencyPersonProjectAssignmentAssessment using the same dbContext 
+                var competencyPersonProjectAssignmentAssessmentService = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>( competencyPersonProjectAssignmentAssessmentPointOfAssessmentService.ResidencyContext );
+                CompetencyPersonProjectAssignmentAssessment competencyPersonProjectAssignmentAssessment = competencyPersonProjectAssignmentAssessmentService.Get( competencyPersonProjectAssignmentAssessmentId );
+
+                // set Overall Rating based on average of POA ratings
+                competencyPersonProjectAssignmentAssessment.OverallRating = (decimal?)competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentAssessmentPointOfAssessments.Average( a => a.Rating );
+                competencyPersonProjectAssignmentAssessmentService.Save( competencyPersonProjectAssignmentAssessment, CurrentPersonId );
             } );
 
             if ( competencyPersonProjectAssignmentAssessmentId != 0 )

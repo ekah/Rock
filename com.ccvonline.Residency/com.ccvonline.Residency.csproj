@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201306192250413_RenamePluginFolder.Designer.cs">
       <DependentUpon>201306192250413_RenamePluginFolder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306282130325_AssessmentOverallRatingColumn.cs" />
+    <Compile Include="Migrations\201306282130325_AssessmentOverallRatingColumn.Designer.cs">
+      <DependentUpon>201306282130325_AssessmentOverallRatingColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Competency.cs" />
     <Compile Include="Model\CompetencyPerson.cs" />
@@ -129,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306192250413_RenamePluginFolder.resx">
       <DependentUpon>201306192250413_RenamePluginFolder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306282130325_AssessmentOverallRatingColumn.resx">
+      <DependentUpon>201306282130325_AssessmentOverallRatingColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

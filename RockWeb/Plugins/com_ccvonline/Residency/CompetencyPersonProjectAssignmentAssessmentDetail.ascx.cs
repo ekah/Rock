@@ -142,7 +142,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId = hfCompetencyPersonProjectAssignmentId.ValueAsInt();
             competencyPersonProjectAssignmentAssessment.AssessmentDateTime = dtpAssessmentDateTime.SelectedDateTime;
-            competencyPersonProjectAssignmentAssessment.Rating = tbRating.Text.AsInteger();
             competencyPersonProjectAssignmentAssessment.RatingNotes = tbRatingNotes.Text;
             competencyPersonProjectAssignmentAssessment.ResidentComments = tbResidentComments.Text;
 
@@ -260,7 +259,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 .Html;
 
             dtpAssessmentDateTime.SelectedDateTime = competencyPersonProjectAssignmentAssessment.AssessmentDateTime;
-            tbRating.Text = competencyPersonProjectAssignmentAssessment.Rating.ToString();
+            lblOverallRating.Text = competencyPersonProjectAssignmentAssessment.OverallRating.ToString();
             tbRatingNotes.Text = competencyPersonProjectAssignmentAssessment.RatingNotes;
             tbResidentComments.Text = competencyPersonProjectAssignmentAssessment.ResidentComments;
         }
@@ -291,11 +290,10 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 .Add( "Assessor", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson )
                 .Add( "Assessment Date/Time", competencyPersonProjectAssignmentAssessment.AssessmentDateTime )
                 .StartSecondColumn()
-                .Add( "Rating", competencyPersonProjectAssignmentAssessment.Rating )
+                .Add( "Rating", competencyPersonProjectAssignmentAssessment.OverallRating.ToString() )
                 .Add( "Competency", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Name )
                 .Add( "Track", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Track.Name )
                 .Add( "Period", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Track.Period.Name )
-
                 .Html;
         }
 

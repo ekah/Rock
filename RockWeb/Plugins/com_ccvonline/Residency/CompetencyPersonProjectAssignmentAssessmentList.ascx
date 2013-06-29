@@ -7,7 +7,7 @@
         <Rock:Grid ID="gList" runat="server" AllowSorting="true" OnRowSelected="gList_Edit" DataKeyNames="Id" RowItemText="Assessment" >
             <Columns>
                 <Rock:DateTimeField DataField="AssessmentDateTime" HeaderText="Assessment Date/Time" SortExpression="AssessmentDateTime" />
-                <asp:BoundField DataField="Rating" HeaderText="Rating" SortExpression="Rating" />
+                <asp:BoundField DataField="OverallRating" HeaderText="Rating" SortExpression="OverallRating" />
                 <Rock:DeleteField OnClick="gList_Delete" />
             </Columns>
         </Rock:Grid>

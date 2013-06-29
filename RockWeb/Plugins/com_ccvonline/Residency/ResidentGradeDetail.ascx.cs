@@ -24,6 +24,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
+    [LinkedPage( "Person Project Detail Page" )]
     public partial class ResidentGradeDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -40,6 +41,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             {
                 ShowDetail( "competencyPersonProjectId", hfCompetencyPersonProjectId.ValueAsInt() );
             }
+
+            // minimize the chance of using the Browser Back button to accidently "re-grade" the project after the residentGraderSessionKey has expired
+            Page.Response.Cache.SetCacheability( System.Web.HttpCacheability.NoCache );
+            Page.Response.Cache.SetExpires( DateTime.UtcNow.AddHours( -1 ) );
+            Page.Response.Cache.SetNoStore();
         }
 
         #endregion
@@ -73,26 +79,117 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnSave_Click( object sender, EventArgs e )
         {
-            //todo navigate to Parent.Parent???
+            CompetencyPersonProjectAssignment competencyPersonProjectAssignment;
+            ResidencyService<CompetencyPersonProjectAssignment> competencyPersonProjectAssignmentService = new ResidencyService<CompetencyPersonProjectAssignment>();
 
-            Dictionary<string, string> qryString = new Dictionary<string, string>();
-            qryString["competencyPersonProjectId"] = hfCompetencyPersonProjectId.Value;
-            //NavigateToParentPage( qryString );
-        }
+            CompetencyPersonProjectAssignmentAssessment competencyPersonProjectAssignmentAssessment;
+            ResidencyService<CompetencyPersonProjectAssignmentAssessment> competencyPersonProjectAssignmentAssessmentService = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>();
 
-        /// <summary>
-        /// Loads the drop downs.
-        /// </summary>
-        private void LoadDropDowns()
-        {
-            ddlRatingOverall.Items.Clear();
-            ddlRatingOverall.Items.Add( new ListItem( "-", "0" ) );
-            for ( int ratingOption = 1; ratingOption <= 5; ratingOption++ )
+            ResidencyService<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment> competencyPersonProjectAssignmentAssessmentPointOfAssessmentService = new ResidencyService<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>();
+
+            int competencyPersonProjectId = hfCompetencyPersonProjectId.ValueAsInt();
+            int competencyPersonProjectAssignmentId = hfCompetencyPersonProjectAssignmentId.ValueAsInt();
+            if ( competencyPersonProjectAssignmentId == 0 )
             {
-                ddlRatingOverall.Items.Add( ratingOption.ToString() );
+                competencyPersonProjectAssignment = new CompetencyPersonProjectAssignment();
+                competencyPersonProjectAssignmentService.Add( competencyPersonProjectAssignment, CurrentPersonId );
+            }
+            else
+            {
+                competencyPersonProjectAssignment = competencyPersonProjectAssignmentService.Get( competencyPersonProjectAssignmentId );
             }
 
-            ddlRatingOverall.SelectedIndex = 0;
+            competencyPersonProjectAssignment.CompetencyPersonProjectId = competencyPersonProjectId;
+            competencyPersonProjectAssignment.AssessorPersonId = hfAssessorPersonId.ValueAsInt();
+            competencyPersonProjectAssignment.CompletedDateTime = competencyPersonProjectAssignment.CompletedDateTime ?? DateTime.Now;
+
+            int competencyPersonProjectAssignmentAssessmentId = hfCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt();
+            if ( competencyPersonProjectAssignmentAssessmentId == 0 )
+            {
+                competencyPersonProjectAssignmentAssessment = new CompetencyPersonProjectAssignmentAssessment();
+                competencyPersonProjectAssignmentAssessmentService.Add( competencyPersonProjectAssignmentAssessment, CurrentPersonId );
+            }
+            else
+            {
+                competencyPersonProjectAssignmentAssessment = competencyPersonProjectAssignmentAssessmentService.Get( competencyPersonProjectAssignmentAssessmentId );
+                competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentAssessmentPointOfAssessments = new List<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>();
+            }
+
+            // set competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId after saving competencyPersonProjectAssignment in case it is new
+            competencyPersonProjectAssignmentAssessment.AssessmentDateTime = DateTime.Now;
+            competencyPersonProjectAssignmentAssessment.RatingNotes = tbRatingNotesOverall.Text;
+            //competencyPersonProjectAssignmentAssessment.ResidentComments = tbResidentComments.Text;
+
+            if ( !competencyPersonProjectAssignmentAssessment.IsValid )
+            {
+                // Controls will render the error messages
+                return;
+            }
+
+            List<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment> competencyPersonProjectAssignmentAssessmentPointOfAssessmentList = new List<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>();
+
+            foreach ( RepeaterItem item in rptPointOfAssessment.Items.OfType<RepeaterItem>() )
+            {
+                HiddenField hfProjectPointOfAssessmentId = item.FindControl( "hfProjectPointOfAssessmentId" ) as HiddenField;
+                int projectPointOfAssessmentId = hfProjectPointOfAssessmentId.ValueAsInt();
+
+                CompetencyPersonProjectAssignmentAssessmentPointOfAssessment competencyPersonProjectAssignmentAssessmentPointOfAssessment = competencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Queryable()
+                    .Where( a => a.ProjectPointOfAssessmentId == projectPointOfAssessmentId )
+                    .Where( a => a.CompetencyPersonProjectAssignmentAssessmentId == competencyPersonProjectAssignmentAssessmentId ).FirstOrDefault();
+
+                if ( competencyPersonProjectAssignmentAssessmentPointOfAssessment == null )
+                {
+                    competencyPersonProjectAssignmentAssessmentPointOfAssessment = new CompetencyPersonProjectAssignmentAssessmentPointOfAssessment();
+                    // set competencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessmentId = competencyPersonProjectAssignmentAssessment.Id in save in case it's new
+                    competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessmentId = projectPointOfAssessmentId;
+                    
+                }
+
+                LabeledDropDownList ddlPointOfAssessmentRating = item.FindControl( "ddlPointOfAssessmentRating" ) as LabeledDropDownList;
+                TextBox tbRatingNotesPOA = item.FindControl( "tbRatingNotesPOA" ) as TextBox;
+
+                competencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating = ddlPointOfAssessmentRating.SelectedValueAsInt();
+                competencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingNotes = tbRatingNotesPOA.Text;
+
+                competencyPersonProjectAssignmentAssessmentPointOfAssessmentList.Add( competencyPersonProjectAssignmentAssessmentPointOfAssessment );
+            }
+
+
+            RockTransactionScope.WrapTransaction( () =>
+            {
+                competencyPersonProjectAssignmentService.Save( competencyPersonProjectAssignment, CurrentPersonId );
+                competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId = competencyPersonProjectAssignment.Id;
+
+                // set Overall Rating based on average of POA ratings
+                competencyPersonProjectAssignmentAssessment.OverallRating = (decimal?)competencyPersonProjectAssignmentAssessmentPointOfAssessmentList.Average( a => a.Rating );
+                competencyPersonProjectAssignmentAssessmentService.Save( competencyPersonProjectAssignmentAssessment, CurrentPersonId );
+
+                foreach ( var competencyPersonProjectAssignmentAssessmentPointOfAssessment in competencyPersonProjectAssignmentAssessmentPointOfAssessmentList )
+                {
+                    competencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessmentId = competencyPersonProjectAssignmentAssessment.Id;
+
+                    if ( competencyPersonProjectAssignmentAssessmentPointOfAssessment.Id == 0 )
+                    {
+                        competencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Add( competencyPersonProjectAssignmentAssessmentPointOfAssessment, CurrentPersonId );
+                    }
+
+                    competencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Save( competencyPersonProjectAssignmentAssessmentPointOfAssessment, CurrentPersonId );
+                }
+
+            } );
+
+            string personProjectDetailPageGuid = this.GetAttributeValue( "PersonProjectDetailPage" );
+            var page = new PageService().Get( new Guid( personProjectDetailPageGuid ) );
+            if ( page != null )
+            {
+                Dictionary<string, string> qryString = new Dictionary<string, string>();
+                qryString["competencyPersonProjectId"] = hfCompetencyPersonProjectId.Value;
+                NavigateToPage( page.Guid, qryString );
+            }
+            else
+            {
+                throw new Exception( "PersonProjectDetailPage not configured correctly" );
+            }
         }
 
         /// <summary>
@@ -110,12 +207,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             pnlDetails.Visible = true;
 
-            LoadDropDowns();
-
             hfCompetencyPersonProjectId.Value = this.PageParameter( "competencyPersonProjectId" );
             int competencyPersonProjectId = hfCompetencyPersonProjectId.ValueAsInt();
 
             string encryptedKey = Session["residentGraderSessionKey"] as string;
+
+            // clear the residentGraderSessionKey so they don't accidently grade this again with a stale grader login
+            Session["residentGraderSessionKey"] = null;
+
             string residentGraderSessionKey = string.Empty;
 
             if ( !string.IsNullOrWhiteSpace( encryptedKey ) )
@@ -149,6 +248,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             int assessorPersonId = assessorPerson.Id;
+            hfAssessorPersonId.Value = assessorPerson.Id.ToString();
 
             CompetencyPersonProject competencyPersonProject = new ResidencyService<CompetencyPersonProject>().Get( competencyPersonProjectId );
 
@@ -175,6 +275,8 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     CompletedDateTime = null
                 };
             }
+
+            hfCompetencyPersonProjectAssignmentId.Value = competencyPersonProjectAssignment.Id.ToString();
 
             competencyPersonProjectAssignment.CompetencyPersonProjectAssignmentAssessments = competencyPersonProjectAssignment.CompetencyPersonProjectAssignmentAssessments ?? new List<CompetencyPersonProjectAssignmentAssessment>();
 
@@ -211,6 +313,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                                                                                          from qryResult in groupJoin.DefaultIfEmpty()
                                                                                          select ( qryResult ?? new CompetencyPersonProjectAssignmentAssessmentPointOfAssessment
                                                                                            {
+                                                                                               ProjectPointOfAssessmentId = projectPointOfAssessment.Id,
                                                                                                ProjectPointOfAssessment = projectPointOfAssessment,
                                                                                                CompetencyPersonProjectAssignmentAssessmentId = competencyPersonProjectAssignmentAssessment.Id,
                                                                                                CompetencyPersonProjectAssignmentAssessment = competencyPersonProjectAssignmentAssessment
@@ -219,7 +322,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             rptPointOfAssessment.DataSource = competencyPersonProjectAssignmentAssessmentPointOfAssessmentListJoined.OrderBy( a => a.ProjectPointOfAssessment.AssessmentOrder ).ToList();
             rptPointOfAssessment.DataBind();
 
-            ddlRatingOverall.SetValue(competencyPersonProjectAssignmentAssessment.Rating.ToString());
             tbRatingNotesOverall.Text = competencyPersonProjectAssignmentAssessment.RatingNotes;
         }
 
@@ -235,16 +337,19 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             {
                 LabeledDropDownList ddlPointOfAssessmentRating = e.Item.FindControl( "ddlPointOfAssessmentRating" ) as LabeledDropDownList;
                 ddlPointOfAssessmentRating.Items.Clear();
-                ddlPointOfAssessmentRating.Items.Add( new ListItem( "-", "0" ) );
+                ddlPointOfAssessmentRating.Items.Add( new ListItem( "-", Rock.Constants.None.IdValue ) );
                 for ( int ratingOption = 1; ratingOption <= 5; ratingOption++ )
                 {
                     ddlPointOfAssessmentRating.Items.Add( new ListItem( ratingOption.ToString(), ratingOption.ToString() ) );
                 }
 
-                ddlPointOfAssessmentRating.SetValue(competencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating.ToString());
+                ddlPointOfAssessmentRating.SetValue( competencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating.ToString() );
+                HiddenField hfProjectPointOfAssessmentId = e.Item.FindControl( "hfProjectPointOfAssessmentId" ) as HiddenField;
+
+                hfProjectPointOfAssessmentId.Value = competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessmentId.ToString();
 
                 Literal lblAssessmentText = e.Item.FindControl( "lblAssessmentText" ) as Literal;
-                lblAssessmentText.Text = string.Format( 
+                lblAssessmentText.Text = string.Format(
                     "{0}. {1}",
                     competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment.AssessmentOrder,
                     competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment.AssessmentText );

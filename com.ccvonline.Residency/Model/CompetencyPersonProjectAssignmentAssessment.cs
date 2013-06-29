@@ -48,7 +48,7 @@ namespace com.ccvonline.Residency.Model
         /// The rating.
         /// </value>
         [DataMember]
-        public int? Rating { get; set; }
+        public decimal? OverallRating { get; set; }
 
         /// <summary>
         /// Gets or sets the rating notes.
@@ -80,6 +80,14 @@ namespace com.ccvonline.Residency.Model
         /// </value>
         public virtual CompetencyPersonProjectAssignment CompetencyPersonProjectAssignment { get; set; }
 
+        /// <summary>
+        /// Gets or sets the competency person project assignment assessment point of assessments.
+        /// </summary>
+        /// <value>
+        /// The competency person project assignment assessment point of assessments.
+        /// </value>
+        public virtual List<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment> CompetencyPersonProjectAssignmentAssessmentPointOfAssessments { get; set; }
+
         #endregion
     }
 
@@ -94,6 +102,9 @@ namespace com.ccvonline.Residency.Model
         public CompetencyPersonProjectAssignmentAssessmentConfiguration()
         {
             this.HasRequired( a => a.CompetencyPersonProjectAssignment ).WithMany( a => a.CompetencyPersonProjectAssignmentAssessments ).HasForeignKey( a => a.CompetencyPersonProjectAssignmentId ).WillCascadeOnDelete( false );
+            
+            // limit OverallRating to one decimal point
+            this.Property( m => m.OverallRating ).HasPrecision( 2, 1 );
         }
     }
 }

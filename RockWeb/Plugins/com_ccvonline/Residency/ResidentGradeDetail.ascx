@@ -8,7 +8,9 @@
         <asp:Panel ID="pnlDetails" runat="server">
 
             <asp:HiddenField ID="hfCompetencyPersonProjectId" runat="server" />
+            <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentId" runat="server" />
             <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentAssessmentId" runat="server" />
+            <asp:HiddenField ID="hfAssessorPersonId" runat="server" />
 
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="alert alert-error" />
             <Rock:NotificationBox ID="nbWarningMessage" runat="server" NotificationBoxType="Warning" />
@@ -34,6 +36,7 @@
                             </div>
                             <div class="span11">
                                 <div class="row-fluid">
+                                    <asp:HiddenField ID="hfProjectPointOfAssessmentId" runat="server" />
                                     <asp:Literal ID="lblAssessmentText" runat="server" />
                                     <Rock:LabeledTextBox ID="tbRatingNotesPOA" runat="server" CssClass="input-xxlarge" TextMode="MultiLine" Rows="4" LabelText="Instructor Notes" />
                                 </div>
@@ -42,7 +45,6 @@
                     </ItemTemplate>
                 </asp:Repeater>
 
-                <Rock:LabeledDropDownList ID="ddlRatingOverall" runat="server" LabelText="Overall Rating" />
                 <Rock:LabeledTextBox ID="tbRatingNotesOverall" runat="server" CssClass="input-xxlarge" TextMode="MultiLine" Rows="4" LabelText="Evaluation Notes" />
 
             </fieldset>
@@ -51,8 +53,6 @@
                 <asp:LinkButton ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="btnSave_Click" />
                 <asp:LinkButton ID="btnCancel" runat="server" Text="Cancel" CssClass="btn" CausesValidation="false" OnClick="btnCancel_Click" />
             </div>
-
-
 
         </asp:Panel>
     </ContentTemplate>
