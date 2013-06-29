@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
 using Rock;
@@ -36,6 +38,10 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             bool canAddEditDelete = IsUserAuthorized( "Edit" );
             gList.Actions.ShowAdd = canAddEditDelete;
             gList.IsDeleteEnabled = canAddEditDelete;
+
+            Dictionary<string, BoundField> boundFields = gList.Columns.OfType<BoundField>().ToDictionary( a => a.DataField );
+            boundFields["AssessorPerson.FullName"].NullDisplayText = Rock.Constants.None.TextHtml;
+            boundFields["CompletedDateTime"].NullDisplayText = "not completed";
         }
 
         /// <summary>
@@ -148,7 +154,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
             else
             {
-                qry = qry.OrderBy( s => s.CompetencyPersonProject.Project.Name );
+                qry = qry.OrderBy( s => s.CompletedDateTime ).ThenBy( s => s.AssessorPerson );
             }
 
             gList.DataSource = qry.ToList();

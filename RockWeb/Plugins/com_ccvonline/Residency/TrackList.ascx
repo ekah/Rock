@@ -4,8 +4,9 @@
     <ContentTemplate>
         <Rock:ModalAlert ID="mdGridWarning" runat="server" />
         <asp:HiddenField ID="hfPeriodId" runat="server" />
-        <Rock:Grid ID="gList" runat="server" AllowSorting="true" OnRowSelected="gList_Edit" DataKeyNames="Id" >
+        <Rock:Grid ID="gList" runat="server" AllowSorting="false" OnRowSelected="gList_Edit" DataKeyNames="Id" >
             <Columns>
+                <Rock:ReorderField />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                 <Rock:DeleteField OnClick="gList_Delete" />
             </Columns>

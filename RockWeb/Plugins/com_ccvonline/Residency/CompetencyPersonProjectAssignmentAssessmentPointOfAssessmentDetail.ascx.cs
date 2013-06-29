@@ -14,6 +14,7 @@ using Rock.Attribute;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
+using Rock.Web;
 using Rock.Web.UI;
 
 namespace RockWeb.Plugins.com_ccvonline.Residency
@@ -105,6 +106,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             RockTransactionScope.WrapTransaction( () =>
             {
                 competencyPersonProjectAssignmentAssessmentPointOfAssessmentService.Save( competencyPersonProjectAssignmentAssessmentPointOfAssessment, CurrentPersonId );
+
+                // get the CompetencyPersonProjectAssignmentAssessment using the same dbContext 
+                var competencyPersonProjectAssignmentAssessmentService = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>( competencyPersonProjectAssignmentAssessmentPointOfAssessmentService.ResidencyContext );
+                CompetencyPersonProjectAssignmentAssessment competencyPersonProjectAssignmentAssessment = competencyPersonProjectAssignmentAssessmentService.Get( competencyPersonProjectAssignmentAssessmentId );
+
+                // set Overall Rating based on average of POA ratings
+                competencyPersonProjectAssignmentAssessment.OverallRating = (decimal?)competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentAssessmentPointOfAssessments.Average( a => a.Rating );
+                competencyPersonProjectAssignmentAssessmentService.Save( competencyPersonProjectAssignmentAssessment, CurrentPersonId );
             } );
 
             if ( competencyPersonProjectAssignmentAssessmentId != 0 )
@@ -167,23 +176,19 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             var personProject = competencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject;
-
-            lblResident.Text = personProject.CompetencyPerson.Person.FullName;
-            lblCompetency.Text = personProject.CompetencyPerson.Competency.Name;
-            lblProjectName.Text = personProject.Project.Name;
-
             var projectAssignment = competencyPersonProjectAssignmentAssessmentPointOfAssessment.CompetencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment;
-            if ( projectAssignment.AssessorPerson != null )
-            {
-                lblAssessor.Text = projectAssignment.AssessorPerson.FullName;
-            }
-            else
-            {
-                lblAssessor.Text = Rock.Constants.None.Text;
-            }
 
-            lblAssessmentOrder.Text = competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment.AssessmentOrder.ToString();
-            lblAssessmentText.Text = competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment.AssessmentText.ToString();
+            lblMainDetails.Text = new DescriptionList()
+                .Add( "Resident", personProject.CompetencyPerson.Person )
+                .Add( "Project", string.Format( "{0} - {1}", personProject.Project.Name, personProject.Project.Description ) )
+                .Add( "Assessment #", competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment.AssessmentOrder )
+                .Add( "Assessment Text", competencyPersonProjectAssignmentAssessmentPointOfAssessment.ProjectPointOfAssessment.AssessmentText )
+                .StartSecondColumn()
+                .Add( "Competency", personProject.CompetencyPerson.Competency.Name )
+                .Add( "Track", personProject.CompetencyPerson.Competency.Track.Name )
+                .Add( "Assessor", projectAssignment.AssessorPerson )
+                .Html;
+
             tbRating.Text = competencyPersonProjectAssignmentAssessmentPointOfAssessment.Rating.ToString();
             tbRatingNotes.Text = competencyPersonProjectAssignmentAssessmentPointOfAssessment.RatingNotes;
 

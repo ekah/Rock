@@ -47,9 +47,23 @@ insert into [_com_ccvonline_Residency_Competency] ([Name], [TrackId], [Guid])
   select 'Practical Ministry', [Id], newid() from _com_ccvonline_Residency_Track where Name = 'Pastoral Ministry'
 
 insert into [_com_ccvonline_Residency_Project] ([Name], [Description], [CompetencyId], [Guid])
-  select 'Project A', 'Perform directed biblical research for sermon preparation as directed', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Applied Homiletics'
-  union
-  select 'Project B', 'Perform directed research for illustrated material or cultural analysis as directed', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Applied Homiletics'
+    select 'Project A', 'Participate in 3 initial scope sessions for planing an event or project.', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Events and Projects Management'
+    union
+    select 'Project B', 'Develop 3 event/project budgets.', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Events and Projects Management'
+    union
+    select 'Project C', 'Identify resources and lead times needed to execute 3 events/projects.', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Events and Projects Management'
+    union
+    select 'Project D', 'Attend 3 ministry support coordination meetings.', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Events and Projects Management'
+    union
+    select 'Project E', 'Recruit volunteers to support 3 events/projects.', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Events and Projects Management'
+    union
+    select 'Project F', 'Evaluate with planning team a post-mortem of each event/project.', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Events and Projects Management'
+    union
+    select 'Project G', 'Document activities based upon observations of 3 events/projects.', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Events and Projects Management'
+    union
+    select 'Project A', 'Perform directed biblical research for sermon preparation as directed', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Applied Homiletics'
+    union
+    select 'Project B', 'Perform directed research for illustrated material or cultural analysis as directed', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Applied Homiletics'
 
 insert into [_com_ccvonline_Residency_ProjectPointOfAssessment] ([ProjectId], [AssessmentOrder], [AssessmentText], [Guid])
   select [Id], 1, 'Clearly understood the topic or text to be researched.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'

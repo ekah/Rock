@@ -88,10 +88,9 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             RockTransactionScope.WrapTransaction( () =>
             {
                 var groupMemberService = new GroupMemberService();
-                int residencyGroupId = hfGroupId.ValueAsInt();
-                int personId = (int)e.RowKeyValue;
+                int groupMemberId = (int)e.RowKeyValue;
 
-                GroupMember groupMember = groupMemberService.Queryable().Where( a => a.GroupId.Equals( residencyGroupId ) && a.PersonId.Equals( personId ) ).FirstOrDefault();
+                GroupMember groupMember = groupMemberService.Get( groupMemberId );
                 if ( groupMember != null )
                 {
                     // check if person can be removed from the Group and also check if person can be removed from all the person assigned competencies
@@ -103,7 +102,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     }
 
                     var competencyPersonService = new ResidencyService<CompetencyPerson>();
-                    var personCompetencyList = competencyPersonService.Queryable().Where( a => a.PersonId.Equals( personId ) );
+                    var personCompetencyList = competencyPersonService.Queryable().Where( a => a.PersonId.Equals( groupMember.PersonId ) );
                     foreach ( var item in personCompetencyList )
                     {
                         if ( !competencyPersonService.CanDelete( item, out errorMessage ) )

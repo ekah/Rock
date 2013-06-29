@@ -142,7 +142,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId = hfCompetencyPersonProjectAssignmentId.ValueAsInt();
             competencyPersonProjectAssignmentAssessment.AssessmentDateTime = dtpAssessmentDateTime.SelectedDateTime;
-            competencyPersonProjectAssignmentAssessment.Rating = tbRating.Text.AsInteger();
             competencyPersonProjectAssignmentAssessment.RatingNotes = tbRatingNotes.Text;
             competencyPersonProjectAssignmentAssessment.ResidentComments = tbResidentComments.Text;
 
@@ -251,21 +250,16 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             SetEditMode( true );
 
-            lblResident.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person.FullName;
-            lblCompetency.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Competency.Name;
-            lblProjectName.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
-
-            if ( competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson != null )
-            {
-                lblAssessor.Text = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson.FullName;
-            }
-            else
-            {
-                lblAssessor.Text = Rock.Constants.None.TextHtml;
-            }
+            lblEditDetails.Text = new DescriptionList()
+                .Add("Resident", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person)
+                .Add( "Project", string.Format( "{0} - {1}", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name, competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Description ) )
+                .StartSecondColumn()
+                .Add("Competency", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Competency.Name)
+                .Add("Assessor", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson)
+                .Html;
 
             dtpAssessmentDateTime.SelectedDateTime = competencyPersonProjectAssignmentAssessment.AssessmentDateTime;
-            tbRating.Text = competencyPersonProjectAssignmentAssessment.Rating.ToString();
+            lblOverallRating.Text = competencyPersonProjectAssignmentAssessment.OverallRating.ToString();
             tbRatingNotes.Text = competencyPersonProjectAssignmentAssessment.RatingNotes;
             tbResidentComments.Text = competencyPersonProjectAssignmentAssessment.ResidentComments;
         }
@@ -279,26 +273,27 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             SetEditMode( false );
 
             string residentProjectAssignmentPageGuid = this.GetAttributeValue( "ResidentProjectAssignmentPage" );
-            string projectAssignmentHtml = competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
+            string projectAssignmentHtml = string.Format("{0} - {1}", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name
+                ,competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Description);
             if ( !string.IsNullOrWhiteSpace( residentProjectAssignmentPageGuid ) )
             {
                 var page = new PageService().Get( new Guid( residentProjectAssignmentPageGuid ) );
                 Dictionary<string, string> queryString = new Dictionary<string, string>();
                 queryString.Add( "competencyPersonProjectAssignmentId", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignmentId.ToString() );
                 string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                projectAssignmentHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Name );
+                projectAssignmentHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, projectAssignmentHtml );
             }
 
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Resident", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person )
                 .Add( "Project Assignment", projectAssignmentHtml )
                 .Add( "Assessor", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.AssessorPerson )
-                .Add( "Rating", competencyPersonProjectAssignmentAssessment.Rating )
+                .Add( "Assessment Date/Time", competencyPersonProjectAssignmentAssessment.AssessmentDateTime )
                 .StartSecondColumn()
+                .Add( "Rating", competencyPersonProjectAssignmentAssessment.OverallRating.ToString() )
                 .Add( "Competency", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Name )
                 .Add( "Track", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Track.Name )
                 .Add( "Period", competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.Project.Competency.Track.Period.Name )
-
                 .Html;
         }
 

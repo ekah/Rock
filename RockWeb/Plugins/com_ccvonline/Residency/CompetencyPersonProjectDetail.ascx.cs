@@ -96,18 +96,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         }
 
         /// <summary>
-        /// Handles the Click event of the btnEdit control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void btnEdit_Click( object sender, EventArgs e )
-        {
-            ResidencyService<CompetencyPersonProject> service = new ResidencyService<CompetencyPersonProject>();
-            CompetencyPersonProject item = service.Get( hfCompetencyPersonProjectId.ValueAsInt() );
-            ShowEditDetails( item );
-        }
-
-        /// <summary>
         /// Sets the edit mode.
         /// </summary>
         /// <param name="editable">if set to <c>true</c> [editable].</param>
@@ -215,12 +203,10 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             if ( readOnly )
             {
-                btnEdit.Visible = false;
                 ShowReadonlyDetails( competencyPersonProject );
             }
             else
             {
-                btnEdit.Visible = true;
                 if ( competencyPersonProject.Id > 0 )
                 {
                     ShowReadonlyDetails( competencyPersonProject );
@@ -279,7 +265,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             if ( competencyPersonProject.Project != null )
             {
-                lblProject.Text = competencyPersonProject.Project.Name;
+                lblProject.Text = string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description );
             }
             else
             {
@@ -316,7 +302,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Resident", competencyPersonProject.CompetencyPerson.Person )
-                .Add( "Project", competencyPersonProject.Project.Name )
+                .Add( "Project", string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description ))
                 .Add( "Competency", competencyPersonHtml )
                 .StartSecondColumn()
                 .Add( "Period", competencyPersonProject.Project.Competency.Track.Period.Name )

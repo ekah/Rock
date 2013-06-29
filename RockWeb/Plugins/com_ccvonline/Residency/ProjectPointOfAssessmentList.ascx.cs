@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
@@ -84,22 +85,49 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 items.Insert( newIndex, movedItem );
             }
 
-            int order = 1;
-            foreach ( ProjectPointOfAssessment item in items )
-            {
-                if ( item != null )
-                {
-                    if ( item.AssessmentOrder != order )
-                    {
-                        item.AssessmentOrder = order;
-                        projectPointOfAssessmentService.Save( item, CurrentPersonId );
-                    }
-                }
-
-                order++;
-            }
+            UpdateItemOrders( projectPointOfAssessmentService, items );
 
             BindGrid();
+        }
+
+        /// <summary>
+        /// Updates the item orders.
+        /// </summary>
+        /// <param name="projectPointOfAssessmentService">The project point of assessment service.</param>
+        /// <param name="items">The items.</param>
+        private void UpdateItemOrders( ResidencyService<ProjectPointOfAssessment> projectPointOfAssessmentService, System.Collections.Generic.List<ProjectPointOfAssessment> items )
+        {
+            RockTransactionScope.WrapTransaction( () =>
+            {
+                int order = 1;
+                foreach ( ProjectPointOfAssessment item in items )
+                {
+                    if ( item != null )
+                    {
+                        if ( item.AssessmentOrder != order )
+                        {
+                            // temporarily, set the order to negative in case another row has this value.
+                            item.AssessmentOrder = -order;
+                            projectPointOfAssessmentService.Save( item, CurrentPersonId );
+                        }
+                    }
+
+                    order++;
+                }
+
+                foreach ( ProjectPointOfAssessment item in items )
+                {
+                    if ( item != null )
+                    {
+                        if ( item.AssessmentOrder < 0 )
+                        {
+                            // update the value back to positive now that all the rows have their new order
+                            item.AssessmentOrder = -item.AssessmentOrder;
+                            projectPointOfAssessmentService.Save( item, CurrentPersonId );
+                        }
+                    }
+                }
+            } );
         }
 
         #endregion
@@ -158,6 +186,12 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
                     projectPointOfAssessmentService.Delete( projectPointOfAssessment, CurrentPersonId );
                     projectPointOfAssessmentService.Save( projectPointOfAssessment, CurrentPersonId );
+
+                    int iProjectId = hfProjectId.ValueAsInt();
+
+                    // after an item is deleted, we need to renumber all the items
+                    List<ProjectPointOfAssessment> items = projectPointOfAssessmentService.Queryable().Where( a => a.ProjectId == iProjectId ).OrderBy( a => a.AssessmentOrder).ToList();
+                    UpdateItemOrders( projectPointOfAssessmentService, items );
                 }
             } );
 

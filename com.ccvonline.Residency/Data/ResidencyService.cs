@@ -14,9 +14,27 @@ namespace com.ccvonline.Residency.Data
         /// Initializes a new instance of the <see cref="ResidencyService{T}"/> class.
         /// </summary>
         public ResidencyService()
-            : base( new EFRepository<T>( new ResidencyContext() ) )
+            : this( new ResidencyContext() )
         {
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResidencyService{T}"/> class.
+        /// </summary>
+        /// <param name="residencyContext">The residency context.</param>
+        public ResidencyService( ResidencyContext residencyContext )
+            : base( new EFRepository<T>(residencyContext))
+        {
+            ResidencyContext = residencyContext;
+        }
+
+        /// <summary>
+        /// Gets the residency context.
+        /// </summary>
+        /// <value>
+        /// The residency context.
+        /// </value>
+        public ResidencyContext ResidencyContext { get; private set; }
 
         /// <summary>
         /// Determines whether this instance can delete the specified item.

@@ -277,8 +277,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             lblMainDetails.Text = new DescriptionList()
-                .Add( "Name", project.Name )
-                .Add( "Description", project.Description )
+                .Add( "Name", string.Format( "{0} - {1}", project.Name, project.Description) )
                 .Add( "Competency", competencyHtml )
                 .StartSecondColumn()
                 .Add( "Period", project.Competency.Track.Period.Name )

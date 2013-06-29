@@ -249,7 +249,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             SetEditMode( true );
 
             lblResidentPersonName.Text = competencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person.FullName;
-            lblProject.Text = competencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
+            lblProject.Text = string.Format( "{0} - {1}", competencyPersonProjectAssignment.CompetencyPersonProject.Project.Name, competencyPersonProjectAssignment.CompetencyPersonProject.Project.Description );
             ppAssessor.SetValue( competencyPersonProjectAssignment.AssessorPerson );
             dtpCompletedDateTime.SelectedDateTime = competencyPersonProjectAssignment.CompletedDateTime;
         }
@@ -263,14 +263,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             SetEditMode( false );
 
             string residentProjectAssignmentPageGuid = this.GetAttributeValue( "ResidentProjectPage" );
-            string projectHtml = competencyPersonProjectAssignment.CompetencyPersonProject.Project.Name;
+            string projectHtml = string.Format("{0} - {1}", competencyPersonProjectAssignment.CompetencyPersonProject.Project.Name, competencyPersonProjectAssignment.CompetencyPersonProject.Project.Description);
             if ( !string.IsNullOrWhiteSpace( residentProjectAssignmentPageGuid ) )
             {
                 var page = new PageService().Get( new Guid( residentProjectAssignmentPageGuid ) );
                 Dictionary<string, string> queryString = new Dictionary<string, string>();
                 queryString.Add( "competencyPersonProjectId", competencyPersonProjectAssignment.CompetencyPersonProjectId.ToString() );
                 string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                projectHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPersonProjectAssignment.CompetencyPersonProject.Project.Name );
+                projectHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, projectHtml );
             }
 
             lblMainDetails.Text = new DescriptionList()

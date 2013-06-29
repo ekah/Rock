@@ -18,7 +18,7 @@ namespace com.ccvonline.Residency.Model
     public class CompetencyPersonProjectAssignmentAssessmentPointOfAssessment : Model<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>
     {
         #region Entity Properties
-        
+
         /// <summary>
         /// Gets or sets the residency competency person project assignment assessment id.
         /// </summary>
@@ -28,7 +28,7 @@ namespace com.ccvonline.Residency.Model
         [Required]
         [DataMember]
         public int CompetencyPersonProjectAssignmentAssessmentId { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the residency project point of assessment id.
         /// </summary>
@@ -38,7 +38,7 @@ namespace com.ccvonline.Residency.Model
         [Required]
         [DataMember]
         public int ProjectPointOfAssessmentId { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the rating.
         /// </summary>
@@ -47,7 +47,7 @@ namespace com.ccvonline.Residency.Model
         /// </value>
         [DataMember]
         public int? Rating { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the rating notes.
         /// </summary>
@@ -56,7 +56,7 @@ namespace com.ccvonline.Residency.Model
         /// </value>
         [DataMember]
         public string RatingNotes { get; set; }
-        
+
         #endregion
 
         #region Virtual Properties
@@ -90,7 +90,7 @@ namespace com.ccvonline.Residency.Model
         /// </summary>
         public CompetencyPersonProjectAssignmentAssessmentPointOfAssessmentConfiguration()
         {
-            this.HasRequired( a => a.CompetencyPersonProjectAssignmentAssessment ).WithMany().HasForeignKey( a => a.CompetencyPersonProjectAssignmentAssessmentId ).WillCascadeOnDelete( false );
+            this.HasRequired( a => a.CompetencyPersonProjectAssignmentAssessment ).WithMany( x => x.CompetencyPersonProjectAssignmentAssessmentPointOfAssessments ).HasForeignKey( a => a.CompetencyPersonProjectAssignmentAssessmentId ).WillCascadeOnDelete( false );
             this.HasRequired( a => a.ProjectPointOfAssessment ).WithMany().HasForeignKey( a => a.ProjectPointOfAssessmentId ).WillCascadeOnDelete( false );
         }
     }

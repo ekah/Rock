@@ -146,9 +146,17 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             var competencyPersonService = new ResidencyService<CompetencyPerson>();
             int personId = hfPersonId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
-            var qry = competencyPersonService.Queryable();
-
-            qry = qry.Where( a => a.PersonId.Equals( personId ) );
+            var qry = competencyPersonService.Queryable()
+                .Where( a => a.PersonId.Equals( personId ) )
+                .Select( a => new
+                {
+                    Id = a.Id,
+                    TrackDisplayOrder = a.Competency.Track.DisplayOrder,
+                    TrackName = a.Competency.Track.Name,
+                    CompetencyName = a.Competency.Name,
+                    CompletedProjectsTotal = a.CompetencyPersonProjects.Select( p => p.CompetencyPersonProjectAssignments ).SelectMany( x => x ).Where( n => n.CompletedDateTime != null ).Count(),
+                    AssignedProjectsTotal = a.CompetencyPersonProjects.Select( p => p.CompetencyPersonProjectAssignments ).SelectMany( x => x ).Count()
+                } );
 
             if ( sortProperty != null )
             {
@@ -156,16 +164,10 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
             else
             {
-                qry = qry.OrderBy( s => s.Competency.Name );
+                qry = qry.OrderBy( s => s.TrackDisplayOrder ).ThenBy( s => s.TrackName ).ThenBy( s => s.CompetencyName );
             }
 
-            gList.DataSource = qry.Select( a => new
-            {
-                Id = a.Id,
-                CompetencyName = a.Competency.Name,
-                CompletedProjectsTotal = a.CompetencyPersonProjects.Select( p => p.CompetencyPersonProjectAssignments ).SelectMany( x => x ).Where( n => n.CompletedDateTime != null ).Count(),
-                AssignedProjectsTotal = a.CompetencyPersonProjects.Select( p => p.CompetencyPersonProjectAssignments ).SelectMany( x => x ).Count()
-            } ).ToList();
+            gList.DataSource = qry.ToList();
             gList.DataBind();
         }
 

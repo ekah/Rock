@@ -283,7 +283,7 @@
             
             </summary>
         </member>
-        <member name="M:Rock.Attribute.CategoryFieldAttribute.#ctor(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
+        <member name="M:Rock.Attribute.CategoryFieldAttribute.#ctor(System.String,System.String,System.Boolean,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Attribute.CategoryFieldAttribute"/> class.
             </summary>
@@ -303,7 +303,7 @@
             
             </summary>
         </member>
-        <member name="M:Rock.Attribute.AttributeCategoryFieldAttribute.#ctor(System.String,System.String,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
+        <member name="M:Rock.Attribute.AttributeCategoryFieldAttribute.#ctor(System.String,System.String,System.Boolean,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Attribute.CategoryFieldAttribute"/> class.
             </summary>
@@ -317,6 +317,24 @@
             <param name="category">The category.</param>
             <param name="order">The order.</param>
             <param name="key">The key.</param>
+        </member>
+        <member name="T:Rock.Attribute.MemoFieldAttribute">
+            <summary>
+            A class Attribute that can be used by any oject that inherits from <see cref="T:Rock.Attribute.IHasAttributes"/> to specify what attributes it needs.  The 
+            Framework provides methods in the <see cref="T:Rock.Attribute.Helper"/> class to create, read, and update the attributes
+            </summary>
+            <remarks>
+            If using a custom <see cref="T:Rock.Field.IFieldType"/> make sure that the fieldtype has been added to Rock.
+            </remarks>
+        </member>
+        <member name="M:Rock.Attribute.MemoFieldAttribute.#ctor(System.String,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Attribute.TextFieldAttribute"/> class.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="required">if set to <c>true</c> [required].</param>
+            <param name="order">The order.</param>
         </member>
         <member name="T:Rock.Attribute.DecimalFieldAttribute">
             <summary>
@@ -895,6 +913,46 @@
             <returns></returns>
         </member>
         <member name="M:Rock.Field.Types.CategoryFieldType.SetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
+            <summary>
+            Sets the value.
+            </summary>
+            <param name="control">The control.</param>
+            <param name="configurationValues">The configuration values.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="T:Rock.Field.Types.CategoriesFieldType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Field.Types.CategoriesFieldType.FormatValue(System.Web.UI.Control,System.String,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.Boolean)">
+            <summary>
+            Returns the field's current value(s)
+            </summary>
+            <param name="parentControl">The parent control.</param>
+            <param name="value">Information about the value</param>
+            <param name="configurationValues">The configuration values.</param>
+            <param name="condensed">Flag indicating if the value should be condensed (i.e. for use in a grid column)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.CategoriesFieldType.EditControl(System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
+            <summary>
+            Creates the control(s) neccessary for prompting user for a new value
+            </summary>
+            <param name="configurationValues">The configuration values.</param>
+            <returns>
+            The control
+            </returns>
+        </member>
+        <member name="M:Rock.Field.Types.CategoriesFieldType.GetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue})">
+            <summary>
+            Reads new values entered by the user for the field
+            </summary>
+            <param name="control">Parent control that controls were added to in the CreateEditControl() method</param>
+            <param name="configurationValues">The configuration values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.CategoriesFieldType.SetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
             <summary>
             Sets the value.
             </summary>
@@ -1799,6 +1857,19 @@
             <param name="defaultValue">The default value.</param>
             <param name="guid">The GUID.</param>
         </member>
+        <member name="M:Rock.Migrations.RockMigration.AddGlobalAttribute(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Adds a global attribute.
+            </summary>
+            <param name="fieldTypeGuid">The field type GUID.</param>
+            <param name="entityTypeQualifierColumn">The entity type qualifier column.</param>
+            <param name="entityTypeQualifierValue">The entity type qualifier value.</param>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="order">The order.</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="guid">The GUID.</param>
+        </member>
         <member name="M:Rock.Migrations.RockMigration.UpdateEntityType(System.String,System.String)">
             <summary>
             Updates the type of the entity.
@@ -1820,6 +1891,14 @@
             <param name="entityId">The entity id.</param>
             <param name="value">The value.</param>
             <param name="guid">The GUID.</param>
+        </member>
+        <member name="M:Rock.Migrations.RockMigration.UpdateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Updates a particular Attribute's column value.
+            </summary>
+            <param name="guid">the guid of the attribute to udpate.</param>
+            <param name="columnName">a column name.</param>
+            <param name="valueQuotedIfNecessary">the value, quoted if necessary, such as 1 or 'foo'.</param>
         </member>
         <member name="M:Rock.Migrations.RockMigration.DeleteAttribute(System.String)">
             <summary>
@@ -1968,6 +2047,51 @@
             </summary>
         </member>
         <member name="M:Rock.Migrations.PersonMergedUpdates.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.UniqueUsername">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.UniqueUsername.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.UniqueUsername.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.GlobalAttributeDefaultsForOrg">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.GlobalAttributeDefaultsForOrg.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.GlobalAttributeDefaultsForOrg.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.GoogleAPIKeyGlobalAttribute">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.GoogleAPIKeyGlobalAttribute.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.GoogleAPIKeyGlobalAttribute.Down">
             <summary>
             Operations to be performed during the downgrade process.
             </summary>
@@ -15557,6 +15681,35 @@
             Inverse
             </summary>
         </member>
+        <member name="T:Rock.Web.UI.Controls.IRequiredControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.IRequiredControl.Required">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Rock.Web.UI.Controls.IRequiredControl"/> is required.
+            </summary>
+            <value>
+              <c>true</c> if required; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.IRequiredControl.RequiredErrorMessage">
+            <summary>
+            Gets or sets the required error message.  If blank, the LabelName name will be used
+            </summary>
+            <value>
+            The required error message.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.IRequiredControl.IsValid">
+            <summary>
+            Gets or sets a value indicating whether this instance is valid.
+            </summary>
+            <value>
+              <c>true</c> if this instance is valid; otherwise, <c>false</c>.
+            </value>
+        </member>
         <member name="T:Rock.Web.UI.Controls.LabeledBulletedList">
             <summary>
             A <see cref="T:System.Web.UI.WebControls.BulletedList"/> control with an associated label.
@@ -15621,6 +15774,19 @@
             </summary>
             <param name="writer">An <see cref="T:System.Web.UI.HtmlTextWriter" /> that represents the output stream to render HTML content on the client.</param>
         </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyAttributes.ClearRows">
+            <summary>
+            Clears the rows.
+            </summary>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyAttributes.CategoryId">
+            <summary>
+            Gets or sets the category id.
+            </summary>
+            <value>
+            The category id.
+            </value>
+        </member>
         <member name="P:Rock.Web.UI.Controls.NewFamilyAttributes.AttributeList">
             <summary>
             Gets or sets the attribute ids.
@@ -15629,10 +15795,62 @@
             The attribute ids.
             </value>
         </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyAttributes.AttributesRows">
+            <summary>
+            Gets the attributes rows.
+            </summary>
+            <value>
+            The attributes rows.
+            </value>
+        </member>
         <member name="T:Rock.Web.UI.Controls.NewFamilyAttributesRow">
             <summary>
             Displays a bootstrap badge
             </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyAttributesRow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.NewFamilyAttributesRow"/> class.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyAttributesRow.SetEditValues(Rock.Model.Person)">
+            <summary>
+            Sets the edit values.
+            </summary>
+            <param name="person">The person.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyAttributesRow.GetEditValues(Rock.Model.Person)">
+            <summary>
+            Gets the edit values.
+            </summary>
+            <param name="person">The person.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyAttributesRow.CreateChildControls">
+            <summary>
+            Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyAttributesRow.RenderControl(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
+            </summary>
+            <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyAttributesRow.PersonGuid">
+            <summary>
+            Gets or sets the person GUID.
+            </summary>
+            <value>
+            The person GUID.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyAttributesRow.PersonName">
+            <summary>
+            Gets or sets the name of the person.
+            </summary>
+            <value>
+            The name of the person.
+            </value>
         </member>
         <member name="P:Rock.Web.UI.Controls.NewFamilyAttributesRow.AttributeList">
             <summary>
@@ -15666,6 +15884,180 @@
         <member name="T:Rock.Web.UI.Controls.NewFamilyMembersRow">
             <summary>
             Displays a bootstrap badge
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyMembersRow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.NewFamilyMembersRow"/> class.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyMembersRow.CreateChildControls">
+            <summary>
+            Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyMembersRow.RenderControl(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
+            </summary>
+            <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyMembersRow.BindGender">
+            <summary>
+            Binds the gender.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyMembersRow.BindListToDefinedType(System.Web.UI.WebControls.ListControl,System.String,System.Boolean)">
+            <summary>
+            Binds the type of the list to defined.
+            </summary>
+            <param name="listControl">The list control.</param>
+            <param name="definedTypeGuid">The defined type GUID.</param>
+            <param name="insertBlankOption">if set to <c>true</c> [insert blank option].</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyMembersRow.SetListValue(System.Web.UI.WebControls.ListControl,System.Nullable{System.Int32})">
+            <summary>
+            Sets the list value.
+            </summary>
+            <param name="listControl">The list control.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyMembersRow.SetListValue(System.Web.UI.WebControls.ListControl,System.String)">
+            <summary>
+            Sets the list value.
+            </summary>
+            <param name="listControl">The list control.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyMembersRow.rblRole_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SelectedIndexChanged event of the rblRole control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.NewFamilyMembersRow.lbDelete_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the lbDelete control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.PersonGuid">
+            <summary>
+            Gets or sets the person GUID.
+            </summary>
+            <value>
+            The person GUID.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.RoleId">
+            <summary>
+            Gets or sets the role id.
+            </summary>
+            <value>
+            The role id.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.TitleValueId">
+            <summary>
+            Gets or sets the title value id.
+            </summary>
+            <value>
+            The title value id.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.FirstName">
+            <summary>
+            Gets or sets the first name.
+            </summary>
+            <value>
+            The first name.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.NickName">
+            <summary>
+            Gets or sets the name of the nick.
+            </summary>
+            <value>
+            The name of the nick.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.LastName">
+            <summary>
+            Gets or sets the last name.
+            </summary>
+            <value>
+            The last name.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.BirthDate">
+            <summary>
+            Gets or sets the birth date.
+            </summary>
+            <value>
+            The birth date.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.Gender">
+            <summary>
+            Gets or sets the gender.
+            </summary>
+            <value>
+            The gender.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.StatusValueId">
+            <summary>
+            Gets or sets the status value id.
+            </summary>
+            <value>
+            The status value id.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.Grade">
+            <summary>
+            Gets or sets the grade.
+            </summary>
+            <value>
+            The grade.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.FamilyRoles">
+            <summary>
+            Gets the family roles.
+            </summary>
+            <value>
+            The family roles.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.RequireGender">
+            <summary>
+            Gets or sets a value indicating whether [require gender].
+            </summary>
+            <value>
+              <c>true</c> if [require gender]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.ShowGrade">
+            <summary>
+            Gets or sets a value indicating whether [show grade].
+            </summary>
+            <value>
+              <c>true</c> if [show grade]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NewFamilyMembersRow.RequireGrade">
+            <summary>
+            Gets or sets a value indicating whether [require grade].
+            </summary>
+            <value>
+            <c>true</c> if [require grade]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="E:Rock.Web.UI.Controls.NewFamilyMembersRow.RoleUpdated">
+            <summary>
+            Occurs when [role updated].
             </summary>
         </member>
         <member name="E:Rock.Web.UI.Controls.NewFamilyMembersRow.DeleteClick">
@@ -15881,6 +16273,183 @@
             The selected component ids.
             </value>
         </member>
+        <member name="T:Rock.Web.UI.Controls.GeoPicker">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.GeoPicker"/> class.
+            </summary>
+        </member>
+        <member name="F:Rock.Web.UI.Controls.GeoPicker.RequiredValidator">
+            <summary>
+            The required validator
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.SetValue(System.Data.Entity.Spatial.DbGeography)">
+            <summary>
+            Sets the value. Necessary to preload the geo fence or geo point.
+            </summary>
+            <param name="person">The dbGeography to plot/edit.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.OnInit(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+            </summary>
+            <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.RegisterJavaScript">
+            <summary>
+            Registers the java script.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.CreateChildControls">
+            <summary>
+            Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.btnSelect_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the btnSelect control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the <see cref="T:System.Web.UI.WebControls.TextBox" /> control to the specified <see cref="T:System.Web.UI.HtmlTextWriter" /> object.
+            </summary>
+            <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> that receives the rendered output.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.ConvertPointToWellKnownText(System.String)">
+            <summary>
+            Converts single coordinate set (lat,long) into the Well Known Text (WKT) POINT format.
+            http://en.wikipedia.org/wiki/Well-known_text
+            </summary>
+            <param name="latCommaLong"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.ConvertPolyToWellKnownText(System.String)">
+            <summary>
+            Convert string from "lat1,long1|lat2,long2|..." to Well Known Text (WKT)
+            http://en.wikipedia.org/wiki/Well-known_text
+            format "POLYGON(( long1 lat1, long2 lat2, ...))".  It is expected that the input is a single
+            polygon (not a polygon with an inner polygon).
+            It will also correct the orientation (clockwise-ness) of the points because DbGeography needs
+            them to be in counter-clockwise order.
+            </summary>
+            <param name="latCommaLongPipe">string of "lat1,long1|lat2,long2|..."</param>
+            <returns>A Well Known Text (WKT) POLYGON string suitable for use by DbGeography</returns>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.ConvertPointFromWellKnownText(System.String)">
+            <summary>
+            Convert from WKT format:
+            "POINT (long1 lat1)" to "lat1,long1"
+            </summary>
+            <param name="wkt">a POINT in Well Known Text format</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.ConvertPolyFromWellKnownText(System.String)">
+            <summary>
+            Convert from WKT format:
+            "POLYGON ((long1 lat1, long2 lat2, ...))" to "lat1,long1|lat2,long2|..."
+            </summary>
+            <param name="wkt">a POLYGON in Well Known Text format</param>
+            <returns>string suitable for Google Maps polygon geoPicker "lat1,long1|lat2,long2|..."</returns>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.IsClockwisePolygon(System.Drawing.PointF[])">
+            <summary>
+            Attempt to determine if the polygon is clockwise or counter-clockwise.
+            Thank you dominoc!  
+            http://dominoc925.blogspot.com/2012/03/c-code-to-determine-if-polygon-vertices.html
+            </summary>
+            <param name="polygon"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GeoPicker.LabelText">
+            <summary>
+            Gets or sets the label text.
+            </summary>
+            <value>
+            The label text.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GeoPicker.FieldName">
+            <summary>
+            Gets or sets the name of the field to display in validation messages
+            when a LabelText is not entered
+            </summary>
+            <value>
+            The name of the field.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GeoPicker.SelectedValue">
+            <summary>
+            Gets or sets the selected value.
+            </summary>
+            <value>
+            The selected value.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GeoPicker.GeoDisplayName">
+            <summary>
+            Gets or sets the name of the Geography's display name.
+            </summary>
+            <value>
+            The name of the geography.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GeoPicker.GeoFence">
+            <summary>
+            Gets or sets the path of the Geography.
+            </summary>
+            <value>
+            The path/fence of the geography.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GeoPicker.GeoPoint">
+            <summary>
+            Gets or sets the point of the Geography.
+            </summary>
+            <value>
+            The path/fence of the geography.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GeoPicker.DrawingMode">
+            <summary>
+            Gets or sets a drawing mode indicating whether this <see cref="T:Rock.Web.UI.Controls.GeoPicker"/> is for points or polygons.
+            </summary>
+            <value>
+              DrawingMode.Point or DrawingMode.Polygon
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GeoPicker.Required">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Rock.Web.UI.Controls.GeoPicker"/> is required.
+            </summary>
+            <value>
+              <c>true</c> if required; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="E:Rock.Web.UI.Controls.GeoPicker.SelectGeography">
+            <summary>
+            Gets or sets the select dbGeography.
+            </summary>
+            <value>
+            The select dbGeography.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GeoPicker.IsValid">
+            <summary>
+            Gets a value indicating whether this instance is valid.
+            </summary>
+            <value>
+              <c>true</c> if this instance is valid; otherwise, <c>false</c>.
+            </value>
+        </member>
         <member name="T:Rock.Web.UI.Controls.MonthDayPicker">
             <summary>
             
@@ -15909,6 +16478,21 @@
         <member name="F:Rock.Web.UI.Controls.LabeledTextBox.requiredValidator">
             <summary>
             The required field validator
+            </summary>
+        </member>
+        <member name="F:Rock.Web.UI.Controls.LabeledTextBox.prependLabel">
+            <summary>
+            The prepend label
+            </summary>
+        </member>
+        <member name="F:Rock.Web.UI.Controls.LabeledTextBox.appendLabel">
+            <summary>
+            The append label
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.LabeledTextBox.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.LabeledTextBox"/> class.
             </summary>
         </member>
         <member name="M:Rock.Web.UI.Controls.LabeledTextBox.CreateChildControls">
@@ -15982,6 +16566,14 @@
             </summary>
             <value>
               <c>true</c> if this instance is valid; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.LabeledTextBox.RequiredErrorMessage">
+            <summary>
+            Gets or sets the required error message.  If blank, the LabelName name will be used
+            </summary>
+            <value>
+            The required error message.
             </value>
         </member>
         <member name="P:Rock.Web.UI.Controls.LabeledTextBox.Text">
@@ -16187,6 +16779,14 @@
               <c>true</c> if this instance is valid; otherwise, <c>false</c>.
             </value>
         </member>
+        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.RequiredErrorMessage">
+            <summary>
+            Gets or sets the required error message.  If blank, the LabelName name will be used
+            </summary>
+            <value>
+            The required error message.
+            </value>
+        </member>
         <member name="M:Rock.Web.UI.Controls.CampusPicker.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.CampusPicker"/> class.
@@ -16352,6 +16952,11 @@
             </summary>
             <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         </member>
+        <member name="M:Rock.Web.UI.Controls.ItemPicker.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.ItemPicker"/> class.
+            </summary>
+        </member>
         <member name="M:Rock.Web.UI.Controls.ItemPicker.RegisterJavaScript">
             <summary>
             Registers the java script.
@@ -16402,14 +17007,6 @@
             Renders the <see cref="T:System.Web.UI.WebControls.TextBox" /> control to the specified <see cref="T:System.Web.UI.HtmlTextWriter" /> object.
             </summary>
             <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> that receives the rendered output.</param>
-        </member>
-        <member name="P:Rock.Web.UI.Controls.ItemPicker.FieldName">
-            <summary>
-            Gets or sets the name of the field (for validation messages)
-            </summary>
-            <value>
-            The name of the field.
-            </value>
         </member>
         <member name="P:Rock.Web.UI.Controls.ItemPicker.ItemRestUrlExtraParams">
             <summary>
@@ -16507,6 +17104,14 @@
               <c>true</c> if this instance is valid; otherwise, <c>false</c>.
             </value>
         </member>
+        <member name="P:Rock.Web.UI.Controls.ItemPicker.RequiredErrorMessage">
+            <summary>
+            Gets or sets the required error message.  If blank, the LabelName name will be used
+            </summary>
+            <value>
+            The required error message.
+            </value>
+        </member>
         <member name="E:Rock.Web.UI.Controls.ItemPicker.SelectItem">
             <summary>
             Occurs when [select item].
@@ -16602,13 +17207,12 @@
             The label text.
             </value>
         </member>
-        <member name="P:Rock.Web.UI.Controls.PersonPicker.FieldName">
+        <member name="P:Rock.Web.UI.Controls.PersonPicker.RequiredErrorMessage">
             <summary>
-            Gets or sets the name of the field to display in validation messages
-            when a LabelText is not entered
+            Gets or sets the required error message.  If blank, the LabelName name will be used
             </summary>
             <value>
-            The name of the field.
+            The required error message.
             </value>
         </member>
         <member name="P:Rock.Web.UI.Controls.PersonPicker.PersonId">
@@ -16780,6 +17384,14 @@
             </summary>
             <value>
               <c>true</c> if this instance is valid; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.NumberBox.RequiredErrorMessage">
+            <summary>
+            Gets or sets the required error message.  If blank, the LabelName name will be used
+            </summary>
+            <value>
+            The required error message.
             </value>
         </member>
         <member name="T:Rock.Web.UI.Controls.PageBreadCrumbs">
@@ -17812,11 +18424,21 @@
             
             </summary>
         </member>
-        <member name="M:Rock.Web.UI.Controls.StateDropDownList.OnPreRender(System.EventArgs)">
+        <member name="M:Rock.Web.UI.Controls.StateDropDownList.#ctor">
             <summary>
-            Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
+            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.StateDropDownList"/> class.
             </summary>
-            <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.StateDropDownList.RenderControl(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
+            </summary>
+            <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.StateDropDownList.UseAbbreviation">
+            <summary>
+            Display an abbreviated state name
+            </summary>
         </member>
         <member name="T:Rock.Web.UI.Controls.WorkflowActionTypeEditor">
             <summary>
@@ -20370,9 +20992,10 @@
             Location object.
             </returns>
         </member>
-        <member name="M:Rock.Model.LocationService.GetByStreet1AndStreet2AndCityAndStateAndZip(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Rock.Model.LocationService.Get(System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            Gets Location by Street 1 And Street 2 And City And State And Zip
+            Gets Location by Street 1 And Street 2 And City And State And Zip, will first standardize the address.  If an existing location 
+            is not found, a new locaiton will be created and geocoded.
             </summary>
             <param name="street1">Street 1.</param>
             <param name="street2">Street 2.</param>
@@ -20394,16 +21017,6 @@
             </summary>
             <param name="location">The location.</param>
             <param name="personId">The person id.</param>
-        </member>
-        <member name="M:Rock.Model.LocationService.GetByLocation(Rock.Model.Location,System.Nullable{System.Int32})">
-            <summary>
-            Looks for an existing location model first by searching for a raw value, and then by the street, 
-            city, state, and zip of the specified location stub.  If a match is not found, then a new location
-            block is returned.
-            </summary>
-            <param name="location">The location.</param>
-            <param name="personId">The person id.</param>
-            <returns></returns>
         </member>
         <member name="T:Rock.Model.LocationExtensionMethods">
             <summary>
@@ -27121,38 +27734,6 @@
             Initializes a new instance of the <see cref="T:Rock.Model.GroupLocationConfiguration"/> class.
             </summary>
         </member>
-        <member name="T:Rock.Jobs.CleanCachedImages">
-            <summary>
-            Job to keep a heartbeat of the job process so we know when the jobs stop working
-            </summary>
-            <author>Jon Edmiston</author>
-            <author>Spark Development Network</author>
-        </member>
-        <member name="M:Rock.Jobs.CleanCachedImages.#ctor">
-            <summary> 
-            Empty constructor for job initilization
-            <para>
-            Jobs require a public empty constructor so that the
-            scheduler can instantiate the class whenever it needs.
-            </para>
-            </summary>
-        </member>
-        <member name="M:Rock.Jobs.CleanCachedImages.Execute(Quartz.IJobExecutionContext)">
-            <summary> 
-            Job that updates the JobPulse setting with the current date/time.
-            This will allow us to notify an admin if the jobs stop running.
-            
-            Called by the <see cref="T:Quartz.IScheduler"/> when a
-            <see cref="T:Quartz.ITrigger"/> fires that is associated with
-            the <see cref="T:Quartz.IJob"/>.
-            </summary>
-        </member>
-        <member name="M:Rock.Jobs.CleanCachedImages.ProcessDirectory(System.String)">
-            <summary>
-            Processes the directory.
-            </summary>
-            <param name="sourceDirectory">The source directory.</param>
-        </member>
         <member name="T:Rock.Jobs.SendGridProcess">
             <summary>
             Job to keep a heartbeat of the job process so we know when the jobs stop working
@@ -27181,9 +27762,9 @@
         </member>
         <member name="T:Rock.Jobs.RockCleanup">
             <summary>
-            Job to keep a heartbeat of the job process so we know when the jobs stop working
+            Job that executes routine cleanup tasks on RockChMS
             </summary>
-            <author>Jon Edmiston</author>
+            <author>Jon Edmiston/Chris Funk</author>
             <author>Spark Development Network</author>
         </member>
         <member name="M:Rock.Jobs.RockCleanup.#ctor">
@@ -27197,13 +27778,33 @@
         </member>
         <member name="M:Rock.Jobs.RockCleanup.Execute(Quartz.IJobExecutionContext)">
             <summary> 
-            Job that updates the JobPulse setting with the current date/time.
-            This will allow us to notify an admin if the jobs stop running.
+            Job that executes routine RockChMS cleanup tasks
             
             Called by the <see cref="T:Quartz.IScheduler"/> when a
             <see cref="T:Quartz.ITrigger"/> fires that is associated with
             the <see cref="T:Quartz.IJob"/>.
             </summary>
+        </member>
+        <member name="M:Rock.Jobs.RockCleanup.CleanCacheDirectory(System.String,System.DateTime)">
+            <summary>
+            Cleans expired cached files from the cache folder
+            </summary>
+            <param name="directoryPath">The directory path.</param>
+            <param name="expirationDate">The file expiration date. Files older than this date will be deleted</param>
+        </member>
+        <member name="M:Rock.Jobs.RockCleanup.DeleteDirectory(System.String,System.Boolean)">
+            <summary>
+            Deletes the specified directory.
+            </summary>
+            <param name="directoryPath">The path the directory that you would like to delete.</param>
+            <param name="isRetryAttempt">Is this execution a retry attempt.  If <c>true</c> then don't retry on failure.</param>
+        </member>
+        <member name="M:Rock.Jobs.RockCleanup.DeleteFile(System.String,System.Boolean)">
+            <summary>
+            Deletes the specified file.
+            </summary>
+            <param name="filePath">The path to the file that you would like to delete</param>
+            <param name="isRetryAttempt">Indicates if this execution is a retry attempt. IF <c>true</c> don't retry on failure</param>
         </member>
         <member name="T:Rock.Migrations.Configuration">
             <summary>
@@ -27226,11 +27827,6 @@
             
             </summary>
             <typeparam name="T">Target DbContext to be migrated</typeparam>
-        </member>
-        <member name="F:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.dbContextEntities">
-            <summary>
-            
-            </summary>
         </member>
         <member name="M:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.#ctor(System.Boolean)">
             <summary>
@@ -27300,6 +27896,11 @@
             <value>
             <c>true</c> if [limit operations to db context tables]; otherwise, <c>false</c>.
             </value>
+        </member>
+        <member name="P:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.dbContextEntities">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.TableColumnInfo">
             <summary>
@@ -28236,6 +28837,11 @@
             </summary>
         </member>
         <member name="F:Rock.SystemGuid.DefinedValue.PERSON_RECORD_TYPE_BUSINESS">
+            <summary>
+            Business Record Type
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.DefinedValue.LOCATION_TYPE_OFFICE">
             <summary>
             Business Record Type
             </summary>
@@ -34818,13 +35424,6 @@
             <param name="parentControl">The parent control.</param>
             <param name="exclude">The exclude.</param>
             <returns></returns>
-        </member>
-        <member name="M:Rock.Attribute.Helper.SetErrorIndicators(System.Web.UI.Control,Rock.Attribute.IHasAttributes)">
-            <summary>
-            Sets any missing required field error indicators.
-            </summary>
-            <param name="parentControl">The parent control.</param>
-            <param name="item">The item.</param>
         </member>
         <member name="M:Rock.Attribute.Helper.GetEditValues(System.Web.UI.Control,Rock.Attribute.IHasAttributes)">
             <summary>
