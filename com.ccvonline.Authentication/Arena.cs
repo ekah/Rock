@@ -12,7 +12,7 @@ using Rock.Model;
 using Rock.Security;
 using Rock.Web.UI;
 
-namespace Rock.com.ccvonline.Authentication
+namespace com.ccvonline.Authentication
 {
     /// <summary>
     /// Authenticates a username/password using Arena's password encryption
@@ -24,19 +24,20 @@ namespace Rock.com.ccvonline.Authentication
     public class Arena : AuthenticationComponent
     {
         private static byte[] encryptionKey;
-        private static MachineKeySection machineKeyConfig = (MachineKeySection)ConfigurationManager.GetSection( "system.web/machineKey" );
 
+        /// <summary>
+        /// Initializes the <see cref="Arena" /> class.
+        /// </summary>
+        /// <exception cref="System.Configuration.ConfigurationErrorsException">Authentication requires a 'PasswordKey' app setting</exception>
         static Arena()
         {
-            string configKey;
-
-            configKey = machineKeyConfig.ValidationKey;
-            if ( configKey.Contains( "AutoGenerate" ) )
+            var passwordKey = ConfigurationManager.AppSettings["PasswordKey"];
+            if ( String.IsNullOrWhiteSpace( passwordKey ) )
             {
-                throw new ConfigurationErrorsException( "Cannot use an Auto Generated machine key" );
+                throw new ConfigurationErrorsException( "Authentication requires a 'PasswordKey' app setting" );
             }
 
-            encryptionKey = HexToByte( configKey );
+            encryptionKey = HexToByte( passwordKey );
         }
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace Rock.com.ccvonline.Authentication
         /// <param name="user">The user.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
-        public override Boolean Authenticate( UserLogin user, string password )
+        public override bool Authenticate( UserLogin user, string password )
         {
             byte[] bytes = ConvertToByteArray( user.Password );
 
@@ -60,7 +61,7 @@ namespace Rock.com.ccvonline.Authentication
                 var rockUser = service.GetByUserName( user.UserName );
                 if ( rockUser != null )
                 {
-                    rockUser.Password = DatabaseEncodePassword( password );
+                    rockUser.Password = DatabaseEncodePassword( password, encryptionKey );
                     rockUser.ServiceName = "Rock.Security.Authentication.Database";
                     service.Save( rockUser, null );
                 }
@@ -81,7 +82,7 @@ namespace Rock.com.ccvonline.Authentication
             return Convert.ToBase64String( hash.ComputeHash( Encoding.Unicode.GetBytes( password ) ) );
         }
 
-        private string DatabaseEncodePassword( string password )
+        private string DatabaseEncodePassword( string password, byte[] encryptionKey )
         {
             HMACSHA1 hash = new HMACSHA1();
             hash.Key = encryptionKey;
