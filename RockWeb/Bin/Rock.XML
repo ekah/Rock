@@ -2096,21 +2096,6 @@
             Operations to be performed during the downgrade process.
             </summary>
         </member>
-        <member name="T:Rock.Migrations.NewFamilyPage">
-             <summary>
-            
-             </summary>
-        </member>
-        <member name="M:Rock.Migrations.NewFamilyPage.Up">
-            <summary>
-            Operations to be performed during the upgrade process.
-            </summary>
-        </member>
-        <member name="M:Rock.Migrations.NewFamilyPage.Down">
-            <summary>
-            Operations to be performed during the downgrade process.
-            </summary>
-        </member>
         <member name="T:Rock.Model.BinaryFileDataService">
             <summary>
             BinaryFileData Service class
@@ -4628,13 +4613,6 @@
             Dims the other blocks.
             </summary>
             <param name="dimmed">if set to <c>true</c> [dimmed].</param>
-        </member>
-        <member name="M:Rock.Web.UI.RockBlock.HideBlockType(System.String,System.Boolean)">
-            <summary>
-            Hides the type of the block.
-            </summary>
-            <param name="blockTypeName">Name of the block type.</param>
-            <param name="hidden">if set to <c>true</c> [hidden].</param>
         </member>
         <member name="M:Rock.Web.UI.RockBlock.GetUserPreference(System.String)">
             <summary>
@@ -28863,11 +28841,6 @@
             Business Record Type
             </summary>
         </member>
-        <member name="F:Rock.SystemGuid.DefinedValue.LOCATION_TYPE_HOME">
-            <summary>
-            Home location type
-            </summary>
-        </member>
         <member name="F:Rock.SystemGuid.DefinedValue.LOCATION_TYPE_OFFICE">
             <summary>
             Business Record Type
@@ -33242,12 +33215,6 @@
             </summary>
             <param name="caller">The caller.</param>
             <param name="dimmed">if set to <c>true</c> [dimmed].</param>
-        </member>
-        <member name="M:Rock.Web.UI.RockPage.HideBlockType(System.String,System.Boolean)">
-            <summary>
-            Hides blocks of BlockType 
-            </summary>
-            <param name="blockTypeName">Name of the block type.</param>
         </member>
         <member name="M:Rock.Web.UI.RockPage.GetControlList``1(System.Web.UI.ControlCollection,System.Collections.Generic.List{``0})">
             <summary>
