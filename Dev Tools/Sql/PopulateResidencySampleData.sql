@@ -60,23 +60,27 @@ insert into [_com_ccvonline_Residency_Project] ([Name], [Description], [Competen
     select 'Project F', 'Evaluate with planning team a post-mortem of each event/project.', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Events and Projects Management'
     union
     select 'Project G', 'Document activities based upon observations of 3 events/projects.', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Events and Projects Management'
-    union
-    select 'Project A', 'Perform directed biblical research for sermon preparation as directed', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Applied Homiletics'
-    union
-    select 'Project B', 'Perform directed research for illustrated material or cultural analysis as directed', [Id], NEWID() from [_com_ccvonline_Residency_Competency] where Name = 'Applied Homiletics'
 
 insert into [_com_ccvonline_Residency_ProjectPointOfAssessment] ([ProjectId], [AssessmentOrder], [AssessmentText], [Guid])
-  select [Id], 1, 'Clearly understood the topic or text to be researched.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
-  union
-  select [Id], 2, 'Asked appropriate clarifying questions of the communicator necessary to do the research.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
-  union
-  select [Id], 3, 'Provided the research to the communicator in a timely fashion', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
-  union
-  select [Id], 4, 'The material provided was used in the sermon or lesson', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
-  union
-  select [Id], 5, 'Presented the material in an economy of words and ideas (not too much and not too little).', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
-  union
-  select [Id], 6, 'Presented the material in a professional, clean, clearly articulated, and edited format.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
+    select [Id], 1,	'Received, responded to, and provided appropriate communication while engaging leaders prior to the initial session, ensuring the resident knew what the event/project was in advance.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
+    union
+    select [Id], 2,	'Thoroughly previewed all elements of the previous event (if reoccurring) and was prepared to participate with clarity and accuracy.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
+    union
+    select [Id], 3,	'On time (5 minutes early) to assigned ministry area and designated location.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
+    union
+    select [Id], 4,	'Displayed appropriate demeanor, respect, diction, decorum, and positive attitude with all participants throughout entire session.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
+    union
+    select [Id], 5,	'Identified two ideas that were good, but not implemented, and the reasons why they were not.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
+    union
+    select [Id], 6,	'Correctly analyzed and appropriated the different types of staff involved needed to plan and influence the event/project.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
+    union
+    select [Id], 7,	'Accurately determined what goals and results are trying to be achieved by the team planning the event/project and be able to articulate how they are being measured on a given project.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
+    union
+    select [Id], 8,	'Effectively assessed and articulated how timelines and milestones are used in the initial scope meeting and evaluated if they were met.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
+    union
+    select [Id], 9,	'Aware of others and their surroundings to promote an environment for a full discussion on the event/project and went out of their way to do more than what was expected of them.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
+    union
+    select [Id], 10, 'Accepted critique and criticism with gratitude and humility and implemented suggestions appropriately.', NEWID() from [_com_ccvonline_Residency_Project] where [Name] = 'Project A'
 
 declare
   @groupTypeId int
