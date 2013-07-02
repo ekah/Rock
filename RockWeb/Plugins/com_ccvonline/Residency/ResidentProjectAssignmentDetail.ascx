@@ -1,13 +1,11 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidentProjectAssignmentAssessmentList.ascx.cs" Inherits="RockWeb.Plugins.com_ccvonline.Residency.ResidentProjectAssignmentAssessmentList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidentProjectAssignmentDetail.cs" Inherits="RockWeb.Plugins.com_ccvonline.Residency.ResidentProjectAssignmentDetail" %>
 
 <asp:UpdatePanel ID="upList" runat="server">
     <ContentTemplate>
         <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentId" runat="server" />
         <div class="well">
             <div class="row-fluid">
-
-                <asp:Literal ID="lblProjectDetails" runat="server" />
-
+                <asp:Literal ID="lblProjectAssignmentDetails" runat="server" />
             </div>
         </div>
         <h4>Project Assignment Assessments

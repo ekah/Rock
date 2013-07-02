@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
@@ -6,6 +7,7 @@ using com.ccvonline.Residency.Model;
 using Rock;
 using Rock.Attribute;
 using Rock.Data;
+using Rock.Model;
 using Rock.Web;
 using Rock.Web.UI;
 using Rock.Web.UI.Controls;
@@ -16,7 +18,8 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// 
     /// </summary>
     [DetailPage]
-    public partial class ResidentProjectAssignmentAssessmentList : RockBlock, IDimmableBlock
+    [LinkedPage("Resident Project Page")]
+    public partial class ResidentProjectAssignmentDetail : RockBlock, IDimmableBlock
     {
         #region Control Methods
 
@@ -84,12 +87,34 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         private void BindGrid()
         {
             int competencyPersonProjectAssignmentId = hfCompetencyPersonProjectAssignmentId.ValueAsInt();
-            var projectAssignment = new ResidencyService<CompetencyPersonProjectAssignment>().Get( competencyPersonProjectAssignmentId );
+            var competencyPersonProjectAssignment = new ResidencyService<CompetencyPersonProjectAssignment>().Get( competencyPersonProjectAssignmentId );
 
-            lblProjectDetails.Text =  new DescriptionList()
-                .Add("Project", string.Format( "{0} - {1}", projectAssignment.CompetencyPersonProject.Project.Name, projectAssignment.CompetencyPersonProject.Project.Description ))
-                .Add("Assessor", projectAssignment.AssessorPerson)
-                .Add("Completed", projectAssignment.CompletedDateTime)
+            if ( competencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.PersonId != CurrentPersonId )
+            {
+                // somebody besides the Resident is logged in
+                Dictionary<string, string> queryString = new Dictionary<string, string>();
+                queryString.Add( "competencyPersonProjectId", competencyPersonProjectAssignment.CompetencyPersonProjectId.ToString() );
+                NavigateToParentPage( queryString );
+                return;
+            }
+
+            string residentProjectAssignmentPageGuid = this.GetAttributeValue( "ResidentProjectPage" );
+            string projectHtml = string.Format( "{0} - {1}", competencyPersonProjectAssignment.CompetencyPersonProject.Project.Name, competencyPersonProjectAssignment.CompetencyPersonProject.Project.Description );
+            if ( !string.IsNullOrWhiteSpace( residentProjectAssignmentPageGuid ) )
+            {
+                var page = new PageService().Get( new Guid( residentProjectAssignmentPageGuid ) );
+                Dictionary<string, string> queryString = new Dictionary<string, string>();
+                queryString.Add( "competencyPersonProjectId", competencyPersonProjectAssignment.CompetencyPersonProjectId.ToString() );
+                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
+                projectHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, projectHtml );
+            }
+
+            lblProjectAssignmentDetails.Text = new DescriptionList()
+                .Add( "Resident", competencyPersonProjectAssignment.CompetencyPersonProject.CompetencyPerson.Person )
+                .Add( "Project", projectHtml )
+                .StartSecondColumn()
+                .Add( "Assessor", competencyPersonProjectAssignment.AssessorPerson )
+                .Add( "Completed", competencyPersonProjectAssignment.CompletedDateTime )
                 .Html;
 
             var competencyPersonProjectAssignmentAssessmentService = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>();

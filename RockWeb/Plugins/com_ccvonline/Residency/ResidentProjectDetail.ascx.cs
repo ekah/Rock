@@ -74,7 +74,9 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             if ( competencyPersonProject.CompetencyPerson.PersonId != CurrentPersonId )
             {
                 // somebody besides the Resident is logged in
-                NavigateToParentPage();
+                Dictionary<string, string> queryString = new Dictionary<string, string>();
+                queryString.Add( "competencyPersonId", competencyPersonProject.CompetencyPersonId.ToString() );
+                NavigateToParentPage( queryString );
                 return;
             }
 
@@ -122,7 +124,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             if ( !string.IsNullOrWhiteSpace( gradeRequestPageGuid ) )
             {
                 Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add("competencyPersonProjectId", hfCompetencyPersonProjectId.Value);
+                queryString.Add( "competencyPersonProjectId", hfCompetencyPersonProjectId.Value );
                 var page = new PageService().Get( new Guid( gradeRequestPageGuid ) );
                 NavigateToPage( page.Guid, queryString );
             }
