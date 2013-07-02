@@ -23,7 +23,7 @@ namespace com.ccvonline.Residency.Data
         /// </summary>
         /// <param name="residencyContext">The residency context.</param>
         public ResidencyService( ResidencyContext residencyContext )
-            : base( new EFRepository<T>(residencyContext))
+            : base( residencyContext)
         {
             ResidencyContext = residencyContext;
         }
