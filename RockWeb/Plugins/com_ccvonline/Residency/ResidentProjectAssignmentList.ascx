@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidentProjectAssignmentList.cs" Inherits="RockWeb.Plugins.com_ccvonline.Residency.ResidentProjectAssignmentList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ResidentProjectAssignmentList.ascx.cs" Inherits="RockWeb.Plugins.com_ccvonline.Residency.ResidentProjectAssignmentList" %>
 
 <asp:UpdatePanel ID="upList" runat="server">
     <ContentTemplate>
