@@ -2133,6 +2133,12 @@
             </summary>
             <param name="repository">The repository.</param>
         </member>
+        <member name="M:Rock.Data.Service`1.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Data.Service`1"/> class.
+            </summary>
+            <param name="dbContext">The db context.</param>
+        </member>
         <member name="M:Rock.Data.Service`1.Queryable">
             <summary>
             Gets an <see cref="T:System.Linq.IQueryable`1"/> list of all models
