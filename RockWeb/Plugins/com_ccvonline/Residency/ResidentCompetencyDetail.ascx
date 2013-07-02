@@ -54,12 +54,13 @@
                     </asp:Panel>
 
                     <asp:Panel ID="pnlGoals" runat="server" Visible="false">
-                        ToDo:  Goals
+                        <blockquote>
+                            <p>
+                                <asp:Literal ID="lblGoals" runat="server" />
+                            </p>
+                        </blockquote>
                     </asp:Panel>
 
-                    <asp:Panel ID="pnlNotes" runat="server" Visible="false">
-                        ToDo:  Notes
-                    </asp:Panel>
                 </div>
 
             </fieldset>

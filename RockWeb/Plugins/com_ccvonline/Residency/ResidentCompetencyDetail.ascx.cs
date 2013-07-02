@@ -82,6 +82,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblCompetencyName.Text = competencyPerson.Competency.Name;
             lblFacilitator.Text = competencyPerson.Competency.FacilitatorPerson != null ? competencyPerson.Competency.FacilitatorPerson.FullName : Rock.Constants.None.TextHtml;
             lblDescription.Text = !string.IsNullOrWhiteSpace( competencyPerson.Competency.Description ) ? competencyPerson.Competency.Description : Rock.Constants.None.TextHtml;
+            lblGoals.Text = competencyPerson.Competency.Goals.Replace( "\n", "<br>" );
 
             gProjectList.DataKeyNames = new string[] { "Id" };
             gProjectList.Actions.ShowAdd = false;
@@ -102,7 +103,9 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             pnlProjects.Visible = button == lbProjects;
             pnlGoals.Visible = button == lbGoals;
-            pnlNotes.Visible = button == lbNotes;
+
+            // only show the Notes block when the Notes pill is selected
+            this.HideBlockType( "Notes", button != lbNotes );
         }
 
         /// <summary>
