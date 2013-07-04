@@ -140,11 +140,9 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 if ( selectedId == Rock.Constants.All.Id )
                 {
                     // add all the Competencies for this Track that they don't have yet
-                    
                     var competencyQry = new ResidencyService<Competency>().Queryable().Where( a => a.TrackId == trackId );
 
                     // list 
-                    
                     List<int> assignedCompetencyIds = new ResidencyService<CompetencyPerson>().Queryable().Where( a => a.PersonId.Equals( personId ) ).Select( a => a.CompetencyId ).ToList();
 
                     competencyToAssignIdList = competencyQry.Where( a => !assignedCompetencyIds.Contains( a.Id ) ).OrderBy( a => a.Name ).Select( a => a.Id ).ToList();
@@ -159,14 +157,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     {
                         foreach ( var competencyId in competencyToAssignIdList )
                         {
-
                             CompetencyPerson competencyPerson = new CompetencyPerson();
                             competencyPersonService.Add( competencyPerson, CurrentPersonId );
                             competencyPerson.PersonId = hfPersonId.ValueAsInt();
                             competencyPerson.CompetencyId = competencyId;
-
                             competencyPersonService.Save( competencyPerson, CurrentPersonId );
-
                         }
                     } );
             }

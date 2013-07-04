@@ -8,8 +8,7 @@
         <asp:Panel ID="pnlDetails" runat="server">
 
             <asp:HiddenField ID="hfCompetencyPersonProjectId" runat="server" />
-            <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentId" runat="server" />
-            <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentAssessmentId" runat="server" />
+            <asp:HiddenField ID="hfCompetencyPersonProjectAssessmentId" runat="server" />
             <asp:HiddenField ID="hfAssessorPersonId" runat="server" />
 
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="alert alert-error" />

@@ -120,7 +120,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                                         var page = new PageService().Get( new Guid( gradeDetailPageGuid ) );
                                         if ( page != null )
                                         {
-
                                             string identifier = hfCompetencyPersonProjectId.Value + "|" + userLogin.Guid + "|" + DateTime.Now.Ticks;
                                             string residentGraderSessionKey = Rock.Security.Encryption.EncryptString( identifier );
                                             Session["residentGraderSessionKey"] = residentGraderSessionKey;

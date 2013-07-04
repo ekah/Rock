@@ -154,8 +154,8 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     TrackDisplayOrder = a.Competency.Track.DisplayOrder,
                     TrackName = a.Competency.Track.Name,
                     CompetencyName = a.Competency.Name,
-                    CompletedProjectsTotal = a.CompetencyPersonProjects.Select( p => p.CompetencyPersonProjectAssignments ).SelectMany( x => x ).Where( n => n.CompletedDateTime != null ).Count(),
-                    AssignedProjectsTotal = a.CompetencyPersonProjects.Select( p => p.CompetencyPersonProjectAssignments ).SelectMany( x => x ).Count()
+                    CompletedProjectAssessmentsTotal = a.CompetencyPersonProjects.Select( p => p.CompetencyPersonProjectAssessments ).SelectMany( x => x ).Where( n => n.AssessmentDateTime != null ).Count(),
+                    MinAssessmentCount = a.CompetencyPersonProjects.Select( p => p.MinAssessmentCount ).Sum()
                 } );
 
             if ( sortProperty != null )

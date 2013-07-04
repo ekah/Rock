@@ -93,14 +93,17 @@
     <Compile Include="Migrations\201307030047193_UpdateResidencyGroupBlockAttributes.Designer.cs">
       <DependentUpon>201307030047193_UpdateResidencyGroupBlockAttributes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201307040031117_DropProjectAssignment01.cs" />
+    <Compile Include="Migrations\201307040031117_DropProjectAssignment01.Designer.cs">
+      <DependentUpon>201307040031117_DropProjectAssignment01.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Competency.cs" />
     <Compile Include="Model\CompetencyPerson.cs" />
     <Compile Include="Model\Period.cs" />
     <Compile Include="Model\CompetencyPersonProject.cs" />
-    <Compile Include="Model\CompetencyPersonProjectAssignment.cs" />
-    <Compile Include="Model\CompetencyPersonProjectAssignmentAssessment.cs" />
-    <Compile Include="Model\CompetencyPersonProjectAssignmentAssessmentPointOfAssessment.cs" />
+    <Compile Include="Model\CompetencyPersonProjectAssessment.cs" />
+    <Compile Include="Model\CompetencyPersonProjectAssessmentPointOfAssessment.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Model\ProjectPointOfAssessment.cs" />
     <Compile Include="Model\Track.cs" />
@@ -143,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201307030047193_UpdateResidencyGroupBlockAttributes.resx">
       <DependentUpon>201307030047193_UpdateResidencyGroupBlockAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201307040031117_DropProjectAssignment01.resx">
+      <DependentUpon>201307040031117_DropProjectAssignment01.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

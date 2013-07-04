@@ -22,7 +22,9 @@
                     <Rock:LabeledText ID="lblPersonName" runat="server" LabelText="Resident" />
                     <Rock:LabeledText ID="lblCompetency" runat="server" LabelText="Competency" />
                     <Rock:LabeledText ID="lblProject" runat="server" LabelText="Project" />
-                    <Rock:DataDropDownList ID="ddlProject" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.Project, com.ccvonline.Residency" PropertyName="Name" Required="true"/> 
+                    <Rock:LabeledDropDownList ID="ddlProject" runat="server" DataTextField="Name" DataValueField="Id" Required="true" OnSelectedIndexChanged="ddlProject_SelectedIndexChanged" AutoPostBack="true"/> 
+                    <Rock:DataTextBox ID="tbMinAssessmentCount" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProject, com.ccvonline.Residency" PropertyName="MinAssessmentCount"
+                        LabelText="Minimum # of Assessments" Help="Set this to specify the minimum number of assessments of this project that a person must complete." CssClass="input-mini" />
 
                 </fieldset>
 
@@ -34,7 +36,7 @@
             </div>
 
             <fieldset id="fieldsetViewDetails" runat="server">
-                <legend>Project - Assignments
+                <legend>Project - Assessments
                 </legend>
                 <div class="well">
                     <div class="row-fluid">

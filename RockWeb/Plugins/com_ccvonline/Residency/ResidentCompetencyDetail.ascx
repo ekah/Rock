@@ -46,9 +46,9 @@
                             <Columns>
                                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                                <asp:BoundField DataField="AssignedCount" HeaderText="Assignments" SortExpression="AssignedCount" />
-                                <asp:BoundField DataField="AssignedCompleted" HeaderText="Completed" SortExpression="AssignedCompleted" />
-                                <Rock:BadgeField DataField="AssignedRemaining" HeaderText="Remaining" SortExpression="AssignedRemaining" WarningMin="1" SuccessMax="0" SuccessMin="0" ImportantMin="9999" InfoMin="9999" />
+                                <asp:BoundField DataField="MinAssessmentCount" HeaderText="Min # Assessments" SortExpression="MinAssessmentCount" />
+                                <asp:BoundField DataField="AssessmentCompleted" HeaderText="Completed" SortExpression="AssessmentCompleted" />
+                                <Rock:BadgeField DataField="AssessmentRemaining" HeaderText="Remaining" SortExpression="AssessmentRemaining" WarningMin="1" SuccessMax="0" SuccessMin="0" ImportantMin="9999" InfoMin="9999" />
                             </Columns>
                         </Rock:Grid>
                     </asp:Panel>

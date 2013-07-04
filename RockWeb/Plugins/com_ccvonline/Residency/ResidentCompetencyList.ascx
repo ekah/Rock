@@ -11,8 +11,8 @@
                 <Rock:Grid ID="gCompetencyList" runat="server" AllowSorting="false" OnRowSelected="gCompetencyList_RowSelected">
                     <Columns>
                         <asp:BoundField DataField="CompetencyName" HeaderText="Competency" SortExpression="CompetencyName" ItemStyle-Width="50%" />
-                        <asp:BoundField DataField="CompletedProjectsTotal" HeaderText="Projects Completed" SortExpression="CompletedProjectsTotal" />
-                        <asp:BoundField DataField="AssignedProjectsTotal" HeaderText="Total Projects" SortExpression="AssignedProjectsTotal" />
+                        <asp:BoundField DataField="CompletedProjectAssessmentsTotal" HeaderText="Project Assessments Completed" SortExpression="CompletedProjectAssessmentsTotal" />
+                        <asp:BoundField DataField="MinProjectAssessmentsTotal" HeaderText="Min # Project Assessments" SortExpression="MinProjectAssessmentsTotal" />
                     </Columns>
                 </Rock:Grid>
 

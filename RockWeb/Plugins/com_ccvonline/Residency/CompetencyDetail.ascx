@@ -25,14 +25,14 @@
                     <div class="row-fluid">
                         <div class="span6">
                             <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Name" CssClass="input-xlarge" />
-                            <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" CssClass="input-xlarge"/>
+                            <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" CssClass="input-xlarge" />
                             <Rock:DataTextBox ID="tbGoals" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Goals"
                                 TextMode="MultiLine" Rows="12" CssClass="input-xxlarge" />
                         </div>
                         <div class="span6">
                             <Rock:LabeledText ID="lblPeriod" runat="server" LabelText="Period" />
                             <Rock:LabeledText ID="lblTrack" runat="server" LabelText="Track" />
-                            <Rock:LabeledDropDownList ID="ddlCompetencyTypeValue" runat="server" LabelText="Competency Type" DataTextField="Name" DataValueField="Id" SourceTypeName="Rock.Model.DefinedValue, Rock" PropertyName="Name" />
+
                             <Rock:PersonPicker ID="ppTeacherOfRecord" runat="server" LabelText="Teacher of Record" />
                             <Rock:PersonPicker ID="ppFacilitator" runat="server" LabelText="Facilitator" />
                             <Rock:DataTextBox ID="tbCreditHours" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="CreditHours" CssClass="input-mini" />

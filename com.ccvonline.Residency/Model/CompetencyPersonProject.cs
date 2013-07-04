@@ -43,13 +43,13 @@ namespace com.ccvonline.Residency.Model
         public int ProjectId { get; set; }
 
         /// <summary>
-        /// Gets or sets the min assignment count.
+        /// Gets or sets the min assessment count.
         /// </summary>
         /// <value>
-        /// The min assignment count.
+        /// The min assessment count.
         /// </value>
         [DataMember]
-        public int? MinAssignmentCount { get; set; }
+        public int? MinAssessmentCount { get; set; }
         
         #endregion
 
@@ -72,12 +72,12 @@ namespace com.ccvonline.Residency.Model
         public virtual Project Project { get; set; }
 
         /// <summary>
-        /// Gets or sets the residency competency person project assignments.
+        /// Gets or sets the competency person project assessments.
         /// </summary>
         /// <value>
-        /// The residency competency person project assignments.
+        /// The competency person project assessments.
         /// </value>
-        public virtual List<CompetencyPersonProjectAssignment> CompetencyPersonProjectAssignments { get; set; }
+        public virtual List<CompetencyPersonProjectAssessment> CompetencyPersonProjectAssessments { get; set; }
 
         #endregion
     }

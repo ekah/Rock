@@ -143,7 +143,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             project.Name = tbName.Text;
             project.Description = tbDescription.Text;
             project.CompetencyId = hfCompetencyId.ValueAsInt();
-            project.MinAssignmentCountDefault = tbMinAssignmentCountDefault.Text.AsInteger( false );
+            project.MinAssessmentCountDefault = tbMinAssessmentCountDefault.Text.AsInteger( false );
 
             if ( !project.IsValid )
             {
@@ -254,7 +254,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblPeriod.Text = project.Competency.Track.Period.Name;
             lblTrack.Text = project.Competency.Track.Name;
             lblCompetency.Text = project.Competency.Name;
-            tbMinAssignmentCountDefault.Text = project.MinAssignmentCountDefault.ToString();
+            tbMinAssessmentCountDefault.Text = project.MinAssessmentCountDefault.ToString();
         }
 
         /// <summary>

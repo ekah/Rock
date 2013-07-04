@@ -127,6 +127,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 // these inputs are only editable on Add
                 competencyPersonProject.ProjectId = ddlProject.SelectedValueAsInt() ?? 0;
                 competencyPersonProject.CompetencyPersonId = hfCompetencyPersonId.ValueAsInt();
+                competencyPersonProject.MinAssessmentCount = tbMinAssessmentCount.Text.AsInteger();
             }
             else
             {
@@ -263,6 +264,13 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblCompetency.Text = competencyPersonProject.CompetencyPerson.Competency.Name;
             ddlProject.SetValue( competencyPersonProject.ProjectId );
 
+            ddlProject_SelectedIndexChanged( null, null );
+
+            if ( competencyPersonProject.MinAssessmentCount != null )
+            {
+                tbMinAssessmentCount.Text = competencyPersonProject.MinAssessmentCount.ToString();
+            }
+
             if ( competencyPersonProject.Project != null )
             {
                 lblProject.Text = string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description );
@@ -302,12 +310,24 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Resident", competencyPersonProject.CompetencyPerson.Person )
-                .Add( "Project", string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description ))
+                .Add( "Project", string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description ) )
+                .Add( "Min # Assessments", competencyPersonProject.MinAssessmentCount )
                 .Add( "Competency", competencyPersonHtml )
-                .StartSecondColumn()
-                .Add( "Period", competencyPersonProject.Project.Competency.Track.Period.Name )
-                .Add( "Track", competencyPersonProject.Project.Competency.Track.Name )
                 .Html;
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the ddlProject control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ddlProject_SelectedIndexChanged( object sender, EventArgs e )
+        {
+            var project = new ResidencyService<Project>().Get( ddlProject.SelectedValueAsInt() ?? 0 );
+            if ( project != null )
+            {
+                tbMinAssessmentCount.Text = project.MinAssessmentCountDefault.ToString();
+            }
         }
 
         #endregion

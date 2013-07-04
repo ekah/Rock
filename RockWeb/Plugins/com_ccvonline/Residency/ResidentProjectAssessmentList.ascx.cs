@@ -16,7 +16,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// 
     /// </summary>
     [DetailPage]
-    public partial class ResidentProjectAssignmentList : RockBlock, IDimmableBlock
+    public partial class ResidentProjectAssessmentList : RockBlock, IDimmableBlock
     {
         #region Control Methods
 
@@ -37,7 +37,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             Dictionary<string, BoundField> boundFields = gList.Columns.OfType<BoundField>().ToDictionary( a => a.DataField );
             boundFields["AssessorPerson.FullName"].NullDisplayText = Rock.Constants.None.TextHtml;
-            boundFields["CompletedDateTime"].NullDisplayText = "not completed";
+            boundFields["AssessmentDateTime"].NullDisplayText = "not completed";
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
         protected void gList_Edit( object sender, RowEventArgs e )
         {
-            NavigateToDetailPage( "competencyPersonProjectAssignmentId", e.RowKeyId );
+            NavigateToDetailPage( "competencyPersonProjectAssessmentId", e.RowKeyId );
         }
 
         /// <summary>
@@ -89,40 +89,22 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// </summary>
         private void BindGrid()
         {
-            var competencyPersonProjectAssignmentService = new ResidencyService<CompetencyPersonProjectAssignment>();
+            var competencyPersonProjectAssessmentService = new ResidencyService<CompetencyPersonProjectAssessment>();
             int competencyPersonProjectId = hfCompetencyPersonProjectId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
-            var assignmentsQry = competencyPersonProjectAssignmentService.Queryable();
 
-            assignmentsQry = assignmentsQry.Where( a => a.CompetencyPersonProjectId.Equals( competencyPersonProjectId ) );
-            List<CompetencyPersonProjectAssignment> competencyPersonProjectAssignmentList = assignmentsQry.ToList();
-
-            var competencyPersonProjectAssignmentAssessmentService = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>();
-            var assessmentsQry = competencyPersonProjectAssignmentAssessmentService.Queryable().GroupBy(a => a.CompetencyPersonProjectAssignmentId);
-
-            var joinQry = from assignment in competencyPersonProjectAssignmentList
-                          join assessments in assessmentsQry on assignment.Id
-                          equals assessments.Key into groupJoin
-                          from qryResult in groupJoin.DefaultIfEmpty()
-                          select new
-                          {
-                              assignment.Id,
-                              assignment.AssessorPerson,
-                              assignment.CompletedDateTime,
-                              AssessmentCount = qryResult != null ? qryResult.Count() : 0,
-                              AssessmentDateTime = qryResult != null ? qryResult.Max( a => a.AssessmentDateTime ) : null
-                          };
+            var qry = competencyPersonProjectAssessmentService.Queryable().Where( a => a.CompetencyPersonProjectId.Equals( competencyPersonProjectId ) );
 
             if ( sortProperty != null )
             {
-                joinQry = joinQry.AsQueryable().Sort( sortProperty );
+                qry = qry.Sort( sortProperty );
             }
             else
             {
-                joinQry = joinQry.OrderBy( s => s.CompletedDateTime ).ThenBy( s => s.AssessorPerson );
+                qry = qry.OrderBy( s => s.AssessmentDateTime ).ThenBy( s => s.AssessorPerson );
             }
 
-            gList.DataSource = joinQry.ToList();
+            gList.DataSource = qry.ToList();
             gList.DataBind();
         }
 

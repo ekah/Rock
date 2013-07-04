@@ -161,17 +161,17 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 qry = qry.OrderBy( s => s.Project.Name ).ThenBy( s => s.Project.Description );
             }
 
-            var list = qry.Select( a => new
+            var resultList = qry.ToList().Select( a => new
             {
                 Id = a.Id,
                 Name = a.Project.Name,
                 Description = a.Project.Description,
-                AssignedCount = a.CompetencyPersonProjectAssignments.Count(),
-                AssignedCompleted = a.CompetencyPersonProjectAssignments.Where( b => b.CompletedDateTime != null ).Count(),
-                AssignedRemaining =  a.CompetencyPersonProjectAssignments.Where( b => b.CompletedDateTime == null ).Count()
+                MinAssessmentCount = a.MinAssessmentCount,
+                AssessmentCompleted = a.CompetencyPersonProjectAssessments.Where( b => b.AssessmentDateTime != null ).Count(),
+                AssessmentRemaining = Math.Max( a.MinAssessmentCount - a.CompetencyPersonProjectAssessments.Where( b => b.AssessmentDateTime != null ).Count() ?? 0, 0 )
             } ).ToList();
 
-            gProjectList.DataSource = list;
+            gProjectList.DataSource = resultList;
             gProjectList.DataBind();
         }
 

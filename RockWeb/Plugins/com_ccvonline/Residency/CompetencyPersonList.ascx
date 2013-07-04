@@ -8,8 +8,8 @@
             <Columns>
                 <asp:BoundField DataField="TrackName" HeaderText="Track" SortExpression="TrackDisplayOrder" />
                 <asp:BoundField DataField="CompetencyName" HeaderText="Competency" SortExpression="CompetencyName" />
-                <asp:BoundField DataField="CompletedProjectsTotal" HeaderText="Projects Completed" SortExpression="CompletedProjectsTotal" />
-                <asp:BoundField DataField="AssignedProjectsTotal" HeaderText="Total Projects" SortExpression="AssignedProjectsTotal" />
+                <asp:BoundField DataField="CompletedProjectAssessmentsTotal" HeaderText="Project Assessments Completed" SortExpression="CompletedProjectAssessmentsTotal" />
+                <asp:BoundField DataField="MinAssessmentCount" HeaderText="Min # Project Assessments Total" SortExpression="MinAssessmentCount" />
                 <Rock:DeleteField OnClick="gList_Delete" />
             </Columns>
         </Rock:Grid>

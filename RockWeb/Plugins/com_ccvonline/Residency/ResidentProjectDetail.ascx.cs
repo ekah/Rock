@@ -91,7 +91,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <param name="competencyPersonProject">The competency person project.</param>
         private void ShowReadonlyDetails( CompetencyPersonProject competencyPersonProject )
         {
-
             string residentCompetencyPageGuid = this.GetAttributeValue( "ResidentCompetencyPage" );
             string competencyPersonHtml = competencyPersonProject.CompetencyPerson.Competency.Name;
             if ( !string.IsNullOrWhiteSpace( residentCompetencyPageGuid ) )

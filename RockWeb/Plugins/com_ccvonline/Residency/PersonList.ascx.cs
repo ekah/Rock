@@ -172,12 +172,12 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 Id = a.GroupMember.Id,
                 FullName = a.GroupMember.Person.FullName,
                 CompetencyCount = a.ResidentCompentencies == null ? 0 : a.ResidentCompentencies.Count(),
-                CompletedProjectsTotal = a.ResidentCompentencies == null
+                CompletedProjectAssessmentsTotal = a.ResidentCompentencies == null
                     ? 0
-                    : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).SelectMany( x => x.CompetencyPersonProjectAssignments ).Where( y => y.CompletedDateTime != null ).Count(),
-                AssignedProjectsTotal = a.ResidentCompentencies == null
+                    : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).SelectMany( x => x.CompetencyPersonProjectAssessments ).Where( y => y.AssessmentDateTime != null ).Count(),
+                MinAssessmentCount = a.ResidentCompentencies == null
                     ? 0
-                    : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).SelectMany( x => x.CompetencyPersonProjectAssignments ).Count(),
+                    : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).Select( x => x.MinAssessmentCount ?? 0 ).Sum(),
             } );
 
             SortProperty sortProperty = gList.SortProperty;

@@ -8,8 +8,8 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-using com.ccvonline.Data;
 using com.ccvonline.Residency.Data;
+using Rock.Data;
 
 namespace com.ccvonline.Residency.Model
 {
@@ -18,7 +18,7 @@ namespace com.ccvonline.Residency.Model
     /// </summary>
     [Table( "_com_ccvonline_Residency_ProjectPointOfAssessment" )]
     [DataContract]
-    public class ProjectPointOfAssessment : Model<ProjectPointOfAssessment>
+    public class ProjectPointOfAssessment : com.ccvonline.Data.Model<ProjectPointOfAssessment>
     {
         #region Entity Properties
 
@@ -31,6 +31,15 @@ namespace com.ccvonline.Residency.Model
         [Required]
         [DataMember]
         public int ProjectId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the residency competency type value id.
+        /// </summary>
+        /// <value>
+        /// The residency competency type value id.
+        /// </value>
+        [DefinedValue( com.ccvonline.SystemGuid.DefinedType.RESIDENCY_COMPETENCY_TYPE )]
+        public int? CompetencyTypeValueId { get; set; }
 
         /// <summary>
         /// Gets or sets the assessment order.
@@ -63,6 +72,14 @@ namespace com.ccvonline.Residency.Model
         /// The residency project.
         /// </value>
         public virtual Project Project { get; set; }
+
+        /// <summary>
+        /// Gets or sets the residency competency type value.
+        /// </summary>
+        /// <value>
+        /// The residency competency type value.
+        /// </value>
+        public virtual Rock.Model.DefinedValue CompetencyTypeValue { get; set; }
         
         #endregion
     }
@@ -78,6 +95,7 @@ namespace com.ccvonline.Residency.Model
         public ProjectPointOfAssessmentConfiguration()
         {
             this.HasRequired( a => a.Project ).WithMany(a => a.ProjectPointOfAssessments).HasForeignKey( a => a.ProjectId ).WillCascadeOnDelete( false );
+            this.HasOptional( p => p.CompetencyTypeValue ).WithMany().HasForeignKey( p => p.CompetencyTypeValueId ).WillCascadeOnDelete( false );
         }
     }
 }
