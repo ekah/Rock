@@ -96,6 +96,18 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         }
 
         /// <summary>
+        /// Handles the Click event of the btnEdit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected void btnEdit_Click( object sender, EventArgs e )
+        {
+            ResidencyService<CompetencyPersonProject> service = new ResidencyService<CompetencyPersonProject>();
+            CompetencyPersonProject item = service.Get( hfCompetencyPersonProjectId.ValueAsInt() );
+            ShowEditDetails( item );
+        }
+
+        /// <summary>
         /// Sets the edit mode.
         /// </summary>
         /// <param name="editable">if set to <c>true</c> [editable].</param>
@@ -127,11 +139,19 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 // these inputs are only editable on Add
                 competencyPersonProject.ProjectId = ddlProject.SelectedValueAsInt() ?? 0;
                 competencyPersonProject.CompetencyPersonId = hfCompetencyPersonId.ValueAsInt();
-                competencyPersonProject.MinAssessmentCount = tbMinAssessmentCount.Text.AsInteger();
             }
             else
             {
                 competencyPersonProject = competencyPersonProjectService.Get( competencyPersonProjectId );
+            }
+
+            if (!string.IsNullOrWhiteSpace(tbMinAssessmentCountOverride.Text))
+            {
+                competencyPersonProject.MinAssessmentCount = tbMinAssessmentCountOverride.Text.AsInteger();
+            }
+            else
+            {
+                competencyPersonProject.MinAssessmentCount = null;
             }
 
             if ( !competencyPersonProject.IsValid )
@@ -262,22 +282,29 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             lblPersonName.Text = competencyPersonProject.CompetencyPerson.Person.FullName;
             lblCompetency.Text = competencyPersonProject.CompetencyPerson.Competency.Name;
-            ddlProject.SetValue( competencyPersonProject.ProjectId );
-
-            ddlProject_SelectedIndexChanged( null, null );
 
             if ( competencyPersonProject.MinAssessmentCount != null )
             {
-                tbMinAssessmentCount.Text = competencyPersonProject.MinAssessmentCount.ToString();
+                tbMinAssessmentCountOverride.Text = competencyPersonProject.MinAssessmentCount.ToString();
             }
+            else
+            {
+                tbMinAssessmentCountOverride.Text = string.Empty;
+            }
+                        
+            /* Only allow changing the Project when in Add mode (If this record has already be saved, the child tables (especially assessments) are assuming this project doesn't change) */
 
             if ( competencyPersonProject.Project != null )
             {
                 lblProject.Text = string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description );
+                lblMinAssessmentCountDefault.Text = competencyPersonProject.Project.MinAssessmentCountDefault.ToString();
             }
             else
             {
-                // shouldn't happen, but just in case
+                // they haven't picked a Project yet, so set the lblMinAssessmentCountDefault.text based on whatever project the ddl defaults to
+                ddlProject_SelectedIndexChanged( null, null );
+                
+                // shouldn't happen in Edit, but just in case
                 lblProject.Text = Rock.Constants.None.Text;
             }
 
@@ -285,6 +312,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             ddlProject.Visible = addMode;
             lblProject.Visible = !addMode;
+
             lblPersonName.Visible = true;
             lblCompetency.Visible = true;
         }
@@ -311,7 +339,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Resident", competencyPersonProject.CompetencyPerson.Person )
                 .Add( "Project", string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description ) )
-                .Add( "Min # Assessments", competencyPersonProject.MinAssessmentCount )
+                .Add( "Min # Assessments", competencyPersonProject.MinAssessmentCount ?? competencyPersonProject.Project.MinAssessmentCountDefault )
                 .Add( "Competency", competencyPersonHtml )
                 .Html;
         }
@@ -326,7 +354,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             var project = new ResidencyService<Project>().Get( ddlProject.SelectedValueAsInt() ?? 0 );
             if ( project != null )
             {
-                tbMinAssessmentCount.Text = project.MinAssessmentCountDefault.ToString();
+                lblMinAssessmentCountDefault.Text = project.MinAssessmentCountDefault.ToString();
             }
         }
 

@@ -177,7 +177,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).SelectMany( x => x.CompetencyPersonProjectAssessments ).Where( y => y.AssessmentDateTime != null ).Count(),
                 MinAssessmentCount = a.ResidentCompentencies == null
                     ? 0
-                    : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).Select( x => x.MinAssessmentCount ?? 0 ).Sum(),
+                    : a.ResidentCompentencies.SelectMany( cp => cp.CompetencyPersonProjects ).Select( x => x.MinAssessmentCount ?? x.Project.MinAssessmentCountDefault ?? 0 ).Sum(),
             } );
 
             SortProperty sortProperty = gList.SortProperty;

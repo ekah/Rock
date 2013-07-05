@@ -27,7 +27,7 @@
                             <Rock:DataTextBox ID="tbName" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Name" CssClass="input-xlarge" />
                             <Rock:DataTextBox ID="tbDescription" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Description" TextMode="MultiLine" Rows="3" CssClass="input-xlarge" />
                             <Rock:DataTextBox ID="tbGoals" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Goals"
-                                TextMode="MultiLine" Rows="12" CssClass="input-xxlarge" />
+                                TextMode="MultiLine" Rows="12" CssClass="input-xlarge" />
                         </div>
                         <div class="span6">
                             <Rock:LabeledText ID="lblPeriod" runat="server" LabelText="Period" />

@@ -156,7 +156,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 Id = a.Id,
                 Name = a.Project.Name,
                 Description = a.Project.Description,
-                MinAssessmentCount = a.MinAssessmentCount,
+                MinAssessmentCount = a.MinAssessmentCount ?? a.Project.MinAssessmentCountDefault,
                 CurrentCompleted = a.CompetencyPersonProjectAssessments.Where( b => b.AssessmentDateTime != null ).Count()
             } ).ToList();
 

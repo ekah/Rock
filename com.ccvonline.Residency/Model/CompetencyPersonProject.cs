@@ -43,10 +43,10 @@ namespace com.ccvonline.Residency.Model
         public int ProjectId { get; set; }
 
         /// <summary>
-        /// Gets or sets the min assessment count.
+        /// Gets or sets the overridden min assessment count 
         /// </summary>
         /// <value>
-        /// The min assessment count.
+        /// The min assessment count override
         /// </value>
         [DataMember]
         public int? MinAssessmentCount { get; set; }

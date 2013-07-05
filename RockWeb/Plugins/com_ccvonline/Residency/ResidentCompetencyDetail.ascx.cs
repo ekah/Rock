@@ -82,7 +82,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblCompetencyName.Text = competencyPerson.Competency.Name;
             lblFacilitator.Text = competencyPerson.Competency.FacilitatorPerson != null ? competencyPerson.Competency.FacilitatorPerson.FullName : Rock.Constants.None.TextHtml;
             lblDescription.Text = !string.IsNullOrWhiteSpace( competencyPerson.Competency.Description ) ? competencyPerson.Competency.Description : Rock.Constants.None.TextHtml;
-            lblGoals.Text = competencyPerson.Competency.Goals.Replace( "\n", "<br>" );
+            lblGoals.Text = (competencyPerson.Competency.Goals ?? string.Empty).Replace( "\n", "<br>" );
 
             gProjectList.DataKeyNames = new string[] { "Id" };
             gProjectList.Actions.ShowAdd = false;
@@ -166,9 +166,9 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 Id = a.Id,
                 Name = a.Project.Name,
                 Description = a.Project.Description,
-                MinAssessmentCount = a.MinAssessmentCount,
+                MinAssessmentCount = a.MinAssessmentCount ?? a.Project.MinAssessmentCountDefault,
                 AssessmentCompleted = a.CompetencyPersonProjectAssessments.Where( b => b.AssessmentDateTime != null ).Count(),
-                AssessmentRemaining = Math.Max( a.MinAssessmentCount - a.CompetencyPersonProjectAssessments.Where( b => b.AssessmentDateTime != null ).Count() ?? 0, 0 )
+                AssessmentRemaining = Math.Max( a.MinAssessmentCount ?? a.Project.MinAssessmentCountDefault - a.CompetencyPersonProjectAssessments.Where( b => b.AssessmentDateTime != null ).Count() ?? 0, 0 )
             } ).ToList();
 
             gProjectList.DataSource = resultList;

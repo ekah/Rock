@@ -117,7 +117,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                         Id = a.Id,
                         CompetencyName = a.Competency.Name,
                         CompletedProjectAssessmentsTotal = a.CompetencyPersonProjects.Select( p => p.CompetencyPersonProjectAssessments ).SelectMany( x => x ).Where( n => n.AssessmentDateTime != null ).Count(),
-                        MinProjectAssessmentsTotal = a.CompetencyPersonProjects.Select( p => p.MinAssessmentCount ?? 0 ).DefaultIfEmpty().Sum()
+                        MinProjectAssessmentsTotal = a.CompetencyPersonProjects.Select( p => p.MinAssessmentCount ?? p.Project.MinAssessmentCountDefault ?? 0 ).DefaultIfEmpty().Sum()
                     } )
                     .OrderBy( o => o.CompetencyName );
 

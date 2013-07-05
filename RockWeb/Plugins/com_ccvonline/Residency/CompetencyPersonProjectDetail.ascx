@@ -23,8 +23,9 @@
                     <Rock:LabeledText ID="lblCompetency" runat="server" LabelText="Competency" />
                     <Rock:LabeledText ID="lblProject" runat="server" LabelText="Project" />
                     <Rock:LabeledDropDownList ID="ddlProject" runat="server" DataTextField="Name" DataValueField="Id" Required="true" OnSelectedIndexChanged="ddlProject_SelectedIndexChanged" AutoPostBack="true"/> 
-                    <Rock:DataTextBox ID="tbMinAssessmentCount" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProject, com.ccvonline.Residency" PropertyName="MinAssessmentCount"
-                        LabelText="Minimum # of Assessments" Help="Set this to specify the minimum number of assessments of this project that a person must complete." CssClass="input-mini" />
+                    <Rock:LabeledText ID="lblMinAssessmentCountDefault" runat="server" LabelText="Minimum # of Assessments Default" />
+                    <Rock:DataTextBox ID="tbMinAssessmentCountOverride" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProject, com.ccvonline.Residency" PropertyName="MinAssessmentCount"
+                        LabelText="Minimum # of Assessments Override" Help="Set this to specify the minimum number of assessments of this project that a person must complete if it should be something other than the default." CssClass="input-mini" />
 
                 </fieldset>
 
@@ -45,8 +46,10 @@
                     <div class="row-fluid">
                         <asp:Literal ID="lblMainDetails" runat="server" />
                     </div>
+                    <div class="actions">
+                        <asp:LinkButton ID="btnEdit" runat="server" Text="Edit" CssClass="btn btn-primary btn-mini" OnClick="btnEdit_Click" />
+                    </div>
                 </div>
-
             </fieldset>
         </asp:Panel>
     </ContentTemplate>
