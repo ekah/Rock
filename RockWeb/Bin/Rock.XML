@@ -318,6 +318,24 @@
             <param name="order">The order.</param>
             <param name="key">The key.</param>
         </member>
+        <member name="T:Rock.Attribute.GroupRoleFieldAttribute">
+            <summary>
+            Field Attribute to select 0 or 1 GroupType
+            </summary>
+        </member>
+        <member name="M:Rock.Attribute.GroupRoleFieldAttribute.#ctor(System.String,System.String,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Attribute.DefinedValueFieldAttribute"/> class.
+            </summary>
+            <param name="definedTypeGuid">The defined type GUID.</param>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="required">if set to <c>true</c> [required].</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="category">The category.</param>
+            <param name="order">The order.</param>
+            <param name="key">The key.</param>
+        </member>
         <member name="T:Rock.Attribute.MemoFieldAttribute">
             <summary>
             A class Attribute that can be used by any oject that inherits from <see cref="T:Rock.Attribute.IHasAttributes"/> to specify what attributes it needs.  The 
@@ -953,6 +971,72 @@
             <returns></returns>
         </member>
         <member name="M:Rock.Field.Types.CategoriesFieldType.SetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
+            <summary>
+            Sets the value.
+            </summary>
+            <param name="control">The control.</param>
+            <param name="configurationValues">The configuration values.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="T:Rock.Field.Types.GroupRoleFieldType">
+            <summary>
+            Field Type to select a single (or null) GroupType
+            </summary>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.FormatValue(System.Web.UI.Control,System.String,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.Boolean)">
+            <summary>
+            Returns the field's current value(s)
+            </summary>
+            <param name="parentControl">The parent control.</param>
+            <param name="value">Information about the value</param>
+            <param name="configurationValues">The configuration values.</param>
+            <param name="condensed">Flag indicating if the value should be condensed (i.e. for use in a grid column)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.ConfigurationKeys">
+            <summary>
+            Returns a list of the configuration keys
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.ConfigurationControls">
+            <summary>
+            Creates the HTML controls required to configure this type of field
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.ConfigurationValues(System.Collections.Generic.List{System.Web.UI.Control})">
+            <summary>
+            Gets the configuration value.
+            </summary>
+            <param name="controls">The controls.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.SetConfigurationValues(System.Collections.Generic.List{System.Web.UI.Control},System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue})">
+            <summary>
+            Sets the configuration value.
+            </summary>
+            <param name="controls"></param>
+            <param name="configurationValues"></param>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.EditControl(System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
+            <summary>
+            Creates the control(s) necessary for prompting user for a new value
+            </summary>
+            <param name="configurationValues">The configuration values.</param>
+            <returns>
+            The control
+            </returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.GetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue})">
+            <summary>
+            Reads new values entered by the user for the field
+            </summary>
+            <param name="control">Parent control that controls were added to in the CreateEditControl() method</param>
+            <param name="configurationValues">The configuration values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.SetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
             <summary>
             Sets the value.
             </summary>
@@ -3099,144 +3183,6 @@
             Initializes a new instance of the <see cref="!:BinaryFileDatConfiguration"/> class.
             </summary>
         </member>
-        <member name="T:Rock.Net.RockRestClient">
-            <summary>
-            from http://stackoverflow.com/questions/4740752/how-to-login-with-webclient-c-sharp
-            and http://stackoverflow.com/questions/1777221/using-cookiecontainer-with-webclient-class
-            Used by Apps.CheckScannerUtility
-            </summary>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Net.RockRestClient"/> class.
-            </summary>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.#ctor(System.String,System.Net.CookieContainer)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Net.RockRestClient"/> class.
-            </summary>
-            <param name="c">The c.</param>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetWebRequest(System.Uri)">
-            <summary>
-            Returns a <see cref="T:System.Net.WebRequest" /> object for the specified resource.
-            </summary>
-            <param name="address">A <see cref="T:System.Uri" /> that identifies the resource to request.</param>
-            <returns>
-            A new <see cref="T:System.Net.WebRequest" /> object for the specified resource.
-            </returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetWebResponse(System.Net.WebRequest,System.IAsyncResult)">
-            <summary>
-            Returns the <see cref="T:System.Net.WebResponse" /> for the specified <see cref="T:System.Net.WebRequest" /> using the specified <see cref="T:System.IAsyncResult" />.
-            </summary>
-            <param name="request">A <see cref="T:System.Net.WebRequest" /> that is used to obtain the response.</param>
-            <param name="result">An <see cref="T:System.IAsyncResult" /> object obtained from a previous call to <see cref="M:System.Net.WebRequest.BeginGetResponse(System.AsyncCallback,System.Object)" /> .</param>
-            <returns>
-            A <see cref="T:System.Net.WebResponse" /> containing the response for the specified <see cref="T:System.Net.WebRequest" />.
-            </returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetWebResponse(System.Net.WebRequest)">
-            <summary>
-            Returns the <see cref="T:System.Net.WebResponse" /> for the specified <see cref="T:System.Net.WebRequest" />.
-            </summary>
-            <param name="request">A <see cref="T:System.Net.WebRequest" /> that is used to obtain the response.</param>
-            <returns>
-            A <see cref="T:System.Net.WebResponse" /> containing the response for the specified <see cref="T:System.Net.WebRequest" />.
-            </returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.ReadCookies(System.Net.WebResponse)">
-            <summary>
-            Reads the cookies.
-            </summary>
-            <param name="r">The r.</param>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.Login(System.String,System.String,System.String)">
-            <summary>
-            Logins the specified username.
-            </summary>
-            <param name="username">The username.</param>
-            <param name="password">The password.</param>
-            <param name="rockBaseUrl">The rock base URL.</param>
-            <param name="rockLoginUrl">The rock login URL.</param>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetData``1(System.String,System.String)">
-            <summary>
-            Gets the data.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="getPath">The get path, for example "api/BinaryFileTypes"</param>
-            <param name="odataFilter">The odata filter.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetDataByGuid``1(System.String,System.Guid)">
-            <summary>
-            Gets the data by GUID.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="getPath">The get path.</param>
-            <param name="guid">The GUID.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.GetDataByEnum``1(System.String,System.String,System.Enum)">
-            <summary>
-            Gets the data by enum.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="getPath">The get path.</param>
-            <param name="enumFieldName">Name of the enum field.</param>
-            <param name="enumVal">The enum val.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.Net.RockRestClient.PostData``1(System.String,``0)">
-            <summary>
-            Posts the data 
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="postPath">The post path.</param>
-            <param name="data">The data.</param>
-        </member>
-        <member name="P:Rock.Net.RockRestClient.rockBaseUri">
-            <summary>
-            Gets or sets the rock base URI.
-            </summary>
-            <value>
-            The rock base URI.
-            </value>
-        </member>
-        <member name="P:Rock.Net.RockRestClient.CookieContainer">
-            <summary>
-            Gets or sets the cookie container.
-            </summary>
-            <value>
-            The cookie container.
-            </value>
-        </member>
-        <member name="T:Rock.Net.HttpErrorException">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Rock.Net.HttpErrorException.#ctor(System.Web.Http.HttpError)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Net.HttpErrorException"/> class.
-            </summary>
-            <param name="httpError">The HTTP error.</param>
-        </member>
-        <member name="P:Rock.Net.HttpErrorException._message">
-            <summary>
-            Gets or sets the _message.
-            </summary>
-            <value>
-            The _message.
-            </value>
-        </member>
-        <member name="P:Rock.Net.HttpErrorException.Message">
-            <summary>
-            Gets a message that describes the current exception.
-            </summary>
-            <returns>The error message that explains the reason for the exception, or an empty string("").</returns>
-        </member>
         <member name="T:Rock.Net.RockWebRequest">
             <summary>
             
@@ -4418,6 +4364,144 @@
             <summary>
             Operations to be performed during the downgrade process.
             </summary>
+        </member>
+        <member name="T:Rock.Net.RockRestClient">
+            <summary>
+            from http://stackoverflow.com/questions/4740752/how-to-login-with-webclient-c-sharp
+            and http://stackoverflow.com/questions/1777221/using-cookiecontainer-with-webclient-class
+            Used by Apps.CheckScannerUtility
+            </summary>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Net.RockRestClient"/> class.
+            </summary>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.#ctor(System.String,System.Net.CookieContainer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Net.RockRestClient"/> class.
+            </summary>
+            <param name="c">The c.</param>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetWebRequest(System.Uri)">
+            <summary>
+            Returns a <see cref="T:System.Net.WebRequest" /> object for the specified resource.
+            </summary>
+            <param name="address">A <see cref="T:System.Uri" /> that identifies the resource to request.</param>
+            <returns>
+            A new <see cref="T:System.Net.WebRequest" /> object for the specified resource.
+            </returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetWebResponse(System.Net.WebRequest,System.IAsyncResult)">
+            <summary>
+            Returns the <see cref="T:System.Net.WebResponse" /> for the specified <see cref="T:System.Net.WebRequest" /> using the specified <see cref="T:System.IAsyncResult" />.
+            </summary>
+            <param name="request">A <see cref="T:System.Net.WebRequest" /> that is used to obtain the response.</param>
+            <param name="result">An <see cref="T:System.IAsyncResult" /> object obtained from a previous call to <see cref="M:System.Net.WebRequest.BeginGetResponse(System.AsyncCallback,System.Object)" /> .</param>
+            <returns>
+            A <see cref="T:System.Net.WebResponse" /> containing the response for the specified <see cref="T:System.Net.WebRequest" />.
+            </returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetWebResponse(System.Net.WebRequest)">
+            <summary>
+            Returns the <see cref="T:System.Net.WebResponse" /> for the specified <see cref="T:System.Net.WebRequest" />.
+            </summary>
+            <param name="request">A <see cref="T:System.Net.WebRequest" /> that is used to obtain the response.</param>
+            <returns>
+            A <see cref="T:System.Net.WebResponse" /> containing the response for the specified <see cref="T:System.Net.WebRequest" />.
+            </returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.ReadCookies(System.Net.WebResponse)">
+            <summary>
+            Reads the cookies.
+            </summary>
+            <param name="r">The r.</param>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.Login(System.String,System.String,System.String)">
+            <summary>
+            Logins the specified username.
+            </summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+            <param name="rockBaseUrl">The rock base URL.</param>
+            <param name="rockLoginUrl">The rock login URL.</param>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetData``1(System.String,System.String)">
+            <summary>
+            Gets the data.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getPath">The get path, for example "api/BinaryFileTypes"</param>
+            <param name="odataFilter">The odata filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetDataByGuid``1(System.String,System.Guid)">
+            <summary>
+            Gets the data by GUID.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getPath">The get path.</param>
+            <param name="guid">The GUID.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.GetDataByEnum``1(System.String,System.String,System.Enum)">
+            <summary>
+            Gets the data by enum.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getPath">The get path.</param>
+            <param name="enumFieldName">Name of the enum field.</param>
+            <param name="enumVal">The enum val.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Net.RockRestClient.PostData``1(System.String,``0)">
+            <summary>
+            Posts the data 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="postPath">The post path.</param>
+            <param name="data">The data.</param>
+        </member>
+        <member name="P:Rock.Net.RockRestClient.rockBaseUri">
+            <summary>
+            Gets or sets the rock base URI.
+            </summary>
+            <value>
+            The rock base URI.
+            </value>
+        </member>
+        <member name="P:Rock.Net.RockRestClient.CookieContainer">
+            <summary>
+            Gets or sets the cookie container.
+            </summary>
+            <value>
+            The cookie container.
+            </value>
+        </member>
+        <member name="T:Rock.Net.HttpErrorException">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Net.HttpErrorException.#ctor(System.Web.Http.HttpError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Net.HttpErrorException"/> class.
+            </summary>
+            <param name="httpError">The HTTP error.</param>
+        </member>
+        <member name="P:Rock.Net.HttpErrorException._message">
+            <summary>
+            Gets or sets the _message.
+            </summary>
+            <value>
+            The _message.
+            </value>
+        </member>
+        <member name="P:Rock.Net.HttpErrorException.Message">
+            <summary>
+            Gets a message that describes the current exception.
+            </summary>
+            <returns>The error message that explains the reason for the exception, or an empty string("").</returns>
         </member>
         <member name="T:Rock.Security.LoginParameters">
             <summary>
@@ -16301,6 +16385,30 @@
             The selected component ids.
             </value>
         </member>
+        <member name="T:Rock.Web.UI.Controls.GroupRolePicker">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GroupRolePicker.OnInit(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+            </summary>
+            <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GroupRolePicker.CreateChildControls">
+            <summary>
+            Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
+            </summary>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GroupRolePicker.GroupRoleId">
+            <summary>
+            Gets or sets the person id.
+            </summary>
+            <value>
+            The person id.
+            </value>
+        </member>
         <member name="T:Rock.Web.UI.Controls.GeoPicker">
             <summary>
             
@@ -16316,7 +16424,7 @@
             The required validator
             </summary>
         </member>
-        <member name="M:Rock.Web.UI.Controls.GeoPicker.SetValue(System.Data.Entity.Spatial.DbGeography)">
+        <member name="M:Rock.Web.UI.Controls.GeoPicker.SetValue(System.Data.Spatial.DbGeography)">
             <summary>
             Sets the value. Necessary to preload the geo fence or geo point.
             </summary>
@@ -27856,16 +27964,21 @@
             </summary>
             <typeparam name="T">Target DbContext to be migrated</typeparam>
         </member>
+        <member name="F:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.contextAssembly">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.contextAssemblyTables">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.#ctor(System.Boolean)">
             <summary>
-            Initializes a new instance of the <see cref="T:Rock.Migrations.RockCSharpMigrationCodeGenerator`1"/> class.
+            Initializes a new instance of the <see cref="!:RockCSharpMigrationCodeGenerator"/> class.
             </summary>
-            <param name="limitOperationsToDbContextTables">if set to <c>true</c> [limit operations to db context tables].</param>
-        </member>
-        <member name="M:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.PopulateDbContextEntityLookup">
-            <summary>
-            Populates the db context entity lookup which is used by Rock.Data.AlternateKeyAttribute and LimitOperationsToDbContextTables
-            </summary>
+            <param name="limitOperationsToContextAssembly">if set to <c>true</c> [limit operations to context assembly].</param>
         </member>
         <member name="M:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.GenerateCustomColumnCode(System.Data.Entity.Migrations.Utilities.IndentedTextWriter,System.String,System.String)">
             <summary>
@@ -27915,20 +28028,14 @@
             <param name="operation">The operation.</param>
             <returns></returns>
         </member>
-        <member name="P:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.LimitOperationsToDbContextTables">
+        <member name="P:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.LimitOperationsToContextAssembly">
             <summary>
-            Gets or sets a value indicating whether Migrations Code Generation should 
-            skip operations if the Table is not directly associated with the DbContext.
-            Default is True. 
+            Gets or sets a value indicating whether [limit operations to context assembly]
+            Default is True
             </summary>
             <value>
-            <c>true</c> if [limit operations to db context tables]; otherwise, <c>false</c>.
+            <c>true</c> if [limit operations to context assembly]; otherwise, <c>false</c>.
             </value>
-        </member>
-        <member name="P:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.dbContextEntities">
-            <summary>
-            
-            </summary>
         </member>
         <member name="T:Rock.Migrations.RockCSharpMigrationCodeGenerator`1.TableColumnInfo">
             <summary>
@@ -28897,6 +29004,16 @@
         <member name="F:Rock.SystemGuid.GroupType.GROUPTYPE_EVENTATTENDEES">
             <summary>
             Gets the Event Attendees GroupType
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.GroupType.GROUPTYPE_KNOWN_RELATIONSHIPS">
+            <summary>
+            Know relationship group type
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.GroupType.GROUPTYPE_IMPLIED_RELATIONSHIPS">
+            <summary>
+            Implied relationship group type
             </summary>
         </member>
         <member name="T:Rock.SystemGuid.FieldType">
@@ -34703,6 +34820,16 @@
             <param name="oldValue">The value to replace.</param>
             <param name="newValue">The value to insert.</param>
             <returns></returns>
+        </member>
+        <member name="M:Rock.ExtensionMethods.ReplaceWhileExists(System.String,System.String,System.String)">
+            <summary>
+            Replaces every instance of oldValue with newValue.  Will continue to replace
+            values after each replace until the oldValue does not exist.  
+            </summary>
+            <param name="str">The source string.</param>
+            <param name="oldValue">The value to replace.</param>
+            <param name="newValue">The value to insert.</param>
+            <returns>System.String.</returns>
         </member>
         <member name="M:Rock.ExtensionMethods.EscapeQuotes(System.String)">
             <summary>

@@ -103,9 +103,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             pnlProjects.Visible = button == lbProjects;
             pnlGoals.Visible = button == lbGoals;
-
-            // only show the Notes block when the Notes pill is selected
-            this.HideBlockType( "Notes", button != lbNotes );
         }
 
         /// <summary>
