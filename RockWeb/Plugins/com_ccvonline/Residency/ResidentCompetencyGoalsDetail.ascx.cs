@@ -4,28 +4,19 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 using System;
-using System.Collections.Generic;
 using System.Web.UI;
-using System.Linq;
 using com.ccvonline.Residency.Data;
 using com.ccvonline.Residency.Model;
 using Rock;
-using Rock.Attribute;
-using Rock.Constants;
-using Rock.Data;
 using Rock.Model;
-using Rock.Web;
 using Rock.Web.UI;
-using System.Web.UI.WebControls;
-using Rock.Web.UI.Controls;
 
 namespace RockWeb.Plugins.com_ccvonline.Residency
 {
     /// <summary>
     /// 
     /// </summary>
-    [DetailPage]
-    public partial class ResidentCompetencyDetail : RockBlock, IDetailBlock
+    public partial class ResidentCompetencyGoalsDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
 
@@ -39,10 +30,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             if ( !Page.IsPostBack )
             {
-                string competencyPersonId = PageParameter( "competencyPersonId" );
-                if ( !string.IsNullOrWhiteSpace( competencyPersonId ) )
+                string itemId = PageParameter( "competencyPersonId" );
+
+                if ( !string.IsNullOrWhiteSpace( itemId ) )
                 {
-                    ShowDetail( "competencyPersonId", int.Parse( competencyPersonId ) );
+                    ShowDetail( "competencyPersonId", itemId.AsInteger() ?? 0 );
                 }
                 else
                 {
@@ -52,6 +44,8 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         }
 
         #endregion
+
+        #region Edit Events
 
         /// <summary>
         /// Shows the detail.
@@ -68,21 +62,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             pnlDetails.Visible = true;
 
-            hfCompetencyPersonId.Value = itemKeyValue.ToString();
+            CompetencyPerson competencyPerson = new ResidencyService<CompetencyPerson>().Get( itemKeyValue );
 
-            CompetencyPerson competencyPerson = new ResidencyService<CompetencyPerson>().Get(hfCompetencyPersonId.ValueAsInt());
-
-            if ( competencyPerson.PersonId != CurrentPersonId )
+            if ( competencyPerson != null )
             {
-                // somebody besides the Resident is logged in
-                NavigateToParentPage();
-                return;
+                lblGoals.Text = ( competencyPerson.Competency.Goals ?? string.Empty ).Replace( "\n", "<br>" );
             }
-
-            lblCompetencyName.Text = competencyPerson.Competency.Name;
-            lblFacilitator.Text = competencyPerson.Competency.FacilitatorPerson != null ? competencyPerson.Competency.FacilitatorPerson.FullName : Rock.Constants.None.TextHtml;
-            lblDescription.Text = !string.IsNullOrWhiteSpace( competencyPerson.Competency.Description ) ? competencyPerson.Competency.Description : Rock.Constants.None.TextHtml;
-            
         }
+
+        #endregion
     }
 }
