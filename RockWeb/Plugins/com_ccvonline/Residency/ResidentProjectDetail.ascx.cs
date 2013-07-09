@@ -22,7 +22,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
-    [LinkedPage( "Resident Competency Page" )]
     [LinkedPage( "Grade Request Page" )]
     public partial class ResidentProjectDetail : RockBlock, IDetailBlock
     {
@@ -48,6 +47,38 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     pnlDetails.Visible = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? competencyPersonProjectId = this.PageParameter( pageReference, "competencyPersonProjectId" ).AsInteger();
+            if ( competencyPersonProjectId != null )
+            {
+                CompetencyPersonProject competencyPersonProject = new ResidencyService<CompetencyPersonProject>().Get( competencyPersonProjectId.Value );
+                if ( competencyPersonProject != null )
+                {
+                    breadCrumbs.Add( new BreadCrumb( competencyPersonProject.Project.Name, pageReference ) );
+                }
+                else
+                {
+                    breadCrumbs.Add( new BreadCrumb( "Project", pageReference ) );
+                }
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         #endregion
@@ -92,23 +123,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         private void ShowReadonlyDetails( CompetencyPersonProject competencyPersonProject )
         {
             string residentCompetencyPageGuid = this.GetAttributeValue( "ResidentCompetencyPage" );
-            string competencyPersonHtml = competencyPersonProject.CompetencyPerson.Competency.Name;
-            if ( !string.IsNullOrWhiteSpace( residentCompetencyPageGuid ) )
-            {
-                var page = new PageService().Get( new Guid( residentCompetencyPageGuid ) );
-                Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "competencyPersonId", competencyPersonProject.CompetencyPersonId.ToString() );
-                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                competencyPersonHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPersonProject.CompetencyPerson.Competency.Name );
-            }
 
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Resident", competencyPersonProject.CompetencyPerson.Person )
+                .Add( "Competency", competencyPersonProject.CompetencyPerson.Competency.Name )
                 .Add( "Project", string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description ) )
-                .Add( "Competency", competencyPersonHtml )
-                .StartSecondColumn()
-                .Add( "Period", competencyPersonProject.Project.Competency.Track.Period.Name )
-                .Add( "Track", competencyPersonProject.Project.Competency.Track.Name )
                 .Html;
         }
 

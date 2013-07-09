@@ -24,7 +24,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
-    [LinkedPage( "Person Project Detail Page" )]
     public partial class ResidentGradeDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -46,6 +45,38 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             Page.Response.Cache.SetCacheability( System.Web.HttpCacheability.NoCache );
             Page.Response.Cache.SetExpires( DateTime.UtcNow.AddHours( -1 ) );
             Page.Response.Cache.SetNoStore();
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? competencyPersonProjectId = this.PageParameter( pageReference, "competencyPersonProjectId" ).AsInteger();
+            if ( competencyPersonProjectId != null )
+            {
+                CompetencyPersonProject competencyPersonProject = new ResidencyService<CompetencyPersonProject>().Get( competencyPersonProjectId.Value );
+                if ( competencyPersonProject != null )
+                {
+                    breadCrumbs.Add( new BreadCrumb( competencyPersonProject.Project.Name + " - Grade", pageReference ) );
+                }
+                else
+                {
+                    breadCrumbs.Add( new BreadCrumb( "Project - Grade", pageReference ) );
+                }
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         #endregion
@@ -273,6 +304,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             // populate page
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Student", competencyPersonProject.CompetencyPerson.Person )
+                .Add( "Competency", competencyPersonProject.CompetencyPerson.Competency.Name )
                 .Add( "Project", string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description ) )
                 .Html;
 

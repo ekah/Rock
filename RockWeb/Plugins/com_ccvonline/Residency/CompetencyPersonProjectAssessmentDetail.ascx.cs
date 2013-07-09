@@ -21,7 +21,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
-    [LinkedPage( "Resident Project Page" )]
     public partial class CompetencyPersonProjectAssessmentDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -54,6 +53,30 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     pnlDetails.Visible = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? competencyPersonProjectAssessmentId = this.PageParameter( pageReference, "competencyPersonProjectAssessmentId" ).AsInteger();
+            if ( competencyPersonProjectAssessmentId != null )
+            {
+                breadCrumbs.Add( new BreadCrumb( "Assessment", pageReference ) );
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         #endregion
@@ -253,9 +276,8 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             lblEditDetails.Text = new DescriptionList()
                 .Add( "Resident", competencyPersonProjectAssessment.CompetencyPersonProject.CompetencyPerson.Person )
-                .Add( "Project", string.Format( "{0} - {1}", competencyPersonProjectAssessment.CompetencyPersonProject.Project.Name, competencyPersonProjectAssessment.CompetencyPersonProject.Project.Description ) )
                 .Add( "Competency", competencyPersonProjectAssessment.CompetencyPersonProject.CompetencyPerson.Competency.Name )
-                .StartSecondColumn()
+                .Add( "Project", string.Format( "{0} - {1}", competencyPersonProjectAssessment.CompetencyPersonProject.Project.Name, competencyPersonProjectAssessment.CompetencyPersonProject.Project.Description ) )
                 .Html;
 
             ppAssessor.SetValue( competencyPersonProjectAssessment.AssessorPerson );
@@ -273,21 +295,12 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         {
             SetEditMode( false );
 
-            string residentProjectPageGuid = this.GetAttributeValue( "ResidentProjectPage" );
-            string projectHtml = string.Format( "{0} - {1}", competencyPersonProjectAssessment.CompetencyPersonProject.Project.Name, competencyPersonProjectAssessment.CompetencyPersonProject.Project.Description );
-            if ( !string.IsNullOrWhiteSpace( residentProjectPageGuid ) )
-            {
-                var page = new PageService().Get( new Guid( residentProjectPageGuid ) );
-                Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "competencyPersonProjectId", competencyPersonProjectAssessment.CompetencyPersonProjectId.ToString() );
-                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                projectHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, projectHtml );
-            }
+            string projectText = string.Format( "{0} - {1}", competencyPersonProjectAssessment.CompetencyPersonProject.Project.Name, competencyPersonProjectAssessment.CompetencyPersonProject.Project.Description );
 
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Resident", competencyPersonProjectAssessment.CompetencyPersonProject.CompetencyPerson.Person )
                 .Add( "Competency", competencyPersonProjectAssessment.CompetencyPersonProject.Project.Competency.Name )
-                .Add( "Project", projectHtml )
+                .Add( "Project", projectText )
                 .StartSecondColumn()
                 .Add( "Assessor", competencyPersonProjectAssessment.AssessorPerson )
                 .Add( "Assessment Date/Time", competencyPersonProjectAssessment.AssessmentDateTime )

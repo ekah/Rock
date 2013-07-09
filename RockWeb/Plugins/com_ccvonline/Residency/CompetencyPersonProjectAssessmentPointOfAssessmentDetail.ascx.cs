@@ -22,7 +22,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// Note: This isn't a standard DetailPage.  It takes a two parameters instead of just one
     /// </summary>
-    [LinkedPage( "Resident Project Assessment Page" )]
     public partial class CompetencyPersonProjectAssessmentPointOfAssessmentDetail : RockBlock
     {
         #region Control Methods
@@ -41,6 +40,30 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 int competencyPersonProjectAssessmentId = PageParameter( "competencyPersonProjectAssessmentId" ).AsInteger() ?? 0;
                 ShowDetail( projectPointOfAssessmentId, competencyPersonProjectAssessmentId );
             }
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? competencyPersonProjectAssessmentId = this.PageParameter( pageReference, "competencyPersonProjectAssessmentId" ).AsInteger();
+            if ( competencyPersonProjectAssessmentId != null )
+            {
+                breadCrumbs.Add( new BreadCrumb( "Point of Assessment", pageReference ) );
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         #endregion
@@ -163,16 +186,16 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             if ( !IsUserAuthorized( "Edit" ) )
             {
                 readOnly = true;
-                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( "Project Assessment- Point Of Assessment" );
+                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( "Project Assessment- Point of Assessment" );
             }
 
             if ( competencyPersonProjectAssessmentPointOfAssessment.Id > 0 )
             {
-                lActionTitle.Text = ActionTitle.Edit( "Project Assessment- Point Of Assessment" );
+                lActionTitle.Text = ActionTitle.Edit( "Project Assessment- Point of Assessment" );
             }
             else
             {
-                lActionTitle.Text = ActionTitle.Add( "Project Assessment- Point Of Assessment" );
+                lActionTitle.Text = ActionTitle.Add( "Project Assessment- Point of Assessment" );
             }
 
             var personProject = competencyPersonProjectAssessmentPointOfAssessment.CompetencyPersonProjectAssessment.CompetencyPersonProject;
@@ -181,11 +204,10 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Resident", personProject.CompetencyPerson.Person )
                 .Add( "Project", string.Format( "{0} - {1}", personProject.Project.Name, personProject.Project.Description ) )
+                .Add( "Competency", personProject.CompetencyPerson.Competency.Name)
+                .StartSecondColumn()
                 .Add( "Assessment #", competencyPersonProjectAssessmentPointOfAssessment.ProjectPointOfAssessment.AssessmentOrder )
                 .Add( "Assessment Text", competencyPersonProjectAssessmentPointOfAssessment.ProjectPointOfAssessment.AssessmentText )
-                .StartSecondColumn()
-                .Add( "Competency", personProject.CompetencyPerson.Competency.Name )
-                .Add( "Track", personProject.CompetencyPerson.Competency.Track.Name )
                 .Add( "Assessor", projectAssessment.AssessorPerson )
                 .Html;
 

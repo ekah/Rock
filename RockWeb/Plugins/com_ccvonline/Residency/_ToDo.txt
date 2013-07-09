@@ -1,0 +1,21 @@
+﻿##TODO##	
+
+[DONE] Use Bookmarks for Navigation - Edit Bookmarks as needed (don't use labels for navigation)
+ -- [DONE] remove LinkedPage stuff
+ -- [DONE] do GetBreadCrumbs on Detail pages
+ 
+[DONE] Look at written notes on ScreenShot printouts
+[DONE] Adding a Track to a Person automatically add all the Competencies and Projects
+
++ Email Request To Grade
++ Enable Add/Edit Resident Comments on Grade
+
++ Migration so that NotesBlock should Hide Alert/Private/Security
++ Do a PagesBlocksAttributes migration...
+ + Make sure it picks up the three Resident Competency Detail pages' stuff
++ Migration should remove dead LinkedPage attributes
+
++ test migrations starting from new database
+
++ Figure out the CompetencyTypeValueId thing in ProjectPointsOfAssessment (what should it be called, etc)
+  + Change description of DefinedType

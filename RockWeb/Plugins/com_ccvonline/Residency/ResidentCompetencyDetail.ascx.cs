@@ -51,6 +51,38 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
         }
 
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? competencyPersonId = this.PageParameter( pageReference, "competencyPersonId" ).AsInteger();
+            if ( competencyPersonId != null )
+            {
+                CompetencyPerson competencyPerson = new ResidencyService<CompetencyPerson>().Get( competencyPersonId.Value );
+                if ( competencyPerson != null )
+                {
+                    breadCrumbs.Add( new BreadCrumb( competencyPerson.Competency.Name, pageReference ) );
+                }
+                else
+                {
+                    breadCrumbs.Add( new BreadCrumb( "Competency", pageReference ) );
+                }
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
+        }
+
         #endregion
 
         /// <summary>
@@ -82,7 +114,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblCompetencyName.Text = competencyPerson.Competency.Name;
             lblFacilitator.Text = competencyPerson.Competency.FacilitatorPerson != null ? competencyPerson.Competency.FacilitatorPerson.FullName : Rock.Constants.None.TextHtml;
             lblDescription.Text = !string.IsNullOrWhiteSpace( competencyPerson.Competency.Description ) ? competencyPerson.Competency.Description : Rock.Constants.None.TextHtml;
-            
         }
     }
 }

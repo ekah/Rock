@@ -4,6 +4,7 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 using System;
+using System.Collections.Generic;
 using System.Web.UI;
 using com.ccvonline.Residency.Data;
 using Rock;
@@ -41,6 +42,38 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     pnlDetails.Visible = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? personId = this.PageParameter( pageReference, "personId" ).AsInteger();
+            if ( personId != null )
+            {
+                Person person = new PersonService().Get( personId.Value );
+                if ( person != null )
+                {
+                    breadCrumbs.Add( new BreadCrumb( person.FullName, pageReference ) );
+                }
+                else
+                {
+                    breadCrumbs.Add( new BreadCrumb( "Resident", pageReference ) );
+                }
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         /// <summary>

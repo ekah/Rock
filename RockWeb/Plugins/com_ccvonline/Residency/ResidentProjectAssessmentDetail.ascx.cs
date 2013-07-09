@@ -16,7 +16,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
-    [LinkedPage( "Resident Project Page" )]
     public partial class ResidentProjectAssessmentDetail : RockBlock, IDimmableBlock
     {
         #region Control Methods
@@ -50,6 +49,30 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 hfCompetencyPersonProjectAssessmentId.Value = competencyPersonProjectAssessmentId.ToString();
                 BindGrid();
             }
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? competencyPersonProjectAssessmentId = this.PageParameter(pageReference, "competencyPersonProjectAssessmentId" ).AsInteger();
+            if ( competencyPersonProjectAssessmentId != null )
+            {
+                breadCrumbs.Add( new BreadCrumb( "Assessment", pageReference ) );
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         #endregion
@@ -119,32 +142,23 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                               from qryResult in groupJoin.DefaultIfEmpty()
                               select new
                               {
-                                  // note: two key fields, since we want to show all the Points of Assessment for this Project, if the person hasn't had a rating on it yet
+                                  // note: two key fields, since we want to show all the Points of Assessment for this Project, even if the person hasn't had a rating on it yet
                                   ProjectPointOfAssessmentId = projectPointOfAssessment.Id,
                                   CompetencyPersonProjectAssessmentId = competencyPersonProjectAssessmentId,
                                   ProjectPointOfAssessment = projectPointOfAssessment,
                                   CompetencyPersonProjectAssessmentPointOfAssessment = personPointOfAssessmentList.FirstOrDefault( a => a.ProjectPointOfAssessmentId.Equals( projectPointOfAssessment.Id ) )
                               };
 
-            string residentProjectPageGuid = this.GetAttributeValue( "ResidentProjectPage" );
-            string projectHtml = string.Format( "{0} - {1}", competencyPersonProjectAssessment.CompetencyPersonProject.Project.Name, competencyPersonProjectAssessment.CompetencyPersonProject.Project.Description );
-            if ( !string.IsNullOrWhiteSpace( residentProjectPageGuid ) )
-            {
-                var page = new PageService().Get( new Guid( residentProjectPageGuid ) );
-                Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "competencyPersonProjectId", competencyPersonProjectAssessment.CompetencyPersonProjectId.ToString() );
-                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                projectHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, projectHtml );
-            }
+            string projectText = string.Format( "{0} - {1}", competencyPersonProjectAssessment.CompetencyPersonProject.Project.Name, competencyPersonProjectAssessment.CompetencyPersonProject.Project.Description );
 
             lblProjectDetails.Text = new DescriptionList()
                 .Add( "Resident", competencyPersonProjectAssessment.CompetencyPersonProject.CompetencyPerson.Person )
-                .Add( "Project", projectHtml )
+                .Add( "Competency", competencyPersonProjectAssessment.CompetencyPersonProject.Project.Competency.Name )
+                .Add( "Project", projectText )
+                .StartSecondColumn()
                 .Add( "Assessor", competencyPersonProjectAssessment.AssessorPerson )
                 .Add( "Assessment Date/Time", competencyPersonProjectAssessment.AssessmentDateTime )
-                .StartSecondColumn()
                 .Add( "Rating", competencyPersonProjectAssessment.OverallRating.ToString() )
-                .Add( "Competency", competencyPersonProjectAssessment.CompetencyPersonProject.Project.Competency.Name )
                 .Html;
 
             gList.DataSource = joinedItems.OrderBy( s => s.ProjectPointOfAssessment.AssessmentOrder ).ToList();

@@ -17,7 +17,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
-    [LinkedPage( "Residency Track Page" )]
     public partial class CompetencyDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -50,6 +49,38 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     pnlDetails.Visible = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? competencyId = this.PageParameter(pageReference, "competencyId" ).AsInteger();
+            if ( competencyId != null )
+            {
+                Competency competency = new ResidencyService<Competency>().Get( competencyId.Value );
+                if ( competency != null )
+                {
+                    breadCrumbs.Add( new BreadCrumb( competency.Name, pageReference ) );
+                }
+                else
+                {
+                    breadCrumbs.Add( new BreadCrumb( "Competency", pageReference ) );
+                }
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         #endregion
@@ -270,22 +301,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         {
             SetEditMode( false );
 
-            string trackPageGuid = this.GetAttributeValue( "ResidencyTrackPage" );
-            string trackHtml = competency.Track.Name;
-            if ( !string.IsNullOrWhiteSpace( trackPageGuid ) )
-            {
-                var page = new PageService().Get( new Guid( trackPageGuid ) );
-                Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "trackId", competency.TrackId.ToString() );
-                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                trackHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competency.Track.Name );
-            }
-
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Name", competency.Name )
                 .Add( "Description", competency.Description )
                 .Add( "Period", competency.Track.Period.Name )
-                .Add( "Track", trackHtml )
+                .Add( "Track", competency.Track.Name )
                 .StartSecondColumn()
                 .Add( "Teacher of Record", competency.TeacherOfRecordPerson )
                 .Add( "Facilitator", competency.FacilitatorPerson )
