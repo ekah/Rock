@@ -3,11 +3,9 @@
 <asp:UpdatePanel ID="upDetail" runat="server">
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server" Visible="false">
-            <blockquote>
-                <p>
-                    <asp:Literal ID="lblGoals" runat="server" />
-                </p>
-            </blockquote>
+            <p>
+                <asp:Literal ID="lblGoals" runat="server" />
+            </p>
         </asp:Panel>
     </ContentTemplate>
 </asp:UpdatePanel>
