@@ -24,6 +24,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
+    [LinkedPage( "Person Project Detail Page" )]
     public partial class ResidentGradeDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -145,7 +146,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             competencyPersonProjectAssessment.AssessmentDateTime = DateTime.Now;
             competencyPersonProjectAssessment.RatingNotes = tbRatingNotesOverall.Text;
             competencyPersonProjectAssessment.AssessorPersonId = hfAssessorPersonId.ValueAsInt();
-            //competencyPersonProjectAssessment.ResidentComments = tbResidentComments.Text;
 
             if ( !competencyPersonProjectAssessment.IsValid )
             {
@@ -202,8 +202,13 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 }
             } );
 
+            Rock.Model.Page page = null;
             string personProjectDetailPageGuid = this.GetAttributeValue( "PersonProjectDetailPage" );
-            var page = new PageService().Get( new Guid( personProjectDetailPageGuid ) );
+            if ( !string.IsNullOrWhiteSpace( personProjectDetailPageGuid ) )
+            {
+                page = new PageService().Get( new Guid( personProjectDetailPageGuid ) );
+            }
+
             if ( page != null )
             {
                 Dictionary<string, string> qryString = new Dictionary<string, string>();
@@ -234,6 +239,19 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             hfCompetencyPersonProjectId.Value = this.PageParameter( "competencyPersonProjectId" );
             int competencyPersonProjectId = hfCompetencyPersonProjectId.ValueAsInt();
 
+            // first try to get the key from the url (in case it from an emailed request)
+            string emailedKey = Server.UrlDecode(this.PageParameter( "gradeKey" ));
+
+            if ( !string.IsNullOrWhiteSpace( emailedKey ) )
+            {
+                // if they got here from email, put the key in session, and reload page without the key in the url to minimize chance of problems
+                Session["residentGraderSessionKey"] = emailedKey;
+                Dictionary<string, string> qryParams = new Dictionary<string, string>();
+                qryParams.Add( "competencyPersonProjectId", competencyPersonProjectId.ToString() );
+                NavigateToPage( this.CurrentPage.Guid, qryParams );
+                return;
+            }
+
             string encryptedKey = Session["residentGraderSessionKey"] as string;
 
             // clear the residentGraderSessionKey so they don't accidently grade this again with a stale grader login
@@ -249,6 +267,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             string[] residentGraderSessionKeyParts = residentGraderSessionKey.Split( new char[] { '|' } );
 
             Person assessorPerson = null;
+            bool fromEmailedRequest = false;
 
             // verify that the residentGraderSessionKey is for this Project, has a valid Person, and isn't stale (helps minimize the chance of incorrect teacher from a previous teacher login)
             if ( residentGraderSessionKeyParts.Length == 3 )
@@ -256,11 +275,25 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 string userLoginGuid = residentGraderSessionKeyParts[1];
                 if ( residentGraderSessionKeyParts[0].Equals( competencyPersonProjectId.ToString() ) )
                 {
+                    //// a live (via Facilitator Login) request goes stale if it has been 10 minutes between the Login and this page loading
+                    //// an emailed request just sets Ticks to 0 since we can't really do anything to prevent it
+
+                    assessorPerson = new UserLoginService().Get( new Guid( userLoginGuid ) ).Person;
+
                     string ticks = residentGraderSessionKeyParts[2];
-                    TimeSpan elapsed = DateTime.Now - new DateTime( long.Parse( ticks ) );
-                    if ( elapsed.Duration().Minutes <= 10 )
+                    if ( ticks.Equals( "0" ) )
                     {
-                        assessorPerson = new UserLoginService().Get( new Guid( userLoginGuid ) ).Person;
+                        // if ticks is 0, that means this is from an emailed request.
+                        fromEmailedRequest = true;
+                    }
+                    else
+                    {
+                        TimeSpan elapsed = DateTime.Now - new DateTime( long.Parse( ticks ) );
+                        if ( elapsed.TotalMinutes > 10 )
+                        {
+                            // somehow, the session key is stale, so don't trust it
+                            assessorPerson = null;
+                        }
                     }
                 }
             }
@@ -278,9 +311,12 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             if ( competencyPersonProject.CompetencyPerson.PersonId != CurrentPersonId )
             {
-                // somebody besides the Resident is logged in
-                NavigateToParentPage();
-                return;
+                if ( !fromEmailedRequest )
+                {
+                    // somebody besides the Resident is logged in and this isn't an emailed grade request
+                    NavigateToParentPage();
+                    return;
+                }
             }
 
             hfCompetencyPersonProjectId.Value = competencyPersonProject.Id.ToString();

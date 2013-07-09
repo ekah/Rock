@@ -223,6 +223,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 .Add( "Assessor", competencyPersonProjectAssessment.AssessorPerson )
                 .Add( "Assessment Date/Time", competencyPersonProjectAssessment.AssessmentDateTime )
                 .Add( "Rating", competencyPersonProjectAssessment.OverallRating.ToString() )
+                .Add( "Rating Notes", competencyPersonProjectAssessment.RatingNotes)
                 .Html;
 
             tbResidentComments.Text = competencyPersonProjectAssessment.ResidentComments;
