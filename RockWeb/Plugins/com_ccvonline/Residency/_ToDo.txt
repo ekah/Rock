@@ -7,15 +7,30 @@
 [DONE] Look at written notes on ScreenShot printouts
 [DONE] Adding a Track to a Person automatically add all the Competencies and Projects
 
-+ Email Request To Grade
-+ Enable Add/Edit Resident Comments on Grade
+[DONE] + Email Request To Grade
+[DONE] + Enable Add/Edit Resident Comments on Grade
 
-+ Migration so that NotesBlock should Hide Alert/Private/Security
-+ Do a PagesBlocksAttributes migration...
- + Make sure it picks up the three Resident Competency Detail pages' stuff
-+ Migration should remove dead LinkedPage attributes
++ Migration for new Site (make sure it has a Login Page)
++ Bug when editing admin | Project Detail (can't edit Min # assessments)
++ Migration (or manual step) to assign Colors to DefinedTypeCompetencyType
++ New ColorField control for PointOfAssessments grid(s) (see email from Jon for HTML)
 
-+ test migrations starting from new database
+
+[DONE] + Migration so that NotesBlock should Hide Alert/Private/Security
+[DONE] + Do a PagesBlocksAttributes migration...
+[DONE]   + Make sure it picks up the three Resident Competency Detail pages' stuff
+[DONE](not needed) + Migration should remove dead LinkedPage attributes
+
+[DONE] + test migrations starting from new database
 
 + Figure out the CompetencyTypeValueId thing in ProjectPointsOfAssessment (what should it be called, etc)
   + Change description of DefinedType
+
+
++ Post Install/Update Steps
+  + assign Colors to DefinedTypeCompetencyType, then to Points of Assessment
+  + create Security Role for Residency Graders
+     + assign People
+	 + Set Grade Request Block Attribute for Security Group
+	 + SMTP attribs
+	 + Email Template make nicer
