@@ -101,6 +101,10 @@
     <Compile Include="Migrations\201307092236084_GradeEmailTemplate.Designer.cs">
       <DependentUpon>201307092236084_GradeEmailTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201307100024485_BlocksPages02.cs" />
+    <Compile Include="Migrations\201307100024485_BlocksPages02.Designer.cs">
+      <DependentUpon>201307100024485_BlocksPages02.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Competency.cs" />
     <Compile Include="Model\CompetencyPerson.cs" />
@@ -156,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201307092236084_GradeEmailTemplate.resx">
       <DependentUpon>201307092236084_GradeEmailTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201307100024485_BlocksPages02.resx">
+      <DependentUpon>201307100024485_BlocksPages02.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
