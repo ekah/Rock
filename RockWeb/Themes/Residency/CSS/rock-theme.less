@@ -103,8 +103,18 @@ h1 {
 html
 {
  background-color: #3a3a3a;  
+ background-image: url('../Assets/Images/background.jpg');
 }
 
+@media all and (-webkit-min-device-pixel-ratio: 1.5)
+{
+   html
+    {
+        background-image: url('../Assets/Images/background@2x.jpg');
+        background-size: 657px 397px;
+    }
+
+}
 
 // get rid of that dotted box around anchors with focus
 a {
@@ -414,18 +424,18 @@ div.logo
 
 body#splash
 {
-    background: none;
+    background-image: url('../Assets/Images/background.jpg');
 }
 
 #splash .pageheader-logo {
-    height: 45px;
-	width: 127.57px;
+    height: 120px;
     margin-bottom: 6px;
 }
 
 #splash #content {
     width: 550px;
     margin: 5% auto 0 auto;
+    text-align: center;
 }
 
 body#splash #content-box {
