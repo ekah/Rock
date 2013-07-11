@@ -291,9 +291,21 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             ddlProject.DataSource = list;
             ddlProject.DataBind();
 
-            pnlEditProject.Visible = list.Any();
-            nbAllProjectsAlreadyAdded.Visible = !list.Any();
-            btnSave.Visible = list.Any();
+            bool addMode = hfCompetencyPersonProjectId.ValueAsInt() == 0;
+
+            if ( addMode )
+            {
+                // if Adding a project, warn if there are no Projects left to add
+                pnlEditProject.Visible = list.Any();
+                nbAllProjectsAlreadyAdded.Visible = !list.Any();
+                btnSave.Visible = list.Any();
+            }
+            else
+            {
+                pnlEditProject.Visible = true;
+                nbAllProjectsAlreadyAdded.Visible = false;
+                btnSave.Visible = true;
+            }
         }
 
         /// <summary>
