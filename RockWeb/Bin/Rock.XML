@@ -2377,6 +2377,21 @@
             Operations to be performed during the downgrade process.
             </summary>
         </member>
+        <member name="T:Rock.Migrations.LayoutBlocksSiteSpecific">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.LayoutBlocksSiteSpecific.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.LayoutBlocksSiteSpecific.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
         <member name="T:Rock.Model.BinaryFileDataService">
             <summary>
             BinaryFileData Service class
@@ -9991,30 +10006,14 @@
             <param name="blockTypeId">Block Type Id.</param>
             <returns>An enumerable list of Block objects.</returns>
         </member>
-        <member name="M:Rock.Model.BlockService.GetByLayout(System.String)">
+        <member name="M:Rock.Model.BlockService.GetByLayout(System.Int32,System.String)">
             <summary>
             Gets Block Instances by Layout
             </summary>
             <param name="layout">Layout.</param>
             <returns>An enumerable list of Block objects.</returns>
         </member>
-        <member name="M:Rock.Model.BlockService.GetByLayoutAndPageIdAndZone(System.String,System.Nullable{System.Int32},System.String)">
-            <summary>
-            Gets Block Instances by Layout And Page Id And Zone
-            </summary>
-            <param name="layout">Layout.</param>
-            <param name="pageId">Page Id.</param>
-            <param name="zone">Zone.</param>
-            <returns>An enumerable list of Block objects.</returns>
-        </member>
-        <member name="M:Rock.Model.BlockService.GetByPageId(System.Nullable{System.Int32})">
-            <summary>
-            Gets Block Instances by Page Id
-            </summary>
-            <param name="pageId">Page Id.</param>
-            <returns>An enumerable list of Block objects.</returns>
-        </member>
-        <member name="M:Rock.Model.BlockService.Move(Rock.Model.Block)">
+        <member name="M:Rock.Model.BlockService.GetMaxOrder(Rock.Model.Block)">
             <summary>
             Moves the specified block to another zone.
             </summary>
@@ -23156,6 +23155,12 @@
             Page Id.
             </value>
         </member>
+        <member name="P:Rock.Model.Block.SiteId">
+            <summary>
+            Gets or sets the site id.
+            </summary>
+            <value>The site id.</value>
+        </member>
         <member name="P:Rock.Model.Block.Layout">
             <summary>
             Gets or sets the Layout.
@@ -23220,15 +23225,11 @@
             A <see cref="P:Rock.Model.Block.Page"/> object.
             </value>
         </member>
-        <member name="P:Rock.Model.Block.SiteCache">
+        <member name="P:Rock.Model.Block.Site">
             <summary>
-            Gets or sets the site cache.  This is only used by security to determine the parent authority
-            when the block is associated with a layout instead of a particular page.  The UI will set 
-            this property before calling the security dialog
+            Gets or sets the site.
             </summary>
-            <value>
-            The site cache.
-            </value>
+            <value>The site.</value>
         </member>
         <member name="P:Rock.Model.Block.BlockLocation">
             <summary>
