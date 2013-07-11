@@ -22,7 +22,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
-    [LinkedPage( "Residency Period Page" )]
     public partial class TrackDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -55,6 +54,38 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     pnlDetails.Visible = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? trackId = this.PageParameter( pageReference, "trackId" ).AsInteger();
+            if ( trackId != null )
+            {
+                Track track = new ResidencyService<Track>().Get( trackId.Value );
+                if ( track != null )
+                {
+                    breadCrumbs.Add( new BreadCrumb( track.Name, pageReference ) );
+                }
+                else
+                {
+                    breadCrumbs.Add( new BreadCrumb( "Track", pageReference ) );
+                }
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         #endregion
@@ -268,22 +299,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         {
             SetEditMode( false );
 
-            string periodPageGuid = this.GetAttributeValue( "ResidencyPeriodPage" );
-            string periodHtml = track.Period.Name;
-            if ( !string.IsNullOrWhiteSpace( periodPageGuid ) )
-            {
-                var page = new PageService().Get( new Guid( periodPageGuid ) );
-                Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "periodId", track.PeriodId.ToString() );
-                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                periodHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, track.Period.Name );
-            }
-
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Name", track.Name )
                 .Add( "Description", track.Description )
                 .StartSecondColumn()
-                .Add( "Period", periodHtml )
+                .Add( "Period", track.Period.Name )
                 .Html;
         }
 

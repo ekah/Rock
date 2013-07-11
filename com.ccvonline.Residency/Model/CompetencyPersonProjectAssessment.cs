@@ -16,21 +16,30 @@ namespace com.ccvonline.Residency.Model
     /// <summary>
     /// 
     /// </summary>
-    [Table( "_com_ccvonline_Residency_CompetencyPersonProjectAssignmentAssessment" )]
+    [Table( "_com_ccvonline_Residency_CompetencyPersonProjectAssessment" )]
     [DataContract]
-    public class CompetencyPersonProjectAssignmentAssessment : Model<CompetencyPersonProjectAssignmentAssessment>
+    public class CompetencyPersonProjectAssessment : Model<CompetencyPersonProjectAssessment>
     {
         #region Entity Properties
 
         /// <summary>
-        /// Gets or sets the residency competency person project assignment id.
+        /// Gets or sets the competency person project id.
         /// </summary>
         /// <value>
-        /// The residency competency person project assignment id.
+        /// The competency person project id.
         /// </value>
         [DataMember]
         [Required]
-        public int CompetencyPersonProjectAssignmentId { get; set; }
+        public int CompetencyPersonProjectId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the assessor person id.
+        /// </summary>
+        /// <value>
+        /// The assessor person id.
+        /// </value>
+        [DataMember]
+        public int? AssessorPersonId { get; set; }
 
         /// <summary>
         /// Gets or sets the assessment date time.
@@ -73,20 +82,28 @@ namespace com.ccvonline.Residency.Model
         #region Virtual Properties
 
         /// <summary>
-        /// Gets or sets the residency competency person project assignment.
+        /// Gets or sets the competency person project.
         /// </summary>
         /// <value>
-        /// The residency competency person project assignment.
+        /// The competency person project.
         /// </value>
-        public virtual CompetencyPersonProjectAssignment CompetencyPersonProjectAssignment { get; set; }
+        public virtual CompetencyPersonProject CompetencyPersonProject { get; set; }
 
         /// <summary>
-        /// Gets or sets the competency person project assignment assessment point of assessments.
+        /// Gets or sets the assessor person.
         /// </summary>
         /// <value>
-        /// The competency person project assignment assessment point of assessments.
+        /// The assessor person.
         /// </value>
-        public virtual List<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment> CompetencyPersonProjectAssignmentAssessmentPointOfAssessments { get; set; }
+        public virtual Rock.Model.Person AssessorPerson { get; set; }
+
+        /// <summary>
+        /// Gets or sets the competency person project assessment point of assessments.
+        /// </summary>
+        /// <value>
+        /// The competency person project assessment point of assessments.
+        /// </value>
+        public virtual List<CompetencyPersonProjectAssessmentPointOfAssessment> CompetencyPersonProjectAssessmentPointOfAssessments { get; set; }
 
         #endregion
     }
@@ -94,14 +111,15 @@ namespace com.ccvonline.Residency.Model
     /// <summary>
     /// 
     /// </summary>
-    public partial class CompetencyPersonProjectAssignmentAssessmentConfiguration : EntityTypeConfiguration<CompetencyPersonProjectAssignmentAssessment>
+    public partial class CompetencyPersonProjectAssessmentConfiguration : EntityTypeConfiguration<CompetencyPersonProjectAssessment>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CompetencyPersonProjectAssignmentAssessmentConfiguration"/> class.
+        /// Initializes a new instance of the <see cref="CompetencyPersonProjectAssessmentConfiguration"/> class.
         /// </summary>
-        public CompetencyPersonProjectAssignmentAssessmentConfiguration()
+        public CompetencyPersonProjectAssessmentConfiguration()
         {
-            this.HasRequired( a => a.CompetencyPersonProjectAssignment ).WithMany( a => a.CompetencyPersonProjectAssignmentAssessments ).HasForeignKey( a => a.CompetencyPersonProjectAssignmentId ).WillCascadeOnDelete( false );
+            this.HasRequired( a => a.CompetencyPersonProject ).WithMany( a => a.CompetencyPersonProjectAssessments ).HasForeignKey( a => a.CompetencyPersonProjectId ).WillCascadeOnDelete( false );
+            this.HasOptional( a => a.AssessorPerson ).WithMany().HasForeignKey( a => a.AssessorPersonId ).WillCascadeOnDelete( false );
             
             // limit OverallRating to one decimal point
             this.Property( m => m.OverallRating ).HasPrecision( 2, 1 );

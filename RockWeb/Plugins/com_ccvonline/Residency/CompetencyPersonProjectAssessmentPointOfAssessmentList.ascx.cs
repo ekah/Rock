@@ -15,7 +15,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// 
     /// </summary>
     [DetailPage]
-    public partial class CompetencyPersonProjectAssignmentAssessmentPointOfAssessmentList : RockBlock, IDimmableBlock
+    public partial class CompetencyPersonProjectAssessmentPointOfAssessmentList : RockBlock, IDimmableBlock
     {
         #region Control Methods
 
@@ -28,7 +28,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             base.OnInit( e );
 
             // NOTE:  this is special case of where we need two key fields, and no add or delete
-            gList.DataKeyNames = new string[] { "ProjectPointOfAssessmentId", "CompetencyPersonProjectAssignmentAssessmentId" };
+            gList.DataKeyNames = new string[] { "ProjectPointOfAssessmentId", "CompetencyPersonProjectAssessmentId" };
             gList.Actions.ShowAdd = false;
             gList.IsDeleteEnabled = false;
             gList.GridRebind += gList_GridRebind;
@@ -44,8 +44,8 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             if ( !Page.IsPostBack )
             {
-                int? competencyPersonProjectAssignmentAssessmentId = this.PageParameter( "competencyPersonProjectAssignmentAssessmentId" ).AsInteger();
-                hfCompetencyPersonProjectAssignmentAssessmentId.Value = competencyPersonProjectAssignmentAssessmentId.ToString();
+                int? competencyPersonProjectAssessmentId = this.PageParameter( "competencyPersonProjectAssessmentId" ).AsInteger();
+                hfCompetencyPersonProjectAssessmentId.Value = competencyPersonProjectAssessmentId.ToString();
                 BindGrid();
             }
         }
@@ -61,16 +61,16 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
         protected void gList_Edit( object sender, RowEventArgs e )
         {
-            gList_ShowEdit( (int)e.RowKeyValues["ProjectPointOfAssessmentId"], (int)e.RowKeyValues["CompetencyPersonProjectAssignmentAssessmentId"] );
+            gList_ShowEdit( (int)e.RowKeyValues["ProjectPointOfAssessmentId"], (int)e.RowKeyValues["CompetencyPersonProjectAssessmentId"] );
         }
 
         /// <summary>
         /// Gs the list_ show edit.
         /// </summary>
-        /// <param name="competencyPersonProjectAssignmentAssessmentPointOfAssessmentId">The residency competency person project assignment assessment point of assessment id.</param>
-        protected void gList_ShowEdit( int projectPointOfAssessmentId, int competencyPersonProjectAssignmentAssessmentId )
+        /// <param name="competencyPersonProjectAssessmentPointOfAssessmentId">The residency competency person project assessment point of assessment id.</param>
+        protected void gList_ShowEdit( int projectPointOfAssessmentId, int competencyPersonProjectAssessmentId )
         {
-            NavigateToDetailPage( "projectPointOfAssessmentId", projectPointOfAssessmentId, "competencyPersonProjectAssignmentAssessmentId", competencyPersonProjectAssignmentAssessmentId );
+            NavigateToDetailPage( "projectPointOfAssessmentId", projectPointOfAssessmentId, "competencyPersonProjectAssessmentId", competencyPersonProjectAssessmentId );
         }
 
         /// <summary>
@@ -94,19 +94,19 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         {
             SortProperty sortProperty = gList.SortProperty;
 
-            int competencyPersonProjectAssignmentAssessmentId = hfCompetencyPersonProjectAssignmentAssessmentId.ValueAsInt();
+            int competencyPersonProjectAssessmentId = hfCompetencyPersonProjectAssessmentId.ValueAsInt();
 
-            List<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment> personPointOfAssessmentList = new ResidencyService<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>().Queryable()
-                .Where( a => a.CompetencyPersonProjectAssignmentAssessmentId.Equals( competencyPersonProjectAssignmentAssessmentId ) ).ToList();
+            List<CompetencyPersonProjectAssessmentPointOfAssessment> personPointOfAssessmentList = new ResidencyService<CompetencyPersonProjectAssessmentPointOfAssessment>().Queryable()
+                .Where( a => a.CompetencyPersonProjectAssessmentId.Equals( competencyPersonProjectAssessmentId ) ).ToList();
 
-            CompetencyPersonProjectAssignmentAssessment competencyPersonProjectAssignmentAssessment
-                = new ResidencyService<CompetencyPersonProjectAssignmentAssessment>().Get( competencyPersonProjectAssignmentAssessmentId );
+            CompetencyPersonProjectAssessment competencyPersonProjectAssessment
+                = new ResidencyService<CompetencyPersonProjectAssessment>().Get( competencyPersonProjectAssessmentId );
 
             List<ProjectPointOfAssessment> projectPointOfAssessmentList;
-            if ( competencyPersonProjectAssignmentAssessment != null )
+            if ( competencyPersonProjectAssessment != null )
             {
                 projectPointOfAssessmentList = new ResidencyService<ProjectPointOfAssessment>().Queryable()
-                    .Where( a => a.ProjectId.Equals( competencyPersonProjectAssignmentAssessment.CompetencyPersonProjectAssignment.CompetencyPersonProject.ProjectId ) ).ToList();
+                    .Where( a => a.ProjectId.Equals( competencyPersonProjectAssessment.CompetencyPersonProject.ProjectId ) ).ToList();
             }
             else
             {
@@ -121,9 +121,9 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                               {
                                   // note: two key fields, since we want to show all the Points of Assessment for this Project, if the person hasn't had a rating on it yet
                                   ProjectPointOfAssessmentId = projectPointOfAssessment.Id,
-                                  CompetencyPersonProjectAssignmentAssessmentId = competencyPersonProjectAssignmentAssessmentId,
+                                  CompetencyPersonProjectAssessmentId = competencyPersonProjectAssessmentId,
                                   ProjectPointOfAssessment = projectPointOfAssessment,
-                                  CompetencyPersonProjectAssignmentAssessmentPointOfAssessment = personPointOfAssessmentList.FirstOrDefault( a => a.ProjectPointOfAssessmentId.Equals( projectPointOfAssessment.Id ) )
+                                  CompetencyPersonProjectAssessmentPointOfAssessment = personPointOfAssessmentList.FirstOrDefault( a => a.ProjectPointOfAssessmentId.Equals( projectPointOfAssessment.Id ) )
                               };
 
             if ( sortProperty != null )

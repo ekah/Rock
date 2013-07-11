@@ -60,6 +60,7 @@
     <Compile Include="SystemGuid\Category.cs" />
     <Compile Include="SystemGuid\DefinedType.cs" />
     <Compile Include="SystemGuid\DefinedValue.cs" />
+    <Compile Include="SystemGuid\EmailTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

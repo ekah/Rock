@@ -8,7 +8,7 @@
             <Columns>
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                <asp:BoundField DataField="MinAssignmentCount" HeaderText="Min Assignment Count" SortExpression="MinAssignmentCount" />
+                <asp:BoundField DataField="MinAssessmentCount" HeaderText="Min Assessment Count" SortExpression="MinAssessmentCount" />
                 <asp:BoundField DataField="CurrentCompleted" HeaderText="Current Completed" SortExpression="CurrentCompleted" />
                 <Rock:DeleteField OnClick="gList_Delete" />
             </Columns>

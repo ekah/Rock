@@ -81,7 +81,9 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             if ( competencyPersonProject.CompetencyPerson.PersonId != CurrentPersonId )
             {
                 // somebody besides the Resident is logged in
-                NavigateToParentPage();
+                Dictionary<string, string> qryString = new Dictionary<string, string>();
+                qryString["competencyPersonId"] = competencyPersonProject.CompetencyPersonId.ToString();
+                NavigateToParentPage( qryString );
                 return;
             }
 

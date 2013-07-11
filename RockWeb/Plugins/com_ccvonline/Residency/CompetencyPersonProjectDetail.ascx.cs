@@ -22,7 +22,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// 
     /// </summary>
-    [LinkedPage( "Residency Competency Person Page" )]
     public partial class CompetencyPersonProjectDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -55,6 +54,38 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     pnlDetails.Visible = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? competencyPersonProjectId = this.PageParameter( pageReference, "competencyPersonProjectId" ).AsInteger();
+            if ( competencyPersonProjectId != null )
+            {
+                CompetencyPersonProject competencyPersonProject = new ResidencyService<CompetencyPersonProject>().Get( competencyPersonProjectId.Value );
+                if ( competencyPersonProject != null )
+                {
+                    breadCrumbs.Add( new BreadCrumb( competencyPersonProject.Project.Name, pageReference ) );
+                }
+                else
+                {
+                    breadCrumbs.Add( new BreadCrumb( "Project", pageReference ) );
+                }
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         #endregion
@@ -96,6 +127,18 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         }
 
         /// <summary>
+        /// Handles the Click event of the btnEdit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected void btnEdit_Click( object sender, EventArgs e )
+        {
+            ResidencyService<CompetencyPersonProject> service = new ResidencyService<CompetencyPersonProject>();
+            CompetencyPersonProject item = service.Get( hfCompetencyPersonProjectId.ValueAsInt() );
+            ShowEditDetails( item );
+        }
+
+        /// <summary>
         /// Sets the edit mode.
         /// </summary>
         /// <param name="editable">if set to <c>true</c> [editable].</param>
@@ -131,6 +174,15 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             else
             {
                 competencyPersonProject = competencyPersonProjectService.Get( competencyPersonProjectId );
+            }
+
+            if (!string.IsNullOrWhiteSpace(tbMinAssessmentCountOverride.Text))
+            {
+                competencyPersonProject.MinAssessmentCount = tbMinAssessmentCountOverride.Text.AsInteger();
+            }
+            else
+            {
+                competencyPersonProject.MinAssessmentCount = null;
             }
 
             if ( !competencyPersonProject.IsValid )
@@ -238,6 +290,22 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             ddlProject.DataSource = list;
             ddlProject.DataBind();
+
+            bool addMode = hfCompetencyPersonProjectId.ValueAsInt() == 0;
+
+            if ( addMode )
+            {
+                // if Adding a project, warn if there are no Projects left to add
+                pnlEditProject.Visible = list.Any();
+                nbAllProjectsAlreadyAdded.Visible = !list.Any();
+                btnSave.Visible = list.Any();
+            }
+            else
+            {
+                pnlEditProject.Visible = true;
+                nbAllProjectsAlreadyAdded.Visible = false;
+                btnSave.Visible = true;
+            }
         }
 
         /// <summary>
@@ -261,15 +329,29 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             lblPersonName.Text = competencyPersonProject.CompetencyPerson.Person.FullName;
             lblCompetency.Text = competencyPersonProject.CompetencyPerson.Competency.Name;
-            ddlProject.SetValue( competencyPersonProject.ProjectId );
+
+            if ( competencyPersonProject.MinAssessmentCount != null )
+            {
+                tbMinAssessmentCountOverride.Text = competencyPersonProject.MinAssessmentCount.ToString();
+            }
+            else
+            {
+                tbMinAssessmentCountOverride.Text = string.Empty;
+            }
+                        
+            /* Only allow changing the Project when in Add mode (If this record has already be saved, the child tables (especially assessments) are assuming this project doesn't change) */
 
             if ( competencyPersonProject.Project != null )
             {
                 lblProject.Text = string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description );
+                lblMinAssessmentCountDefault.Text = competencyPersonProject.Project.MinAssessmentCountDefault.ToString();
             }
             else
             {
-                // shouldn't happen, but just in case
+                // they haven't picked a Project yet, so set the lblMinAssessmentCountDefault.text based on whatever project the ddl defaults to
+                ddlProject_SelectedIndexChanged( null, null );
+                
+                // shouldn't happen in Edit, but just in case
                 lblProject.Text = Rock.Constants.None.Text;
             }
 
@@ -277,6 +359,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             ddlProject.Visible = addMode;
             lblProject.Visible = !addMode;
+
             lblPersonName.Visible = true;
             lblCompetency.Visible = true;
         }
@@ -289,25 +372,26 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         {
             SetEditMode( false );
 
-            string competencyPersonPageGuid = this.GetAttributeValue( "ResidencyCompetencyPersonPage" );
-            string competencyPersonHtml = competencyPersonProject.CompetencyPerson.Competency.Name;
-            if ( !string.IsNullOrWhiteSpace( competencyPersonPageGuid ) )
-            {
-                var page = new PageService().Get( new Guid( competencyPersonPageGuid ) );
-                Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "competencyPersonId", competencyPersonProject.CompetencyPersonId.ToString() );
-                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                competencyPersonHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPersonProject.CompetencyPerson.Competency.Name );
-            }
-
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Resident", competencyPersonProject.CompetencyPerson.Person )
-                .Add( "Project", string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description ))
-                .Add( "Competency", competencyPersonHtml )
-                .StartSecondColumn()
-                .Add( "Period", competencyPersonProject.Project.Competency.Track.Period.Name )
-                .Add( "Track", competencyPersonProject.Project.Competency.Track.Name )
+                .Add( "Competency", competencyPersonProject.CompetencyPerson.Competency.Name )
+                .Add( "Project", string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description ) )
+                .Add( "Min # Assessments", competencyPersonProject.MinAssessmentCount ?? competencyPersonProject.Project.MinAssessmentCountDefault )
                 .Html;
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the ddlProject control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ddlProject_SelectedIndexChanged( object sender, EventArgs e )
+        {
+            var project = new ResidencyService<Project>().Get( ddlProject.SelectedValueAsInt() ?? 0 );
+            if ( project != null )
+            {
+                lblMinAssessmentCountDefault.Text = project.MinAssessmentCountDefault.ToString();
+            }
         }
 
         #endregion

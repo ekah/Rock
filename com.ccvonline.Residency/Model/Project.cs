@@ -33,13 +33,13 @@ namespace com.ccvonline.Residency.Model
         public int CompetencyId { get; set; }
 
         /// <summary>
-        /// Gets or sets the min assignment count default.
+        /// Gets or sets the min assessment count default.
         /// </summary>
         /// <value>
-        /// The min assignment count default.
+        /// The min assessment count default.
         /// </value>
         [DataMember]
-        public int? MinAssignmentCountDefault { get; set; }
+        public int? MinAssessmentCountDefault { get; set; }
 
         #endregion
 

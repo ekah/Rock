@@ -1,11 +1,11 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CompetencyPersonProjectAssignmentAssessmentPointOfAssessmentDetail.ascx.cs" Inherits="RockWeb.Plugins.com_ccvonline.Residency.CompetencyPersonProjectAssignmentAssessmentPointOfAssessmentDetail" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CompetencyPersonProjectAssessmentPointOfAssessmentDetail.ascx.cs" Inherits="RockWeb.Plugins.com_ccvonline.Residency.CompetencyPersonProjectAssessmentPointOfAssessmentDetail" %>
 
-<asp:UpdatePanel ID="upCompetencyPersonProjectAssignmentAssessmentPointOfAssessmentDetail" runat="server">
+<asp:UpdatePanel ID="upCompetencyPersonProjectAssessmentPointOfAssessmentDetail" runat="server">
     <ContentTemplate>
         <asp:Panel ID="pnlDetails" runat="server">
 
             <asp:HiddenField ID="hfProjectPointOfAssessmentId" runat="server" />
-            <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentAssessmentId" runat="server" />
+            <asp:HiddenField ID="hfCompetencyPersonProjectAssessmentId" runat="server" />
 
             <div id="pnlEditDetails" runat="server">
 
@@ -23,7 +23,7 @@
                     </div>
                     <div class="row-fluid">
                         <Rock:NumberBox ID="tbRating" runat="server" LabelText="Rating" MaximumValue="5" MinimumValue="1" />
-                        <Rock:DataTextBox ID="tbRatingNotes" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProjectAssignmentAssessmentPointOfAssessment, com.ccvonline.Residency" PropertyName="RatingNotes" TextMode="MultiLine" Rows="3" />
+                        <Rock:DataTextBox ID="tbRatingNotes" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProjectAssessmentPointOfAssessment, com.ccvonline.Residency" PropertyName="RatingNotes" TextMode="MultiLine" Rows="3" />
                     </div>
                 </fieldset>
 

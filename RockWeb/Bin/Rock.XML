@@ -318,6 +318,24 @@
             <param name="order">The order.</param>
             <param name="key">The key.</param>
         </member>
+        <member name="T:Rock.Attribute.GroupRoleFieldAttribute">
+            <summary>
+            Field Attribute to select 0 or 1 GroupType
+            </summary>
+        </member>
+        <member name="M:Rock.Attribute.GroupRoleFieldAttribute.#ctor(System.String,System.String,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Attribute.DefinedValueFieldAttribute"/> class.
+            </summary>
+            <param name="definedTypeGuid">The defined type GUID.</param>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="required">if set to <c>true</c> [required].</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="category">The category.</param>
+            <param name="order">The order.</param>
+            <param name="key">The key.</param>
+        </member>
         <member name="T:Rock.Attribute.MemoFieldAttribute">
             <summary>
             A class Attribute that can be used by any oject that inherits from <see cref="T:Rock.Attribute.IHasAttributes"/> to specify what attributes it needs.  The 
@@ -395,6 +413,7 @@
         <member name="T:Rock.Attribute.GroupTypeFieldAttribute">
             <summary>
             Field Attribute to select 0 or 1 GroupType
+            GroupType value stored as Guid
             </summary>
         </member>
         <member name="M:Rock.Attribute.GroupTypeFieldAttribute.#ctor(System.String,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
@@ -404,7 +423,7 @@
             <param name="name">The name.</param>
             <param name="description">The description.</param>
             <param name="required">if set to <c>true</c> [required].</param>
-            <param name="defaultGroupTypeId">The default group type id.</param>
+            <param name="defaultGroupTypeGuid">The default group type GUID.</param>
             <param name="category">The category.</param>
             <param name="order">The order.</param>
             <param name="key">The key.</param>
@@ -566,6 +585,7 @@
         <member name="T:Rock.Attribute.GroupTypesFieldAttribute">
             <summary>
             Field Attribute to select 0 or more GroupTypes
+            Stored as a list of Guids
             </summary>
         </member>
         <member name="M:Rock.Attribute.GroupTypesFieldAttribute.#ctor(System.String,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
@@ -575,7 +595,7 @@
             <param name="name">The name.</param>
             <param name="description">The description.</param>
             <param name="required">if set to <c>true</c> [required].</param>
-            <param name="defaultGroupTypeId">The default group type id.</param>
+            <param name="defaultGroupTypeGuids">The default group type guids.</param>
             <param name="category">The category.</param>
             <param name="order">The order.</param>
             <param name="key">The key.</param>
@@ -953,6 +973,72 @@
             <returns></returns>
         </member>
         <member name="M:Rock.Field.Types.CategoriesFieldType.SetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
+            <summary>
+            Sets the value.
+            </summary>
+            <param name="control">The control.</param>
+            <param name="configurationValues">The configuration values.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="T:Rock.Field.Types.GroupRoleFieldType">
+            <summary>
+            Field Type to select a single (or null) GroupType
+            </summary>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.FormatValue(System.Web.UI.Control,System.String,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.Boolean)">
+            <summary>
+            Returns the field's current value(s)
+            </summary>
+            <param name="parentControl">The parent control.</param>
+            <param name="value">Information about the value</param>
+            <param name="configurationValues">The configuration values.</param>
+            <param name="condensed">Flag indicating if the value should be condensed (i.e. for use in a grid column)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.ConfigurationKeys">
+            <summary>
+            Returns a list of the configuration keys
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.ConfigurationControls">
+            <summary>
+            Creates the HTML controls required to configure this type of field
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.ConfigurationValues(System.Collections.Generic.List{System.Web.UI.Control})">
+            <summary>
+            Gets the configuration value.
+            </summary>
+            <param name="controls">The controls.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.SetConfigurationValues(System.Collections.Generic.List{System.Web.UI.Control},System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue})">
+            <summary>
+            Sets the configuration value.
+            </summary>
+            <param name="controls"></param>
+            <param name="configurationValues"></param>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.EditControl(System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
+            <summary>
+            Creates the control(s) necessary for prompting user for a new value
+            </summary>
+            <param name="configurationValues">The configuration values.</param>
+            <returns>
+            The control
+            </returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.GetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue})">
+            <summary>
+            Reads new values entered by the user for the field
+            </summary>
+            <param name="control">Parent control that controls were added to in the CreateEditControl() method</param>
+            <param name="configurationValues">The configuration values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.GroupRoleFieldType.SetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
             <summary>
             Sets the value.
             </summary>
@@ -2096,6 +2182,216 @@
             Operations to be performed during the downgrade process.
             </summary>
         </member>
+        <member name="T:Rock.Migrations.NewFamilyPage">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.NewFamilyPage.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.NewFamilyPage.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.GroupTypesAttributeAsGuids">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.GroupTypesAttributeAsGuids.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.GroupTypesAttributeAsGuids.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.UpdatePhoneLocationTypes">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.UpdatePhoneLocationTypes.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.UpdatePhoneLocationTypes.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.CleanUpFieldTypes01">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.CleanUpFieldTypes01.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.CleanUpFieldTypes01.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.NoteBlockShowOptionsAttributes">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.NoteBlockShowOptionsAttributes.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.NoteBlockShowOptionsAttributes.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.ChangeSubPageNavPath">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.ChangeSubPageNavPath.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.ChangeSubPageNavPath.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.PageXsltIncludeQueryStringBlockAttribute">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.PageXsltIncludeQueryStringBlockAttribute.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.PageXsltIncludeQueryStringBlockAttribute.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.GroupMemberDetailBreadCrumb">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.GroupMemberDetailBreadCrumb.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.GroupMemberDetailBreadCrumb.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.MarketingCampaignXsltAttribs">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.MarketingCampaignXsltAttribs.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.MarketingCampaignXsltAttribs.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.CleanUpExtraNotesBlockTypes">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.CleanUpExtraNotesBlockTypes.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.CleanUpExtraNotesBlockTypes.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.FinancialAccountPage">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.FinancialAccountPage.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.FinancialAccountPage.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.SiteReferenceFields260">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.SiteReferenceFields260.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.SiteReferenceFields260.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.EditFamily">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.EditFamily.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.EditFamily.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.LayoutBlocksSiteSpecific">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.LayoutBlocksSiteSpecific.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.LayoutBlocksSiteSpecific.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
         <member name="T:Rock.Model.BinaryFileDataService">
             <summary>
             BinaryFileData Service class
@@ -2117,6 +2413,12 @@
             Initializes a new instance of the <see cref="T:Rock.Data.Service`1"/> class.
             </summary>
             <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Data.Service`1.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Data.Service`1"/> class.
+            </summary>
+            <param name="dbContext">The db context.</param>
         </member>
         <member name="M:Rock.Data.Service`1.Queryable">
             <summary>
@@ -9704,30 +10006,14 @@
             <param name="blockTypeId">Block Type Id.</param>
             <returns>An enumerable list of Block objects.</returns>
         </member>
-        <member name="M:Rock.Model.BlockService.GetByLayout(System.String)">
+        <member name="M:Rock.Model.BlockService.GetByLayout(System.Int32,System.String)">
             <summary>
             Gets Block Instances by Layout
             </summary>
             <param name="layout">Layout.</param>
             <returns>An enumerable list of Block objects.</returns>
         </member>
-        <member name="M:Rock.Model.BlockService.GetByLayoutAndPageIdAndZone(System.String,System.Nullable{System.Int32},System.String)">
-            <summary>
-            Gets Block Instances by Layout And Page Id And Zone
-            </summary>
-            <param name="layout">Layout.</param>
-            <param name="pageId">Page Id.</param>
-            <param name="zone">Zone.</param>
-            <returns>An enumerable list of Block objects.</returns>
-        </member>
-        <member name="M:Rock.Model.BlockService.GetByPageId(System.Nullable{System.Int32})">
-            <summary>
-            Gets Block Instances by Page Id
-            </summary>
-            <param name="pageId">Page Id.</param>
-            <returns>An enumerable list of Block objects.</returns>
-        </member>
-        <member name="M:Rock.Model.BlockService.Move(Rock.Model.Block)">
+        <member name="M:Rock.Model.BlockService.GetMaxOrder(Rock.Model.Block)">
             <summary>
             Moves the specified block to another zone.
             </summary>
@@ -15681,6 +15967,29 @@
             Inverse
             </summary>
         </member>
+        <member name="T:Rock.Web.UI.Controls.ConfirmPageUnload">
+            <summary>
+            Renders the title of a page
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.ConfirmPageUnload.OnInit(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+            </summary>
+            <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.ConfirmPageUnload.ConfirmationMessage">
+            <summary>
+            Gets or sets the confirmation message.
+            </summary>
+            <value>The confirmation message.</value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.ConfirmPageUnload.Enabled">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Rock.Web.UI.Controls.ConfirmPageUnload"/> is enabled.
+            </summary>
+            <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
+        </member>
         <member name="T:Rock.Web.UI.Controls.IRequiredControl">
             <summary>
             
@@ -16271,6 +16580,79 @@
             </summary>
             <value>
             The selected component ids.
+            </value>
+        </member>
+        <member name="T:Rock.Web.UI.Controls.PersonPicker2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.PersonPicker2.SetValue(Rock.Model.Person)">
+            <summary>
+            Sets the value.
+            </summary>
+            <param name="person">The person.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.PersonPicker2.OnInit(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+            </summary>
+            <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.PersonPicker2.RegisterJavaScript">
+            <summary>
+            Registers the java script.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.PersonPicker2.CreateChildControls">
+            <summary>
+            Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.PersonPicker2.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the <see cref="T:System.Web.UI.WebControls.TextBox" /> control to the specified <see cref="T:System.Web.UI.HtmlTextWriter" /> object.
+            </summary>
+            <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> that receives the rendered output.</param>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.PersonPicker2.PersonId">
+            <summary>
+            Gets or sets the person id.
+            </summary>
+            <value>
+            The person id.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.PersonPicker2.SelectedValue">
+            <summary>
+            Gets or sets the selected value.
+            </summary>
+            <value>
+            The selected value.
+            </value>
+        </member>
+        <member name="T:Rock.Web.UI.Controls.GroupRolePicker">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GroupRolePicker.OnInit(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+            </summary>
+            <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GroupRolePicker.CreateChildControls">
+            <summary>
+            Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
+            </summary>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GroupRolePicker.GroupRoleId">
+            <summary>
+            Gets or sets the person id.
+            </summary>
+            <value>
+            The person id.
             </value>
         </member>
         <member name="T:Rock.Web.UI.Controls.GeoPicker">
@@ -18424,10 +18806,11 @@
             
             </summary>
         </member>
-        <member name="M:Rock.Web.UI.Controls.StateDropDownList.#ctor">
+        <member name="M:Rock.Web.UI.Controls.StateDropDownList.OnInit(System.EventArgs)">
             <summary>
-            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.StateDropDownList"/> class.
+            Handles the <see cref="E:System.Web.UI.Control.Init" /> event.
             </summary>
+            <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         </member>
         <member name="M:Rock.Web.UI.Controls.StateDropDownList.RenderControl(System.Web.UI.HtmlTextWriter)">
             <summary>
@@ -22772,6 +23155,12 @@
             Page Id.
             </value>
         </member>
+        <member name="P:Rock.Model.Block.SiteId">
+            <summary>
+            Gets or sets the site id.
+            </summary>
+            <value>The site id.</value>
+        </member>
         <member name="P:Rock.Model.Block.Layout">
             <summary>
             Gets or sets the Layout.
@@ -22836,15 +23225,11 @@
             A <see cref="P:Rock.Model.Block.Page"/> object.
             </value>
         </member>
-        <member name="P:Rock.Model.Block.SiteCache">
+        <member name="P:Rock.Model.Block.Site">
             <summary>
-            Gets or sets the site cache.  This is only used by security to determine the parent authority
-            when the block is associated with a layout instead of a particular page.  The UI will set 
-            this property before calling the security dialog
+            Gets or sets the site.
             </summary>
-            <value>
-            The site cache.
-            </value>
+            <value>The site.</value>
         </member>
         <member name="P:Rock.Model.Block.BlockLocation">
             <summary>
@@ -28806,14 +29191,19 @@
             Manually entered note.
             </summary>
         </member>
-        <member name="F:Rock.SystemGuid.DefinedValue.PERSON_PHONE_TYPE_PRIMARY">
+        <member name="F:Rock.SystemGuid.DefinedValue.PERSON_PHONE_TYPE_MOBILE">
             <summary>
-            Person Primary Phone
+            Person Mobile Phone
             </summary>
         </member>
-        <member name="F:Rock.SystemGuid.DefinedValue.PERSON_PHONE_TYPE_SECONDARY">
+        <member name="F:Rock.SystemGuid.DefinedValue.PERSON_PHONE_TYPE_HOME">
             <summary>
-            Person Secondary Phone
+            Person Home Phone
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.DefinedValue.PERSON_PHONE_TYPE_WORK">
+            <summary>
+            Person Home Phone
             </summary>
         </member>
         <member name="F:Rock.SystemGuid.DefinedValue.PERSON_RECORD_STATUS_ACTIVE">
@@ -28841,9 +29231,19 @@
             Business Record Type
             </summary>
         </member>
-        <member name="F:Rock.SystemGuid.DefinedValue.LOCATION_TYPE_OFFICE">
+        <member name="F:Rock.SystemGuid.DefinedValue.LOCATION_TYPE_HOME">
             <summary>
-            Business Record Type
+            Home location type
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.DefinedValue.LOCATION_TYPE_WORK">
+            <summary>
+            Work Record Type
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.DefinedValue.LOCATION_TYPE_PREVIOUS">
+            <summary>
+            Work Record Type
             </summary>
         </member>
         <member name="T:Rock.SystemGuid.GroupType">
@@ -28864,6 +29264,16 @@
         <member name="F:Rock.SystemGuid.GroupType.GROUPTYPE_EVENTATTENDEES">
             <summary>
             Gets the Event Attendees GroupType
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.GroupType.GROUPTYPE_KNOWN_RELATIONSHIPS">
+            <summary>
+            Know relationship group type
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.GroupType.GROUPTYPE_IMPLIED_RELATIONSHIPS">
+            <summary>
+            Implied relationship group type
             </summary>
         </member>
         <member name="T:Rock.SystemGuid.FieldType">
@@ -32048,12 +32458,23 @@
             <param name="person">The person.</param>
             <returns></returns>
         </member>
-        <member name="M:Rock.Web.Cache.PageCache.MenuXml(System.Int32,Rock.Model.Person,Rock.Web.Cache.PageCache,System.Collections.Generic.Dictionary{System.String,System.String})">
+        <member name="M:Rock.Web.Cache.PageCache.MenuXml(System.Int32,Rock.Model.Person,Rock.Web.Cache.PageCache,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Specialized.NameValueCollection)">
             <summary>
             Returns XML for a page menu.
             </summary>
             <param name="levelsDeep">The page levels deep.</param>
             <param name="person">The person.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Web.Cache.PageCache.MenuXmlElement(System.Int32,Rock.Model.Person,Rock.Web.Cache.PageCache,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Menus the XML element.
+            </summary>
+            <param name="levelsDeep">The levels deep.</param>
+            <param name="person">The person.</param>
+            <param name="currentPage">The current page.</param>
+            <param name="parameters">The parameters.</param>
+            <param name="queryString">The query string.</param>
             <returns></returns>
         </member>
         <member name="M:Rock.Web.Cache.PageCache.FormatPath(System.String,System.String)">
@@ -32507,6 +32928,12 @@
             <value>
             The title.
             </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.ModalDialog.SaveButtonText">
+            <summary>
+            Gets or sets the save button text.
+            </summary>
+            <value>The save button text.</value>
         </member>
         <member name="P:Rock.Web.UI.Controls.ModalDialog.IsDefaultSaveDisabled">
             <summary>
@@ -34664,6 +35091,16 @@
             <param name="oldValue">The value to replace.</param>
             <param name="newValue">The value to insert.</param>
             <returns></returns>
+        </member>
+        <member name="M:Rock.ExtensionMethods.ReplaceWhileExists(System.String,System.String,System.String)">
+            <summary>
+            Replaces every instance of oldValue with newValue.  Will continue to replace
+            values after each replace until the oldValue does not exist.  
+            </summary>
+            <param name="str">The source string.</param>
+            <param name="oldValue">The value to replace.</param>
+            <param name="newValue">The value to insert.</param>
+            <returns>System.String.</returns>
         </member>
         <member name="M:Rock.ExtensionMethods.EscapeQuotes(System.String)">
             <summary>

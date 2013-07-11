@@ -22,7 +22,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// <summary>
     /// Simple detail form that for a Resident's assignment to a specific Competency
     /// </summary>
-    [LinkedPage( "Resident Detail Page" )]
     public partial class CompetencyPersonDetail : RockBlock, IDetailBlock
     {
         #region Control Methods
@@ -55,6 +54,38 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     pnlDetails.Visible = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? competencyPersonId = this.PageParameter( pageReference, "competencyPersonId" ).AsInteger();
+            if ( competencyPersonId != null )
+            {
+                CompetencyPerson competencyPerson = new ResidencyService<CompetencyPerson>().Get( competencyPersonId.Value );
+                if ( competencyPerson != null )
+                {
+                    breadCrumbs.Add( new BreadCrumb( competencyPerson.Competency.Name, pageReference ) );
+                }
+                else
+                {
+                    breadCrumbs.Add( new BreadCrumb( "Competency", pageReference ) );
+                }
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         #endregion
@@ -127,6 +158,8 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         protected void btnSave_Click( object sender, EventArgs e )
         {
             ResidencyService<CompetencyPerson> competencyPersonService = new ResidencyService<CompetencyPerson>();
+            ResidencyService<Competency> competencyService = new ResidencyService<Competency>();
+            ResidencyService<CompetencyPersonProject> competencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
 
             int competencyPersonId = int.Parse( hfCompetencyPersonId.Value );
             int trackId = ddlTrack.SelectedValueAsInt() ?? 0;
@@ -140,11 +173,9 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 if ( selectedId == Rock.Constants.All.Id )
                 {
                     // add all the Competencies for this Track that they don't have yet
-                    
                     var competencyQry = new ResidencyService<Competency>().Queryable().Where( a => a.TrackId == trackId );
 
                     // list 
-                    
                     List<int> assignedCompetencyIds = new ResidencyService<CompetencyPerson>().Queryable().Where( a => a.PersonId.Equals( personId ) ).Select( a => a.CompetencyId ).ToList();
 
                     competencyToAssignIdList = competencyQry.Where( a => !assignedCompetencyIds.Contains( a.Id ) ).OrderBy( a => a.Name ).Select( a => a.Id ).ToList();
@@ -152,6 +183,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 else
                 {
                     // just add the selected Competency
+                    competencyToAssignIdList = new List<int>();
                     competencyToAssignIdList.Add( selectedId );
                 }
 
@@ -159,14 +191,26 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     {
                         foreach ( var competencyId in competencyToAssignIdList )
                         {
-
                             CompetencyPerson competencyPerson = new CompetencyPerson();
                             competencyPersonService.Add( competencyPerson, CurrentPersonId );
                             competencyPerson.PersonId = hfPersonId.ValueAsInt();
                             competencyPerson.CompetencyId = competencyId;
-
                             competencyPersonService.Save( competencyPerson, CurrentPersonId );
 
+                            Competency competency = competencyService.Get( competencyId );
+                            foreach ( var project in competency.Projects )
+                            {
+                                // add all the projects associated with the competency
+                                CompetencyPersonProject competencyPersonProject = new CompetencyPersonProject
+                                    {
+                                        CompetencyPersonId = competencyPerson.Id,
+                                        ProjectId = project.Id,
+                                        MinAssessmentCount = null
+                                    };
+
+                                competencyPersonProjectService.Add( competencyPersonProject, CurrentPersonId );
+                                competencyPersonProjectService.Save( competencyPersonProject, CurrentPersonId );
+                            }
                         }
                     } );
             }
@@ -283,6 +327,10 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
             var competencyNotYetAssignedList = competencyQry.Where( a => !assignedCompetencyIds.Contains( a.Id ) ).OrderBy( a => a.Name ).ToList();
 
+            ddlCompetency.Visible = competencyNotYetAssignedList.Any();
+            nbAllCompetenciesAlreadyAdded.Visible = !competencyNotYetAssignedList.Any();
+            btnSave.Visible = competencyNotYetAssignedList.Any();
+
             competencyNotYetAssignedList.Insert( 0, new Competency { Id = Rock.Constants.All.Id, Name = Rock.Constants.All.Text } );
 
             ddlCompetency.DataSource = competencyNotYetAssignedList;
@@ -347,19 +395,8 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         {
             SetEditMode( false );
 
-            string residentDetailPageGuid = this.GetAttributeValue( "ResidentDetailPage" );
-            string residentHtml = competencyPerson.Person.FullName;
-            if ( !string.IsNullOrWhiteSpace( residentDetailPageGuid ) )
-            {
-                var page = new PageService().Get( new Guid( residentDetailPageGuid ) );
-                Dictionary<string, string> queryString = new Dictionary<string, string>();
-                queryString.Add( "personId", competencyPerson.PersonId.ToString() );
-                string linkUrl = new PageReference( page.Id, 0, queryString ).BuildUrl();
-                residentHtml = string.Format( "<a href='{0}'>{1}</a>", linkUrl, competencyPerson.Person.FullName );
-            }
-
             lblMainDetails.Text = new DescriptionList()
-                .Add( "Resident", residentHtml )
+                .Add( "Resident", competencyPerson.Person )
                 .Add( "Competency", competencyPerson.Competency.Name )
                 .Html;
         }

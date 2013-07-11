@@ -46,9 +46,8 @@ namespace com.ccvonline.Residency.Data
             modelBuilder.Configurations.Add( new CompetencyConfiguration() );
             modelBuilder.Configurations.Add( new CompetencyPersonConfiguration() );
             modelBuilder.Configurations.Add( new CompetencyPersonProjectConfiguration());
-            modelBuilder.Configurations.Add( new CompetencyPersonProjectAssignmentConfiguration());
-            modelBuilder.Configurations.Add( new CompetencyPersonProjectAssignmentAssessmentConfiguration());
-            modelBuilder.Configurations.Add( new CompetencyPersonProjectAssignmentAssessmentPointOfAssessmentConfiguration());
+            modelBuilder.Configurations.Add( new CompetencyPersonProjectAssessmentConfiguration());
+            modelBuilder.Configurations.Add( new CompetencyPersonProjectAssessmentPointOfAssessmentConfiguration());
             modelBuilder.Configurations.Add( new PeriodConfiguration() );
             modelBuilder.Configurations.Add( new ProjectConfiguration());
             modelBuilder.Configurations.Add( new ProjectPointOfAssessmentConfiguration());
@@ -82,28 +81,20 @@ namespace com.ccvonline.Residency.Data
         public DbSet<CompetencyPersonProject> CompetencyPersonProjects { get; set; }
 
         /// <summary>
-        /// Gets or sets the residency competency person project assignments.
+        /// Gets or sets the competency person project assessments.
         /// </summary>
         /// <value>
-        /// The residency competency person project assignments.
+        /// The competency person project assessments.
         /// </value>
-        public DbSet<CompetencyPersonProjectAssignment> CompetencyPersonProjectAssignments { get; set; }
+        public DbSet<CompetencyPersonProjectAssessment> CompetencyPersonProjectAssessments { get; set; }
 
         /// <summary>
-        /// Gets or sets the residency competency person project assignment assessments.
+        /// Gets or sets the competency person project assessment point of assessments.
         /// </summary>
         /// <value>
-        /// The residency competency person project assignment assessments.
+        /// The competency person project assessment point of assessments.
         /// </value>
-        public DbSet<CompetencyPersonProjectAssignmentAssessment> CompetencyPersonProjectAssignmentAssessments { get; set; }
-
-        /// <summary>
-        /// Gets or sets the residency competency person project assignment assessment point of assessments.
-        /// </summary>
-        /// <value>
-        /// The residency competency person project assignment assessment point of assessments.
-        /// </value>
-        public DbSet<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment> CompetencyPersonProjectAssignmentAssessmentPointOfAssessments { get; set; }
+        public DbSet<CompetencyPersonProjectAssessmentPointOfAssessment> CompetencyPersonProjectAssessmentPointOfAssessments { get; set; }
         
         /// <summary>
         /// Gets or sets the residency periods.

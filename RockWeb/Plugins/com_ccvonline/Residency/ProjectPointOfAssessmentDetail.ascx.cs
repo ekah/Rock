@@ -13,6 +13,7 @@ using Rock;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
+using Rock.Web;
 using Rock.Web.UI;
 
 namespace RockWeb.Plugins.com_ccvonline.Residency
@@ -52,6 +53,30 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                     pnlDetails.Visible = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? projectPointOfAssessmentId = this.PageParameter( pageReference, "projectPointOfAssessmentId" ).AsInteger();
+            if ( projectPointOfAssessmentId != null )
+            {
+                breadCrumbs.Add( new BreadCrumb( "Point of Assessment", pageReference ) );
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
         }
 
         #endregion
@@ -94,6 +119,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 projectPointOfAssessment = projectPointOfAssessmentService.Get( projectPointOfAssessmentId );
             }
 
+            projectPointOfAssessment.CompetencyTypeValueId = ddlCompetencyTypeValue.SelectedValueAsInt();
             projectPointOfAssessment.AssessmentText = tbAssessmentText.Text;
 
             if ( !projectPointOfAssessment.IsValid )
@@ -110,6 +136,20 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             Dictionary<string, string> qryString = new Dictionary<string, string>();
             qryString["projectId"] = hfProjectId.Value;
             NavigateToParentPage( qryString );
+        }
+
+        /// <summary>
+        /// Loads the drop downs.
+        /// </summary>
+        private void LoadDropDowns()
+        {
+            var list = new Rock.Model.DefinedValueService().GetByDefinedTypeGuid( new Guid( com.ccvonline.SystemGuid.DefinedType.RESIDENCY_COMPETENCY_TYPE ) )
+                .OrderBy( a => a.Name ).ToList();
+
+            list.Insert( 0, new DefinedValue { Id = Rock.Constants.None.Id, Name = Rock.Constants.None.Text } );
+
+            ddlCompetencyTypeValue.DataSource = list;
+            ddlCompetencyTypeValue.DataBind();
         }
 
         /// <summary>
@@ -137,6 +177,8 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
 
             pnlDetails.Visible = true;
+
+            LoadDropDowns();
 
             // Load depending on Add(0) or Edit
             ProjectPointOfAssessment projectPointOfAssessment = null;
@@ -177,6 +219,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             hfProjectId.Value = projectId.ToString();
             lblAssessmentOrder.Text = projectPointOfAssessment.AssessmentOrder.ToString();
             tbAssessmentText.Text = projectPointOfAssessment.AssessmentText;
+            ddlCompetencyTypeValue.SetValue( projectPointOfAssessment.CompetencyTypeValueId );
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;

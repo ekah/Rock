@@ -13,21 +13,21 @@ using com.ccvonline.Residency.Data;
 
 namespace com.ccvonline.Residency.Model
 {
-    [Table( "_com_ccvonline_Residency_CompetencyPersonProjectAssignmentAssessmentPointOfAssessment" )]
+    [Table( "_com_ccvonline_Residency_CompetencyPersonProjectAssessmentPointOfAssessment" )]
     [DataContract]
-    public class CompetencyPersonProjectAssignmentAssessmentPointOfAssessment : Model<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>
+    public class CompetencyPersonProjectAssessmentPointOfAssessment : Model<CompetencyPersonProjectAssessmentPointOfAssessment>
     {
         #region Entity Properties
 
         /// <summary>
-        /// Gets or sets the residency competency person project assignment assessment id.
+        /// Gets or sets the competency person project assessment id.
         /// </summary>
         /// <value>
-        /// The residency competency person project assignment assessment id.
+        /// The competency person project assessment id.
         /// </value>
         [Required]
         [DataMember]
-        public int CompetencyPersonProjectAssignmentAssessmentId { get; set; }
+        public int CompetencyPersonProjectAssessmentId { get; set; }
 
         /// <summary>
         /// Gets or sets the residency project point of assessment id.
@@ -62,12 +62,12 @@ namespace com.ccvonline.Residency.Model
         #region Virtual Properties
 
         /// <summary>
-        /// Gets or sets the residency competency person project assignment assessment.
+        /// Gets or sets the competency person project assessment.
         /// </summary>
         /// <value>
-        /// The residency competency person project assignment assessment.
+        /// The competency person project assessment.
         /// </value>
-        public virtual CompetencyPersonProjectAssignmentAssessment CompetencyPersonProjectAssignmentAssessment { get; set; }
+        public virtual CompetencyPersonProjectAssessment CompetencyPersonProjectAssessment { get; set; }
 
         /// <summary>
         /// Gets or sets the residency project point of assessment.
@@ -83,14 +83,14 @@ namespace com.ccvonline.Residency.Model
     /// <summary>
     /// 
     /// </summary>
-    public partial class CompetencyPersonProjectAssignmentAssessmentPointOfAssessmentConfiguration : EntityTypeConfiguration<CompetencyPersonProjectAssignmentAssessmentPointOfAssessment>
+    public partial class CompetencyPersonProjectAssessmentPointOfAssessmentConfiguration : EntityTypeConfiguration<CompetencyPersonProjectAssessmentPointOfAssessment>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CompetencyPersonProjectAssignmentAssessmentPointOfAssessmentConfiguration"/> class.
+        /// Initializes a new instance of the <see cref="CompetencyPersonProjectAssessmentPointOfAssessmentConfiguration"/> class.
         /// </summary>
-        public CompetencyPersonProjectAssignmentAssessmentPointOfAssessmentConfiguration()
+        public CompetencyPersonProjectAssessmentPointOfAssessmentConfiguration()
         {
-            this.HasRequired( a => a.CompetencyPersonProjectAssignmentAssessment ).WithMany( x => x.CompetencyPersonProjectAssignmentAssessmentPointOfAssessments ).HasForeignKey( a => a.CompetencyPersonProjectAssignmentAssessmentId ).WillCascadeOnDelete( false );
+            this.HasRequired( a => a.CompetencyPersonProjectAssessment ).WithMany( x => x.CompetencyPersonProjectAssessmentPointOfAssessments ).HasForeignKey( a => a.CompetencyPersonProjectAssessmentId ).WillCascadeOnDelete( false );
             this.HasRequired( a => a.ProjectPointOfAssessment ).WithMany().HasForeignKey( a => a.ProjectPointOfAssessmentId ).WillCascadeOnDelete( false );
         }
     }

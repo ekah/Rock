@@ -34,6 +34,7 @@
                         <Rock:DataDropDownList ID="ddlPeriod" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.Period, com.ccvonline.Residency" PropertyName="Name" AutoPostBack="true" OnSelectedIndexChanged="ddlPeriod_SelectedIndexChanged" LabelText="Period" />
                         <Rock:DataDropDownList ID="ddlTrack" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.Track, com.ccvonline.Residency" PropertyName="Name" AutoPostBack="true" OnSelectedIndexChanged="ddlTrack_SelectedIndexChanged" LabelText="Track"/>
                         <Rock:DataDropDownList ID="ddlCompetency" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.Competency, com.ccvonline.Residency" PropertyName="Name" LabelText="Competency" CssClass="input-xlarge"/>
+                        <Rock:NotificationBox ID="nbAllCompetenciesAlreadyAdded" runat="server" NotificationBoxType="Info" Text="All competencies for this track have already been assigned to this resident."/>
                     </asp:Panel>
 
                 </fieldset>

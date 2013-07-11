@@ -18,11 +18,18 @@
                     </legend>
 
                     <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
-                    
+
                     <Rock:LabeledText ID="lblPersonName" runat="server" LabelText="Resident" />
                     <Rock:LabeledText ID="lblCompetency" runat="server" LabelText="Competency" />
                     <Rock:LabeledText ID="lblProject" runat="server" LabelText="Project" />
-                    <Rock:DataDropDownList ID="ddlProject" runat="server" DataTextField="Name" DataValueField="Id" SourceTypeName="com.ccvonline.Residency.Model.Project, com.ccvonline.Residency" PropertyName="Name" Required="true"/> 
+                    <asp:Panel ID="pnlEditProject" runat="server">
+                        <Rock:LabeledDropDownList ID="ddlProject" runat="server" DataTextField="Name" DataValueField="Id" Required="true" OnSelectedIndexChanged="ddlProject_SelectedIndexChanged" AutoPostBack="true" />
+
+                        <Rock:LabeledText ID="lblMinAssessmentCountDefault" runat="server" LabelText="Minimum # of Assessments Default" />
+                        <Rock:DataTextBox ID="tbMinAssessmentCountOverride" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProject, com.ccvonline.Residency" PropertyName="MinAssessmentCount"
+                            LabelText="Minimum # of Assessments Override" Help="Set this to specify the minimum number of assessments of this project that a person must complete if it should be something other than the default." CssClass="input-mini" />
+                    </asp:Panel>
+                    <Rock:NotificationBox ID="nbAllProjectsAlreadyAdded" runat="server" NotificationBoxType="Info" Text="All projects for this competency have already been assigned to this resident." />
 
                 </fieldset>
 
@@ -34,7 +41,7 @@
             </div>
 
             <fieldset id="fieldsetViewDetails" runat="server">
-                <legend>Project - Assignments
+                <legend>Project - Assessments
                 </legend>
                 <div class="well">
                     <div class="row-fluid">
@@ -43,8 +50,10 @@
                     <div class="row-fluid">
                         <asp:Literal ID="lblMainDetails" runat="server" />
                     </div>
+                    <div class="actions">
+                        <asp:LinkButton ID="btnEdit" runat="server" Text="Edit" CssClass="btn btn-primary btn-mini" OnClick="btnEdit_Click" />
+                    </div>
                 </div>
-
             </fieldset>
         </asp:Panel>
     </ContentTemplate>

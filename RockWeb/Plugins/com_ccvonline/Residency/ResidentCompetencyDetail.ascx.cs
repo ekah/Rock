@@ -51,6 +51,38 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
         }
 
+        /// <summary>
+        /// Returns breadcrumbs specific to the block that should be added to navigation
+        /// based on the current page reference.  This function is called during the page's
+        /// oninit to load any initial breadcrumbs
+        /// </summary>
+        /// <param name="pageReference">The page reference.</param>
+        /// <returns></returns>
+        public override List<BreadCrumb> GetBreadCrumbs( PageReference pageReference )
+        {
+            var breadCrumbs = new List<BreadCrumb>();
+
+            int? competencyPersonId = this.PageParameter( pageReference, "competencyPersonId" ).AsInteger();
+            if ( competencyPersonId != null )
+            {
+                CompetencyPerson competencyPerson = new ResidencyService<CompetencyPerson>().Get( competencyPersonId.Value );
+                if ( competencyPerson != null )
+                {
+                    breadCrumbs.Add( new BreadCrumb( competencyPerson.Competency.Name, pageReference ) );
+                }
+                else
+                {
+                    breadCrumbs.Add( new BreadCrumb( "Competency", pageReference ) );
+                }
+            }
+            else
+            {
+                // don't show a breadcrumb if we don't have a pageparam to work with
+            }
+
+            return breadCrumbs;
+        }
+
         #endregion
 
         /// <summary>
@@ -82,115 +114,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblCompetencyName.Text = competencyPerson.Competency.Name;
             lblFacilitator.Text = competencyPerson.Competency.FacilitatorPerson != null ? competencyPerson.Competency.FacilitatorPerson.FullName : Rock.Constants.None.TextHtml;
             lblDescription.Text = !string.IsNullOrWhiteSpace( competencyPerson.Competency.Description ) ? competencyPerson.Competency.Description : Rock.Constants.None.TextHtml;
-
-            gProjectList.DataKeyNames = new string[] { "Id" };
-            gProjectList.Actions.ShowAdd = false;
-            gProjectList.GridRebind += gProjectList_GridRebind;
-
-            lbProjects_Click( lbProjects, null );
-        }
-
-        /// <summary>
-        /// Handles the Click event of the PillLabel control.
-        /// </summary>
-        /// <param name="button">The source of the event.</param>
-        private void ShowPillPanel( LinkButton button )
-        {
-            liProjects.Attributes["class"] = button == lbProjects ? "active" : string.Empty;
-            liGoals.Attributes["class"] = button == lbGoals ? "active" : string.Empty;
-            liNotes.Attributes["class"] = button == lbNotes ? "active" : string.Empty;
-
-            pnlProjects.Visible = button == lbProjects;
-            pnlGoals.Visible = button == lbGoals;
-            pnlNotes.Visible = button == lbNotes;
-        }
-
-        /// <summary>
-        /// Handles the Click event of the lbGoals control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void lbGoals_Click( object sender, EventArgs e )
-        {
-            ShowPillPanel( sender as LinkButton );
-        }
-
-        /// <summary>
-        /// Handles the Click event of the lbNotes control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void lbNotes_Click( object sender, EventArgs e )
-        {
-            ShowPillPanel( sender as LinkButton );
-        }
-
-        /// <summary>
-        /// Handles the Click event of the lbProjects control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void lbProjects_Click( object sender, EventArgs e )
-        {
-            ShowPillPanel( sender as LinkButton );
-
-            BindProjectListGrid();
-        }
-
-        /// <summary>
-        /// Binds the project list grid.
-        /// </summary>
-        protected void BindProjectListGrid()
-        {
-            var competencyPersonProjectService = new ResidencyService<CompetencyPersonProject>();
-            int competencyPersonId = hfCompetencyPersonId.ValueAsInt();
-            SortProperty sortProperty = gProjectList.SortProperty;
-            var qry = competencyPersonProjectService.Queryable();
-
-            qry = qry.Where( a => a.CompetencyPersonId.Equals( competencyPersonId ) );
-
-            if ( sortProperty != null )
-            {
-                qry = qry.Sort( sortProperty );
-            }
-            else
-            {
-                qry = qry.OrderBy( s => s.Project.Name ).ThenBy( s => s.Project.Description );
-            }
-
-            var list = qry.Select( a => new
-            {
-                Id = a.Id,
-                Name = a.Project.Name,
-                Description = a.Project.Description,
-                AssignedCount = a.CompetencyPersonProjectAssignments.Count(),
-                AssignedCompleted = a.CompetencyPersonProjectAssignments.Where( b => b.CompletedDateTime != null ).Count(),
-                AssignedRemaining =  a.CompetencyPersonProjectAssignments.Where( b => b.CompletedDateTime == null ).Count()
-            } ).ToList();
-
-            gProjectList.DataSource = list;
-            gProjectList.DataBind();
-        }
-
-        /// <summary>
-        /// Handles the GridRebind event of the gProjectList control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
-        protected void gProjectList_GridRebind( object sender, EventArgs e )
-        {
-            BindProjectListGrid();
-        }
-
-        /// <summary>
-        /// Handles the RowSelected event of the gProjectList control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="Rock.Web.UI.Controls.RowEventArgs"/> instance containing the event data.</param>
-        protected void gProjectList_RowSelected( object sender, Rock.Web.UI.Controls.RowEventArgs e )
-        {
-            NavigateToDetailPage( "competencyPersonProjectId", e.RowKeyId );
         }
     }
 }

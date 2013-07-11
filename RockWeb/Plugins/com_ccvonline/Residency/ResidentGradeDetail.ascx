@@ -8,8 +8,7 @@
         <asp:Panel ID="pnlDetails" runat="server">
 
             <asp:HiddenField ID="hfCompetencyPersonProjectId" runat="server" />
-            <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentId" runat="server" />
-            <asp:HiddenField ID="hfCompetencyPersonProjectAssignmentAssessmentId" runat="server" />
+            <asp:HiddenField ID="hfCompetencyPersonProjectAssessmentId" runat="server" />
             <asp:HiddenField ID="hfAssessorPersonId" runat="server" />
 
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="alert alert-error" />
@@ -28,16 +27,18 @@
                     </div>
                 </div>
 
-                <asp:Repeater ID="rptPointOfAssessment" runat="server" OnItemDataBound="rptPointOfAssessment_ItemDataBound" >
+                <asp:Repeater ID="rptPointOfAssessment" runat="server" OnItemDataBound="rptPointOfAssessment_ItemDataBound">
                     <ItemTemplate>
                         <div class="row-fluid">
                             <div class="span1">
-                                <Rock:LabeledDropDownList ID="ddlPointOfAssessmentRating" runat="server" LabelText="Rating" CssClass="input-mini"/>
+                                <Rock:LabeledDropDownList ID="ddlPointOfAssessmentRating" runat="server" LabelText="Rating" CssClass="input-mini" />
                             </div>
                             <div class="span11">
                                 <div class="row-fluid">
                                     <asp:HiddenField ID="hfProjectPointOfAssessmentId" runat="server" />
-                                    <asp:Literal ID="lblAssessmentText" runat="server" />
+                                    <p>
+                                        <asp:Literal ID="lblAssessmentText" runat="server" />
+                                    </p>
                                     <Rock:LabeledTextBox ID="tbRatingNotesPOA" runat="server" CssClass="input-xxlarge" TextMode="MultiLine" Rows="4" LabelText="Instructor Notes" />
                                 </div>
                             </div>
