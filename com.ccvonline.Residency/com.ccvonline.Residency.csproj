@@ -105,6 +105,10 @@
     <Compile Include="Migrations\201307100024485_BlocksPages02.Designer.cs">
       <DependentUpon>201307100024485_BlocksPages02.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201307102157464_CreateResidencySite.cs" />
+    <Compile Include="Migrations\201307102157464_CreateResidencySite.Designer.cs">
+      <DependentUpon>201307102157464_CreateResidencySite.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Competency.cs" />
     <Compile Include="Model\CompetencyPerson.cs" />
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201307100024485_BlocksPages02.resx">
       <DependentUpon>201307100024485_BlocksPages02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201307102157464_CreateResidencySite.resx">
+      <DependentUpon>201307102157464_CreateResidencySite.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

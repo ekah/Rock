@@ -10,18 +10,19 @@
 [DONE] + Email Request To Grade
 [DONE] + Enable Add/Edit Resident Comments on Grade
 
-+ Migration for new Site (make sure it has a Login Page)
-+ Bug when editing admin | Project Detail (can't edit Min # assessments)
-+ Migration (or manual step) to assign Colors to DefinedTypeCompetencyType
-+ New ColorField control for PointOfAssessments grid(s) (see email from Jon for HTML)
-
-
 [DONE] + Migration so that NotesBlock should Hide Alert/Private/Security
 [DONE] + Do a PagesBlocksAttributes migration...
 [DONE]   + Make sure it picks up the three Resident Competency Detail pages' stuff
 [DONE](not needed) + Migration should remove dead LinkedPage attributes
 
 [DONE] + test migrations starting from new database
+
+[DONE] + Migration for new Site (make sure it has a Login Page)
+[DONE] + Make Site and LoginPage for site
+
++ Bug when editing admin | Project Detail (can't edit Min # assessments)
++ Migration (or manual step) to assign Colors to DefinedTypeCompetencyType
++ New ColorField control for PointOfAssessments grid(s) (see email from Jon for HTML)
 
 + Figure out the CompetencyTypeValueId thing in ProjectPointsOfAssessment (what should it be called, etc)
   + Change description of DefinedType
