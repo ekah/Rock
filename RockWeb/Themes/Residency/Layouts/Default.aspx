@@ -46,13 +46,7 @@
 				<div class="span12">
                        
                     <Rock:PageBreadCrumbs ID="PageBreadCrumbs" runat="server" />
-
-                    <section class="pageoverview clearfix">
-                        <Rock:PageIcon ID="PageIcon" runat="server" />
-                        <Rock:PageDescription ID="PageDescription" runat="server" />
-                    </section>
-                       
-
+                      
                     <!-- display any ajax error messages here (use with ajax-client-error-handler.js) -->
                     <div class="alert alert-error ajax-error" style="display:none">
                         <strong>Ooops!</strong>
