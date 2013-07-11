@@ -2362,6 +2362,21 @@
             Operations to be performed during the downgrade process.
             </summary>
         </member>
+        <member name="T:Rock.Migrations.EditFamily">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.EditFamily.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.EditFamily.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
         <member name="T:Rock.Model.BinaryFileDataService">
             <summary>
             BinaryFileData Service class
@@ -15953,6 +15968,29 @@
             Inverse
             </summary>
         </member>
+        <member name="T:Rock.Web.UI.Controls.ConfirmPageUnload">
+            <summary>
+            Renders the title of a page
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.ConfirmPageUnload.OnInit(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+            </summary>
+            <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.ConfirmPageUnload.ConfirmationMessage">
+            <summary>
+            Gets or sets the confirmation message.
+            </summary>
+            <value>The confirmation message.</value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.ConfirmPageUnload.Enabled">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Rock.Web.UI.Controls.ConfirmPageUnload"/> is enabled.
+            </summary>
+            <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
+        </member>
         <member name="T:Rock.Web.UI.Controls.IRequiredControl">
             <summary>
             
@@ -16543,6 +16581,55 @@
             </summary>
             <value>
             The selected component ids.
+            </value>
+        </member>
+        <member name="T:Rock.Web.UI.Controls.PersonPicker2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.PersonPicker2.SetValue(Rock.Model.Person)">
+            <summary>
+            Sets the value.
+            </summary>
+            <param name="person">The person.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.PersonPicker2.OnInit(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+            </summary>
+            <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.PersonPicker2.RegisterJavaScript">
+            <summary>
+            Registers the java script.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.PersonPicker2.CreateChildControls">
+            <summary>
+            Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.PersonPicker2.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the <see cref="T:System.Web.UI.WebControls.TextBox" /> control to the specified <see cref="T:System.Web.UI.HtmlTextWriter" /> object.
+            </summary>
+            <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> that receives the rendered output.</param>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.PersonPicker2.PersonId">
+            <summary>
+            Gets or sets the person id.
+            </summary>
+            <value>
+            The person id.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.PersonPicker2.SelectedValue">
+            <summary>
+            Gets or sets the selected value.
+            </summary>
+            <value>
+            The selected value.
             </value>
         </member>
         <member name="T:Rock.Web.UI.Controls.GroupRolePicker">
@@ -32840,6 +32927,12 @@
             <value>
             The title.
             </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.ModalDialog.SaveButtonText">
+            <summary>
+            Gets or sets the save button text.
+            </summary>
+            <value>The save button text.</value>
         </member>
         <member name="P:Rock.Web.UI.Controls.ModalDialog.IsDefaultSaveDisabled">
             <summary>
