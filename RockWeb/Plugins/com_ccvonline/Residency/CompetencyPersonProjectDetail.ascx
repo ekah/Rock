@@ -25,9 +25,9 @@
                     <asp:Panel ID="pnlEditProject" runat="server">
                         <Rock:LabeledDropDownList ID="ddlProject" runat="server" DataTextField="Name" DataValueField="Id" Required="true" OnSelectedIndexChanged="ddlProject_SelectedIndexChanged" AutoPostBack="true" />
 
-                        <Rock:LabeledText ID="lblMinAssessmentCountDefault" runat="server" LabelText="Minimum # of Assessments Default" />
+                        <Rock:LabeledText ID="lblMinAssessmentCountDefault" runat="server" LabelText="Assessments Required - Default" />
                         <Rock:DataTextBox ID="tbMinAssessmentCountOverride" runat="server" SourceTypeName="com.ccvonline.Residency.Model.CompetencyPersonProject, com.ccvonline.Residency" PropertyName="MinAssessmentCount"
-                            LabelText="Minimum # of Assessments Override" Help="Set this to specify the minimum number of assessments of this project that a person must complete if it should be something other than the default." CssClass="input-mini" />
+                            LabelText="Assessments Required - Override" Help="Set this to specify the number of assessments of this project that a person must complete if it should be something other than the default." CssClass="input-mini" />
                     </asp:Panel>
                     <Rock:NotificationBox ID="nbAllProjectsAlreadyAdded" runat="server" NotificationBoxType="Info" Text="All projects for this competency have already been assigned to this resident." />
 

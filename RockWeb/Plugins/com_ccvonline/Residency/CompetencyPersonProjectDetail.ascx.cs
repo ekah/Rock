@@ -376,7 +376,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 .Add( "Resident", competencyPersonProject.CompetencyPerson.Person )
                 .Add( "Competency", competencyPersonProject.CompetencyPerson.Competency.Name )
                 .Add( "Project", string.Format( "{0} - {1}", competencyPersonProject.Project.Name, competencyPersonProject.Project.Description ) )
-                .Add( "Min # Assessments", competencyPersonProject.MinAssessmentCount ?? competencyPersonProject.Project.MinAssessmentCountDefault )
+                .Add( "Assessments Required", competencyPersonProject.MinAssessmentCount ?? competencyPersonProject.Project.MinAssessmentCountDefault )
                 .Html;
         }
 
@@ -390,7 +390,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             var project = new ResidencyService<Project>().Get( ddlProject.SelectedValueAsInt() ?? 0 );
             if ( project != null )
             {
-                lblMinAssessmentCountDefault.Text = project.MinAssessmentCountDefault.ToString();
+                lblMinAssessmentCountDefault.Text = project.MinAssessmentCountDefault .ToString();
             }
         }
 

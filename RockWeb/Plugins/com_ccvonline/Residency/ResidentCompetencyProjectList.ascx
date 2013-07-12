@@ -7,9 +7,9 @@
             <Columns>
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                <asp:BoundField DataField="MinAssessmentCount" HeaderText="Min # Assessments" SortExpression="MinAssessmentCount" />
-                <asp:BoundField DataField="AssessmentCompleted" HeaderText="Completed" SortExpression="AssessmentCompleted" />
-                <Rock:BadgeField DataField="AssessmentRemaining" HeaderText="Remaining" SortExpression="AssessmentRemaining" WarningMin="1" SuccessMax="0" SuccessMin="0" ImportantMin="9999" InfoMin="9999" />
+                <asp:BoundField DataField="MinAssessmentCount" HeaderText="Assessments Required" SortExpression="MinAssessmentCount" HeaderStyle-CssClass="span1" />
+                <asp:BoundField DataField="AssessmentCompleted" HeaderText="Assessments Completed" SortExpression="AssessmentCompleted" HeaderStyle-CssClass="span1" />
+                <Rock:BadgeField DataField="AssessmentRemaining" HeaderText="Assessments Remaining" SortExpression="AssessmentRemaining" WarningMin="1" SuccessMax="0" SuccessMin="0" ImportantMin="9999" InfoMin="9999" />
             </Columns>
         </Rock:Grid>
     </ContentTemplate>
