@@ -20,18 +20,17 @@
 [DONE] + Migration for new Site (make sure it has a Login Page)
 [DONE] + Make Site and LoginPage for site
 
-+ Bug when editing admin | Project Detail (can't edit Min # assessments)
+[DONE] + Bug when editing admin | Project Detail (can't edit Min # assessments)
 + Migration (or manual step) to assign Colors to DefinedTypeCompetencyType
-+ New ColorField control for PointOfAssessments grid(s) (see email from Jon for HTML)
+[DONE in core]+ New ColorField control for PointOfAssessments grid(s) (see email from Jon for HTML)
 
 + Figure out the CompetencyTypeValueId thing in ProjectPointsOfAssessment (what should it be called, etc)
   + Change description of DefinedType
 
-
 + Post Install/Update Steps
   + assign Colors to DefinedTypeCompetencyType, then to Points of Assessment
-  + create Security Role for Residency Graders
+  + [DONE] create Security Role for Residency Graders
      + assign People
-	 + Set Grade Request Block Attribute for Security Group
-	 + SMTP attribs
-	 + Email Template make nicer
+	 + [DONE] Set Grade Request Block Attribute for Security Group
+  + SMTP attribs
+	+ Email Template make nicer
