@@ -8,17 +8,14 @@
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<div class="span2 clearfix logo">
+						<div class="span12 clearfix logo">
 	
                             <asp:HyperLink ID="hlLogo" runat="server" CssClass="brand" NavigateUrl="~" ToolTip="Rock ChMS">
                                 <asp:Image ID="imgLogo" runat="server" AlternateText="Rock ChMS" ImageUrl="~/Themes/Residency/Assets/Images/residency-logo.svg" CssClass="pageheader-logo" />
                             </asp:HyperLink>
 					
-						</div>
-						
-						<div class="span10 clearfix">	
-							
-							<div class="pageheader-collapse pull-right">
+
+                            <div class="pageheader-collapse pull-right">
 								<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
 									<span class="icon-bar"></span>
 									<span class="icon-bar"></span>
@@ -31,8 +28,9 @@
 									
 								</div>
 							</div> <!-- collapse container -->
-							
-						</div> <!-- end column -->
+
+						</div>
+
 					</div> <!-- end row -->
 
 				</div> <!-- end container -->
