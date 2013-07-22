@@ -15,7 +15,7 @@ namespace com.ccvonline.Residency.Model
 {
     [Table( "_com_ccvonline_Residency_CompetencyPersonProjectAssessmentPointOfAssessment" )]
     [DataContract]
-    public class CompetencyPersonProjectAssessmentPointOfAssessment : Model<CompetencyPersonProjectAssessmentPointOfAssessment>
+    public class CompetencyPersonProjectAssessmentPointOfAssessment : com.ccvonline.Data.Model<CompetencyPersonProjectAssessmentPointOfAssessment>
     {
         #region Entity Properties
 
@@ -78,6 +78,22 @@ namespace com.ccvonline.Residency.Model
         public virtual ProjectPointOfAssessment ProjectPointOfAssessment { get; set; }
 
         #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return string.Format( "{0}, Point of Assessment: {1}", CompetencyPersonProjectAssessment, ProjectPointOfAssessment );
+        }
+
+        #endregion
+
     }
 
     /// <summary>

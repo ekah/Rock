@@ -82,6 +82,21 @@ namespace com.ccvonline.Residency.Model
         public virtual Rock.Model.DefinedValue CompetencyTypeValue { get; set; }
         
         #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return string.Format( "Assessment: {0}, Project: {1}", AssessmentText, Project );
+        }
+
+        #endregion
     }
 
     /// <summary>
