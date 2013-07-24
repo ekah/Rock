@@ -19,7 +19,7 @@
                 </legend>
 
                 <Rock:NotificationBox ID="nbEditModeMessage" runat="server" NotificationBoxType="Info" />
-                <Rock:LabeledDropDownList ID="ddlCompetencyTypeValue" runat="server" LabelText="Competency Type" DataTextField="Name" DataValueField="Id" />
+                <Rock:LabeledDropDownList ID="ddlPointOfAssessmentTypeValue" runat="server" LabelText="Point of Assessment Type" DataTextField="Name" DataValueField="Id" />
                 <Rock:LabeledText ID="lblAssessmentOrder" runat="server" LabelText="Assessment #" />
                 <Rock:DataTextBox ID="tbAssessmentText" runat="server" SourceTypeName="com.ccvonline.Residency.Model.ProjectPointOfAssessment, com.ccvonline.Residency" PropertyName="AssessmentText" TextMode="MultiLine" Rows="3" CssClass="input-xxlarge"/>
             </fieldset>

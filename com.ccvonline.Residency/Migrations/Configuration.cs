@@ -14,7 +14,7 @@ namespace com.ccvonline.Residency.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            CodeGenerator = new Rock.Migrations.RockCSharpMigrationCodeGenerator<com.ccvonline.Residency.Data.ResidencyContext>(false);
+            CodeGenerator = new Rock.Migrations.RockCSharpMigrationCodeGenerator<com.ccvonline.Residency.Data.ResidencyContext>(true);
         }
 
         /// <summary>

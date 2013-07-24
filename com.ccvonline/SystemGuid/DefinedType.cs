@@ -12,8 +12,8 @@ namespace com.ccvonline.SystemGuid
     public class DefinedType
     {
         /// <summary>
-        /// Residency Competency Types
+        /// Residency Point of Assessment Types
         /// </summary>
-        public const string RESIDENCY_COMPETENCY_TYPE = "338A8802-4022-404F-9FA2-150F1FB3838F";
+        public const string RESIDENCY_POINT_OF_ASSESSMENT_TYPE = "338A8802-4022-404F-9FA2-150F1FB3838F";
     }
 }

@@ -87,10 +87,30 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 return;
             }
 
+            var rawList = competencyPersonProject.Project.ProjectPointOfAssessments
+                    .OrderBy( s => s.AssessmentOrder ).ToList();
+
+            foreach ( var item in rawList )
+            {
+                if ( item.PointOfAssessmentTypeValue != null )
+                {
+                    item.PointOfAssessmentTypeValue.LoadAttributes();
+                }
+            }
+
+            var selectList = rawList.Select( a =>
+                new
+                {
+                    a.Id,
+                    ProjectPointOfAssessmentColor = a.PointOfAssessmentTypeValue != null ? a.PointOfAssessmentTypeValue.GetAttributeValue("Color") : string.Empty,
+                    a.PointOfAssessmentTypeValue,
+                    a.AssessmentOrder,
+                    a.AssessmentText
+                } ).ToList();
+
             if ( competencyPersonProject != null )
             {
-                gList.DataSource = competencyPersonProject.Project.ProjectPointOfAssessments
-                    .OrderBy( s => s.AssessmentOrder ).ToList();
+                gList.DataSource = selectList;
                 gList.DataBind();
             }
             else
