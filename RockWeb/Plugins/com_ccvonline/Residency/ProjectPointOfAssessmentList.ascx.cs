@@ -151,7 +151,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// <param name="e">The <see cref="RowEventArgs"/> instance containing the event data.</param>
         protected void gList_Edit( object sender, RowEventArgs e )
         {
-            gList_ShowEdit( (int)e.RowKeyValue );
+            gList_ShowEdit( e.RowKeyId );
         }
 
         /// <summary>
@@ -219,9 +219,29 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         {
             var projectPointOfAssessmentService = new ResidencyService<ProjectPointOfAssessment>();
             int projectId = hfProjectId.ValueAsInt();
-            gList.DataSource = projectPointOfAssessmentService.Queryable()
+            var rawList = projectPointOfAssessmentService.Queryable()
                 .Where( a => a.ProjectId == projectId )
                 .OrderBy( s => s.AssessmentOrder ).ToList();
+
+            foreach (var item in rawList)
+            {
+                if ( item.PointOfAssessmentTypeValue != null )
+                {
+                    item.PointOfAssessmentTypeValue.LoadAttributes();
+                }
+            }
+
+            var selectList = rawList.Select( a =>
+                new
+                {
+                    a.Id,
+                    ProjectPointOfAssessmentColor = a.PointOfAssessmentTypeValue != null ? a.PointOfAssessmentTypeValue.GetAttributeValue( "Color" ) : string.Empty,
+                    a.PointOfAssessmentTypeValue,
+                    a.AssessmentOrder,
+                    a.AssessmentText,
+                } ).ToList();
+
+            gList.DataSource = selectList;
             gList.DataBind();
         }
 

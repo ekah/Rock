@@ -119,7 +119,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 projectPointOfAssessment = projectPointOfAssessmentService.Get( projectPointOfAssessmentId );
             }
 
-            projectPointOfAssessment.CompetencyTypeValueId = ddlCompetencyTypeValue.SelectedValueAsInt();
+            projectPointOfAssessment.PointOfAssessmentTypeValueId = ddlPointOfAssessmentTypeValue.SelectedValueAsInt();
             projectPointOfAssessment.AssessmentText = tbAssessmentText.Text;
 
             if ( !projectPointOfAssessment.IsValid )
@@ -143,13 +143,13 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// </summary>
         private void LoadDropDowns()
         {
-            var list = new Rock.Model.DefinedValueService().GetByDefinedTypeGuid( new Guid( com.ccvonline.SystemGuid.DefinedType.RESIDENCY_COMPETENCY_TYPE ) )
+            var list = new Rock.Model.DefinedValueService().GetByDefinedTypeGuid( new Guid( com.ccvonline.SystemGuid.DefinedType.RESIDENCY_POINT_OF_ASSESSMENT_TYPE ) )
                 .OrderBy( a => a.Name ).ToList();
 
             list.Insert( 0, new DefinedValue { Id = Rock.Constants.None.Id, Name = Rock.Constants.None.Text } );
 
-            ddlCompetencyTypeValue.DataSource = list;
-            ddlCompetencyTypeValue.DataBind();
+            ddlPointOfAssessmentTypeValue.DataSource = list;
+            ddlPointOfAssessmentTypeValue.DataBind();
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             hfProjectId.Value = projectId.ToString();
             lblAssessmentOrder.Text = projectPointOfAssessment.AssessmentOrder.ToString();
             tbAssessmentText.Text = projectPointOfAssessment.AssessmentText;
-            ddlCompetencyTypeValue.SetValue( projectPointOfAssessment.CompetencyTypeValueId );
+            ddlPointOfAssessmentTypeValue.SetValue( projectPointOfAssessment.PointOfAssessmentTypeValueId );
 
             // render UI based on Authorized and IsSystem
             bool readOnly = false;

@@ -2678,6 +2678,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.BinaryFileDataService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.BinaryFileDataService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.BinaryFileDataService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.BinaryFileDataService.CanDelete(Rock.Model.BinaryFileData,System.String@)">
             <summary>
@@ -2716,6 +2723,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialPersonBankAccountService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialPersonBankAccountService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialPersonBankAccountService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialPersonBankAccountService.CanDelete(Rock.Model.FinancialPersonBankAccount,System.String@)">
             <summary>
@@ -2754,6 +2768,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialPersonSavedAccountService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialPersonSavedAccountService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialPersonSavedAccountService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialPersonSavedAccountService.CanDelete(Rock.Model.FinancialPersonSavedAccount,System.String@)">
             <summary>
@@ -2792,6 +2813,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialTransactionRefundService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialTransactionRefundService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialTransactionRefundService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialTransactionRefundService.CanDelete(Rock.Model.FinancialTransactionRefund,System.String@)">
             <summary>
@@ -2830,6 +2858,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialTransactionScannedCheckService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialTransactionScannedCheckService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialTransactionScannedCheckService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="T:Rock.Model.FinancialTransactionScannedCheckExtensionMethods">
             <summary>
@@ -4599,6 +4634,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.CommunicationRecipientService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.CommunicationRecipientService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.CommunicationRecipientService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.CommunicationRecipientService.CanDelete(Rock.Model.CommunicationRecipient,System.String@)">
             <summary>
@@ -9980,6 +10022,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.AuthService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.AuthService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.AuthService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.AuthService.CanDelete(Rock.Model.Auth,System.String@)">
             <summary>
@@ -10029,6 +10078,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.BlockService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.BlockService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.BlockService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.BlockService.CanDelete(Rock.Model.Block,System.String@)">
             <summary>
@@ -10086,6 +10142,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.BlockTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.BlockTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.BlockTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.BlockTypeService.CanDelete(Rock.Model.BlockType,System.String@)">
             <summary>
@@ -10186,6 +10249,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.CategoryService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.CategoryService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.CategoryService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.CategoryService.CanDelete(Rock.Model.Category,System.String@)">
             <summary>
@@ -10214,6 +10284,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.AttendanceCodeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.AttendanceCodeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.AttendanceCodeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.AttendanceCodeService.CanDelete(Rock.Model.AttendanceCode,System.String@)">
             <summary>
@@ -10270,6 +10347,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.AttendanceService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.AttendanceService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.AttendanceService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.AttendanceService.CanDelete(Rock.Model.Attendance,System.String@)">
             <summary>
@@ -10343,6 +10427,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.BinaryFileService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.BinaryFileService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.BinaryFileService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.BinaryFileService.CanDelete(Rock.Model.BinaryFile,System.String@)">
             <summary>
@@ -10389,6 +10480,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.BinaryFileTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.BinaryFileTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.BinaryFileTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.BinaryFileTypeService.CanDelete(Rock.Model.BinaryFileType,System.String@)">
             <summary>
@@ -10466,6 +10564,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.CommunicationService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.CommunicationService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.CommunicationService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.CommunicationService.CanDelete(Rock.Model.Communication,System.String@)">
             <summary>
@@ -10504,6 +10609,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.DataViewFilterService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.DataViewFilterService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.DataViewFilterService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.DataViewFilterService.CanDelete(Rock.Model.DataViewFilter,System.String@)">
             <summary>
@@ -10545,6 +10657,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.DataViewService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.DataViewService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.DataViewService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.DataViewService.CanDelete(Rock.Model.DataView,System.String@)">
             <summary>
@@ -10599,6 +10718,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.DeviceService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.DeviceService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.DeviceService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.DeviceService.CanDelete(Rock.Model.Device,System.String@)">
             <summary>
@@ -10655,6 +10781,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialAccountService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialAccountService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialAccountService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialAccountService.CanDelete(Rock.Model.FinancialAccount,System.String@)">
             <summary>
@@ -10693,6 +10826,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialBatchService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialBatchService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialBatchService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialBatchService.CanDelete(Rock.Model.FinancialBatch,System.String@)">
             <summary>
@@ -10731,6 +10871,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialGatewayService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialGatewayService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialGatewayService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialGatewayService.CanDelete(Rock.Model.FinancialGateway,System.String@)">
             <summary>
@@ -10769,6 +10916,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialPledgeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialPledgeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialPledgeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialPledgeService.CanDelete(Rock.Model.FinancialPledge,System.String@)">
             <summary>
@@ -10807,6 +10961,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialScheduledTransactionDetailService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialScheduledTransactionDetailService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialScheduledTransactionDetailService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialScheduledTransactionDetailService.CanDelete(Rock.Model.FinancialScheduledTransactionDetail,System.String@)">
             <summary>
@@ -10845,6 +11006,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialScheduledTransactionService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialScheduledTransactionService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialScheduledTransactionService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialScheduledTransactionService.CanDelete(Rock.Model.FinancialScheduledTransaction,System.String@)">
             <summary>
@@ -10883,6 +11051,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialTransactionDetailService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialTransactionDetailService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialTransactionDetailService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialTransactionDetailService.CanDelete(Rock.Model.FinancialTransactionDetail,System.String@)">
             <summary>
@@ -10921,6 +11096,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialTransactionImageService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialTransactionImageService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialTransactionImageService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialTransactionImageService.CanDelete(Rock.Model.FinancialTransactionImage,System.String@)">
             <summary>
@@ -10962,6 +11144,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FinancialTransactionService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FinancialTransactionService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FinancialTransactionService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FinancialTransactionService.CanDelete(Rock.Model.FinancialTransaction,System.String@)">
             <summary>
@@ -11010,6 +11199,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.GroupLocationService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.GroupLocationService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.GroupLocationService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.GroupLocationService.CanDelete(Rock.Model.GroupLocation,System.String@)">
             <summary>
@@ -11065,6 +11261,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.HtmlContentService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.HtmlContentService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.HtmlContentService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.HtmlContentService.CanDelete(Rock.Model.HtmlContent,System.String@)">
             <summary>
@@ -11142,6 +11345,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.MarketingCampaignAdService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.MarketingCampaignAdService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.MarketingCampaignAdService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.MarketingCampaignAdService.CanDelete(Rock.Model.MarketingCampaignAd,System.String@)">
             <summary>
@@ -11180,6 +11390,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.MarketingCampaignAdTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.MarketingCampaignAdTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.MarketingCampaignAdTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.MarketingCampaignAdTypeService.CanDelete(Rock.Model.MarketingCampaignAdType,System.String@)">
             <summary>
@@ -11226,6 +11443,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.MarketingCampaignAudienceService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.MarketingCampaignAudienceService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.MarketingCampaignAudienceService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.MarketingCampaignAudienceService.CanDelete(Rock.Model.MarketingCampaignAudience,System.String@)">
             <summary>
@@ -11264,6 +11488,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.MarketingCampaignCampusService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.MarketingCampaignCampusService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.MarketingCampaignCampusService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.MarketingCampaignCampusService.CanDelete(Rock.Model.MarketingCampaignCampus,System.String@)">
             <summary>
@@ -11302,6 +11533,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.MarketingCampaignService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.MarketingCampaignService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.MarketingCampaignService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.MarketingCampaignService.CanDelete(Rock.Model.MarketingCampaign,System.String@)">
             <summary>
@@ -11343,6 +11581,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.NoteService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.NoteService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.NoteService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.NoteService.CanDelete(Rock.Model.Note,System.String@)">
             <summary>
@@ -11399,6 +11644,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.NoteTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.NoteTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.NoteTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.NoteTypeService.CanDelete(Rock.Model.NoteType,System.String@)">
             <summary>
@@ -11448,6 +11700,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.PageContextService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.PageContextService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.PageContextService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.PageContextService.CanDelete(Rock.Model.PageContext,System.String@)">
             <summary>
@@ -11496,6 +11755,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.PageRouteService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.PageRouteService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.PageRouteService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.PageRouteService.CanDelete(Rock.Model.PageRoute,System.String@)">
             <summary>
@@ -11544,6 +11810,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.PageService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.PageService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.PageService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.PageService.CanDelete(Rock.Model.Page,System.String@)">
             <summary>
@@ -11599,6 +11872,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.PrayerRequestService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.PrayerRequestService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.PrayerRequestService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.PrayerRequestService.CanDelete(Rock.Model.PrayerRequest,System.String@)">
             <summary>
@@ -11652,6 +11932,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.ReportService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.ReportService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.ReportService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.ReportService.CanDelete(Rock.Model.Report,System.String@)">
             <summary>
@@ -11690,6 +11977,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.ScheduleService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.ScheduleService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.ScheduleService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.ScheduleService.CanDelete(Rock.Model.Schedule,System.String@)">
             <summary>
@@ -11731,6 +12025,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.SiteDomainService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.SiteDomainService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.SiteDomainService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.SiteDomainService.CanDelete(Rock.Model.SiteDomain,System.String@)">
             <summary>
@@ -11801,6 +12102,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.SiteService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.SiteService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.SiteService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.SiteService.CanDelete(Rock.Model.Site,System.String@)">
             <summary>
@@ -11849,6 +12157,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.UserLoginService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.UserLoginService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.UserLoginService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.UserLoginService.CanDelete(Rock.Model.UserLogin,System.String@)">
             <summary>
@@ -11965,6 +12280,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.WorkflowActionService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.WorkflowActionService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.WorkflowActionService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.WorkflowActionService.CanDelete(Rock.Model.WorkflowAction,System.String@)">
             <summary>
@@ -12003,6 +12325,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.WorkflowActionTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.WorkflowActionTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.WorkflowActionTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.WorkflowActionTypeService.CanDelete(Rock.Model.WorkflowActionType,System.String@)">
             <summary>
@@ -12041,6 +12370,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.WorkflowActivityService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.WorkflowActivityService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.WorkflowActivityService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.WorkflowActivityService.CanDelete(Rock.Model.WorkflowActivity,System.String@)">
             <summary>
@@ -12079,6 +12415,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.WorkflowActivityTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.WorkflowActivityTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.WorkflowActivityTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.WorkflowActivityTypeService.CanDelete(Rock.Model.WorkflowActivityType,System.String@)">
             <summary>
@@ -14222,6 +14565,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.AttributeQualifierService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.AttributeQualifierService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.AttributeQualifierService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.AttributeQualifierService.CanDelete(Rock.Model.AttributeQualifier,System.String@)">
             <summary>
@@ -14270,6 +14620,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.AttributeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.AttributeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.AttributeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.AttributeService.CanDelete(Rock.Model.Attribute,System.String@)">
             <summary>
@@ -14368,6 +14725,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.AttributeValueService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.AttributeValueService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.AttributeValueService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.AttributeValueService.CanDelete(Rock.Model.AttributeValue,System.String@)">
             <summary>
@@ -14558,6 +14922,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.AuditService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.AuditService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.AuditService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.AuditService.CanDelete(Rock.Model.Audit,System.String@)">
             <summary>
@@ -14612,6 +14983,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.EntityTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.EntityTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.EntityTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.EntityTypeService.CanDelete(Rock.Model.EntityType,System.String@)">
             <summary>
@@ -15295,6 +15673,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.ServiceJobService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.ServiceJobService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.ServiceJobService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.ServiceJobService.CanDelete(Rock.Model.ServiceJob,System.String@)">
             <summary>
@@ -15356,6 +15741,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.WorkflowTriggerService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.WorkflowTriggerService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.WorkflowTriggerService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.WorkflowTriggerService.CanDelete(Rock.Model.WorkflowTrigger,System.String@)">
             <summary>
@@ -15405,6 +15797,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.MetricService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.MetricService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.MetricService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.MetricService.CanDelete(Rock.Model.Metric,System.String@)">
             <summary>
@@ -20290,6 +20689,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.TaggedItemService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.TaggedItemService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.TaggedItemService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.TaggedItemService.CanDelete(Rock.Model.TaggedItem,System.String@)">
             <summary>
@@ -20339,6 +20745,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.TagService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.TagService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.TagService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.TagService.CanDelete(Rock.Model.Tag,System.String@)">
             <summary>
@@ -20543,6 +20956,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.DefinedTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.DefinedTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.DefinedTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.DefinedTypeService.CanDelete(Rock.Model.DefinedType,System.String@)">
             <summary>
@@ -20598,6 +21018,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.DefinedValueService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.DefinedValueService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.DefinedValueService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.DefinedValueService.CanDelete(Rock.Model.DefinedValue,System.String@)">
             <summary>
@@ -20667,6 +21094,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.ExceptionLogService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.ExceptionLogService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.ExceptionLogService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.ExceptionLogService.CanDelete(Rock.Model.ExceptionLog,System.String@)">
             <summary>
@@ -20722,6 +21156,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.FieldTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.FieldTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.FieldTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.FieldTypeService.CanDelete(Rock.Model.FieldType,System.String@)">
             <summary>
@@ -20889,6 +21330,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.MetricValueService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.MetricValueService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.MetricValueService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.MetricValueService.CanDelete(Rock.Model.MetricValue,System.String@)">
             <summary>
@@ -21288,6 +21736,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.ServiceLogService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.ServiceLogService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.ServiceLogService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.ServiceLogService.CanDelete(Rock.Model.ServiceLog,System.String@)">
             <summary>
@@ -21355,6 +21810,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.LocationService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.LocationService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.LocationService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.LocationService.CanDelete(Rock.Model.Location,System.String@)">
             <summary>
@@ -21530,6 +21992,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.CampusService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.CampusService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.CampusService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.CampusService.CanDelete(Rock.Model.Campus,System.String@)">
             <summary>
@@ -21571,6 +22040,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.EmailTemplateService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.EmailTemplateService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.EmailTemplateService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.EmailTemplateService.CanDelete(Rock.Model.EmailTemplate,System.String@)">
             <summary>
@@ -21626,6 +22102,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.PersonMergedService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.PersonMergedService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.PersonMergedService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.PersonMergedService.CanDelete(Rock.Model.PersonMerged,System.String@)">
             <summary>
@@ -21688,6 +22171,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.PersonService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.PersonService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.PersonService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.PersonService.CanDelete(Rock.Model.Person,System.String@)">
             <summary>
@@ -22085,6 +22575,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.PersonViewedService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.PersonViewedService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.PersonViewedService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.PersonViewedService.CanDelete(Rock.Model.PersonViewed,System.String@)">
             <summary>
@@ -22140,6 +22637,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.PhoneNumberService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.PhoneNumberService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.PhoneNumberService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.PhoneNumberService.CanDelete(Rock.Model.PhoneNumber,System.String@)">
             <summary>
@@ -27298,6 +27802,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.GroupRoleService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.GroupRoleService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.GroupRoleService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.GroupRoleService.CanDelete(Rock.Model.GroupRole,System.String@)">
             <summary>
@@ -27346,6 +27857,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.GroupService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.GroupService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.GroupService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.GroupService.CanDelete(Rock.Model.Group,System.String@)">
             <summary>
@@ -27784,6 +28302,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.GroupTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.GroupTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.GroupTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.GroupTypeService.CanDelete(Rock.Model.GroupType,System.String@)">
             <summary>
@@ -27919,6 +28444,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.GroupMemberService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.GroupMemberService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.GroupMemberService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.GroupMemberService.CanDelete(Rock.Model.GroupMember,System.String@)">
             <summary>
@@ -30287,6 +30819,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.WorkflowTypeService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.WorkflowTypeService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.WorkflowTypeService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.WorkflowTypeService.CanDelete(Rock.Model.WorkflowType,System.String@)">
             <summary>
@@ -30338,6 +30877,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.WorkflowService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.WorkflowService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.WorkflowService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.WorkflowService.CanDelete(Rock.Model.Workflow,System.String@)">
             <summary>
@@ -30380,6 +30926,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Model.WorkflowLogService"/> class
             </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:Rock.Model.WorkflowLogService.#ctor(Rock.Data.RockContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Model.WorkflowLogService"/> class
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Rock.Model.WorkflowLogService.CanDelete(Rock.Model.WorkflowLog,System.String@)">
             <summary>

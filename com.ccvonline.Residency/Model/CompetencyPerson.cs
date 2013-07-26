@@ -18,7 +18,7 @@ namespace com.ccvonline.Residency.Model
     /// </summary>
     [Table("_com_ccvonline_Residency_CompetencyPerson")]
     [DataContract]
-    public class CompetencyPerson : Model<CompetencyPerson>
+    public class CompetencyPerson : com.ccvonline.Data.Model<CompetencyPerson>
     {
         #region Entity Properties
 
@@ -69,6 +69,21 @@ namespace com.ccvonline.Residency.Model
         /// The residency competency person projects.
         /// </value>
         public virtual List<CompetencyPersonProject> CompetencyPersonProjects { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return string.Format( "{0} for {1}", Competency, Person );
+        }
 
         #endregion
     }

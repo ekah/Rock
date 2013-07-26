@@ -12,7 +12,7 @@
                     <Columns>
                         <asp:BoundField DataField="CompetencyName" HeaderText="Competency" SortExpression="CompetencyName" ItemStyle-Width="50%" />
                         <asp:BoundField DataField="CompletedProjectAssessmentsTotal" HeaderText="Project Assessments Completed" SortExpression="CompletedProjectAssessmentsTotal" />
-                        <asp:BoundField DataField="MinProjectAssessmentsTotal" HeaderText="Min # Project Assessments" SortExpression="MinProjectAssessmentsTotal" />
+                        <asp:BoundField DataField="MinProjectAssessmentsTotal" HeaderText="Project Assessments Required" SortExpression="MinProjectAssessmentsTotal" />
                     </Columns>
                 </Rock:Grid>
 

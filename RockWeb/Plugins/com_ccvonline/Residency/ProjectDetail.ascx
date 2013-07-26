@@ -28,7 +28,7 @@
                     <Rock:LabeledText ID="lblTrack" runat="server" LabelText="Track" />
                     <Rock:LabeledText ID="lblCompetency" runat="server" LabelText="Competency" />
                     <Rock:DataTextBox ID="tbMinAssessmentCountDefault" runat="server" SourceTypeName="com.ccvonline.Residency.Model.Project, com.ccvonline.Residency" PropertyName="MinAssessmentCountDefault"
-                        LabelText="Default Minimum # of Assessments" Help="Set this to specify the default minimum number of assessments of this project that a person must complete." CssClass="input-mini" />
+                        LabelText="Default # of Assessments" Help="Set this to specify the default minimum number of assessments of this project that a person must complete." CssClass="input-mini" />
 
                 </fieldset>
 

@@ -8,17 +8,14 @@
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<div class="span2 clearfix logo">
+						<div class="span12 clearfix logo">
 	
                             <asp:HyperLink ID="hlLogo" runat="server" CssClass="brand" NavigateUrl="~" ToolTip="Rock ChMS">
                                 <asp:Image ID="imgLogo" runat="server" AlternateText="Rock ChMS" ImageUrl="~/Themes/Residency/Assets/Images/residency-logo.svg" CssClass="pageheader-logo" />
                             </asp:HyperLink>
 					
-						</div>
-						
-						<div class="span10 clearfix">	
-							
-							<div class="pageheader-collapse pull-right">
+
+                            <div class="pageheader-collapse pull-right">
 								<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
 									<span class="icon-bar"></span>
 									<span class="icon-bar"></span>
@@ -31,8 +28,9 @@
 									
 								</div>
 							</div> <!-- collapse container -->
-							
-						</div> <!-- end column -->
+
+						</div>
+
 					</div> <!-- end row -->
 
 				</div> <!-- end container -->
@@ -46,13 +44,7 @@
 				<div class="span12">
                        
                     <Rock:PageBreadCrumbs ID="PageBreadCrumbs" runat="server" />
-
-                    <section class="pageoverview clearfix">
-                        <Rock:PageIcon ID="PageIcon" runat="server" />
-                        <Rock:PageDescription ID="PageDescription" runat="server" />
-                    </section>
-                       
-
+                      
                     <!-- display any ajax error messages here (use with ajax-client-error-handler.js) -->
                     <div class="alert alert-error ajax-error" style="display:none">
                         <strong>Ooops!</strong>

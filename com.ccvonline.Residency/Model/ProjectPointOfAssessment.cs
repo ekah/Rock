@@ -33,13 +33,13 @@ namespace com.ccvonline.Residency.Model
         public int ProjectId { get; set; }
 
         /// <summary>
-        /// Gets or sets the residency competency type value id.
+        /// Gets or sets the point of assessment type value id.
         /// </summary>
         /// <value>
-        /// The residency competency type value id.
+        /// The point of assessment type value id.
         /// </value>
-        [DefinedValue( com.ccvonline.SystemGuid.DefinedType.RESIDENCY_COMPETENCY_TYPE )]
-        public int? CompetencyTypeValueId { get; set; }
+        [DefinedValue( com.ccvonline.SystemGuid.DefinedType.RESIDENCY_POINT_OF_ASSESSMENT_TYPE )]
+        public int? PointOfAssessmentTypeValueId { get; set; }
 
         /// <summary>
         /// Gets or sets the assessment order.
@@ -74,13 +74,28 @@ namespace com.ccvonline.Residency.Model
         public virtual Project Project { get; set; }
 
         /// <summary>
-        /// Gets or sets the residency competency type value.
+        /// Gets or sets the point of assessment type value.
         /// </summary>
         /// <value>
-        /// The residency competency type value.
+        /// The point of assessment type value.
         /// </value>
-        public virtual Rock.Model.DefinedValue CompetencyTypeValue { get; set; }
+        public virtual Rock.Model.DefinedValue PointOfAssessmentTypeValue { get; set; }
         
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return string.Format( "Assessment: {0}, Project: {1}", AssessmentText, Project );
+        }
+
         #endregion
     }
 
@@ -95,7 +110,7 @@ namespace com.ccvonline.Residency.Model
         public ProjectPointOfAssessmentConfiguration()
         {
             this.HasRequired( a => a.Project ).WithMany(a => a.ProjectPointOfAssessments).HasForeignKey( a => a.ProjectId ).WillCascadeOnDelete( false );
-            this.HasOptional( p => p.CompetencyTypeValue ).WithMany().HasForeignKey( p => p.CompetencyTypeValueId ).WillCascadeOnDelete( false );
+            this.HasOptional( p => p.PointOfAssessmentTypeValue ).WithMany().HasForeignKey( p => p.PointOfAssessmentTypeValueId ).WillCascadeOnDelete( false );
         }
     }
 }

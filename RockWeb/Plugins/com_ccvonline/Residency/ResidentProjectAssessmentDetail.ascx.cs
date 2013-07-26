@@ -286,6 +286,14 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                 projectPointOfAssessmentList = new List<ProjectPointOfAssessment>();
             }
 
+            foreach ( var item in projectPointOfAssessmentList )
+            {
+                if ( item.PointOfAssessmentTypeValue != null )
+                {
+                    item.PointOfAssessmentTypeValue.LoadAttributes();
+                }
+            }
+
             var joinedItems = from projectPointOfAssessment in projectPointOfAssessmentList
                               join personPointOfAssessment in personPointOfAssessmentList
                               on projectPointOfAssessment.Id equals personPointOfAssessment.ProjectPointOfAssessmentId into groupJoin
@@ -295,6 +303,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
                                   // note: two key fields, since we want to show all the Points of Assessment for this Project, even if the person hasn't had a rating on it yet
                                   ProjectPointOfAssessmentId = projectPointOfAssessment.Id,
                                   CompetencyPersonProjectAssessmentId = competencyPersonProjectAssessmentId,
+                                  ProjectPointOfAssessmentColor = projectPointOfAssessment.PointOfAssessmentTypeValue != null ? projectPointOfAssessment.PointOfAssessmentTypeValue.GetAttributeValue("Color") : string.Empty,
                                   ProjectPointOfAssessment = projectPointOfAssessment,
                                   CompetencyPersonProjectAssessmentPointOfAssessment = personPointOfAssessmentList.FirstOrDefault( a => a.ProjectPointOfAssessmentId.Equals( projectPointOfAssessment.Id ) )
                               };

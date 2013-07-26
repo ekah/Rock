@@ -299,6 +299,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             lblMainDetails.Text = new DescriptionList()
                 .Add( "Name", string.Format( "{0} - {1}", project.Name, project.Description) )
                 .Add( "Competency", project.Competency.Name )
+                .Add( "Default # of Assessments", project.MinAssessmentCountDefault)
                 .Html;
         }
 
