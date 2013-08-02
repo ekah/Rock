@@ -143,8 +143,8 @@ namespace RockWeb.Blocks.Crm.PersonDetail
                             if ( loc.GeocodedDateTime.HasValue )
                             {
                                 lbGeocode.ToolTip = string.Format( "{0} {1}",
-                                    loc.LocationPoint.Latitude,
-                                    loc.LocationPoint.Longitude );
+                                    loc.GeoPoint.Latitude,
+                                    loc.GeoPoint.Longitude );
                             }
                             else
                             {
@@ -241,7 +241,7 @@ namespace RockWeb.Blocks.Crm.PersonDetail
                     groupMember.GroupRoleId = role.Id;
 
                     var family = new Group();
-                    family.Name = Person.LastName + " Family";
+                    family.Name = Person.LastName;
                     family.GroupTypeId = role.GroupTypeId.Value;
                     family.Members.Add( groupMember );
 

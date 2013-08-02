@@ -318,6 +318,37 @@
             <param name="order">The order.</param>
             <param name="key">The key.</param>
         </member>
+        <member name="T:Rock.Attribute.EncryptedFieldAttribute">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Attribute.EncryptedFieldAttribute.#ctor(System.String,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Attribute.EncryptedFieldAttribute"/> class.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="required">if set to <c>true</c> [required].</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="category">The category.</param>
+            <param name="order">The order.</param>
+            <param name="key">The key.</param>
+        </member>
+        <member name="T:Rock.Attribute.LocationFieldAttribute">
+            <summary>
+            Field Attribute to set a location 
+            </summary>
+        </member>
+        <member name="M:Rock.Attribute.LocationFieldAttribute.#ctor(System.String,System.String,System.Boolean,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Attribute.TextFieldAttribute"/> class.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="required">if set to <c>true</c> [required].</param>
+            <param name="order">The order.</param>
+        </member>
         <member name="T:Rock.Attribute.GroupRoleFieldAttribute">
             <summary>
             Field Attribute to select 0 or 1 GroupType
@@ -534,15 +565,15 @@
             <param name="order">The order.</param>
             <param name="key">The key.</param>
         </member>
-        <member name="T:Rock.Attribute.EntityTypeAttribute">
+        <member name="T:Rock.Attribute.EntityTypeFieldAttribute">
             <summary>
             Field Attribute used to specify an EntityType
             Value returns EntityType.Name
             </summary>
         </member>
-        <member name="M:Rock.Attribute.EntityTypeAttribute.#ctor(System.String,System.String,System.Boolean,System.String,System.Int32,System.String)">
+        <member name="M:Rock.Attribute.EntityTypeFieldAttribute.#ctor(System.String,System.String,System.Boolean,System.String,System.Int32,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Rock.Attribute.EntityTypeAttribute"/> class.
+            Initializes a new instance of the <see cref="T:Rock.Attribute.EntityTypeFieldAttribute"/> class.
             </summary>
             <param name="name">The name.</param>
             <param name="description">The description.</param>
@@ -628,6 +659,441 @@
             </summary>
             <param name="name">The name.</param>
             <param name="key">The key.</param>
+        </member>
+        <member name="T:Rock.BinaryFile.StorageComponent">
+            <summary>
+            Base class for BinaryFile storage components
+            </summary>
+        </member>
+        <member name="T:Rock.Extension.Component">
+            <summary>
+            Abstract class that custom component classes should derive from.  
+            <example>
+            The derived class should define the following type attributes
+            </example>
+            <code>
+                [Description("<i>description of component</i>")]
+                [Export( typeof( Component ) )]
+                [ExportMetadata( "ComponentName", "<i>Name of Component</i>" )]
+            </code>
+            <example>
+            The derived class can also optionally define one or more property type attributes
+            </example>
+            <code>
+                [Rock.Attribute.Property( 1, "License Key", "The Required License Key" )]
+            </code>
+            <example>
+            To get the value of a property, the derived class can use the AttributeValues property
+            </example>
+            <code>
+                string licenseKey = AttributeValues["LicenseKey"].Value;
+            </code>
+            </summary>
+        </member>
+        <member name="T:Rock.Attribute.IHasAttributes">
+            <summary>
+            Represents any class that supports having attributes
+            </summary>
+        </member>
+        <member name="M:Rock.Attribute.IHasAttributes.GetAttributeValue(System.String)">
+            <summary>
+            Gets the first value of an attribute key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Attribute.IHasAttributes.GetAttributeValues(System.String)">
+            <summary>
+            Gets the first value of an attribute key - splitting that delimited value into a list of strings.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>A list of string values or an empty list if none exist.</returns>
+        </member>
+        <member name="M:Rock.Attribute.IHasAttributes.SetAttributeValue(System.String,System.String)">
+            <summary>
+            Sets the first value of an attribute key.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="P:Rock.Attribute.IHasAttributes.Id">
+            <summary>
+            Gets the id.
+            </summary>
+        </member>
+        <member name="P:Rock.Attribute.IHasAttributes.Attributes">
+            <summary>
+            List of attributes associated with the object.  This property will not include the attribute values.
+            The <see cref="P:Rock.Attribute.IHasAttributes.AttributeValues"/> property should be used to get attribute values.  Dictionary key
+            is the attribute key, and value is the cached attribute
+            </summary>
+            <value>
+            The attributes.
+            </value>
+        </member>
+        <member name="P:Rock.Attribute.IHasAttributes.AttributeValues">
+            <summary>
+            Dictionary of all attributes and their value.  Key is the attribute key, and value is the values
+            associated with the attribute and object instance
+            </summary>
+            <value>
+            The attribute values.
+            </value>
+        </member>
+        <member name="P:Rock.Attribute.IHasAttributes.AttributeValueDefaults">
+            <summary>
+            Gets the attribute value defaults.  This property can be used by a subclass to override the parent class's default
+            value for an attribute
+            </summary>
+            <value>
+            The attribute value defaults.
+            </value>
+        </member>
+        <member name="T:Rock.Security.ISecured">
+            <summary>
+            Represents a securable object.  Note each ISecured object must also expose a static Read(int id) method if the object
+            types will be used in a grid with a SecureField column
+            </summary>
+        </member>
+        <member name="M:Rock.Security.ISecured.IsAuthorized(System.String,Rock.Model.Person)">
+            <summary>
+            Return <c>true</c> if the user is authorized to perform the selected action on this object.
+            </summary>
+            <param name="action">The action.</param>
+            <param name="person">The person.</param>
+            <returns>
+              <c>true</c> if the specified action is authorized; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Rock.Security.ISecured.IsAllowedByDefault(System.String)">
+            <summary>
+            If a user or role is not specifically allowed or denied to perform the selected action,
+            return <c>true</c> if they should be allowed anyway or <c>false</c> if not.
+            </summary>
+            <param name="action">The action.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Security.ISecured.IsPrivate(System.String,Rock.Model.Person)">
+            <summary>
+            Determines whether the specified action is private (Only the current user has access).
+            </summary>
+            <param name="action">The action.</param>
+            <param name="person">The person.</param>
+            <returns>
+              <c>true</c> if the specified action is private; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Rock.Security.ISecured.MakePrivate(System.String,Rock.Model.Person,System.Nullable{System.Int32})">
+            <summary>
+            Makes the action on the current entity private (Only the current user will have access).
+            </summary>
+            <param name="action">The action.</param>
+            <param name="person">The person.</param>
+            <param name="personId">The current person id.</param>
+        </member>
+        <member name="P:Rock.Security.ISecured.TypeId">
+            <summary>
+            Gets the Entity Type ID for this entity.
+            </summary>
+            <value>
+            The type id.
+            </value>
+        </member>
+        <member name="P:Rock.Security.ISecured.TypeName">
+            <summary>
+            The auth entity. Classes that implement the <see cref="T:Rock.Security.ISecured"/> interface should return
+            a value that is unique across all <see cref="T:Rock.Security.ISecured"/> classes.  Typically this is the 
+            qualified name of the class. 
+            </summary>
+        </member>
+        <member name="P:Rock.Security.ISecured.Id">
+            <summary>
+            The Id
+            </summary>
+        </member>
+        <member name="P:Rock.Security.ISecured.ParentAuthority">
+            <summary>
+            A parent authority.  If a user is not specifically allowed or denied access to 
+            this object, Rock will check access to the parent authority specified by this property.
+            </summary>
+        </member>
+        <member name="P:Rock.Security.ISecured.SupportedActions">
+            <summary>
+            A list of actions that this class supports.
+            </summary>
+        </member>
+        <member name="M:Rock.Extension.Component.GetAttributeValue(System.String)">
+            <summary>
+            Gets the first value of an attribute key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Rock.Extension.Component.GetAttributeValues(System.String)" -->
+        <member name="M:Rock.Extension.Component.SetAttributeValue(System.String,System.String)">
+            <summary>
+            Sets the first value of an attribute key.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Rock.Extension.Component.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Extension.Component"/> class.
+            </summary>
+        </member>
+        <member name="M:Rock.Extension.Component.IsAuthorized(System.String,Rock.Model.Person)">
+            <summary>
+            Return <c>true</c> if the user is authorized to perform the selected action on this object.
+            </summary>
+            <param name="action">The action.</param>
+            <param name="person">The person.</param>
+            <returns>
+              <c>true</c> if the specified action is authorized; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Rock.Extension.Component.IsAllowedByDefault(System.String)">
+            <summary>
+            If a user or role is not specifically allowed or denied to perform the selected action,
+            return <c>true</c> if they should be allowed anyway or <c>false</c> if not.
+            </summary>
+            <param name="action">The action.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Extension.Component.IsPrivate(System.String,Rock.Model.Person)">
+            <summary>
+            Determines whether the specified action is private (Only the current user has access).
+            </summary>
+            <param name="action">The action.</param>
+            <param name="person">The person.</param>
+            <returns>
+              <c>true</c> if the specified action is private; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Rock.Extension.Component.MakePrivate(System.String,Rock.Model.Person,System.Nullable{System.Int32})">
+            <summary>
+            Makes the action on the current entity private (Only the current user will have access).
+            </summary>
+            <param name="action">The action.</param>
+            <param name="person">The person.</param>
+            <param name="personId">The current person id.</param>
+        </member>
+        <member name="P:Rock.Extension.Component.Id">
+            <summary>
+            Gets the id.
+            </summary>
+        </member>
+        <member name="P:Rock.Extension.Component.Attributes">
+            <summary>
+            List of attributes associated with the object.  This property will not include the attribute values.
+            The <see cref="P:Rock.Extension.Component.AttributeValues"/> property should be used to get attribute values.  Dictionary key
+            is the attribute key, and value is the cached attribute
+            </summary>
+            <value>
+            The attributes.
+            </value>
+        </member>
+        <member name="P:Rock.Extension.Component.AttributeValues">
+            <summary>
+            Dictionary of all attributes and their value.  Key is the attribute key, and value is the values
+            associated with the attribute and object instance
+            </summary>
+            <value>
+            The attribute values.
+            </value>
+        </member>
+        <member name="P:Rock.Extension.Component.AttributeValueDefaults">
+            <summary>
+            Gets the attribute value defaults.
+            </summary>
+            <value>
+            The attribute defaults.
+            </value>
+        </member>
+        <member name="P:Rock.Extension.Component.Order">
+            <summary>
+            Gets the order.
+            </summary>
+            <value>
+            The order.
+            </value>
+        </member>
+        <member name="P:Rock.Extension.Component.IsActive">
+            <summary>
+            Gets a value indicating whether this instance is active.
+            </summary>
+            <value>
+              <c>true</c> if this instance is active; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Rock.Extension.Component.TypeId">
+            <summary>
+            Gets the Entity Type ID for this entity.
+            </summary>
+            <value>
+            The type id.
+            </value>
+        </member>
+        <member name="P:Rock.Extension.Component.TypeGuid">
+            <summary>
+            Gets the Entity type GUID for this entity
+            </summary>
+            <value>
+            The type GUID.
+            </value>
+        </member>
+        <member name="P:Rock.Extension.Component.TypeName">
+            <summary>
+            The auth entity. Classes that implement the <see cref="!:ISecured"/> interface should return
+            a value that is unique across all <see cref="!:ISecured"/> classes.  Typically this is the
+            qualified name of the class.
+            </summary>
+        </member>
+        <member name="P:Rock.Extension.Component.ParentAuthority">
+            <summary>
+            A parent authority.  If a user is not specifically allowed or denied access to
+            this object, Rock will check access to the parent authority specified by this property.
+            </summary>
+        </member>
+        <member name="P:Rock.Extension.Component.SupportedActions">
+            <summary>
+            A list of actions that this class supports.
+            </summary>
+        </member>
+        <member name="M:Rock.BinaryFile.StorageComponent.SaveFile(Rock.Model.BinaryFile,System.Nullable{System.Int32})">
+            <summary>
+            Saves the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="personId">The person id.</param>
+        </member>
+        <member name="M:Rock.BinaryFile.StorageComponent.SaveFiles(System.Collections.Generic.IEnumerable{Rock.Model.BinaryFile},System.Nullable{System.Int32})">
+            <summary>
+            Saves the files.
+            </summary>
+            <param name="files">The files.</param>
+            <param name="personId"></param>
+        </member>
+        <member name="M:Rock.BinaryFile.StorageComponent.RemoveFile(Rock.Model.BinaryFile,System.Nullable{System.Int32})">
+            <summary>
+            Removes the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="personId"></param>
+        </member>
+        <member name="M:Rock.BinaryFile.StorageComponent.GetUrl(Rock.Model.BinaryFile,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets the URL.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="height">The height.</param>
+            <param name="width">The width.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.BinaryFile.StorageComponent.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.BinaryFile.StorageComponent"/> class.
+            </summary>
+        </member>
+        <member name="P:Rock.BinaryFile.StorageComponent.EntityType">
+            <summary>
+            Gets the type of the entity.
+            </summary>
+            <value>
+            The type of the entity.
+            </value>
+        </member>
+        <member name="P:Rock.BinaryFile.StorageComponent.Storage">
+            <summary>
+            Gets the storage.
+            </summary>
+            <value>
+            The storage.
+            </value>
+        </member>
+        <member name="T:Rock.BinaryFile.StorageContainer">
+            <summary>
+            MEF Container class for Binary File Storage Components
+            </summary>
+        </member>
+        <member name="F:Rock.BinaryFile.StorageContainer.instance">
+            <summary>
+            Singleton instance
+            </summary>
+        </member>
+        <member name="M:Rock.BinaryFile.StorageContainer.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:Rock.BinaryFile.StorageContainer"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Rock.BinaryFile.StorageContainer.GetComponent(System.String)">
+            <summary>
+            Gets the component with the matching Entity Type Name.
+            </summary>
+            <param name="entityTypeName">Name of the entity type.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Rock.BinaryFile.StorageContainer.Instance">
+            <summary>
+            Gets the instance.
+            </summary>
+            <value>
+            The instance.
+            </value>
+        </member>
+        <member name="P:Rock.BinaryFile.StorageContainer.MEFComponents">
+            <summary>
+            Gets or sets the MEF components.
+            </summary>
+            <value>
+            The MEF components.
+            </value>
+        </member>
+        <member name="M:Rock.BinaryFile.Storage.Database.SaveFiles(System.Collections.Generic.IEnumerable{Rock.Model.BinaryFile},System.Nullable{System.Int32})">
+            <summary>
+            Saves the files.
+            </summary>
+            <param name="files">The files.</param>
+            <param name="personId"></param>
+        </member>
+        <member name="M:Rock.BinaryFile.Storage.Database.RemoveFile(Rock.Model.BinaryFile,System.Nullable{System.Int32})">
+            <summary>
+            Removes the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="personId"></param>
+        </member>
+        <member name="M:Rock.BinaryFile.Storage.Database.GetUrl(Rock.Model.BinaryFile,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets the URL.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="height">The height.</param>
+            <param name="width">The width.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.BinaryFile.Storage.FileSystem.SaveFiles(System.Collections.Generic.IEnumerable{Rock.Model.BinaryFile},System.Nullable{System.Int32})">
+            <summary>
+            Saves the files.
+            </summary>
+            <param name="files">The files.</param>
+            <param name="personId"></param>
+        </member>
+        <member name="M:Rock.BinaryFile.Storage.FileSystem.RemoveFile(Rock.Model.BinaryFile,System.Nullable{System.Int32})">
+            <summary>
+            Removes the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="personId"></param>
+        </member>
+        <member name="M:Rock.BinaryFile.Storage.FileSystem.GetUrl(Rock.Model.BinaryFile,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets the URL.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="height">The height.</param>
+            <param name="width">The width.</param>
+            <returns></returns>
         </member>
         <member name="T:Rock.Data.MergeFieldAttribute">
             <summary>
@@ -979,6 +1445,54 @@
             <param name="control">The control.</param>
             <param name="configurationValues">The configuration values.</param>
             <param name="value">The value.</param>
+        </member>
+        <member name="T:Rock.Field.Types.EncryptedFieldType">
+            <summary>
+            Field used to save and edit a text value that is stored Encrypted
+            </summary>
+        </member>
+        <member name="M:Rock.Field.Types.EncryptedFieldType.FormatValue(System.Web.UI.Control,System.String,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.Boolean)">
+            <summary>
+            Returns the field's current value in Plain Text (Unencrypted)
+            </summary>
+            <param name="parentControl">The parent control.</param>
+            <param name="value">Information about the value</param>
+            <param name="configurationValues">The configuration values.</param>
+            <param name="condensed">Flag indicating if the value should be condensed (i.e. for use in a grid column)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.EncryptedFieldType.EditControl(System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
+            <summary>
+            Creates the control(s) neccessary for prompting user for a new value
+            </summary>
+            <param name="configurationValues">The configuration values.</param>
+            <param name="id"></param>
+            <returns>
+            The control
+            </returns>
+        </member>
+        <member name="M:Rock.Field.Types.EncryptedFieldType.GetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue})">
+            <summary>
+            Reads new values entered by the user for the field
+            </summary>
+            <param name="control">Parent control that controls were added to in the CreateEditControl() method</param>
+            <param name="configurationValues">The configuration values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.Field.Types.EncryptedFieldType.SetEditValue(System.Web.UI.Control,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
+            <summary>
+            Sets the value.
+            </summary>
+            <param name="control">The control.</param>
+            <param name="configurationValues">The configuration values.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="T:Rock.Field.Types.LocationFieldType">
+            <summary>
+            Field used to save and display a location value
+            TODO: For now this just renders a textbox for entering the guid of the location.  Will eventually
+            need to render a LocationPicker
+            </summary>
         </member>
         <member name="T:Rock.Field.Types.GroupRoleFieldType">
             <summary>
@@ -2392,6 +2906,261 @@
             Operations to be performed during the downgrade process.
             </summary>
         </member>
+        <member name="T:Rock.Migrations.CanCheckIn">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.CanCheckIn.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.CanCheckIn.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.InheritedGroupType">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.InheritedGroupType.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.InheritedGroupType.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.FixRelationshipBlockSettings">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.FixRelationshipBlockSettings.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.FixRelationshipBlockSettings.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.GroupMemberAddMemberStatus">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.GroupMemberAddMemberStatus.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.GroupMemberAddMemberStatus.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.GroupMemberUniqueMemberRole">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.GroupMemberUniqueMemberRole.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.GroupMemberUniqueMemberRole.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.AddGroupTypeRoute">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.AddGroupTypeRoute.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.AddGroupTypeRoute.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.PowerTools">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.PowerTools.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.PowerTools.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.HideSystemGroupTypes">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.HideSystemGroupTypes.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.HideSystemGroupTypes.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.LocationUpdates">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.LocationUpdates.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.LocationUpdates.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.AddCampusShortCode">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.AddCampusShortCode.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.AddCampusShortCode.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.PageIcons">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.PageIcons.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.PageIcons.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.BinaryFileStorageProviders">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.BinaryFileStorageProviders.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.BinaryFileStorageProviders.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.GroupSearchComponent">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.GroupSearchComponent.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.GroupSearchComponent.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.PageSettingUpdates">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.PageSettingUpdates.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.PageSettingUpdates.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.AddPeoplePage">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.AddPeoplePage.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.AddPeoplePage.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.CheckinAdminPages">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.CheckinAdminPages.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.CheckinAdminPages.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.CurrentPersonBlock">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.CurrentPersonBlock.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.CurrentPersonBlock.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
         <member name="T:Rock.Model.BinaryFileDataService">
             <summary>
             BinaryFileData Service class
@@ -3169,138 +3938,6 @@
             Occurs when model was updated
             </summary>
         </member>
-        <member name="T:Rock.Security.ISecured">
-            <summary>
-            Represents a securable object.  Note each ISecured object must also expose a static Read(int id) method if the object
-            types will be used in a grid with a SecureField column
-            </summary>
-        </member>
-        <member name="M:Rock.Security.ISecured.IsAuthorized(System.String,Rock.Model.Person)">
-            <summary>
-            Return <c>true</c> if the user is authorized to perform the selected action on this object.
-            </summary>
-            <param name="action">The action.</param>
-            <param name="person">The person.</param>
-            <returns>
-              <c>true</c> if the specified action is authorized; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:Rock.Security.ISecured.IsAllowedByDefault(System.String)">
-            <summary>
-            If a user or role is not specifically allowed or denied to perform the selected action,
-            return <c>true</c> if they should be allowed anyway or <c>false</c> if not.
-            </summary>
-            <param name="action">The action.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.Security.ISecured.IsPrivate(System.String,Rock.Model.Person)">
-            <summary>
-            Determines whether the specified action is private (Only the current user has access).
-            </summary>
-            <param name="action">The action.</param>
-            <param name="person">The person.</param>
-            <returns>
-              <c>true</c> if the specified action is private; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:Rock.Security.ISecured.MakePrivate(System.String,Rock.Model.Person,System.Nullable{System.Int32})">
-            <summary>
-            Makes the action on the current entity private (Only the current user will have access).
-            </summary>
-            <param name="action">The action.</param>
-            <param name="person">The person.</param>
-            <param name="personId">The current person id.</param>
-        </member>
-        <member name="P:Rock.Security.ISecured.TypeId">
-            <summary>
-            Gets the Entity Type ID for this entity.
-            </summary>
-            <value>
-            The type id.
-            </value>
-        </member>
-        <member name="P:Rock.Security.ISecured.TypeName">
-            <summary>
-            The auth entity. Classes that implement the <see cref="T:Rock.Security.ISecured"/> interface should return
-            a value that is unique across all <see cref="T:Rock.Security.ISecured"/> classes.  Typically this is the 
-            qualified name of the class. 
-            </summary>
-        </member>
-        <member name="P:Rock.Security.ISecured.Id">
-            <summary>
-            The Id
-            </summary>
-        </member>
-        <member name="P:Rock.Security.ISecured.ParentAuthority">
-            <summary>
-            A parent authority.  If a user is not specifically allowed or denied access to 
-            this object, Rock will check access to the parent authority specified by this property.
-            </summary>
-        </member>
-        <member name="P:Rock.Security.ISecured.SupportedActions">
-            <summary>
-            A list of actions that this class supports.
-            </summary>
-        </member>
-        <member name="T:Rock.Attribute.IHasAttributes">
-            <summary>
-            Represents any class that supports having attributes
-            </summary>
-        </member>
-        <member name="M:Rock.Attribute.IHasAttributes.GetAttributeValue(System.String)">
-            <summary>
-            Gets the first value of an attribute key.
-            </summary>
-            <param name="key">The key.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.Attribute.IHasAttributes.GetAttributeValues(System.String)">
-            <summary>
-            Gets the first value of an attribute key - splitting that delimited value into a list of strings.
-            </summary>
-            <param name="key">The key.</param>
-            <returns>A list of string values or an empty list if none exist.</returns>
-        </member>
-        <member name="M:Rock.Attribute.IHasAttributes.SetAttributeValue(System.String,System.String)">
-            <summary>
-            Sets the first value of an attribute key.
-            </summary>
-            <param name="key">The key.</param>
-            <param name="value">The value.</param>
-        </member>
-        <member name="P:Rock.Attribute.IHasAttributes.Id">
-            <summary>
-            Gets the id.
-            </summary>
-        </member>
-        <member name="P:Rock.Attribute.IHasAttributes.Attributes">
-            <summary>
-            List of attributes associated with the object.  This property will not include the attribute values.
-            The <see cref="P:Rock.Attribute.IHasAttributes.AttributeValues"/> property should be used to get attribute values.  Dictionary key
-            is the attribute key, and value is the cached attribute
-            </summary>
-            <value>
-            The attributes.
-            </value>
-        </member>
-        <member name="P:Rock.Attribute.IHasAttributes.AttributeValues">
-            <summary>
-            Dictionary of all attributes and their value.  Key is the attribute key, and value is the values
-            associated with the attribute and object instance
-            </summary>
-            <value>
-            The attribute values.
-            </value>
-        </member>
-        <member name="P:Rock.Attribute.IHasAttributes.AttributeValueDefaults">
-            <summary>
-            Gets the attribute value defaults.  This property can be used by a subclass to override the parent class's default
-            value for an attribute
-            </summary>
-            <value>
-            The attribute value defaults.
-            </value>
-        </member>
         <member name="M:Rock.Data.Model`1.IsAuthorized(System.String,Rock.Model.Person)">
             <summary>
             Return <c>true</c> if the user is authorized to perform the selected action on this object.
@@ -3614,169 +4251,6 @@
         <member name="T:Rock.PersonProfile.BadgeComponent">
             <summary>
             Base class for person profile badges
-            </summary>
-        </member>
-        <member name="T:Rock.Extension.Component">
-            <summary>
-            Abstract class that custom component classes should derive from.  
-            <example>
-            The derived class should define the following type attributes
-            </example>
-            <code>
-                [Description("<i>description of component</i>")]
-                [Export( typeof( Component ) )]
-                [ExportMetadata( "ComponentName", "<i>Name of Component</i>" )]
-            </code>
-            <example>
-            The derived class can also optionally define one or more property type attributes
-            </example>
-            <code>
-                [Rock.Attribute.Property( 1, "License Key", "The Required License Key" )]
-            </code>
-            <example>
-            To get the value of a property, the derived class can use the AttributeValues property
-            </example>
-            <code>
-                string licenseKey = AttributeValues["LicenseKey"].Value;
-            </code>
-            </summary>
-        </member>
-        <member name="M:Rock.Extension.Component.GetAttributeValue(System.String)">
-            <summary>
-            Gets the first value of an attribute key.
-            </summary>
-            <param name="key">The key.</param>
-            <returns></returns>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:Rock.Extension.Component.GetAttributeValues(System.String)" -->
-        <member name="M:Rock.Extension.Component.SetAttributeValue(System.String,System.String)">
-            <summary>
-            Sets the first value of an attribute key.
-            </summary>
-            <param name="key">The key.</param>
-            <param name="value">The value.</param>
-        </member>
-        <member name="M:Rock.Extension.Component.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Extension.Component"/> class.
-            </summary>
-        </member>
-        <member name="M:Rock.Extension.Component.IsAuthorized(System.String,Rock.Model.Person)">
-            <summary>
-            Return <c>true</c> if the user is authorized to perform the selected action on this object.
-            </summary>
-            <param name="action">The action.</param>
-            <param name="person">The person.</param>
-            <returns>
-              <c>true</c> if the specified action is authorized; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:Rock.Extension.Component.IsAllowedByDefault(System.String)">
-            <summary>
-            If a user or role is not specifically allowed or denied to perform the selected action,
-            return <c>true</c> if they should be allowed anyway or <c>false</c> if not.
-            </summary>
-            <param name="action">The action.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.Extension.Component.IsPrivate(System.String,Rock.Model.Person)">
-            <summary>
-            Determines whether the specified action is private (Only the current user has access).
-            </summary>
-            <param name="action">The action.</param>
-            <param name="person">The person.</param>
-            <returns>
-              <c>true</c> if the specified action is private; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:Rock.Extension.Component.MakePrivate(System.String,Rock.Model.Person,System.Nullable{System.Int32})">
-            <summary>
-            Makes the action on the current entity private (Only the current user will have access).
-            </summary>
-            <param name="action">The action.</param>
-            <param name="person">The person.</param>
-            <param name="personId">The current person id.</param>
-        </member>
-        <member name="P:Rock.Extension.Component.Id">
-            <summary>
-            Gets the id.
-            </summary>
-        </member>
-        <member name="P:Rock.Extension.Component.Attributes">
-            <summary>
-            List of attributes associated with the object.  This property will not include the attribute values.
-            The <see cref="P:Rock.Extension.Component.AttributeValues"/> property should be used to get attribute values.  Dictionary key
-            is the attribute key, and value is the cached attribute
-            </summary>
-            <value>
-            The attributes.
-            </value>
-        </member>
-        <member name="P:Rock.Extension.Component.AttributeValues">
-            <summary>
-            Dictionary of all attributes and their value.  Key is the attribute key, and value is the values
-            associated with the attribute and object instance
-            </summary>
-            <value>
-            The attribute values.
-            </value>
-        </member>
-        <member name="P:Rock.Extension.Component.AttributeValueDefaults">
-            <summary>
-            Gets the attribute value defaults.
-            </summary>
-            <value>
-            The attribute defaults.
-            </value>
-        </member>
-        <member name="P:Rock.Extension.Component.Order">
-            <summary>
-            Gets the order.
-            </summary>
-            <value>
-            The order.
-            </value>
-        </member>
-        <member name="P:Rock.Extension.Component.IsActive">
-            <summary>
-            Gets a value indicating whether this instance is active.
-            </summary>
-            <value>
-              <c>true</c> if this instance is active; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:Rock.Extension.Component.TypeId">
-            <summary>
-            Gets the Entity Type ID for this entity.
-            </summary>
-            <value>
-            The type id.
-            </value>
-        </member>
-        <member name="P:Rock.Extension.Component.TypeGuid">
-            <summary>
-            Gets the Entity type GUID for this entity
-            </summary>
-            <value>
-            The type GUID.
-            </value>
-        </member>
-        <member name="P:Rock.Extension.Component.TypeName">
-            <summary>
-            The auth entity. Classes that implement the <see cref="!:ISecured"/> interface should return
-            a value that is unique across all <see cref="!:ISecured"/> classes.  Typically this is the
-            qualified name of the class.
-            </summary>
-        </member>
-        <member name="P:Rock.Extension.Component.ParentAuthority">
-            <summary>
-            A parent authority.  If a user is not specifically allowed or denied access to
-            this object, Rock will check access to the parent authority specified by this property.
-            </summary>
-        </member>
-        <member name="P:Rock.Extension.Component.SupportedActions">
-            <summary>
-            A list of actions that this class supports.
             </summary>
         </member>
         <member name="M:Rock.PersonProfile.BadgeComponent.#ctor">
@@ -4115,6 +4589,48 @@
             <returns></returns>
         </member>
         <member name="P:Rock.PersonProfile.Badge.Serving.AttributeValueDefaults">
+            <summary>
+            Gets the attribute value defaults.
+            </summary>
+            <value>
+            The attribute defaults.
+            </value>
+        </member>
+        <member name="T:Rock.Search.Group.Name">
+            <summary>
+            Searches for people with matching names
+            </summary>
+        </member>
+        <member name="T:Rock.Search.SearchComponent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Search.SearchComponent.Search(System.String)">
+            <summary>
+            Returns a list of value/label results matching the searchterm
+            </summary>
+            <param name="searchterm">The searchterm.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Rock.Search.SearchComponent.SearchLabel">
+            <summary>
+            The label to display for the type of search
+            </summary>
+        </member>
+        <member name="P:Rock.Search.SearchComponent.ResultUrl">
+            <summary>
+            The url to redirect user to after they've entered search criteria
+            </summary>
+        </member>
+        <member name="M:Rock.Search.Group.Name.Search(System.String)">
+            <summary>
+            Returns a list of matching people
+            </summary>
+            <param name="searchterm"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Rock.Search.Group.Name.AttributeValueDefaults">
             <summary>
             Gets the attribute value defaults.
             </summary>
@@ -7632,6 +8148,16 @@
             Field Type to select a single (or null) GroupType
             </summary>
         </member>
+        <member name="M:Rock.Field.Types.GroupTypeFieldType.FormatValue(System.Web.UI.Control,System.String,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.Boolean)">
+            <summary>
+            Returns the field's current value(s)
+            </summary>
+            <param name="parentControl">The parent control.</param>
+            <param name="value">Information about the value</param>
+            <param name="configurationValues">The configuration values.</param>
+            <param name="condensed">Flag indicating if the value should be condensed (i.e. for use in a grid column)</param>
+            <returns></returns>
+        </member>
         <member name="M:Rock.Field.Types.GroupTypeFieldType.EditControl(System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.String)">
             <summary>
             Creates the control(s) neccessary for prompting user for a new value
@@ -7689,7 +8215,7 @@
         </member>
         <member name="T:Rock.Field.Types.KeyValueListFieldType">
             <summary>
-            Field used to save and dispaly a text value
+            Field used to save and display a key/value list
             </summary>
         </member>
         <member name="M:Rock.Field.Types.KeyValueListFieldType.FormatValue(System.Web.UI.Control,System.String,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.Boolean)">
@@ -12507,6 +13033,14 @@
             The icon CSS class.
             </value>
         </member>
+        <member name="P:Rock.Model.BinaryFileType.StorageEntityTypeId">
+            <summary>
+            Gets or sets the storage mode entity type id.
+            </summary>
+            <value>
+            The storage mode entity type id.
+            </value>
+        </member>
         <member name="P:Rock.Model.BinaryFileType.IconSmallFile">
             <summary>
             Gets or sets the small icon.
@@ -12537,6 +13071,14 @@
             </summary>
             <value>
             The file query.
+            </value>
+        </member>
+        <member name="P:Rock.Model.BinaryFileType.StorageEntityType">
+            <summary>
+            Gets or sets the type of the storage mode entity.
+            </summary>
+            <value>
+            The type of the storage mode entity.
             </value>
         </member>
         <member name="T:Rock.Model.BinaryFileTypeConfiguration">
@@ -15488,28 +16030,20 @@
             Description.
             </value>
         </member>
-        <member name="P:Rock.Model.Device.GeoPoint">
-            <summary>
-            Gets or sets the geographic point where the device is located.
-            </summary>
-            <value>
-            The geo point.
-            </value>
-        </member>
-        <member name="P:Rock.Model.Device.GeoFence">
-            <summary>
-            Gets or sets the geographic boundry for the device
-            </summary>
-            <value>
-            The geo fence.
-            </value>
-        </member>
         <member name="P:Rock.Model.Device.DeviceTypeValueId">
             <summary>
             Gets or sets the type of the device.
             </summary>
             <value>
             The type of the device.
+            </value>
+        </member>
+        <member name="P:Rock.Model.Device.LocationId">
+            <summary>
+            Gets or sets the location id.
+            </summary>
+            <value>
+            The location id.
             </value>
         </member>
         <member name="P:Rock.Model.Device.IPAddress">
@@ -15544,12 +16078,21 @@
             The print to override.
             </value>
         </member>
-        <member name="P:Rock.Model.Device.Locations">
+        <member name="P:Rock.Model.Device.Location">
             <summary>
-            Gets or sets the locations.
+            Gets or sets the physical location of the device, or the geographic fence 
+            that this device is active for
             </summary>
             <value>
-            The locations.
+            The location.
+            </value>
+        </member>
+        <member name="P:Rock.Model.Device.Locations">
+            <summary>
+            Gets or sets the locations that this device is used for
+            </summary>
+            <value>
+            The locations using this device.
             </value>
         </member>
         <member name="P:Rock.Model.Device.PrinterDevice">
@@ -16389,6 +16932,90 @@
             </summary>
             <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
         </member>
+        <member name="T:Rock.Web.UI.Controls.CheckBoxEditableField">
+            <summary>
+            The ASP:CheckBoxField doesn't work very well for retrieving changed values, especially when the value is changed from True to False (weird)
+            This CheckBoxEditableField works like the ASP:CheckBoxField except it gives the CheckBox's IDs so their changed values will consistantly persist on postbacks
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.CheckBoxEditableField.Initialize(System.Boolean,System.Web.UI.Control)">
+            <summary>
+            Performs basic instance initialization for a data control field.
+            </summary>
+            <param name="sortingEnabled">A value that indicates whether the control supports the sorting of columns of data.</param>
+            <param name="control">The data control that owns the <see cref="T:System.Web.UI.WebControls.DataControlField" />.</param>
+            <returns>
+            Always returns false.
+            </returns>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.CheckBoxEditableField.DataField">
+            <summary>
+            Gets or sets the data field.
+            </summary>
+            <value>
+            The data field.
+            </value>
+        </member>
+        <member name="T:Rock.Web.UI.Controls.CheckBoxFieldTemplate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.CheckBoxFieldTemplate.InstantiateIn(System.Web.UI.Control)">
+            <summary>
+            When implemented by a class, defines the <see cref="T:System.Web.UI.Control" /> object that child controls and templates belong to. These child controls are in turn defined within an inline template.
+            </summary>
+            <param name="container">The <see cref="T:System.Web.UI.Control" /> object to contain the instances of controls from the inline template.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.CheckBoxFieldTemplate.checkBox_DataBinding(System.Object,System.EventArgs)">
+            <summary>
+            Handles the DataBinding event of the checkBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="T:Rock.Web.UI.Controls.ColorField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.ColorField.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.ColorField"/> class.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.ColorField.FormatDataValue(System.Object,System.Boolean)">
+            <summary>
+            Formats the specified field value for a cell in the <see cref="T:System.Web.UI.WebControls.BoundField" /> object.
+            </summary>
+            <param name="dataValue">The field value to format.</param>
+            <param name="encode">true to encode the value; otherwise, false.</param>
+            <returns>
+            The field value converted to the format specified by <see cref="P:System.Web.UI.WebControls.BoundField.DataFormatString" />.
+            </returns>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.ColorField.InitializeDataCell(System.Web.UI.WebControls.DataControlFieldCell,System.Web.UI.WebControls.DataControlRowState)">
+            <summary>
+            Initializes the specified <see cref="T:System.Web.UI.WebControls.TableCell" /> object to the specified row state.
+            </summary>
+            <param name="cell">The <see cref="T:System.Web.UI.WebControls.TableCell" /> to initialize.</param>
+            <param name="rowState">One of the <see cref="T:System.Web.UI.WebControls.DataControlRowState" /> values.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.ColorField.cell_DataBinding(System.Object,System.EventArgs)">
+            <summary>
+            Handles the DataBinding event of the cell control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.ColorField.ToolTipDataField">
+            <summary>
+            Gets or sets the tool tip data field.
+            </summary>
+            <value>
+            The tool tip data field.
+            </value>
+        </member>
         <member name="T:Rock.Web.UI.Controls.IRequiredControl">
             <summary>
             
@@ -16981,6 +17608,155 @@
             The selected component ids.
             </value>
         </member>
+        <member name="T:Rock.Web.UI.Controls.GroupTypePicker">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Rock.Web.UI.Controls.LabeledDropDownList">
+            <summary>
+            A <see cref="T:System.Web.UI.WebControls.DropDownList"/> control with an associated label.
+            </summary>
+        </member>
+        <member name="T:Rock.Web.UI.Controls.RockDropDownList">
+            <summary>
+            Custom DropDownList control that retains options groups after post-back
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.RockDropDownList.SaveViewState">
+            <summary>
+            Saves the current view state of the <see cref="T:System.Web.UI.WebControls.ListControl" /> -derived control and the items it contains.
+            </summary>
+            <returns>
+            An <see cref="T:System.Object" /> that contains the saved state of the <see cref="T:System.Web.UI.WebControls.ListControl" /> control.
+            </returns>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.RockDropDownList.LoadViewState(System.Object)">
+            <summary>
+            Loads the previously saved view state of the <see cref="T:System.Web.UI.WebControls.DetailsView" /> control.
+            </summary>
+            <param name="savedState">An <see cref="T:System.Object" /> that represents the state of the <see cref="T:System.Web.UI.WebControls.ListControl" /> -derived control.</param>
+        </member>
+        <member name="F:Rock.Web.UI.Controls.LabeledDropDownList.label">
+            <summary>
+            The label
+            </summary>
+        </member>
+        <member name="F:Rock.Web.UI.Controls.LabeledDropDownList.helpBlock">
+            <summary>
+            The help block
+            </summary>
+        </member>
+        <member name="F:Rock.Web.UI.Controls.LabeledDropDownList.requiredValidator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.LabeledDropDownList.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.LabeledDropDownList"/> class.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.LabeledDropDownList.CreateChildControls">
+            <summary>
+            Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
+            </summary>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.LabeledDropDownList.RenderControl(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
+            </summary>
+            <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.LabeledDropDownList.RenderDataValidator(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders any data validator.
+            </summary>
+            <param name="writer">The writer.</param>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.LabeledDropDownList.CreateControlCollection">
+            <summary>
+            Creates a collection to store child controls.
+            </summary>
+            <returns>
+            Always returns an <see cref="T:System.Web.UI.EmptyControlCollection"/>.
+            </returns>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.Required">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Rock.Web.UI.Controls.LabeledTextBox"/> is required.
+            </summary>
+            <value>
+              <c>true</c> if required; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.Tip">
+            <summary>
+            Gets or sets the help tip.
+            </summary>
+            <value>
+            The help tip.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.Help">
+            <summary>
+            Gets or sets the help block.
+            </summary>
+            <value>
+            The help block.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.LabelText">
+            <summary>
+            Gets or sets the label text.
+            </summary>
+            <value>
+            The label text.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.IsValid">
+            <summary>
+            Gets a value indicating whether this instance is valid.
+            </summary>
+            <value>
+              <c>true</c> if this instance is valid; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.RequiredErrorMessage">
+            <summary>
+            Gets or sets the required error message.  If blank, the LabelName name will be used
+            </summary>
+            <value>
+            The required error message.
+            </value>
+        </member>
+        <member name="M:Rock.Web.UI.Controls.GroupTypePicker.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.GroupTypePicker"/> class.
+            </summary>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GroupTypePicker.Required">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Rock.Web.UI.Controls.LabeledTextBox"/> is required.
+            </summary>
+            <value><c>true</c> if required; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GroupTypePicker.GroupTypes">
+            <summary>
+            Gets or sets the group types.
+            </summary>
+            <value>
+            The group types.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GroupTypePicker.SelectedGroupTypeId">
+            <summary>
+            Gets the selected groupType ids.
+            </summary>
+            <value>
+            The selected groupType ids.
+            </value>
+        </member>
         <member name="T:Rock.Web.UI.Controls.PersonPicker2">
             <summary>
             
@@ -17048,11 +17824,29 @@
         </member>
         <member name="P:Rock.Web.UI.Controls.GroupRolePicker.GroupRoleId">
             <summary>
-            Gets or sets the person id.
+            Gets or sets the role id.
             </summary>
             <value>
-            The person id.
+            The role id.
             </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GroupRolePicker.Required">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Rock.Web.UI.Controls.IRequiredControl"/> is required.
+            </summary>
+            <value><c>true</c> if required; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GroupRolePicker.RequiredErrorMessage">
+            <summary>
+            Gets or sets the required error message.  If blank, the LabelName name will be used
+            </summary>
+            <value>The required error message.</value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GroupRolePicker.IsValid">
+            <summary>
+            Gets or sets a value indicating whether this instance is valid.
+            </summary>
+            <value><c>true</c> if this instance is valid; otherwise, <c>false</c>.</value>
         </member>
         <member name="T:Rock.Web.UI.Controls.GeoPicker">
             <summary>
@@ -17165,6 +17959,14 @@
             </summary>
             <value>
             The name of the field.
+            </value>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.GeoPicker.CenterPoint">
+            <summary>
+            Gets or sets the point that map should initially be centered on
+            </summary>
+            <value>
+            The center point.
             </value>
         </member>
         <member name="P:Rock.Web.UI.Controls.GeoPicker.SelectedValue">
@@ -17451,127 +18253,16 @@
             
             </summary>
         </member>
-        <member name="T:Rock.Web.UI.Controls.LabeledDropDownList">
-            <summary>
-            A <see cref="T:System.Web.UI.WebControls.DropDownList"/> control with an associated label.
-            </summary>
-        </member>
-        <member name="T:Rock.Web.UI.Controls.RockDropDownList">
-            <summary>
-            Custom DropDownList control that retains options groups after post-back
-            </summary>
-        </member>
-        <member name="M:Rock.Web.UI.Controls.RockDropDownList.SaveViewState">
-            <summary>
-            Saves the current view state of the <see cref="T:System.Web.UI.WebControls.ListControl" /> -derived control and the items it contains.
-            </summary>
-            <returns>
-            An <see cref="T:System.Object" /> that contains the saved state of the <see cref="T:System.Web.UI.WebControls.ListControl" /> control.
-            </returns>
-        </member>
-        <member name="M:Rock.Web.UI.Controls.RockDropDownList.LoadViewState(System.Object)">
-            <summary>
-            Loads the previously saved view state of the <see cref="T:System.Web.UI.WebControls.DetailsView" /> control.
-            </summary>
-            <param name="savedState">An <see cref="T:System.Object" /> that represents the state of the <see cref="T:System.Web.UI.WebControls.ListControl" /> -derived control.</param>
-        </member>
-        <member name="F:Rock.Web.UI.Controls.LabeledDropDownList.label">
-            <summary>
-            The label
-            </summary>
-        </member>
-        <member name="F:Rock.Web.UI.Controls.LabeledDropDownList.helpBlock">
-            <summary>
-            The help block
-            </summary>
-        </member>
-        <member name="F:Rock.Web.UI.Controls.LabeledDropDownList.requiredValidator">
-            <summary>
-            The validator
-            </summary>
-        </member>
-        <member name="M:Rock.Web.UI.Controls.LabeledDropDownList.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.LabeledDropDownList"/> class.
-            </summary>
-        </member>
-        <member name="M:Rock.Web.UI.Controls.LabeledDropDownList.CreateChildControls">
-            <summary>
-            Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
-            </summary>
-        </member>
-        <member name="M:Rock.Web.UI.Controls.LabeledDropDownList.RenderControl(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
-            </summary>
-            <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
-        </member>
-        <member name="M:Rock.Web.UI.Controls.LabeledDropDownList.RenderDataValidator(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Renders any data validator.
-            </summary>
-            <param name="writer">The writer.</param>
-        </member>
-        <member name="M:Rock.Web.UI.Controls.LabeledDropDownList.CreateControlCollection">
-            <summary>
-            Creates a collection to store child controls.
-            </summary>
-            <returns>
-            Always returns an <see cref="T:System.Web.UI.EmptyControlCollection"/>.
-            </returns>
-        </member>
-        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.Required">
-            <summary>
-            Gets or sets a value indicating whether this <see cref="T:Rock.Web.UI.Controls.LabeledTextBox"/> is required.
-            </summary>
-            <value>
-              <c>true</c> if required; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.Tip">
-            <summary>
-            Gets or sets the help tip.
-            </summary>
-            <value>
-            The help tip.
-            </value>
-        </member>
-        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.Help">
-            <summary>
-            Gets or sets the help block.
-            </summary>
-            <value>
-            The help block.
-            </value>
-        </member>
-        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.LabelText">
-            <summary>
-            Gets or sets the label text.
-            </summary>
-            <value>
-            The label text.
-            </value>
-        </member>
-        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.IsValid">
-            <summary>
-            Gets a value indicating whether this instance is valid.
-            </summary>
-            <value>
-              <c>true</c> if this instance is valid; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:Rock.Web.UI.Controls.LabeledDropDownList.RequiredErrorMessage">
-            <summary>
-            Gets or sets the required error message.  If blank, the LabelName name will be used
-            </summary>
-            <value>
-            The required error message.
-            </value>
-        </member>
         <member name="M:Rock.Web.UI.Controls.CampusPicker.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Rock.Web.UI.Controls.CampusPicker"/> class.
             </summary>
+        </member>
+        <member name="P:Rock.Web.UI.Controls.CampusPicker.Required">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Rock.Web.UI.Controls.LabeledTextBox"/> is required.
+            </summary>
+            <value><c>true</c> if required; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Rock.Web.UI.Controls.CampusPicker.Campuses">
             <summary>
@@ -18135,7 +18826,7 @@
             The name of the field.
             </value>
         </member>
-        <member name="P:Rock.Web.UI.Controls.NumberBox.ValidationDataType">
+        <member name="P:Rock.Web.UI.Controls.NumberBox.NumberType">
             <summary>
             Gets or sets the type of the validation data.
             </summary>
@@ -20423,6 +21114,17 @@
             </summary>
             <param name="items">The items.</param>
         </member>
+        <member name="M:Rock.Web.UI.ViewStateList`1.InsertAll(System.Collections.Generic.List{`0})">
+            <summary>
+            Inserts all.
+            </summary>
+            <param name="items">The items.</param>
+        </member>
+        <member name="M:Rock.Web.UI.ViewStateList`1.Clear">
+            <summary>
+            Clears this instance.
+            </summary>
+        </member>
         <member name="T:Rock.Workflow.Action.ParseZebraLabel">
             <summary>
             Parse Zebra Label
@@ -21863,6 +22565,13 @@
             <param name="location">The location.</param>
             <param name="personId">The person id.</param>
         </member>
+        <member name="M:Rock.Model.LocationService.GetAllDescendents(System.Int32)">
+            <summary>
+            Gets all descendents.
+            </summary>
+            <param name="parentLocationId">The parent location id.</param>
+            <returns></returns>
+        </member>
         <member name="T:Rock.Model.LocationExtensionMethods">
             <summary>
             Generated Extension Methods
@@ -21950,6 +22659,14 @@
             </summary>
             <value>
             Given Name.
+            </value>
+        </member>
+        <member name="P:Rock.Model.Campus.ShortCode">
+            <summary>
+            Gets or sets the campus abbreviation/short code.
+            </summary>
+            <value>
+            Short Code.
             </value>
         </member>
         <member name="P:Rock.Model.Campus.LocationId">
@@ -23789,6 +24506,14 @@
             A <see cref="T:System.String"/> that represents this instance.
             </returns>
         </member>
+        <member name="M:Rock.Model.BinaryFile.GetUrl(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets the URL.
+            </summary>
+            <param name="height">The height.</param>
+            <param name="width">The width.</param>
+            <returns></returns>
+        </member>
         <member name="M:Rock.Model.BinaryFile.MakePermanent(System.String)">
             <summary>
             Makes a comma delimited list of the permanent.
@@ -23859,6 +24584,14 @@
             Description.
             </value>
         </member>
+        <member name="P:Rock.Model.BinaryFile.StorageEntityTypeId">
+            <summary>
+            Gets or sets the storage entity type id.
+            </summary>
+            <value>
+            The storage entity type id.
+            </value>
+        </member>
         <member name="P:Rock.Model.BinaryFile.BinaryFileType">
             <summary>
             Gets or sets the binary file type.
@@ -23873,6 +24606,14 @@
             </summary>
             <value>
             The binary file data.
+            </value>
+        </member>
+        <member name="P:Rock.Model.BinaryFile.StorageEntityType">
+            <summary>
+            Gets or sets the type of the storage entity.
+            </summary>
+            <value>
+            The type of the storage entity.
             </value>
         </member>
         <member name="T:Rock.Model.BinaryFileConfiguration">
@@ -25125,6 +25866,14 @@
             Attribute Value POCO Entity.
             </summary>
         </member>
+        <member name="M:Rock.Model.AttributeValue.IsEncryptedFieldType">
+            <summary>
+            Determines whether [is encrypted field type].
+            </summary>
+            <returns>
+              <c>true</c> if [is encrypted field type]; otherwise, <c>false</c>.
+            </returns>
+        </member>
         <member name="M:Rock.Model.AttributeValue.ToString">
             <summary>
             Returns a <see cref="T:System.String"/> that represents this instance.
@@ -25171,6 +25920,14 @@
             </summary>
             <value>
             Value.
+            </value>
+        </member>
+        <member name="P:Rock.Model.AttributeValue.FieldType">
+            <summary>
+            Gets the type of the field.
+            </summary>
+            <value>
+            The type of the field.
             </value>
         </member>
         <member name="P:Rock.Model.AttributeValue.Attribute">
@@ -25543,7 +26300,7 @@
               <c>true</c> if this instance is active; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="P:Rock.Model.Location.LocationPoint">
+        <member name="P:Rock.Model.Location.GeoPoint">
             <summary>
             Gets or sets the location point.
             </summary>
@@ -25551,7 +26308,7 @@
             The location point.
             </value>
         </member>
-        <member name="P:Rock.Model.Location.Perimeter">
+        <member name="P:Rock.Model.Location.GeoFence">
             <summary>
             Gets or sets the perimeter.
             </summary>
@@ -25895,6 +26652,16 @@
             <returns>
             A <see cref="T:System.String"/> that represents this instance.
             </returns>
+        </member>
+        <member name="M:Rock.Model.Person.CreateCheckinRelationship(System.Int32,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Adds the related person to the selected person's known relationships with a role of 'Can check in' which
+            is typically configured to allow check-in.  If an inverse relationship is configured for 'Can check in' 
+            (i.e. 'Allow check in by'), that relationship will also be created.
+            </summary>
+            <param name="personId">The person id.</param>
+            <param name="relatedPersonId">The related person id.</param>
+            <param name="curreontPersonId">The current person id.</param>
         </member>
         <member name="P:Rock.Model.Person.IsSystem">
             <summary>
@@ -26510,7 +27277,7 @@
         </member>
         <member name="T:Rock.Field.Types.DocumentFieldType">
             <summary>
-            Field used to save and dispaly a document
+            Field used to save and display a document
             </summary>
         </member>
         <member name="T:Rock.Field.Types.PersonFieldType">
@@ -26555,17 +27322,17 @@
         </member>
         <member name="T:Rock.Field.Types.UrlFieldType">
             <summary>
-            Field used to save and dispaly a url
+            Field used to save and display a url
             </summary>
         </member>
         <member name="T:Rock.Field.Types.CurrencyFieldType">
             <summary>
-            Field used to save and dispaly a currency value
+            Field used to save and display a currency value
             </summary>
         </member>
         <member name="T:Rock.Field.Types.DecimalFieldType">
             <summary>
-            Field used to save and dispaly a decimal numeric value
+            Field used to save and display a decimal numeric value
             </summary>
         </member>
         <member name="M:Rock.Field.Types.DecimalFieldType.IsValid(System.String,System.Boolean,System.String@)">
@@ -26686,7 +27453,7 @@
         </member>
         <member name="T:Rock.Field.Types.DateFieldType">
             <summary>
-            Field used to save and dispaly a text value
+            Field used to save and display a date value
             </summary>
         </member>
         <member name="M:Rock.Field.Types.DateFieldType.FormatValue(System.Web.UI.Control,System.String,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.Boolean)">
@@ -26752,7 +27519,7 @@
         </member>
         <member name="T:Rock.Field.Types.ImageFieldType">
             <summary>
-            Field used to save and dispaly a text value
+            Field used to save and display an image value
             </summary>
         </member>
         <member name="M:Rock.Field.Types.ImageFieldType.FormatValue(System.Web.UI.Control,System.String,System.Collections.Generic.Dictionary{System.String,Rock.Field.ConfigurationValue},System.Boolean)">
@@ -27628,15 +28395,6 @@
             Group POCO Entity.
             </summary>
         </member>
-        <member name="M:Rock.Model.Group.IsAncestorOfGroup(System.Int32)">
-            <summary>
-            Determines whether [is ancestor of group] [the specified parent group id].
-            </summary>
-            <param name="parentGroupId">The parent group id.</param>
-            <returns>
-              <c>true</c> if [is ancestor of group] [the specified parent group id]; otherwise, <c>false</c>.
-            </returns>
-        </member>
         <member name="M:Rock.Model.Group.ToString">
             <summary>
             Returns a <see cref="T:System.String"/> that represents this instance.
@@ -27911,6 +28669,13 @@
             <param name="name">Name.</param>
             <returns>An enumerable list of Group objects.</returns>
         </member>
+        <member name="M:Rock.Model.GroupService.GetAllDescendents(System.Int32)">
+            <summary>
+            Gets all descendents.
+            </summary>
+            <param name="parentGroupId">The parent group id.</param>
+            <returns></returns>
+        </member>
         <member name="M:Rock.Model.GroupService.Delete(Rock.Model.Group,System.Nullable{System.Int32})">
             <summary>
             Deletes the specified item.
@@ -28174,6 +28939,20 @@
             The display order.
             </value>
         </member>
+        <member name="P:Rock.Model.GroupType.InheritedGroupTypeId">
+            <summary>
+            Gets or sets the inherited group type id.
+            </summary>
+            <value>The inherited group type id.</value>
+        </member>
+        <member name="P:Rock.Model.GroupType.LocationType">
+            <summary>
+            Gets or sets the type of the locations allowed on groups of this type.
+            </summary>
+            <value>
+            The type of the locations.
+            </value>
+        </member>
         <member name="P:Rock.Model.GroupType.Groups">
             <summary>
             Gets or sets the Groups.
@@ -28254,6 +29033,13 @@
             The group query.
             </value>
         </member>
+        <member name="P:Rock.Model.GroupType.InheritedGroupType">
+            <summary>
+            Gets or sets the inherited group type.  If a group type inherits from another
+            group type, it will inherit that group type's attributes
+            </summary>
+            <value>The type of the inherited group.</value>
+        </member>
         <member name="T:Rock.Model.GroupTypeConfiguration">
             <summary>
             Group Type Configuration class.
@@ -28283,6 +29069,36 @@
         <member name="F:Rock.Model.AttendanceRule.AlreadyBelongs">
             <summary>
             User must already belong to the group before they will be allowed to check-in
+            </summary>
+        </member>
+        <member name="T:Rock.Model.LocationType">
+            <summary>
+            The attendance rule to use when person checks in to a group of this type
+            </summary>
+        </member>
+        <member name="F:Rock.Model.LocationType.Any">
+            <summary>
+            Any
+            </summary>
+        </member>
+        <member name="F:Rock.Model.LocationType.Address">
+            <summary>
+            An Addresss
+            </summary>
+        </member>
+        <member name="F:Rock.Model.LocationType.Point">
+            <summary>
+            A Geographic point (Latitude/Longitude)
+            </summary>
+        </member>
+        <member name="F:Rock.Model.LocationType.Polygon">
+            <summary>
+            A Geographic Polygon
+            </summary>
+        </member>
+        <member name="F:Rock.Model.LocationType.PointOfInterest">
+            <summary>
+            A Named location (Building, Room)
             </summary>
         </member>
         <member name="T:Rock.Model.GroupTypeService">
@@ -28542,6 +29358,13 @@
             <param name="groupId">The group id.</param>
             <param name="includeDeceased">if set to <c>true</c> [include deceased].</param>
             <returns></returns>
+        </member>
+        <member name="M:Rock.Model.GroupMemberService.GetInverseRelationship(Rock.Model.GroupMember,System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Gets the inverse relationship.
+            </summary>
+            <param name="groupMember">The group member.</param>
+            <returns>GroupMember.</returns>
         </member>
         <member name="T:Rock.Model.GroupMemberExtensionMethods">
             <summary>
@@ -28843,28 +29666,6 @@
         <member name="T:Rock.Search.Person.Address">
             <summary>
             Searches for people with matching address
-            </summary>
-        </member>
-        <member name="T:Rock.Search.SearchComponent">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Rock.Search.SearchComponent.Search(System.String)">
-            <summary>
-            Returns a list of value/label results matching the searchterm
-            </summary>
-            <param name="searchterm">The searchterm.</param>
-            <returns></returns>
-        </member>
-        <member name="P:Rock.Search.SearchComponent.SearchLabel">
-            <summary>
-            The label to display for the type of search
-            </summary>
-        </member>
-        <member name="P:Rock.Search.SearchComponent.ResultUrl">
-            <summary>
-            The url to redirect user to after they've entered search criteria
             </summary>
         </member>
         <member name="M:Rock.Search.Person.Address.Search(System.String)">
@@ -29605,6 +30406,16 @@
             <value>
             The role Guid
             </value>
+        </member>
+        <member name="F:Rock.SystemGuid.GroupRole.GROUPROLE_KNOWN_RELATIONSHIPS_CAN_CHECK_IN">
+            <summary>
+            Gets the Can check in role
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.GroupRole.GROUPROLE_KNOWN_RELATIONSHIPS_ALLOW_CHECK_IN_BY">
+            <summary>
+            Gets the Allow check in role
+            </summary>
         </member>
         <member name="F:Rock.SystemGuid.GroupRole.GROUPROLE_IMPLIED_RELATIONSHIPS_OWNER">
             <summary>
@@ -32221,6 +33032,14 @@
             </summary>
             <value>
             The name.
+            </value>
+        </member>
+        <member name="P:Rock.Web.Cache.CampusCache.ShortCode">
+            <summary>
+            Gets or sets the short code.
+            </summary>
+            <value>
+            The short code.
             </value>
         </member>
         <member name="T:Rock.Web.Cache.EntityTypeCache">
@@ -36173,7 +36992,7 @@
         </member>
         <member name="T:Rock.Field.Types.IntegerFieldType">
             <summary>
-            Field used to save and dispaly a numeric value
+            Field used to save and display a numeric value
             </summary>
         </member>
         <member name="M:Rock.Field.Types.IntegerFieldType.IsValid(System.String,System.Boolean,System.String@)">
@@ -36295,7 +37114,7 @@
         </member>
         <member name="T:Rock.Field.Types.TextFieldType">
             <summary>
-            Field used to save and dispaly a text value
+            Field used to save and display a text value
             </summary>
         </member>
         <member name="T:Rock.Attribute.Helper">
