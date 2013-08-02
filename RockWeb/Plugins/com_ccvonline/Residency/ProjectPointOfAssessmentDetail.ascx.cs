@@ -191,7 +191,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             if ( !itemKeyValue.Equals( 0 ) )
             {
                 projectPointOfAssessment = projectPointOfAssessmentService.Get( itemKeyValue );
-                lActionTitle.Text = ActionTitle.Edit( "Point of Assessment for " + projectName );
+                lActionTitle.Text = ActionTitle.Edit( "Point of Assessment " + projectPointOfAssessment.AssessmentOrder.ToString() );
             }
             else
             {
@@ -206,7 +206,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
 
                     projectPointOfAssessment.AssessmentOrder = maxAssessmentOrder + 1;
 
-                    lActionTitle.Text = ActionTitle.Add( "Point of Assessment for " + projectName );
+                    lActionTitle.Text = ActionTitle.Add( "Point of Assessment " + projectPointOfAssessment.AssessmentOrder.ToString() );
                 }
             }
 
@@ -228,12 +228,12 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             if ( !IsUserAuthorized( "Edit" ) )
             {
                 readOnly = true;
-                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( ProjectPointOfAssessment.FriendlyTypeName );
+                nbEditModeMessage.Text = EditModeMessage.ReadOnlyEditActionNotAllowed( "Point of Assessment" );
             }
 
             if ( readOnly )
             {
-                lActionTitle.Text = ActionTitle.View( ProjectPointOfAssessment.FriendlyTypeName );
+                lActionTitle.Text = ActionTitle.View( "Point of Assessment " + projectPointOfAssessment.AssessmentOrder.ToString() );
                 btnCancel.Text = "Close";
             }
 
