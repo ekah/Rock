@@ -113,6 +113,10 @@
     <Compile Include="Migrations\201307232155134_DefinedTypePointOfAssessmentType.Designer.cs">
       <DependentUpon>201307232155134_DefinedTypePointOfAssessmentType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201308030121542_ResidentProjectAssessmentPages.cs" />
+    <Compile Include="Migrations\201308030121542_ResidentProjectAssessmentPages.Designer.cs">
+      <DependentUpon>201308030121542_ResidentProjectAssessmentPages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Competency.cs" />
     <Compile Include="Model\CompetencyPerson.cs" />
@@ -177,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201307232155134_DefinedTypePointOfAssessmentType.resx">
       <DependentUpon>201307232155134_DefinedTypePointOfAssessmentType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308030121542_ResidentProjectAssessmentPages.resx">
+      <DependentUpon>201308030121542_ResidentProjectAssessmentPages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -80,7 +80,6 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
         /// </summary>
         private void BindRepeater()
         {
-            lblPersonName.Text = this.CurrentPerson.FullName;
             var trackService = new ResidencyService<Track>();
             var competencyPersonService = new ResidencyService<CompetencyPerson>();
             int currentPersonId = this.CurrentPersonId ?? 0;

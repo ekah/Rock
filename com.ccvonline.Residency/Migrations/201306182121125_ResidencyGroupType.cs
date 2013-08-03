@@ -31,6 +31,7 @@ INSERT INTO [dbo].[GroupType]
            ,[GroupMemberTerm]
            ,[DefaultGroupRoleId]
            ,[ShowInNavigation]
+           ,[ShowInGroupList]
            ,[IconCssClass]
            ,[Guid])
      VALUES
@@ -39,6 +40,7 @@ INSERT INTO [dbo].[GroupType]
            ,'Group Types for the Residency program'
            ,'Resident'
            ,null
+           ,1
            ,1
            ,'icon-md'
            ,'00043CE6-EB1B-43B5-A12A-4552B91A3E28')

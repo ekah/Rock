@@ -2,8 +2,6 @@
 
 <asp:UpdatePanel ID="upList" runat="server">
     <ContentTemplate>
-        <h3>
-            <asp:Literal ID="lblPersonName" runat="server" /></h3>
         <asp:Repeater ID="rpTracks" runat="server" OnItemDataBound="rpTracks_ItemDataBound">
             <ItemTemplate>
                 <h4><%# DataBinder.Eval( Container.DataItem, "Name") %>
