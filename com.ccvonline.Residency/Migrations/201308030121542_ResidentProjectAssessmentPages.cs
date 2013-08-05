@@ -25,6 +25,13 @@ namespace com.ccvonline.Residency.Migrations
             AddBlock( "826C0BFF-C831-4427-98F9-57FF462D82F5", "F49AD5F8-1E45-41E7-A88E-8CD285815BD9", "Page Xslt Transformation", "", "Content", 1, "D07780FC-0ED5-4881-8B76-24F6FAE8A897" );
             AddBlock( "162927F6-E503-43C4-B075-55F1E592E96E", "F7193487-1234-49D7-9CEC-7F5F452B7E3F", "Current Person", "", "Content", 0, "4EFF1322-6A9A-44A0-B3B8-CB547CB09C0B" );
             AddBlock( "162927F6-E503-43C4-B075-55F1E592E96E", "F49AD5F8-1E45-41E7-A88E-8CD285815BD9", "Page Xslt Transformation", "", "Content", 1, "3938E111-C9FF-49E9-B1B8-A2AA89080F51" );
+
+            // Move the Resident Competency List down under the new Page Nav pills 
+            Sql( "Update [Block] set [Order] = 2 where [Guid] = 'EE97ABE8-A124-4437-B962-805C1D0C18D4'" );
+
+            // Update Resident Home page name,title to 'Coursework' since it is part of the new Page Nav pills
+            Sql( "Update [Page] set [Name] = 'Coursework', [Title] = 'Coursework' where [Guid] = '826C0BFF-C831-4427-98F9-57FF462D82F5'" );
+
             AddBlock( "162927F6-E503-43C4-B075-55F1E592E96E", "BF27EBA9-EA1D-4B15-8B43-D97F0C1B0B20", "Resident Project Assessment List", "", "Content", 2, "B459F23A-9C32-4537-BA93-637A81ACB35A" );
             AddBlock( "BDA4C473-01CD-449E-97D4-4B054E3F0959", "D2835421-1D69-4D2E-80BC-836FF606ADDD", "Resident Project Assessment Detail", "", "Content", 0, "1DB06C26-B318-46CD-9E9F-219FC1EF6338" );
 
@@ -92,14 +99,7 @@ namespace com.ccvonline.Residency.Migrations
 
             // Update new pages to use Residency Site
             Sql( @"
-DECLARE @PageId int
 DECLARE @SiteId int
-DECLARE @LoginPageReference NVARCHAR(260)
-
--- 'Resident Home' page is default page for site
-SET @PageId = (SELECT [Id] FROM [Page] WHERE [Guid] = '826C0BFF-C831-4427-98F9-57FF462D82F5')
-
-SET @LoginPageReference = (select '~/page/' + CONVERT(nvarchar(10), [Id]) from [Page] where [Guid] = '07770489-9C8D-43FA-85B3-E99BB54D3353')
 
 SET @SiteId = (select [Id] from [Site] where [Guid] = '960F1D98-891A-4508-8F31-3CF206F5406E')
 
@@ -135,6 +135,12 @@ WHERE [Guid] in (
             DeleteBlock( "E517DDD7-73DB-4475-87A4-83CBCD7657F1" ); // Current Person
             DeletePage( "BDA4C473-01CD-449E-97D4-4B054E3F0959" ); // Project Assessment Detail
             DeletePage( "162927F6-E503-43C4-B075-55F1E592E96E" ); // Assessments
+
+            // Un-Move the Resident Competency List down under the new Page Nav pills 
+            Sql( "Update [Block] set [Order] = 1 where [Guid] = 'EE97ABE8-A124-4437-B962-805C1D0C18D4'" );
+
+            // Un-Update Resident Home page name,title to 'Coursework' since it is part of the new Page Nav pills
+            Sql( "Update [Page] set [Name] = 'Resident Home', [Title] = 'Resident Home' where [Guid] = '826C0BFF-C831-4427-98F9-57FF462D82F5'" );
         }
     }
 }
