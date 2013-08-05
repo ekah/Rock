@@ -31,7 +31,7 @@
             </h4>
             <Rock:Grid ID="gList" runat="server" AllowSorting="false" OnRowSelected="gList_Edit" DataKeyNames="ProjectPointOfAssessmentId,CompetencyPersonProjectAssessmentId" DisplayType="Light">
                 <Columns>
-                    <%-- <Rock:ColorField DataField="ProjectPointOfAssessmentColor" ToolTipDataField="ProjectPointOfAssessment.PointOfAssessmentTypeValue.Name" /> --%>
+                    <Rock:ColorField DataField="ProjectPointOfAssessmentColor" ToolTipDataField="ProjectPointOfAssessment.PointOfAssessmentTypeValue.Name" />
                     <asp:BoundField DataField="ProjectPointOfAssessment.AssessmentOrder" HeaderText="#" />
                     <asp:BoundField DataField="ProjectPointOfAssessment.AssessmentText" HeaderText="Text" />
                     <asp:BoundField DataField="CompetencyPersonProjectAssessmentPointOfAssessment.Rating" HeaderText="Rating" />
