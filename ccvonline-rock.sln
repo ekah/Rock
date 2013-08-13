@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.ccvonline.Residency", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.ccvonline.Authentication", "com.ccvonline.Authentication\com.ccvonline.Authentication.csproj", "{10702916-BB67-4BE9-A507-E1F8932BD05F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockCoreUpdateDatabase", "Dev Tools\RockCoreUpdateDatabase\RockCoreUpdateDatabase.csproj", "{32CD0374-E10C-4FD8-95B5-6ED9B9DC5965}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{10702916-BB67-4BE9-A507-E1F8932BD05F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10702916-BB67-4BE9-A507-E1F8932BD05F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10702916-BB67-4BE9-A507-E1F8932BD05F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32CD0374-E10C-4FD8-95B5-6ED9B9DC5965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32CD0374-E10C-4FD8-95B5-6ED9B9DC5965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32CD0374-E10C-4FD8-95B5-6ED9B9DC5965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32CD0374-E10C-4FD8-95B5-6ED9B9DC5965}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
