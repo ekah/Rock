@@ -3222,6 +3222,51 @@
             Operations to be performed during the downgrade process.
             </summary>
         </member>
+        <member name="T:Rock.Migrations.FieldTypeUnique">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.FieldTypeUnique.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.FieldTypeUnique.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.FixDataFiltersSetting">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.FixDataFiltersSetting.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.FixDataFiltersSetting.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="T:Rock.Migrations.ScheduleServiceTimes">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Rock.Migrations.ScheduleServiceTimes.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:Rock.Migrations.ScheduleServiceTimes.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
         <member name="T:Rock.Model.BinaryFileDataService">
             <summary>
             BinaryFileData Service class
@@ -4714,6 +4759,16 @@
             The attribute defaults.
             </value>
         </member>
+        <member name="T:Rock.SystemGuid.Category">
+            <summary>
+            System file types.  
+            </summary>
+        </member>
+        <member name="F:Rock.SystemGuid.Category.SCHEDULE_SERVICE_TIMES">
+            <summary>
+            Gets the Service Times schedule category guid
+            </summary>
+        </member>
         <member name="T:Rock.SystemGuid.EntityType">
             <summary>
             System Email Templates
@@ -4744,12 +4799,12 @@
             Execute method to write transaction to the database.
             </summary>
         </member>
-        <member name="P:Rock.Transactions.SendCommunicationTransaction.Communication">
+        <member name="P:Rock.Transactions.SendCommunicationTransaction.CommunicationId">
             <summary>
-            Gets or sets the communication.
+            Gets or sets the communication id
             </summary>
             <value>
-            The communication.
+            The communication id.
             </value>
         </member>
         <member name="P:Rock.Transactions.SendCommunicationTransaction.PersonId">
@@ -6019,6 +6074,14 @@
             The location.
             </value>
         </member>
+        <member name="P:Rock.CheckIn.CheckInLocation.CurrentCount">
+            <summary>
+            Gets or sets the current count.
+            </summary>
+            <value>
+            The current count.
+            </value>
+        </member>
         <member name="P:Rock.CheckIn.CheckInLocation.Selected">
             <summary>
             Gets or sets a value indicating whether this <see cref="T:Rock.CheckIn.CheckInLocation"/> is selected for check-in
@@ -6173,7 +6236,7 @@
             Object for maintaining the state of a check-in kiosk and workflow
             </summary>
         </member>
-        <member name="M:Rock.CheckIn.CheckInState.#ctor(Rock.CheckIn.KioskStatus)">
+        <member name="M:Rock.CheckIn.CheckInState.#ctor(System.Int32,System.Collections.Generic.List{System.Int32})">
             <summary>
             Initializes a new instance of the <see cref="T:Rock.CheckIn.CheckInState"/> class.
             </summary>
@@ -6192,9 +6255,25 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Rock.CheckIn.CheckInState.DeviceId">
+            <summary>
+            Gets or sets the device id
+            </summary>
+            <value>
+            The device id.
+            </value>
+        </member>
+        <member name="P:Rock.CheckIn.CheckInState.ConfiguredGroupTypes">
+            <summary>
+            Gets or sets the configured group types.
+            </summary>
+            <value>
+            The configured group types.
+            </value>
+        </member>
         <member name="P:Rock.CheckIn.CheckInState.Kiosk">
             <summary>
-            Gets or sets the kiosk status
+            Gets the kiosk.
             </summary>
             <value>
             The kiosk.
@@ -6279,11 +6358,11 @@
             Initializes a new instance of the <see cref="T:Rock.CheckIn.CheckInLabel"/> class.
             </summary>
         </member>
-        <member name="M:Rock.CheckIn.CheckInLabel.#ctor(Rock.CheckIn.LabelCache,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:Rock.CheckIn.CheckInLabel.#ctor(Rock.CheckIn.KioskLabel,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             Initializes a new instance of the <see cref="T:Rock.CheckIn.CheckInLabel"/> class.
             </summary>
-            <param name="labelCache">The label cache.</param>
+            <param name="kioskLabel">The label.</param>
         </member>
         <member name="M:Rock.CheckIn.CheckInLabel.ToLiquid">
             <summary>
@@ -6356,12 +6435,37 @@
             The merge fields.
             </value>
         </member>
-        <member name="T:Rock.CheckIn.LabelCache">
+        <member name="T:Rock.CheckIn.KioskLabel">
             <summary>
             Cached Check-in Label
             </summary>
         </member>
-        <member name="P:Rock.CheckIn.LabelCache.Guid">
+        <member name="M:Rock.CheckIn.KioskLabel.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:Rock.CheckIn.KioskLabel"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Rock.CheckIn.KioskLabel.CacheKey(System.Int32)">
+            <summary>
+            Caches the key.
+            </summary>
+            <param name="id">The id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.CheckIn.KioskLabel.Read(System.Int32)">
+            <summary>
+            Reads the specified label by id.
+            </summary>
+            <param name="id">The id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.CheckIn.KioskLabel.Flush(System.Int32)">
+            <summary>
+            Flushes the specified id.
+            </summary>
+            <param name="id">The id.</param>
+        </member>
+        <member name="P:Rock.CheckIn.KioskLabel.Guid">
             <summary>
             Gets or sets the GUID.
             </summary>
@@ -6369,7 +6473,7 @@
             The GUID.
             </value>
         </member>
-        <member name="P:Rock.CheckIn.LabelCache.Url">
+        <member name="P:Rock.CheckIn.KioskLabel.Url">
             <summary>
             Gets or sets the URL.
             </summary>
@@ -6377,7 +6481,7 @@
             The URL.
             </value>
         </member>
-        <member name="P:Rock.CheckIn.LabelCache.FileContent">
+        <member name="P:Rock.CheckIn.KioskLabel.FileContent">
             <summary>
             Gets or sets the content of the file.
             </summary>
@@ -6385,7 +6489,7 @@
             The content of the file.
             </value>
         </member>
-        <member name="P:Rock.CheckIn.LabelCache.MergeFields">
+        <member name="P:Rock.CheckIn.KioskLabel.MergeFields">
             <summary>
             Gets or sets the merge fields.
             </summary>
@@ -6397,6 +6501,44 @@
             <summary>
             Helper class for storing the current attendance for a given kiosk location
             </summary>
+        </member>
+        <member name="M:Rock.CheckIn.KioskLocationAttendance.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:Rock.CheckIn.KioskLocationAttendance"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Rock.CheckIn.KioskLocationAttendance.CacheKey(System.Int32)">
+            <summary>
+            Caches the key.
+            </summary>
+            <param name="id">The id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.CheckIn.KioskLocationAttendance.Read(System.Int32)">
+            <summary>
+            Reads the specified id.
+            </summary>
+            <param name="id">The id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.CheckIn.KioskLocationAttendance.Flush(System.Int32)">
+            <summary>
+            Flushes the specified id.
+            </summary>
+            <param name="id">The id.</param>
+        </member>
+        <member name="M:Rock.CheckIn.KioskLocationAttendance.AddAttendance(Rock.Model.Attendance)">
+            <summary>
+            Adds the attendance.
+            </summary>
+            <param name="attendance">The attendance.</param>
+        </member>
+        <member name="M:Rock.CheckIn.KioskLocationAttendance.AddAttendanceRecord(Rock.CheckIn.KioskLocationAttendance,Rock.Model.Attendance)">
+            <summary>
+            Adds the attendance record.
+            </summary>
+            <param name="kioskLocationAttendance">The kiosk location attendance.</param>
+            <param name="attendance">The attendance.</param>
         </member>
         <member name="P:Rock.CheckIn.KioskLocationAttendance.LocationId">
             <summary>
@@ -6700,23 +6842,74 @@
             The start time.
             </value>
         </member>
-        <member name="T:Rock.CheckIn.KioskStatus">
+        <member name="T:Rock.CheckIn.KioskDevice">
             <summary>
-            The status of a check-in kiosk.  
+            The status of a check-in device.  
             </summary>
         </member>
-        <member name="M:Rock.CheckIn.KioskStatus.#ctor">
+        <member name="M:Rock.CheckIn.KioskDevice.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Rock.CheckIn.KioskStatus"/> class.
+            Prevents a default instance of the <see cref="!:KioskStatus"/> class from being created.
             </summary>
         </member>
-        <member name="M:Rock.CheckIn.KioskStatus.#ctor(Rock.Model.Device)">
+        <member name="M:Rock.CheckIn.KioskDevice.#ctor(Rock.Model.Device)">
             <summary>
-            Initializes a new instance of the <see cref="T:Rock.CheckIn.KioskStatus"/> class.
+            Prevents a default instance of the <see cref="!:KioskStatus"/> class from being created.
             </summary>
             <param name="device">The device.</param>
         </member>
-        <member name="P:Rock.CheckIn.KioskStatus.Device">
+        <member name="M:Rock.CheckIn.KioskDevice.FilteredGroupTypes(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Subset of the KioskGroupTypes
+            </summary>
+            <param name="configuredGroupTypes">The current group types.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.CheckIn.KioskDevice.HasLocations(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Gets a value indicating whether this instance has active locations.
+            </summary>
+            <value>
+            <c>true</c> if this instance has active locations; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Rock.CheckIn.KioskDevice.HasActiveLocations(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Gets a value indicating whether this instance has active locations.
+            </summary>
+            <value>
+            <c>true</c> if this instance has active locations; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Rock.CheckIn.KioskDevice.CacheKey(System.Int32)">
+            <summary>
+            Caches the key.
+            </summary>
+            <param name="id">The id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.CheckIn.KioskDevice.Read(System.Int32,System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Reads the device by id.
+            </summary>
+            <param name="id">The id.</param>
+            <param name="configuredGroupTypes">The configured group types.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rock.CheckIn.KioskDevice.Flush(System.Int32)">
+            <summary>
+            Flushes the specified id.
+            </summary>
+            <param name="id">The id.</param>
+        </member>
+        <member name="M:Rock.CheckIn.KioskDevice.LoadKioskLocations(Rock.CheckIn.KioskDevice,Rock.Model.Location)">
+            <summary>
+            Loads the kiosk locations.
+            </summary>
+            <param name="kioskDevice">The kiosk device.</param>
+            <param name="location">The location.</param>
+        </member>
+        <member name="P:Rock.CheckIn.KioskDevice.Device">
             <summary>
             Gets or sets the device.
             </summary>
@@ -6724,88 +6917,13 @@
             The device.
             </value>
         </member>
-        <member name="P:Rock.CheckIn.KioskStatus.KioskGroupTypes">
+        <member name="P:Rock.CheckIn.KioskDevice.KioskGroupTypes">
             <summary>
             The group types associated with this kiosk
             </summary>
             <value>
             The group types.
             </value>
-        </member>
-        <member name="P:Rock.CheckIn.KioskStatus.HasLocations">
-            <summary>
-            Gets a value indicating whether this instance has active locations.
-            </summary>
-            <value>
-            <c>true</c> if this instance has active locations; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:Rock.CheckIn.KioskStatus.HasActiveLocations">
-            <summary>
-            Gets a value indicating whether this instance has active locations.
-            </summary>
-            <value>
-            <c>true</c> if this instance has active locations; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="T:Rock.CheckIn.KioskCache">
-            <summary>
-            Static object for caching kiosk configuration
-            </summary>
-        </member>
-        <member name="M:Rock.CheckIn.KioskCache.#cctor">
-            <summary>
-            Initializes the <see cref="T:Rock.CheckIn.KioskCache"/> class.
-            </summary>
-        </member>
-        <member name="M:Rock.CheckIn.KioskCache.GetKiosk(System.Int32)">
-            <summary>
-            Gets the kiosk status.
-            </summary>
-            <param name="kioskId">The kiosk id.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.CheckIn.KioskCache.GetKiosk(System.Double,System.Double)">
-            <summary>
-            Finds a  matching device kiosk by it's latitude and longitude.
-            </summary>
-            <param name="latitude">the latitude of the device</param>
-            <param name="longitude">the longitude of the device</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.CheckIn.KioskCache.GetKiosk(System.String,System.Boolean)">
-            <summary>
-            Gets the kiosk based on it's name (if the given IP can be reverse looked up into a fully qualified name)
-            or by the given IP.
-            </summary>
-            <param name="ipAddress">The IP address (from Request server variable "REMOTE_ADDR")</param>
-            <param name="skipReverseLookup">Flag to indicate whether or not the ipAddress should attempt to be looked up (converted to a FQHN).</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.CheckIn.KioskCache.GetLocationAttendance(System.Int32)">
-            <summary>
-            Gets the location attendance.
-            </summary>
-            <param name="locationId">The location id.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.CheckIn.KioskCache.GetLabel(System.Int32)">
-            <summary>
-            Gets the label.
-            </summary>
-            <param name="id">The id.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Rock.CheckIn.KioskCache.AddAttendance(Rock.Model.Attendance)">
-            <summary>
-            Adds an attendance item to location attendance cache so that it is accurate between refreshes
-            </summary>
-            <param name="attendance">The attendance.</param>
-        </member>
-        <member name="M:Rock.CheckIn.KioskCache.RefreshCache">
-            <summary>
-            Refreshes the cache.
-            </summary>
         </member>
         <member name="T:Rock.Communication.ChannelComponent">
             <summary>
@@ -11356,7 +11474,7 @@
             <param name="deviceTypeValueId">Longitude of the mobile phone/kiosk.</param>
             <returns>a single matching Device kiosk or null if nothing was matched</returns>
         </member>
-        <member name="M:Rock.Model.DeviceService.GetByIPAddress(System.String)">
+        <member name="M:Rock.Model.DeviceService.GetByIPAddress(System.String,System.Int32,System.Boolean)">
             <summary>
             Gets the device by IP address.  
             </summary>
@@ -33649,7 +33767,7 @@
         </member>
         <member name="P:Rock.Web.Cache.GlobalAttributesCache.AttributeKeys">
             <summary>
-            Gets or sets the attribute keys.
+            Gets or sets the attribute keys.  Used to iterate all values when merging possible merge fields
             </summary>
             <value>
             The attribute keys.
