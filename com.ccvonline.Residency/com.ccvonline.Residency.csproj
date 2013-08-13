@@ -117,6 +117,10 @@
     <Compile Include="Migrations\201308030121542_ResidentProjectAssessmentPages.Designer.cs">
       <DependentUpon>201308030121542_ResidentProjectAssessmentPages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201308132139358_EmptyForCore.cs" />
+    <Compile Include="Migrations\201308132139358_EmptyForCore.Designer.cs">
+      <DependentUpon>201308132139358_EmptyForCore.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Competency.cs" />
     <Compile Include="Model\CompetencyPerson.cs" />
@@ -184,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308030121542_ResidentProjectAssessmentPages.resx">
       <DependentUpon>201308030121542_ResidentProjectAssessmentPages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308132139358_EmptyForCore.resx">
+      <DependentUpon>201308132139358_EmptyForCore.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
