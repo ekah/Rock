@@ -20,7 +20,7 @@ using Rock.Web.UI.Controls;
 
 namespace RockWeb.Blocks.Administration
 {
-    [EntityType( "Entity Type", "The type of entity to associate category with" )]
+    [EntityTypeField( "Entity Type", "The type of entity to associate category with" )]
     [TextField( "Entity Type Qualifier Property", "", false )]
     [TextField( "Entity Type Qualifier Value", "", false )]
     public partial class CategoryDetail : RockBlock, IDetailBlock
@@ -380,7 +380,7 @@ namespace RockWeb.Blocks.Administration
             else
             {
                 var appPath = System.Web.VirtualPathUtility.ToAbsolute( "~" );
-                string imageUrlFormat = "<img src='" + appPath + "Image.ashx?id={0}&width=50&height=50' />";
+                string imageUrlFormat = "<img src='" + appPath + "GetImage.ashx?id={0}&width=50&height=50' />";
                 if ( category.IconLargeFileId != null )
                 {
                     categoryIconHtml = string.Format( imageUrlFormat, category.IconLargeFileId );

@@ -388,18 +388,18 @@ namespace RockWeb.Blocks.Administration
             }
 
             DescriptionList descriptionList = new DescriptionList()
-                .Add("Description", schedule.Description)
+                .Add("Description", schedule.Description ?? string.Empty)
                 .Add("Next Occurrence", occurrenceText)
-                .Add("Category", schedule.Category.Name);
+                .Add("Category", schedule.Category != null ? schedule.Category.Name : string.Empty);
 
             if ( schedule.CheckInStartOffsetMinutes.HasValue )
             {
-                descriptionList.Add( "Checkin Starts", schedule.CheckInStartOffsetMinutes.Value.ToString() + " minutes before start of schedule" );
+                descriptionList.Add( "Check-in Starts", schedule.CheckInStartOffsetMinutes.Value.ToString() + " minutes before start of schedule" );
             }
 
             if ( schedule.CheckInEndOffsetMinutes.HasValue )
             {
-                descriptionList.Add(  "Checkin Ends", schedule.CheckInEndOffsetMinutes.Value.ToString() + " minutes after start of schedule" );
+                descriptionList.Add(  "Check-in Ends", schedule.CheckInEndOffsetMinutes.Value.ToString() + " minutes after start of schedule" );
             }
 
             lblMainDetails.Text = descriptionList.Html;

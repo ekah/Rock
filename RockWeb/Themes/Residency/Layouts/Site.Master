@@ -14,6 +14,18 @@
 
     <!-- Set the viewport width to device width for mobile -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <asp:ContentPlaceHolder ID="css" runat="server" />
+
+	<!-- Included CSS Files -->
+	<link rel="stylesheet" href="<%# ResolveUrl("~/Themes/Residency/Css/rock-boot.less") %>"/>
+	<link rel="stylesheet" href="<%# ResolveUrl("~/Themes/Residency/Css/rock-boot-responsive.less") %>"/>
+	<link rel="stylesheet" href="<%# ResolveUrl("~/CSS/Kendo/kendo.common.min.css") %>"/>
+	<link rel="stylesheet" href="<%# ResolveUrl("~/Themes/Residency/Css/rock-theme.less") %>"/>
+	<link rel="stylesheet" href="<%# ResolveUrl("~/CSS/developer.less") %>"/>
+
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 
     <!-- Icons -->
     <link rel="shortcut icon" href="<%# ResolveUrl("~/Themes/Residency/Assets/Icons/favicon.ico") %>">
@@ -22,17 +34,6 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%# ResolveUrl("~/Themes/Residency/Assets/Icons/Icon-72.png") %>">
     <link rel="apple-touch-icon-precomposed" href="<%# ResolveUrl("~/Themes/Residency/Assets/Icons/Icon.png") %>">
 
-    <asp:ContentPlaceHolder ID="css" runat="server" />
-
-	<!-- Included CSS Files -->
-	<link rel="stylesheet" href="<%# ResolveUrl("~/Themes/Residency/Css/rock-boot.less") %>"/>
-	<link rel="stylesheet" href="<%# ResolveUrl("~/Themes/Residency/Css/rock-boot-responsive.less") %>"/>
-	<link rel="stylesheet" href="<%# ResolveUrl("~/CSS/Kendo/kendo.common.min.css") %>"/>
-    <link rel="stylesheet" href="<%# ResolveUrl("~/CSS/Kendo/kendo.bootstrap.min.css") %>"/>
-	<link rel="stylesheet" href="<%# ResolveUrl("~/Themes/Residency/Css/rock-theme.less") %>"/>
-	<link rel="stylesheet" href="<%# ResolveUrl("~/CSS/developer.less") %>"/>
-
-    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 
 </head>
 <body>

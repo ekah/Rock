@@ -11,8 +11,8 @@
             obj.restUrl = options.restUrl;
             obj.path = options.path;
             obj.centerAddress = options.centerAddress;                     // used when nothing is on map
-            obj.centerLatitude = options.centerLatitude || "33.27541";     // used when nothing is on map
-            obj.centerLongitude = options.centerLongitude || "-111.77025"; // used when nothing is on map
+            obj.centerLatitude = options.centerLatitude || "33.590795";     // used when nothing is on map
+            obj.centerLongitude = options.centerLongitude || "-112.126459"; // used when nothing is on map
             obj.drawingMode = options.drawingMode || "Polygon" || "Point"; // the available modes
             obj.strokeColor = options.strokeColor || "#0088cc";
             obj.fillColor = options.fillColor || "#0088cc";
@@ -172,8 +172,14 @@
             */
             this.fitBounds = function () {
                 if (! obj.path) {
+                    // if no path, then set the center using the options
+                    var newLatLng = new google.maps.LatLng(
+                        parseFloat(obj.centerLatitude),
+                        parseFloat(obj.centerLongitude));
+                    obj.map.setCenter(newLatLng);
                     return;
                 }
+
                 var coords = obj.path.split('|');
                 var pathArray = new Array();
                 // find the most southWest and northEast points of the path.
@@ -466,6 +472,8 @@
             // as well as the name to be displayed on the map type control.
             var styledMap = new google.maps.StyledMapType(self.styles, { name: "Styled Map" });
 
+            // WARNING: I though about removing the "center:" from the options here but then the
+            // map's controls were different and then our delete button was out of alignment.
             var mapOptions = {
                 center: new google.maps.LatLng(
                         parseFloat(self.centerLatitude),

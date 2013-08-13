@@ -16,6 +16,9 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
     /// 
     /// </summary>
     [DetailPage]
+    [BooleanField( "Show Competency Column" )]
+    [BooleanField( "Show Project Column" )]
+    [BooleanField( "Show Grid Title" )]
     public partial class ResidentProjectAssessmentList : RockBlock, IDimmableBlock
     {
         #region Control Methods
@@ -38,6 +41,11 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             Dictionary<string, BoundField> boundFields = gList.Columns.OfType<BoundField>().ToDictionary( a => a.DataField );
             boundFields["AssessorPerson.FullName"].NullDisplayText = Rock.Constants.None.TextHtml;
             boundFields["AssessmentDateTime"].NullDisplayText = "not completed";
+
+            boundFields["CompetencyPersonProject.CompetencyPerson.Competency.Track.Name"].Visible = this.GetAttributeValue( "ShowCompetencyColumn" ).AsBoolean();
+            boundFields["CompetencyPersonProject.CompetencyPerson.Competency.Name"].Visible = this.GetAttributeValue( "ShowCompetencyColumn" ).AsBoolean();
+            boundFields["CompetencyPersonProject.Project.Name"].Visible = this.GetAttributeValue( "ShowProjectColumn" ).AsBoolean();
+            lblTitle.Visible = this.GetAttributeValue( "ShowGridTitle" ).AsBoolean();
         }
 
         /// <summary>
@@ -93,7 +101,19 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             int competencyPersonProjectId = hfCompetencyPersonProjectId.ValueAsInt();
             SortProperty sortProperty = gList.SortProperty;
 
-            var qry = competencyPersonProjectAssessmentService.Queryable().Where( a => a.CompetencyPersonProjectId.Equals( competencyPersonProjectId ) );
+            var qry = competencyPersonProjectAssessmentService.Queryable( "AssessorPerson" );
+
+            if ( competencyPersonProjectId != 0 )
+            {
+                // limit to specific project (and current person)
+                qry = qry.Where( a => a.CompetencyPersonProjectId.Equals( competencyPersonProjectId ) );
+            }
+            else
+            {
+                // limit only to current person
+                qry = qry.Where( a => a.CompetencyPersonProject.CompetencyPerson.PersonId == this.CurrentPersonId );
+            }
+
 
             if ( sortProperty != null )
             {
@@ -101,7 +121,7 @@ namespace RockWeb.Plugins.com_ccvonline.Residency
             }
             else
             {
-                qry = qry.OrderBy( s => s.AssessmentDateTime ).ThenBy( s => s.AssessorPerson );
+                qry = qry.OrderByDescending( s => s.AssessmentDateTime ).ThenBy( s => s.AssessorPerson );
             }
 
             gList.DataSource = qry.ToList();

@@ -178,11 +178,7 @@ namespace RockWeb.Blocks.Crm
                 qry = qry.Where( a => a.IsSecurityRole );
             }
 
-            Group parentGroup = ContextEntity<Group>();
-            if ( parentGroup != null )
-            {
-                qry = qry.Where( a => a.IsAncestorOfGroup( parentGroup.Id ) );
-            }
+            qry = qry.Where( a => a.GroupType.ShowInGroupList );
 
             /// Using Members.Count in a grid boundfield causes the entire Members list to be populated (select * ...) and then counted
             /// Having the qry do the count just does a "select count(1) ..." which is much much faster, especially if the members list is large (a large list will lockup the webserver)
@@ -196,16 +192,23 @@ namespace RockWeb.Blocks.Crm
                     a.Description,
                     a.IsSystem
                 } );
-
-            if ( sortProperty != null )
+            
+            if ( sortProperty == null )
             {
-                gGroups.DataSource = selectQry.Sort( sortProperty ).ToList();
-            }
-            else
-            {
-                gGroups.DataSource = selectQry.OrderBy( p => p.Name ).ToList();
+                sortProperty = new SortProperty(new GridViewSortEventArgs( "Name", SortDirection.Descending));
             }
 
+            var list = selectQry.Sort( sortProperty ).ToList();
+
+            // if there is a Group context, limit groups to ones that have the Group context as an ancestor
+            Group parentGroup = ContextEntity<Group>();
+            if ( parentGroup != null )
+            {
+                var descendentIds = groupService.GetAllDescendents( parentGroup.Id ).Select( a => a.Id );
+                list = list.Where( a => descendentIds.Contains( a.Id ) ).ToList();
+            }
+
+            gGroups.DataSource = list;
             gGroups.DataBind();
         }
 
